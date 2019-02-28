@@ -1,0 +1,152 @@
+import axios from 'axios';
+import qs from 'qs';
+
+import { Toast } from 'vux';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
+import VueRouter from 'vue-router'
+
+const baseUrlHeader = "ewei_shopv2_app.php?i=5&c=site&a=entry&m=ewei_shopv2&do=mobile&r=";
+
+const createMarkModel = () => {
+  let rootElem = document.getElementById('root');
+  let markElem = document.createElement('div');
+  markElem.id = 'markSty';
+  markElem.style.width = '100%';
+  markElem.style.height = '100%';
+  markElem.style.background = 'red';
+  markElem.style.position = 'absolute';
+  markElem.style.top = 0;
+  markElem.style.left = 0;
+  markElem.style.zIndex = 9999;
+  markElem.style.opacity = 0;
+  rootElem.appendChild(markElem);
+}
+
+const removeMarkModel = () => {
+  let idObject = document.getElementById('markSty');
+  if (idObject != null) {
+    idObject.parentNode.removeChild(idObject);
+  }
+}
+
+// 正式
+axios.defaults.baseURL = 'https://core.kachuo.com/app';
+// axios.defaults.baseURL = 'http://www.kcapp.com/app';
+// axios.defaults.baseURL = 'http://39.104.161.131/app';
+
+// 测试
+//axios.defaults.baseURL = 'http://www.kcapp.com/app/';
+
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;text/html;multipart/form-data';
+axios.defaults.headers.post['Authorization'] = localStorage.getItem("token");
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+axios.defaults.timeout = 10000;
+
+const http = {
+  post: "",
+  get: ""
+}
+
+// Add a request interceptor
+axios.interceptors.request.use(function (config) {
+  if (localStorage.getItem("token")) {
+    config.headers.Authorization = localStorage.getItem("token");
+  }
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+});
+
+// Add a response interceptor
+axios.interceptors.response.use(function (response) {
+  // 不同设备登录,刷新token
+  if (response.status === 200) {
+    if (response.data.code !== 200) {
+      if (response.data.code === 10001) {
+        localStorage.removeItem("token");
+        Toast.info('请登录', 1, () => {
+          // 跳转登录页
+          this.$route.push.push('');
+        });
+      } else if (response.data.code === -3) {
+        Toast.info('请重新登录', 1, () => {
+          // 跳转登录页
+          this.$route.push.push('');
+        });
+      }
+      else {
+        // Toast.info('网络慢，请检查手机网络', 1, () => {
+        // });
+        // return;
+      }
+    }
+  } else {
+    Toast.offline('网络错误，点击屏幕重试', 1);
+    document.getElementById('app').onclick = function () {
+      window.location.reload();
+    }
+  }
+  return response;
+}, function (error) {
+  return Promise.reject(error);
+  Toast.offline('网络错误，点击屏幕重试', 1);
+  document.getElementById('app').onclick = function () {
+    window.location.reload();
+  }
+});
+
+http.post = (url, data) => {
+  let params = qs.stringify(data);
+  return new Promise((resolve, reject) => {
+    if (window.location.href.indexOf('/mobile') === -1) {
+      NProgress.start();
+      createMarkModel();
+    }
+    axios({
+      headers: {
+        Authorization: localStorage.getItem("token")
+      },
+      method: 'post',
+      url: baseUrlHeader + url,
+      data: params
+    })
+      .then((res) => {
+        if (res) {
+          if (res.data.integral) {
+            Toast.success('奖励' + res.data.integral + '积分', 3);
+          }
+          NProgress.done();
+          removeMarkModel();
+          resolve(res.data);
+        }
+        return res;
+      })
+      .catch((err) => {
+        NProgress.done();
+        removeMarkModel();
+        reject(err);
+        Toast.offline('网络错误，点击屏幕重试', 1);
+        document.getElementById('root').onclick = function () {
+          window.location.reload();
+        }
+        return err;
+      })
+  })
+}
+
+http.get = function (url, data) {
+  let params = qs.stringify(data);
+  return new Promise((resolve, reject) => {
+    axios.get(url, params)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      })
+  })
+}
+
+export default http;
