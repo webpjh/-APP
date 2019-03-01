@@ -1,7 +1,6 @@
 <template>
   <div>
     <div>
-      <div>{{getCurrentTabItem}}</div>
       <KachuoTabPlay v-if="getCurrentTabItem === '/kachuotabplay' || getCurrentTabItem === '/'"></KachuoTabPlay>
       <KachuoTabMall v-if="getCurrentTabItem === '/kachuotabmall'"></KachuoTabMall>
       <KachuoTabCash v-if="getCurrentTabItem === '/kachuotabcash'"></KachuoTabCash>

@@ -1,6 +1,6 @@
 <template>
-  <div id="app" style="height:100%;">
-    <div style="height:100%;">
+  <div id="app" style="width:100%;height:100%;">
+    <div style="height:100%;" class="app-wrap">
       <view-box ref="viewBox" body-padding-top="50px" body-padding-bottom="54px">
         <Header
           :titleContent="showCurrentTitle.title"
@@ -65,4 +65,11 @@ export default {
 
 <style lang="less">
 @import "~vux/src/styles/reset.less";
+.app-wrap{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top:0;
+  left: 0;
+}
 </style>

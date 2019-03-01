@@ -1,12 +1,14 @@
 <template>
   <div>
-    <h1>
-      我是商城页面
-    </h1>
+    <dialog-confirm></dialog-confirm>
+    <toast-tip></toast-tip>
   </div>
 </template>
 
 <script>
+
+import DialogConfirm from '../../common/ConfirmDialog.vue'
+import ToastTip from '../../common/ToastTip.vue'
 
   export default {
     name:'',
@@ -17,7 +19,10 @@
       };
     },
 
-    components: {},
+    components: {
+      DialogConfirm,
+      ToastTip
+    },
 
     computed: {},
 
