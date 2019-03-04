@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "chimee-mobile-player": "^0.2.8",
     "fastclick": "^1.0.6",
     "nprogress": "^0.2.0",
     "vue": "^2.5.2",
+    "vue-cordova": "^0.1.2",
     "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.1",
     "vue-scroller": "^2.2.4",

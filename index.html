@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no,maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
   <meta name="theme-color" content="#000000">
@@ -18,10 +19,25 @@
     overflow-x: hidden;
   }
 </style>
+<script>
+  function createCordovaScript() {
+    if (window.location.protocol === 'file:' || window.location.port === '3000') {
+      var cordovaScript = document.createElement('script')
+      cordovaScript.setAttribute('type', 'text/javascript')
+      cordovaScript.setAttribute('src', 'cordova.js')
+      document.body.appendChild(cordovaScript)
+    }
+  }
+</script>
 
 <body>
   <div id="app-box" style="height:100%;"></div>
-  <!-- built files will be auto injected -->
 </body>
+
+<script>
+window.onload = function(){
+  createCordovaScript();
+}
+</script>
 
 </html>
