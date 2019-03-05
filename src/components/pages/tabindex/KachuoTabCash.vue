@@ -1,5 +1,5 @@
 <template>
-  <div style="width:100%;height:200px">
+  <div>
     <!-- <Swiper-Out></Swiper-Out> -->
     <!-- <Mobile></Mobile> -->
     <!-- <Divider></Divider> -->
@@ -14,7 +14,15 @@
     <!-- <Number-Change></Number-Change> -->
     <!-- <TextArea></TextArea> -->
     <!-- <WeixinPay></WeixinPay> -->
-    <Video-Player></Video-Player>
+    <!-- <Video-Player></Video-Player> -->
+    <!-- <Cell></Cell> -->
+    <!-- <Tab></Tab> -->
+    <!-- <Comments></Comments> -->
+    <!-- <CommentList></CommentList> -->
+    <!-- <Tickets-Discount></Tickets-Discount> -->
+    <!-- <GoodsList></GoodsList> -->
+    <!-- <Function-Areas></Function-Areas> -->
+    <Link-List-Icon></Link-List-Icon>
   </div>
 </template>
 
@@ -26,7 +34,7 @@ import Mobile from "../../common/Mobile";
 import Divider from "../../common/Divider";
 import TimeLine from "../../common/TimeLine";
 import ActionSheet from "../../common/ActionSheet";
-import Popup from "../../common/Popup";
+import Popup from "../../layout/Popup";
 import QRcode from "../../common/QRcode";
 import SwiperImg from "../../common/SwiperImg";
 import SwiperTip from "../../common/SwiperTip";
@@ -36,12 +44,25 @@ import NumberChange from "../../common/NumberChange";
 import TextArea from "../../common/TextArea";
 import WeixinPay from "../../common/WeixinPay";
 import VideoPlayer from "../../common/VideoPlayer";
+import Cell from "../../common/Cell";
+import Tab from "../../common/Tab";
+import Comments from "../../common/Comments";
+import CommentList from "../../layout/CommentList";
+import TicketsDiscount from "../../layout/TicketsDiscount";
+import GoodsList from "../../layout/GoodsList";
+import FunctionAreas from "../../layout/FunctionAreas";
+import LinkListIcon from "../../layout/LinkListIcon";
 
 export default {
   name: "",
   props: [""],
   data() {
-    return {};
+    return {
+      varmax: 3,
+      images: [],
+      uploadUrl: "",
+      params: {}
+    };
   },
 
   components: {
@@ -61,22 +82,31 @@ export default {
     NumberChange,
     TextArea,
     WeixinPay,
-    VideoPlayer
+    VideoPlayer,
+    Cell,
+    Tab,
+    Comments,
+    CommentList,
+    TicketsDiscount,
+    GoodsList,
+    FunctionAreas,
+    LinkListIcon
   },
 
   computed: {},
 
   beforeMount() {},
 
-  mounted() {
+  mounted() {},
 
+  methods: {
+    previewMethod() {},
+    addImageMethod() {},
+    removeImageMethod() {}
   },
-
-  methods: {},
 
   watch: {}
 };
 </script>
 <style lang='' scoped>
-
 </style>

@@ -18,3 +18,8 @@ img {
 ::-webkit-scrollbar {
   display: none
 }
+.text-overflow-hidden{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
