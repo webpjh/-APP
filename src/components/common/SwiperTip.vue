@@ -1,59 +1,21 @@
 <template>
-  <div>
-
-    <group-title>垂直方向文字滚动</group-title>
-    <swiper auto height="30px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false">
-      <swiper-item><p>义务爱了 完成传奇世界H5-王者归来任务 获得20金币</p></swiper-item>
-      <swiper-item><p>基本世神 兑换《传奇世界H5》畅玩级礼包 消耗30金币</p></swiper-item>
-      <swiper-item><p>零哥章魚 完成传奇世界H5-王者归来任务 获得30金币</p></swiper-item>
-      <swiper-item><p>做迎而為 兑换【饿了么】畅享美食红包 消耗20金币</p></swiper-item>
-      <swiper-item><p>只知道不知道 兑换【饿了么】畅享美食红包 消耗20金币</p></swiper-item>
-      <swiper-item><p>基本世神 兑换《传奇世界H5》畅玩级礼包 消耗30金币</p></swiper-item>
-    </swiper>
-
-  </div>
+  <swiper
+    auto
+    height="30px"
+    direction="vertical"
+    :interval="2000"
+    class="text-scroll"
+    :show-dots="false"
+    style="border:none"
+  >
+    <swiper-item v-for="(item,index) in baseList" :key="index">
+      <p class="text-overflow-hidden">{{item}}</p>
+    </swiper-item>
+  </swiper>
 </template>
 
 <script>
-import { Swiper, GroupTitle, SwiperItem, XButton, Divider } from 'vux'
-
-const baseList = [{
-  url: 'javascript:',
-  img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg',
-  title: '送你一朵fua'
-}, {
-  url: 'javascript:',
-  img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg',
-  title: '送你一辆车'
-}, {
-  url: 'javascript:',
-  img: 'https://static.vux.li/demo/5.jpg', // 404
-  title: '送你一次旅行',
-  fallbackImg: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg'
-}]
-
-const imgList = [
-  'http://placeholder.qiniudn.com/800x300/FF3B3B/ffffff',
-  'http://placeholder.qiniudn.com/800x300/FFEF7D/ffffff',
-  'http://placeholder.qiniudn.com/800x300/8AEEB1/ffffff'
-]
-
-const urlList = baseList.map((item, index) => ({
-  url: 'http://m.baidu.com',
-  img: item.img,
-  fallbackImg: item.fallbackImg,
-  title: `(可点击)${item.title}`
-}))
-
-const demoList = imgList.map((one, index) => ({
-  url: 'javascript:',
-  img: one
-}))
-
-const only2ClickList = baseList.slice(0, 2).map(item => {
-  item.url = 'http://m.baidu.com'
-  return item
-})
+import { Swiper, GroupTitle, SwiperItem } from "vux";
 
 export default {
   components: {
@@ -61,47 +23,21 @@ export default {
     SwiperItem,
     GroupTitle
   },
-  ready () {
-
-  },
-  methods: {
-    onSwiperItemIndexChange (index) {
-      console.log('demo item change', index)
-    },
-    demo01_onIndexChange (index) {
-      this.demo01_index = index
-    },
-    demo05_onIndexChange (index) {
-      this.demo05_index = index
-    },
-    demo05_onLoad (id) {
-      this.demo05_list = id === 1 ? baseList : demoList
-    },
-    demo06_onIndexChange (index) {
-      this.demo06_index = index
-    },
-    demo07_onIndexChange (index) {
-      this.demo07_index = index
-    }
-  },
-  data () {
+  ready() {},
+  methods: {},
+  data() {
     return {
-      demo01_list: baseList,
-      demo02_list: demoList,
-      demo03_list: demoList,
-      demo04_list: imgList,
-      demo05_list: [],
-      demo06_list: urlList,
-      demo07_list: only2ClickList,
-      demo01_index: 0,
-      demo02_index: 1,
-      demo05_index: 0,
-      demo06_index: 0,
-      demo07_index: 0,
-      swiperItemIndex: 1
-    }
+      baseList: [
+        "义务爱了 完成传奇世界H5-王者归来任务 获得20金币获得20金币获得20金币获得20金币获得20金币",
+        "基本世神 兑换《传奇世界H5》畅玩级礼包 消耗30金币",
+        "零哥章魚 完成传奇世界H5-王者归来任务 获得30金币",
+        "做迎而為 兑换【饿了么】畅享美食红包 消耗20金币",
+        "只知道不知道 兑换【饿了么】畅享美食红包 消耗20金币",
+        "基本世神 兑换《传奇世界H5》畅玩级礼包 消耗30金币"
+      ]
+    };
   }
-}
+};
 </script>
 
 <style scoped>
@@ -115,15 +51,17 @@ export default {
   border-left: none;
   border-right: none;
 }
-.text-scroll p{
+.text-scroll p {
   font-size: 12px;
-  text-align: center;
+  text-align: left;
   line-height: 30px;
+  padding:0 10px;
+  box-sizing: border-box;
 }
 .black {
   background-color: #000;
 }
-.title{
+.title {
   line-height: 100px;
   text-align: center;
   color: #fff;

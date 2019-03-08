@@ -1,13 +1,14 @@
 <template>
-    <group title style="border:none">
+    <group style="border:none;">
       <cell class="cell-sty" :title="item.title" is-link v-for="(item,index) in cellList" :key="index">
         <img slot="icon" style class="img-sty" :link="item.link" :src="item.icon">
+        <badge :text="item.badgeText" v-show="item.showBadge"></badge>      
       </cell>
     </group>
 </template>
 
 <script>
-import { Cell, Group } from "vux";
+import { Cell, Group,Badge } from "vux";
 
 export default {
   props: {
@@ -19,7 +20,8 @@ export default {
   mounted() {},
   components: {
     Group,
-    Cell
+    Cell,
+    Badge
   },
   methods: {
     onClick() {
@@ -41,5 +43,4 @@ export default {
   position: relative;
   top: 2px;
 }
-.cell-sty{}
 </style>

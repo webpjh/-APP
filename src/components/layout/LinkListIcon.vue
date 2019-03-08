@@ -17,25 +17,33 @@ export default {
           icon:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           title: "标题一",
-          link: "www.baidu.com"
+          link: "www.baidu.com",
+          showBadge:true,
+          badgeText:''
         },
         {
           icon:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           title: "标题一",
-          link: "www.baidu.com"
+          link: "www.baidu.com",
+          showBadge:true,
+          badgeText:''
         },
         {
           icon:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           title: "标题一",
-          link: "www.baidu.com"
+          link: "www.baidu.com",
+          showBadge:true,
+          badgeText:''
         },
         {
           icon:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           title: "标题一",
-          link: "www.baidu.com"
+          link: "www.baidu.com",
+          showBadge:true,
+          badgeText:''
         }
       ]
     };

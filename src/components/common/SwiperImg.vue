@@ -1,70 +1,29 @@
 <template>
-  <div>
-    <group-title>循环模式</group-title>
-    <swiper loop auto :list="demo_list" :index="demo_index" @on-index-change="demo_onIndexChange"></swiper>
-    <p>current index: {{demo_index}}</p>
-  </div>
+  <swiper
+    :loop="SwiperImgData.loop"
+    :auto="SwiperImgData.auto"
+    :list="SwiperImgData.ImgList"
+    :index="SwiperImgData.index"
+    :dots-position="SwiperImgData.dotsPosition"
+    :height="SwiperImgData.height"
+  ></swiper>
 </template>
 
 <script>
 import { Swiper, GroupTitle, SwiperItem, Divider } from "vux";
 
-const baseList = [
-  {
-    url: "javascript:",
-    img: "https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg",
-    title: "送你一朵fua"
-  },
-  {
-    url: "javascript:",
-    img: "https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg",
-    title: "送你一辆车"
-  },
-  {
-    url: "javascript:",
-    img: "https://static.vux.li/demo/5.jpg", // 404
-    title: "送你一次旅行",
-    fallbackImg:
-      "https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg"
-  }
-];
-
-const imgList = [
-  "http://placeholder.qiniudn.com/800x300/FF3B3B/ffffff",
-  "http://placeholder.qiniudn.com/800x300/FFEF7D/ffffff",
-  "http://placeholder.qiniudn.com/800x300/8AEEB1/ffffff"
-];
-
-const urlList = baseList.map((item, index) => ({
-  url: "http://m.baidu.com",
-  img: item.img,
-  fallbackImg: item.fallbackImg,
-  title: `(可点击)${item.title}`
-}));
-
-const demoList = imgList.map((one, index) => ({
-  url: "javascript:",
-  img: one
-}));
-
-
 export default {
+  props: ["SwiperImgData"],
   components: {
     Swiper,
     SwiperItem,
     GroupTitle
   },
   ready() {},
-  methods: {
-    demo_onIndexChange(index) {
-      this.demo_index = index;
-    }
-  },
+  methods: {},
   data() {
     return {
-      demo_list: urlList,
-      demo_index: 0,
-      swiperItemIndex: 1
+
     };
   }
 };

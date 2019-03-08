@@ -1,7 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routesMap from './routesmap/index'
+import hooks from './hooks/index'
 Vue.use(VueRouter)
+
+VueRouter.prototype.goBack = function () {
+  this.isBack = true
+  window.history.go(-1)
+}
 
 const router = new VueRouter({
   root: null,

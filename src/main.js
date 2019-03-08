@@ -3,10 +3,12 @@
 import Vue from 'vue'
 
 import App from './App'
-import HomePage from './components/index/index'
 
 import store from './store/index'
+import router from './router/index'
+
 import './assets/css/index.css'
+import './assets/css/reset.css'
 
 // 懒加载
 import VueLazyload from 'vue-lazyload'
@@ -40,12 +42,15 @@ Vue.use(ConfirmPlugin)
 import { ToastPlugin } from 'vux'
 Vue.use(ToastPlugin)
 
+// click事件在移动端300ms延时
 // import FastClick from 'fastclick'
 // FastClick.attach(document.body)
 
 // vue中使用cordova插件
 import VueCordova from 'vue-cordova'
-Vue.use(VueCordova)
+Vue.use(VueCordova, {
+  optionTestKey: 'optionTestValue'
+})
 console.log(Vue.cordova);
 
 // 判断android用户是否点击两次返回键推出app
@@ -54,15 +59,15 @@ Vue.cordova.on('deviceready', () => {
   eventBackButton();
 });
 
-
-const routes = [{
-  path: '/',
-  component: HomePage
-}]
-
-const router = new VueRouter({
-  routes
-})
+// 高德地图
+import VueAMap from 'vue-amap';
+Vue.use(VueAMap);
+VueAMap.initAMapApiLoader({
+  key: '956cab63ef78320624fb7d7dff4c25b5',
+  plugin: ['AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+  uiVersion: '1.0', // ui库版本，不配置不加载
+  v: '1.4.4'
+});
 
 Vue.config.productionTip = false
 
@@ -70,5 +75,10 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  data: () => {
+    return {
+      cordova: Vue.cordova
+    }
+  },
   render: h => h(App)
 }).$mount('#app-box')

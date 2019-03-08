@@ -1,92 +1,146 @@
 <template>
-  <div>
-    <div>
-      <KachuoTabPlay v-if="getCurrentTabItem === '/kachuotabplay' || getCurrentTabItem === '/'"></KachuoTabPlay>
-      <KachuoTabMall v-if="getCurrentTabItem === '/kachuotabmall'"></KachuoTabMall>
-      <KachuoTabCash v-if="getCurrentTabItem === '/kachuotabcash'"></KachuoTabCash>
-      <KachuoTabIncome v-if="getCurrentTabItem === '/kachuotabincome'"></KachuoTabIncome>
-      <KachuoTabPersonalCenter v-if="getCurrentTabItem === '/kachuotabpersonalcenter'"></KachuoTabPersonalCenter>
-    </div>
-    <tabbar class="tabbar-bottom">
-      <tabbar-item
-        :selected="getCurrentTabItem === '/kachuotabplay' || getCurrentTabItem === '/'"
-        :link="{path: '/kachuotabplay',replace:true}"
-      >
-        <img slot="icon" src>
-        <span slot="label">游玩</span>
-      </tabbar-item>
-      <tabbar-item
-        :selected="getCurrentTabItem === '/kachuotabmall'"
-        :link="{path: '/kachuotabmall',replace:true}"
-      >
-        <img slot="icon" src>
-        <span slot="label">商城</span>
-      </tabbar-item>
-      <tabbar-item
-        :selected="getCurrentTabItem === '/kachuotabcash'"
-        :link="{path: '/kachuotabcash',replace:true}"
-      >
-        <img slot="icon" src>
-        <span slot="label">变现</span>
-      </tabbar-item>
-      <tabbar-item
-        :selected="getCurrentTabItem === '/kachuotabincome'"
-        :link="{path: '/kachuotabincome',replace:true}"
-      >
-        <img slot="icon" src>
-        <span slot="label">创收</span>
-      </tabbar-item>
-      <tabbar-item
-        :selected="getCurrentTabItem === '/kachuotabpersonalcenter'"
-        :link="{path: '/kachuotabpersonalcenter',replace:true}"
-      >
-        <img slot="icon" src>
-        <span slot="label">我的</span>
-      </tabbar-item>
-    </tabbar>
+  <div class="view-box-wrap">
+    <!-- <Header
+      :titleContent="showCurrentTitle.title"
+      :showLeftBack="showCurrentTitle.showLeftBack"
+      :showRightMore="showCurrentTitle.showRightMore"
+    ></Header> -->
+    <TabContent></TabContent>
+    <Kachuo-Bottom-Tab></Kachuo-Bottom-Tab>
   </div>
 </template>
 
 <script>
-import store from "../../store/index";
-import { Tabbar, TabbarItem, Group, Cell } from "vux";
 
-import Header from "../common/Header";
-
-import KachuoTabPlay from "../pages/tabindex/KachuoTabPlay";
-import KachuoTabMall from "../pages/tabindex/KachuoTabMall";
-import KachuoTabCash from "../pages/tabindex/KachuoTabCash";
-import KachuoTabIncome from "../pages/tabindex/KachuoTabIncome";
-import KachuoTabPersonalCenter from "../pages/tabindex/KachuoTabPersonalCenter";
+import { XHeader, TransferDom } from "vux";
+import TabContent from "@/components/layout/TabContent";
+import Header from "@/components/common/Header";
+import KachuoBottomTab from "@/components/pages/tabindex/KachuoBottomTab";
+import Vue from "vue";
 
 export default {
-  components: {
-    Header,
-    Tabbar,
-    TabbarItem,
-    Group,
-    Cell,
-    KachuoTabPlay,
-    KachuoTabMall,
-    KachuoTabCash,
-    KachuoTabIncome,
-    KachuoTabPersonalCenter
+  directives: {
+    TransferDom
   },
+  name: "app",
   data() {
-    return {};
+    return {
+      title: "标题",
+      showBackOptions: false,
+      showRightOptions: false,
+      cordova: Vue.cordova,
+      plugins: {
+        "cordova-plugin-camera": function() {
+          if (!Vue.cordova.camera) {
+            window.alert("Vue.cordova.camera not found !");
+            return;
+          }
+          Vue.cordova.camera.getPicture(
+            imageURI => {
+              window.alert("Photo URI : " + imageURI);
+            },
+            message => {
+              window.alert("FAILED : " + message);
+            },
+            {
+              quality: 50,
+              destinationType: Vue.cordova.camera.DestinationType.FILE_URI
+            }
+          );
+        },
+        "cordova-plugin-device": function() {
+          if (!Vue.cordova.device) {
+            window.alert("FAILED : device information not found");
+          } else {
+            window.alert(
+              "Device : " +
+                Vue.cordova.device.manufacturer +
+                " " +
+                Vue.cordova.device.platform +
+                " " +
+                Vue.cordova.device.version
+            );
+          }
+        },
+        "cordova-plugin-geolocation": function() {
+          if (!Vue.cordova.geolocation) {
+            window.alert("Vue.cordova.geolocation not found !");
+            return;
+          }
+          Vue.cordova.geolocation.getCurrentPosition(
+            position => {
+              window.alert(
+                "Current position : " +
+                  position.coords.latitude +
+                  "," +
+                  position.coords.longitude
+              );
+            },
+            error => {
+              window.alert("FAILED Error #" + error.code + " " + error.message);
+            },
+            {
+              timeout: 1000,
+              enableHighAccuracy: true
+            }
+          );
+        },
+        "cordova-plugin-contacts": function() {
+          if (!Vue.cordova.contacts) {
+            window.alert("Vue.cordova.contacts not found !");
+            return;
+          }
+          const ContactFindOptions = ContactFindOptions || function() {};
+          Vue.cordova.contacts.find(
+            ["displayName"],
+            contacts => {
+              window.alert("Contacts found : " + contacts.length);
+            },
+            error => {
+              window.alert("FAILED : " + error.code);
+            }
+          );
+        }
+      }
+    };
+  },
+  components: {
+    XHeader,
+    Header,
+    KachuoBottomTab,
+    TabContent
+  },
+  methods: {
+    // 判断当前路由，浏览器刷新路由不变
+    changeVuexCurrentRoute() {
+      this.$store.commit("changeCurrentRouteVal", this.$route.path);
+    },
+    pluginEnabled: function(pluginName) {
+      return this.cordova.plugins.indexOf(pluginName) !== -1;
+    }
   },
   created() {},
-  mounted() {},
-  methods: {},
+  mounted() {
+    this.changeVuexCurrentRoute();
+  },
   computed: {
-    getCurrentTabItem() {
-      return this.$store.getters.getCurrentRouteVal;
+    showCurrentTitle() {
+      return this.$store.state.titleObj;
     }
   },
   watch: {
-    $route: (to, from) => {}
+    $route(to, from) {
+      this.$store.commit("changeCurrentRouteVal", to.path);
+    }
   }
 };
 </script>
-<style scoped>
+
+<style lang="less">
+.view-box-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 </style>

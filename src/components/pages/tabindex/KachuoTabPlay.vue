@@ -1,23 +1,25 @@
 <template>
   <div>
-    <!-- <h1>我是游玩页面</h1> -->
-    <Scroller></Scroller>
+    <TabItemPlayHeader></TabItemPlayHeader>
+    <TabItemPlayContent></TabItemPlayContent>
   </div>
 </template>
 
 <script>
 
-import Scroller from '../../common/Scroller'
+import TabItemPlayHeader from '@/components/layout/TabItemPlayHeader'
+import TabItemPlayContent from '@/components/layout/TabItemPlayContent'
 
 export default {
-  name: "KachuoTabPlay",
+  name: "",
   props: [""],
   data() {
     return {};
   },
 
   components: {
-    Scroller
+    TabItemPlayHeader,
+    TabItemPlayContent
   },
 
   computed: {},

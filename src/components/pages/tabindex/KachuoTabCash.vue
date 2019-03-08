@@ -22,7 +22,11 @@
     <!-- <Tickets-Discount></Tickets-Discount> -->
     <!-- <GoodsList></GoodsList> -->
     <!-- <Function-Areas></Function-Areas> -->
-    <Link-List-Icon></Link-List-Icon>
+    <!-- <Link-List-Icon></Link-List-Icon> -->
+    <!-- <Advertise-Swiper></Advertise-Swiper> -->
+    <!-- <AMap></AMap> -->
+    <!-- <AppMessage></AppMessage> -->
+    <Search-Model></Search-Model>
   </div>
 </template>
 
@@ -52,6 +56,10 @@ import TicketsDiscount from "../../layout/TicketsDiscount";
 import GoodsList from "../../layout/GoodsList";
 import FunctionAreas from "../../layout/FunctionAreas";
 import LinkListIcon from "../../layout/LinkListIcon";
+import AdvertiseSwiper from "../../layout/AdvertiseSwiper";
+import AMap from "../../common/AMap";
+import AppMessage from "../../layout/AppMessage";
+import SearchModel from "../../layout/SearchModel";
 
 export default {
   name: "",
@@ -90,7 +98,11 @@ export default {
     TicketsDiscount,
     GoodsList,
     FunctionAreas,
-    LinkListIcon
+    LinkListIcon,
+    AdvertiseSwiper,
+    AMap,
+    AppMessage,
+    SearchModel
   },
 
   computed: {},

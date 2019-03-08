@@ -98,18 +98,18 @@ export default {
     };
   },
   mounted() {
-    this.$vux.toast.show({
-      text: "Hello World",
-      onShow() {
-        console.log("Plugin: I'm showing");
-      },
-      onHide() {
-        console.log("Plugin: I'm hiding");
-      }
-    });
+    // this.$vux.toast.show({
+    //   text: "Hello World",
+    //   onShow() {
+    //     console.log("Plugin: I'm showing");
+    //   },
+    //   onHide() {
+    //     console.log("Plugin: I'm hiding");
+    //   }
+    // });
   },
   beforeDestroy() {
-    clearInterval(this.timer);
+
   }
 };
 </script>

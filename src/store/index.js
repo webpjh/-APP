@@ -39,7 +39,9 @@ export default new Vuex.Store({
       showLeftBack: false,
       showRightMore: false
     },
-    currentRouteVal: ''
+    currentRouteVal: '',
+    isShowBottomTabbar:true,
+    tabIndex:0
   },
   getters: {
     getCurrentTitleObj(state) {
@@ -51,60 +53,22 @@ export default new Vuex.Store({
   },
   mutations: {
     changeCurrentRouteVal(state, Payload) {
-      state.currentRouteVal = Payload;
-      switch (Payload) {
-        case "/kachuotabplay":
-          state.titleObj = {
-            title: '游玩',
-            showLeftBack: false,
-            showRightMore: false
-          }
-          break;
-        case "/kachuotabplay":
-          state.titleObj = {
-            title: '游玩',
-            showLeftBack: false,
-            showRightMore: false
-          }
-          break;
-        case "/kachuotabmall":
-          state.titleObj = {
-            title: "商城",
-            showLeftBack: false,
-            showRightMore: false
-          }
-          break;
-        case "/kachuotabcash":
-          state.titleObj = {
-            title: "变现",
-            showLeftBack: false,
-            showRightMore: false
-          }
-          break;
-        case "/kachuotabincome":
-          state.titleObj = {
-            title: "创收",
-            showLeftBack: false,
-            showRightMore: false
-          }
-          break;
-        case "/kachuotabpersonalcenter":
-          state.titleObj = {
-            title: "我的",
-            showLeftBack: false,
-            showRightMore: false
-          }
-          break;
-        default:
-          state.titleObj = {
-            title: "游玩",
-            showLeftBack: false,
-            showRightMore: false
-          }
+      console.log(Payload);
+      state.currentRouteVal = Payload.path;
+      if(Payload.path === "/"){
+        state.titleObj = {
+          title: '',
+          showLeftBack: false,
+          showRightMore: false
+        }
+        state.isShowBottomTabbar = true;
       }
     },
     chnageCurrentTitleObj(state, Payload) {
       state.titleObj = Payload;
+    },
+    changeTabIndex(state, Payload){
+      state.tabIndex = Payload;
     }
   },
   actions: {

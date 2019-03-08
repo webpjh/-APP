@@ -18,8 +18,40 @@ img {
 ::-webkit-scrollbar {
   display: none
 }
-.text-overflow-hidden{
+
+.text-overflow-hidden {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.amap-logo,
+.amap-copyright {
+  display: none;
+  opacity: 0;
+}
+
+.weui-cells {
+  margin-top: 0;
+}
+
+.flex-wrap-center-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-item-mall-advertise-swiper .vux-swiper {
+  border-radius: 6px;
+}
+
+* {
+  touch-action: manipulation;
+}
+
+img {
+  background-image: url('../images/background-default-2-1.png');
+  background-position: center;
+  background-repeat: no-repeat;
 }

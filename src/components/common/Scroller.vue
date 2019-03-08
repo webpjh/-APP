@@ -45,7 +45,5 @@ export default {
 </script>
 
 <style lang="less" rel="stylesheet/less" scoped>
-.wrap-scroll{
-  // margin-top: 56px;
-}
+
 </style>

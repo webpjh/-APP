@@ -2,8 +2,6 @@
 商品列表
 -->
 <template>
-  <div style="width:100%;height:auto">
-    <divider>我是标题</divider>
     <div class="goods-list-wrap">
       <div class="goods-list" v-for="(item,index) in dataList" :key="index">
         <img class="goods-img" :src="item.imgUrl">
@@ -13,7 +11,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -71,17 +68,19 @@ export default {
 <style lang='css' scoped>
 .goods-list-wrap {
   width: 100%;
-  min-height: 100px;
   height: auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: 0 15px;
+  box-sizing: border-box;
 }
 .goods-list {
   width: 49%;
   min-height: 80px;
   height: auto;
+  margin-bottom: 20px;
 }
 .goods-img {
   width: 100%;
@@ -91,11 +90,14 @@ export default {
 }
 .goods-name {
   width: 100%;
-  font-size: 14px;
+  font-size: 12px;
+  line-height: 15px;
   word-break: break-all;
+  margin-top: 10px;
 }
 .goods-price {
   font-size: 14px;
   color: red;
+  margin-top: 10px;
 }
 </style>

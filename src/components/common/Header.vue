@@ -11,20 +11,16 @@ titleContent（string）：标题内容
     :right-options="{showMore: showRightMore}"
     @on-click-back="back"
     @on-click-more="showMenus = true"
-  >
-    {{titleContent}}
-  </x-header>
+    slot="header"
+    style="width:100%;position:absolute;left:0;top:0;z-index:100;"
+  >{{titleContent}}</x-header>
 </template>
 
 <script>
-import {
-  XHeader,
-  Actionsheet,
-  TransferDom
-} from "vux";
+import { XHeader, Actionsheet, TransferDom } from "vux";
 
 export default {
-  props:["titleContent","showLeftBack","showRightMore"],
+  props: ["titleContent", "showLeftBack", "showRightMore"],
   directives: {
     TransferDom
   },
@@ -41,8 +37,8 @@ export default {
       showMenus: false
     };
   },
-  methods:{
-    back(){
+  methods: {
+    back() {
       this.$router.go(-1);
     }
   }
