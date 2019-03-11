@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tab-item-paly-content">
     <FunctionAreas class="tab-item-play-content-tools-wrap"></FunctionAreas>
     <div class="tab-item-play-content-tip-wrap">
       <AdvertiseSwiper></AdvertiseSwiper>
@@ -11,7 +11,6 @@
       </div>
       <Cell class="tab-item-play-content-cell" :cellList="cellListScence"></Cell>
     </div>
-    <div class="tab-item-play-content-scence-line"></div>
     <div class="tab-item-play-content-scence tab-item-play-content-scence-wrap">
       <div class="tab-item-play-content-tools">
         <span class="tab-item-play-content-tools-line"></span>
@@ -25,7 +24,7 @@
 <script>
 import FunctionAreas from "@/components/layout/FunctionAreas";
 import AdvertiseSwiper from "@/components/layout/AdvertiseSwiper";
-import Cell from "@/components/common/Cell";
+import Cell from "@/components/common/CellNoBorder";
 
 export default {
   name: "",
@@ -101,13 +100,15 @@ export default {
 <style lang='css' scoped>
 .tab-item-play-content-tools {
   width: 100%;
-  height: 30px;
+  height: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   padding: 0 12px;
   box-sizing: border-box;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
 }
 .tab-item-play-content-tools-line {
   width: 2px;
@@ -120,7 +121,7 @@ export default {
   font-weight: bold;
 }
 .tab-item-play-content-cell {
-  margin-top: -16px;
+  margin-top: -20px;
 }
 .tab-item-play-content-tip-wrap {
   width: 100%;
@@ -130,6 +131,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-top: -10px;
 }
 .tab-item-play-content-tools-wrap {
   width: 100%;
@@ -141,11 +143,11 @@ export default {
 }
 .tab-item-play-content-scence {
   width: 100%;
-  height: 210px;
+  height: 200px;
 }
 .tab-item-play-content-scence-wrap {
   width: 100%;
-  min-height: 230px;
+  min-height: 210px;
   height: auto;
   padding: 0 0 20px 0;
   box-sizing: border-box;

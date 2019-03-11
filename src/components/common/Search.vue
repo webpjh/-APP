@@ -6,11 +6,12 @@
       :results="results"
       v-model="value"
       position="absolute"
-      top="46px"
       @on-focus="onFocus"
       @on-cancel="onCancel"
       @on-submit="onSubmit"
       ref="search"
+      :placeholder="placeHolder"
+      auto-scroll-to-top
     ></search>
   </div>
 </template>
@@ -19,11 +20,18 @@
 import { Search, Group, Cell, XButton } from "vux";
 
 export default {
+  props: ["placeHolder"],
   components: {
     Search,
     Group,
     Cell,
     XButton
+  },
+  data() {
+    return {
+      results: [],
+      value: ""
+    };
   },
   methods: {
     setFocus() {
@@ -48,14 +56,11 @@ export default {
       console.log("on focus");
     },
     onCancel() {
-      console.log("on cancel");
+      this.$router.goBack();
     }
   },
-  data() {
-    return {
-      results: [],
-      value: "test"
-    };
+  mounted(){
+    this.setFocus();
   }
 };
 

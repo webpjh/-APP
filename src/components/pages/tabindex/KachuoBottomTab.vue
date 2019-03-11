@@ -75,8 +75,8 @@ export default {
   beforeMount() {},
 
   mounted() {
-    console.log(this.$store.state.tabIndex);
-    console.log(this.tabIndex);
+    // console.log(this.$store.state.tabIndex);
+    // console.log(this.tabIndex);
   },
 
   methods: {

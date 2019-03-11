@@ -2,8 +2,7 @@
   <div class="tab-item-mall-wrap">
     <TabItemMallHeader></TabItemMallHeader>
     <TabItemMallAdvertise></TabItemMallAdvertise>
-    <DividedArea></DividedArea>
-    <Cell :cellList="cellListTools" class="tab-item-mall-tools-wrap"></Cell>
+    <CellDivider :cellList="cellListTools" class="tab-item-mall-tools-wrap"></CellDivider>
     <DividedArea></DividedArea>
     <Divider :content="dividerContent"></Divider>
     <GoodsList></GoodsList>
@@ -14,7 +13,7 @@
 import TabItemMallHeader from "@/components/layout/TabItemMallHeader";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
 import DividedArea from "@/components/common/DividedArea";
-import Cell from "@/components/common/Cell";
+import CellDivider from "@/components/common/CellDivider";
 import Divider from "@/components/common/Divider";
 import GoodsList from "@/components/layout/GoodsList";
 
@@ -51,7 +50,7 @@ export default {
     TabItemMallHeader,
     TabItemMallAdvertise,
     DividedArea,
-    Cell,
+    CellDivider,
     Divider,
     GoodsList
   },
@@ -68,9 +67,6 @@ export default {
 };
 </script>
 <style lang='css' scoped>
-.tab-item-mall-tools-wrap {
-  margin-top: -20px;
-}
 .tab-item-mall-wrap {
   padding-bottom: 30px;
   box-sizing: border-box;

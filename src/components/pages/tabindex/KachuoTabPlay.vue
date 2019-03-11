@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tab-item-paly-wrap">
     <TabItemPlayHeader></TabItemPlayHeader>
     <TabItemPlayContent></TabItemPlayContent>
   </div>
@@ -33,5 +33,8 @@ export default {
   watch: {}
 };
 </script>
-<style lang='' scoped>
+<style lang='css' scoped>
+.tab-item-paly-wrap{
+  background: #f5f5f5;
+}
 </style>

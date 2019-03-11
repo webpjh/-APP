@@ -95,13 +95,14 @@ export default {
   margin-left: 6px;
 }
 .tickets-discount-list-wrap{
-  background: #666;
+  background: #f9f9f9;
 }
 .tickets-discount-list{
   width: 100%;
   height: 250px;
   overflow: hidden;
   margin-bottom: 10px;
+  border-radius: 4px;
 }
 .img-wrap {
   width: 100%;
@@ -124,7 +125,7 @@ export default {
   text-align: center;
   line-height: 20px;
   display: inline-block;
-  background: #000;
+  background: #f9f9f9;
   border-radius: 10px;
   position: relative;
   top: -200px;

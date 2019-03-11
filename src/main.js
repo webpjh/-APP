@@ -7,8 +7,12 @@ import App from './App'
 import store from './store/index'
 import router from './router/index'
 
+import global from '@/assets/js/global'
+Vue.prototype.GLOBAL = global
+
 import './assets/css/index.css'
 import './assets/css/reset.css'
+import './assets/css/resetweui.less'
 
 // 懒加载
 import VueLazyload from 'vue-lazyload'
@@ -19,8 +23,8 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 // vue路由
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
+// import VueRouter from 'vue-router'
+// Vue.use(VueRouter)
 
 // vue国际化
 import vuei18n from 'vuex-i18n'

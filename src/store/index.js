@@ -1,15 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import vueRouter from 'vue-router';
-
 Vue.use(Vuex)
 
 import data from '../assets/data'
 
 const request = () => {
   return new Promise((res, rej) => {
-    let requestTime = Math.ceil(((0.1 + Math.random()))*1000);
-    console.log("requestTIme:",requestTime);
+    let requestTime = Math.ceil(((0.1 + Math.random())) * 1000);
+    console.log("requestTIme:", requestTime);
     try {
       setTimeout(() => {
         let result = getRandomData(data, 10);
@@ -40,8 +38,8 @@ export default new Vuex.Store({
       showRightMore: false
     },
     currentRouteVal: '',
-    isShowBottomTabbar:true,
-    tabIndex:0
+    isShowBottomTabbar: true,
+    tabIndex: 0
   },
   getters: {
     getCurrentTitleObj(state) {
@@ -53,9 +51,8 @@ export default new Vuex.Store({
   },
   mutations: {
     changeCurrentRouteVal(state, Payload) {
-      console.log(Payload);
       state.currentRouteVal = Payload.path;
-      if(Payload.path === "/"){
+      if (Payload.path === "/") {
         state.titleObj = {
           title: '',
           showLeftBack: false,
@@ -67,12 +64,12 @@ export default new Vuex.Store({
     chnageCurrentTitleObj(state, Payload) {
       state.titleObj = Payload;
     },
-    changeTabIndex(state, Payload){
+    changeTabIndex(state, Payload) {
       state.tabIndex = Payload;
     }
   },
   actions: {
-    getData({commit, state}, param = {}){
+    getData({ commit, state }, param = {}) {
       let page = param.page;  // 实际项目中会用到分页参数 page
       let scb = param.scb;
       let ecb = param.ecb;

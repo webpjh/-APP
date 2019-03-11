@@ -129,9 +129,7 @@ export default {
     }
   },
   watch: {
-    $route(to, from) {
-      this.$store.commit("changeCurrentRouteVal", to.path);
-    }
+
   }
 };
 </script>

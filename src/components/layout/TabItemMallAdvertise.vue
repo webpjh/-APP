@@ -64,7 +64,7 @@ export default {
 .tab-item-mall-advertise-swiper {
   padding: 0 15px;
   box-sizing: border-box;
-  margin-top: 50px;
+  /* margin-top: 50px; */
 }
 .vux-swiper-item {
   border-radius: 20px;

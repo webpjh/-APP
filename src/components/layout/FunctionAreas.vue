@@ -4,7 +4,7 @@ flex布局功能区域
 <template>
   <flexbox :gutter="0" wrap="wrap">
     <flexbox-item :span="1/4" v-for="(item,index) in dataList" :key="index">
-      <div class="flex-wrap-for">
+      <div class="flex-wrap-for" @click="getItem(item.link)">
         <img class="flex-wrap-img" :src="item.imgUrl">
         <p class="flex-wrap-name">{{item.name}}</p>
       </div>
@@ -24,32 +24,50 @@ export default {
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山"
+          name: "云雾山",
+          link: "/ticketsdiscount"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山"
+          name: "云雾山",
+          link: "/intelligentnavigation"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山"
+          name: "云雾山",
+          link: "/scencerelease"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山"
+          name: "云雾山",
+          link: "/scenceservice"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山"
+          name: "云雾山",
+          link: "/remember"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山"
+          name: "云雾山",
+          link: "/understand"
+        },
+        {
+          imgUrl:
+            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          name: "云雾山",
+          link: "/takeaway"
+        },
+        {
+          imgUrl:
+            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          name: "云雾山",
+          link: "/servicesurround"
         }
       ]
     };
@@ -67,7 +85,11 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    getItem(link){
+      this.$router.push(link);
+    }
+  },
 
   watch: {}
 };

@@ -4,11 +4,6 @@ import routesMap from './routesmap/index'
 import hooks from './hooks/index'
 Vue.use(VueRouter)
 
-VueRouter.prototype.goBack = function () {
-  this.isBack = true
-  window.history.go(-1)
-}
-
 const router = new VueRouter({
   root: null,
   hashbang: true,//是否将路径格式化为#!开头
@@ -23,6 +18,11 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
   }
 });
+
+VueRouter.prototype.goBack = function () {
+  this.isBack = true;
+  window.history.go(-1);
+}
 
 hooks(router);
 

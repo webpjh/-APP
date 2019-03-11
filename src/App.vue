@@ -14,11 +14,20 @@ export default {
       transitionName: "slide-right"
     };
   },
+  beforeRouteUpdate(to, from, next) {
+    console.log(to);
+    console.log(from);
+    console.log(next);
+    next(vm => {
+      console.log(vm);
+    });
+  },
+  computed:{
+
+  },
   watch: {
     $route(to, from) {
-      console.log(to);
-      this.$store.commit("changeCurrentRouteVal", to);
-      let isBack = this.$router.isBack; //  监听路由变化时的状态为前进还是后退
+      let isBack = this.$router.isBack;
       if (isBack) {
         this.transitionName = "slide-right";
       } else {

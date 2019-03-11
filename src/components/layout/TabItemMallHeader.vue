@@ -35,10 +35,6 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
-  top:0;
-  left: 0;
-  z-index: 9999;
 }
 .tab-item-mall-left {
   flex: 1;

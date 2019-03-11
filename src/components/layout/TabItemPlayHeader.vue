@@ -2,9 +2,9 @@
   <div class="tab-item-play-header-wrap">
     <SwiperImg :SwiperImgData="SwiperImgData" class="tab-item-play-swiper"></SwiperImg>
     <div class="tab-item-play-header-title">
-      <div class="location-icon text-align-center">左侧</div>
-      <div class="search-icon text-align-center">搜索目的地/景点/酒店/饭店</div>
-      <div class="message-icon text-align-center">右侧</div>
+      <div class="location-icon text-align-center" @click="locationSelf">左侧</div>
+      <div class="search-icon text-align-center" @click="searchScence">搜索目的地/景点/酒店/饭店</div>
+      <div class="message-icon text-align-center" @click="appMessageCenter">右侧</div>
     </div>
   </div>
 </template>
@@ -57,7 +57,17 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    locationSelf() {
+      this.$router.push("/userlocation");
+    },
+    searchScence() {
+      this.$router.push("/usersearch");
+    },
+    appMessageCenter() {
+      this.$router.push("/appmessage");
+    }
+  },
 
   watch: {}
 };

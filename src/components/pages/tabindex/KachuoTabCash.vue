@@ -1,108 +1,56 @@
 <template>
-  <div>
-    <!-- <Swiper-Out></Swiper-Out> -->
-    <!-- <Mobile></Mobile> -->
-    <!-- <Divider></Divider> -->
-    <!-- <TimeLine></TimeLine> -->
-    <!-- <ActionSheet></ActionSheet> -->
-    <!-- <Popup></Popup> -->
-    <!-- <QRcode></QRcode> -->
-    <!-- <Swiper-Img></Swiper-Img> -->
-    <!-- <Swiper-Tip></Swiper-Tip> -->
-    <!-- <Popup-Picker></Popup-Picker> -->
-    <!-- <Address></Address> -->
-    <!-- <Number-Change></Number-Change> -->
-    <!-- <TextArea></TextArea> -->
-    <!-- <WeixinPay></WeixinPay> -->
-    <!-- <Video-Player></Video-Player> -->
-    <!-- <Cell></Cell> -->
-    <!-- <Tab></Tab> -->
-    <!-- <Comments></Comments> -->
-    <!-- <CommentList></CommentList> -->
-    <!-- <Tickets-Discount></Tickets-Discount> -->
-    <!-- <GoodsList></GoodsList> -->
-    <!-- <Function-Areas></Function-Areas> -->
-    <!-- <Link-List-Icon></Link-List-Icon> -->
-    <!-- <Advertise-Swiper></Advertise-Swiper> -->
-    <!-- <AMap></AMap> -->
-    <!-- <AppMessage></AppMessage> -->
-    <Search-Model></Search-Model>
+  <div class="tab-item-mall-wrap">
+    <TabItemCashHeader></TabItemCashHeader>
+    <TabItemMallAdvertise></TabItemMallAdvertise>
+    <CellDivider :cellList="cellListTools" class="tab-item-mall-tools-wrap"></CellDivider>
   </div>
 </template>
 
 <script>
-import Search from "../../common/Search";
-import ImagePreview from "../../common/ImagePreview";
-import SwiperOut from "../../common/SwiperOut";
-import Mobile from "../../common/Mobile";
-import Divider from "../../common/Divider";
-import TimeLine from "../../common/TimeLine";
-import ActionSheet from "../../common/ActionSheet";
-import Popup from "../../layout/Popup";
-import QRcode from "../../common/QRcode";
-import SwiperImg from "../../common/SwiperImg";
-import SwiperTip from "../../common/SwiperTip";
-import PopupPicker from "../../common/PopupPicker";
-import Address from "../../common/Address";
-import NumberChange from "../../common/NumberChange";
-import TextArea from "../../common/TextArea";
-import WeixinPay from "../../common/WeixinPay";
-import VideoPlayer from "../../common/VideoPlayer";
-import Cell from "../../common/Cell";
-import Tab from "../../common/Tab";
-import Comments from "../../common/Comments";
-import CommentList from "../../layout/CommentList";
-import TicketsDiscount from "../../layout/TicketsDiscount";
-import GoodsList from "../../layout/GoodsList";
-import FunctionAreas from "../../layout/FunctionAreas";
-import LinkListIcon from "../../layout/LinkListIcon";
-import AdvertiseSwiper from "../../layout/AdvertiseSwiper";
-import AMap from "../../common/AMap";
-import AppMessage from "../../layout/AppMessage";
-import SearchModel from "../../layout/SearchModel";
+import TabItemCashHeader from "@/components/layout/TabItemCashHeader";
+import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
+import DividedArea from "@/components/common/DividedArea";
+import CellDivider from "@/components/common/CellDivider";
 
 export default {
   name: "",
   props: [""],
   data() {
     return {
-      varmax: 3,
-      images: [],
-      uploadUrl: "",
-      params: {}
+      cellListTools: [
+        {
+          title: "艺品回购",
+          icon:
+            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          link: ""
+        },
+        {
+          title: "艺品租赁",
+          icon:
+            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          link: ""
+        },
+        {
+          title: "艺品寄卖",
+          icon:
+            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          link: ""
+        },
+        {
+          title: "信息消费",
+          icon:
+            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          link: ""
+        }
+      ]
     };
   },
 
   components: {
-    Search,
-    ImagePreview,
-    SwiperOut,
-    Mobile,
-    Divider,
-    TimeLine,
-    ActionSheet,
-    Popup,
-    QRcode,
-    SwiperImg,
-    SwiperTip,
-    PopupPicker,
-    Address,
-    NumberChange,
-    TextArea,
-    WeixinPay,
-    VideoPlayer,
-    Cell,
-    Tab,
-    Comments,
-    CommentList,
-    TicketsDiscount,
-    GoodsList,
-    FunctionAreas,
-    LinkListIcon,
-    AdvertiseSwiper,
-    AMap,
-    AppMessage,
-    SearchModel
+    TabItemCashHeader,
+    TabItemMallAdvertise,
+    DividedArea,
+    CellDivider
   },
 
   computed: {},
@@ -120,5 +68,10 @@ export default {
   watch: {}
 };
 </script>
-<style lang='' scoped>
+<style lang='css' scoped>
+.tab-item-mall-wrap{
+  width: 100%;
+  height: 100%;
+  background: #f5f5f5;
+}
 </style>

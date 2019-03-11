@@ -7,7 +7,7 @@ titleContent（string）：标题内容
  -->
 <template>
   <x-header
-    :left-options="{showBack: showLeftBack}"
+    :left-options="{showBack: showLeftBack,preventGoBack:true}"
     :right-options="{showMore: showRightMore}"
     @on-click-back="back"
     @on-click-more="showMenus = true"
@@ -17,7 +17,7 @@ titleContent（string）：标题内容
 </template>
 
 <script>
-import { XHeader, Actionsheet, TransferDom } from "vux";
+import { XHeader, TransferDom } from "vux";
 
 export default {
   props: ["titleContent", "showLeftBack", "showRightMore"],
@@ -25,21 +25,16 @@ export default {
     TransferDom
   },
   components: {
-    XHeader,
-    Actionsheet
+    XHeader
   },
   data() {
     return {
-      menus: {
-        menu1: "Take Photo",
-        menu2: "Choose from photos"
-      },
-      showMenus: false
+
     };
   },
   methods: {
     back() {
-      this.$router.go(-1);
+      this.$router.goBack();
     }
   }
 };
