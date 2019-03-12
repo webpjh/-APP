@@ -9,6 +9,7 @@
 </template>
 
 <script>
+
 import TabPersonCenterHeader from "@/components/layout/TabItemPersonHeader.vue";
 import AppUserInfo from "@/components/layout/AppUserInfo.vue";
 import DividedArea from "@/components/common/DividedArea.vue";
@@ -22,42 +23,36 @@ export default {
       cellListToolsA: [
         {
           title: "通证",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont icontongzheng",
           link: ""
         },
         {
           title: "积分",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont iconjifen",
           link: ""
         }
       ],
       cellListToolsB: [
         {
           title: "购物车",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont icongouwuche",
           link: ""
         },
         {
           title: "订单",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont icondingdan",
           link: ""
         }
       ],
       cellListToolsC: [
         {
           title: "收藏",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont iconshoucang",
           link: ""
         },
         {
           title: "云相册",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont iconyunxiangce",
           link: ""
         }
       ]
@@ -88,7 +83,7 @@ export default {
   height: 100%;
   background: #f5f5f5;
 }
-.margin-top-10px{
+.margin-top-10px {
   margin-top: 10px;
 }
 </style>

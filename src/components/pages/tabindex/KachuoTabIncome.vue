@@ -19,27 +19,23 @@ export default {
     return {
       cellListTools: [
         {
-          title: "艺品回购",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          title: "才源共享",
+          icon: "iconfont iconcaiyuangongxiang",
           link: ""
         },
         {
-          title: "艺品租赁",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          title: "视频创作",
+          icon: "iconfont iconshipinchuangzuo",
           link: ""
         },
         {
-          title: "艺品寄卖",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          title: "图文随记",
+          icon: "iconfont icontuwensuiji",
           link: ""
         },
         {
-          title: "信息消费",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          title: "百家讲坛",
+          icon: "iconfont iconbaijiajiangtang",
           link: ""
         }
       ]
@@ -69,7 +65,7 @@ export default {
 };
 </script>
 <style lang='css' scoped>
-.tab-item-mall-wrap{
+.tab-item-mall-wrap {
   width: 100%;
   height: 100%;
   background: #f5f5f5;

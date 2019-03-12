@@ -2,10 +2,10 @@
 flex布局功能区域
 -->
 <template>
-  <flexbox :gutter="0" wrap="wrap">
+  <flexbox :gutter="0" wrap="wrap" class="function-areas-wrap">
     <flexbox-item :span="1/4" v-for="(item,index) in dataList" :key="index">
       <div class="flex-wrap-for" @click="getItem(item.link)">
-        <img class="flex-wrap-img" :src="item.imgUrl">
+        <span :class="item.class" style="font"></span>
         <p class="flex-wrap-name">{{item.name}}</p>
       </div>
     </flexbox-item>
@@ -24,50 +24,58 @@ export default {
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山",
-          link: "/ticketsdiscount"
+          name: "打折门票",
+          link: "/ticketsdiscount",
+          class: "iconfont iconmenpiao btn1"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山",
-          link: "/intelligentnavigation"
+          name: "智慧导航",
+          link: "/intelligentnavigation",
+          class: "iconfont iconzhihuidaohang btn2"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山",
-          link: "/scencerelease"
+          name: "景区发布",
+          link: "/scencerelease",
+          class: "iconfont iconjingqufabu"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山",
-          link: "/scenceservice"
+          name: "景区服务",
+          link: "/scenceservice",
+          class: "iconfont iconjingqufuwu"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山",
-          link: "/remember"
+          name: "记住的",
+          link: "/remember",
+          class: "iconfont iconjizhude"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山",
-          link: "/understand"
+          name: "了解的",
+          link: "/understand",
+          class: "iconfont iconliaojiede"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山",
-          link: "/takeaway"
+          name: "带走的",
+          link: "/takeaway",
+          class: "iconfont icondaizoude"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "云雾山",
-          link: "/servicesurround"
+          name: "周边服务",
+          link: "/servicesurround",
+          class: "iconfont iconzhoubianfuwu"
         }
       ]
     };
@@ -86,7 +94,7 @@ export default {
   mounted() {},
 
   methods: {
-    getItem(link){
+    getItem(link) {
       this.$router.push(link);
     }
   },
@@ -114,5 +122,8 @@ export default {
   text-align: center;
   line-height: 20px;
   font-size: 12px;
+}
+.flex-wrap-for span {
+  font-size: 36px;
 }
 </style>

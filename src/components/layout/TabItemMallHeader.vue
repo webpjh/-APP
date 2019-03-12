@@ -1,20 +1,32 @@
 <template>
   <div class="tab-item-mall-header-wrap">
-    <div class="tab-item-mall-left flex-wrap-center-wrap">左侧</div>
+    <div class="tab-item-mall-left flex-wrap-center-wrap" @click="showLeftModel">
+      <span class="iconfont iconxiaoxi"></span>
+    </div>
     <div class="tab-item-mall-mid">输入作品/作者名</div>
-    <div class="tab-item-mall-right flex-wrap-center-wrap">右侧</div>
+    <div class="tab-item-mall-right flex-wrap-center-wrap">
+      <span class="iconfont iconxiaoxi"></span>
+    </div>
+    <Popup :showModelFlag="showModel"></Popup>
   </div>
 </template>
 
 <script>
+
+import Popup from "@/components/layout/Popup"
+
 export default {
   name: "",
   props: [""],
   data() {
-    return {};
+    return {
+      showModel:false
+    };
   },
 
-  components: {},
+  components: {
+    Popup
+  },
 
   computed: {},
 
@@ -22,7 +34,11 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    showLeftModel(){
+      this.$store.commit("showMallLeftOptionState",true);
+    }
+  },
 
   watch: {}
 };
@@ -35,6 +51,7 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background: #fff;
 }
 .tab-item-mall-left {
   flex: 1;

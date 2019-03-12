@@ -24,21 +24,21 @@ export default {
     return {
       cellListTools: [
         {
-          title: "吃吧",
+          title: "景区消费",
           icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+            "iconfont iconshangchengxiaofei",
           link: ""
         },
         {
-          title: "喝吧",
+          title: "景区好礼",
           icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+            "iconfont iconshangchenghaoli",
           link: ""
         },
         {
-          title: "玩吧",
+          title: "名家秒藏",
           icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+            "iconfont iconmingjiamiaocang",
           link: ""
         }
       ],

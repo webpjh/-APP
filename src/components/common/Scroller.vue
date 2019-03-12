@@ -5,7 +5,7 @@
       :on-refresh="refresh"
       :refreshText="refreshText"
       :noDataText="noDataText"
-      style="margin-top:48px"
+      style="margin-top:45px"
     >
       <list-content  :list="list"></list-content>
     </scroller>

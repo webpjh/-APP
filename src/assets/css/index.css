@@ -50,6 +50,10 @@ img {
   touch-action: manipulation;
 }
 
+[v-cloak] {
+  display: none;
+}
+
 img {
   background-image: url('../images/background-default-2-1.png');
   background-position: center;
@@ -58,13 +62,226 @@ img {
 
 .font-weight-36px {
   font-size: 16px;
-  font-weight: bold;
 }
 
 .vux-header-title {
   font-weight: bold;
 }
 
-[v-cloak] {
-  display: none;
+.marker {
+  position: absolute;
+  top: -20px;
+  right: -118px;
+  color: #fff;
+  padding: 4px 10px;
+  box-shadow: 1px 1px 1px rgba(10, 10, 10, 0.2);
+  white-space: nowrap;
+  font-size: 12px;
+  font-family: "";
+  background-color: #25a5f7;
+  border-radius: 3px;
+}
+
+.amap-icon img {
+  background: none;
+}
+
+.amap-icon img,
+.amap-marker-content img {
+  width: 25px;
+  height: 34px;
+}
+
+.amap-simple-marker-label {
+  color: #fff;
+}
+
+.text-show-line2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-show-line3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.iconyouyuan-yixuan:before,
+.iconshangcheng-yixuan:before,
+.iconbianxian-yixuan:before,
+.iconchuangshou-yixuan:before,
+.iconwode-yixuan:before {
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#fe8282), to(#ff2020));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.iconyouyuan-weixuan:before,
+.iconshangcheng-weixuan:before,
+.iconbianxian-weixuan:before,
+.iconchuangshou-weixuan:before,
+.iconwode-weixuan:before {
+  color: #999;
+}
+
+.iconmenpiao:before {
+  content: "\e650";
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#ffdd82), to(#ffc424));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.iconzhihuidaohang:before {
+  content: "\e651";
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#82ddff), to(#1fc2ff));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.iconjingqufabu:before {
+  content: "\e652";
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#ffcf83), to(#ffa81e));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.iconjingqufuwu:before {
+  content: "\e653";
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#ff81c8), to(#ff1d9d));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.iconjizhude:before {
+  content: "\e654";
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#ff6c6c), to(#ff1e1e));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.iconliaojiede:before {
+  content: "\e655";
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#83beff), to(#1483ff));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.icondaizoude:before {
+  content: "\e656";
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#ff83a6), to(#ff1255));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.iconzhoubianfuwu:before {
+  content: "\e657";
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#82dafe), to(#1ebdff));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.iconchiba:before {
+  color: #ff9130;
+}
+
+.iconwanba:before {
+  color: #ff307e;
+}
+
+.iconmeishi:before {
+  font-size: 20px;
+  color: #ff9130;
+}
+
+.iconxiuxian:before {
+  font-size: 20px;
+  color: #ff307e;
+}
+
+.iconjiudian:before {
+  font-size: 20px;
+  color: #308dff;
+}
+
+.iconyule:before {
+  font-size: 16px;
+  color: #ff3030;
+}
+
+.iconheba:before {
+  color: #308dff;
+}
+
+.iconshangchengxiaofei:before {
+  color: #ff3030;
+}
+
+.iconshangchenghaoli:before {
+  color: #ff9130;
+}
+
+.iconmingjiamiaocang:before {
+  color: #308dff;
+}
+
+.iconyipinzulin:before {
+  color: #ff9130;
+}
+
+.iconyipinjimai:before {
+  color: #308dff;
+}
+
+.iconyipinhuigou:before {
+  color: #308dff;
+}
+
+.iconxinxixiaofei:before {
+  color: #ff3030;
+}
+.iconcaiyuangongxiang:before {
+  color: #308dff;
+}
+
+.iconshipinchuangzuo:before {
+  color: #ff307e;
+  font-size: 14px;
+}
+
+.icontuwensuiji:before {
+  color: #ff3030;
+}
+
+.iconbaijiajiangtang:before {
+  color: #308dff;
+}
+.icontongzheng:before {
+  color: #308dff;
+  font-size: 14px;
+}
+
+.iconjifen:before {
+  color: #ff3030;
+}
+
+.icongouwuche:before {
+  color: #ff9130;
+}
+
+.icondingdan:before {
+  color: #308dff;
+}
+
+.iconshoucang:before {
+  color: #ff3030;
+}
+
+.iconyunxiangce:before {
+  color: #308dff;
 }

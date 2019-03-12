@@ -3,7 +3,8 @@
     <div v-for="(item,index) in cellList" :key="index">
       <DividedArea></DividedArea>
       <cell class="cell-sty" :title="item.title" is-link :link="item.link">
-        <img slot="icon" style class="img-sty" :src="item.icon">
+        <!-- <img slot="icon" style class="img-sty" :src="item.icon"> -->
+        <span slot="icon" class="img-sty" :class="item.icon"></span>
         <badge :text="item.badgeText" v-show="item.showBadge"></badge>
       </cell>
     </div>
@@ -41,11 +42,11 @@ export default {
 
 <style scoped>
 .img-sty {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  font-size: 19px;
   display: inline-block;
   margin-right: 10px;
-  position: relative;
-  top: 2px;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="tab-item-cash-header-wrap">
     <span class="tab-item-cash-header-left"></span>
     <span class="tab-item-cash-header-mid font-weight-36px">创收</span>
-    <span class="tab-item-cash-header-right">右侧</span>
+    <span class="tab-item-cash-header-right">发布</span>
   </div>
 </template>
 
@@ -40,6 +40,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  background: #fff;
 }
 .tab-item-cash-header-left{
   flex: 1;

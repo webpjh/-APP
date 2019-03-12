@@ -1,10 +1,5 @@
 <template>
   <div class="view-box-wrap">
-    <!-- <Header
-      :titleContent="showCurrentTitle.title"
-      :showLeftBack="showCurrentTitle.showLeftBack"
-      :showRightMore="showCurrentTitle.showRightMore"
-    ></Header> -->
     <TabContent></TabContent>
     <Kachuo-Bottom-Tab></Kachuo-Bottom-Tab>
   </div>

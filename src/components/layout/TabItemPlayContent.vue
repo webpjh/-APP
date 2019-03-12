@@ -16,7 +16,7 @@
         <span class="tab-item-play-content-tools-line"></span>
         <span class="tab-item-play-content-title">周边服务</span>
       </div>
-      <Cell class="tab-item-play-content-cell" :cellList="cellListAround"></Cell>
+      <Cell class="tab-item-play-content-cell tab-item-play-content-cell-spec" :cellList="cellListAround"></Cell>
     </div>
   </div>
 </template>
@@ -34,46 +34,39 @@ export default {
       cellListScence: [
         {
           title: "吃吧",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont iconchiba",
           link: ""
         },
         {
           title: "喝吧",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont iconheba",
           link: ""
         },
         {
           title: "玩吧",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont iconwanba",
           link: ""
         }
       ],
       cellListAround: [
         {
           title: "美食",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont iconmeishi",
           link: ""
         },
         {
           title: "休闲",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont iconxiuxian",
           link: ""
         },
         {
           title: "酒店",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont iconjiudian",
           link: ""
         },
         {
           title: "娱乐",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
+          icon: "iconfont iconyule",
           link: ""
         }
       ]
@@ -152,10 +145,16 @@ export default {
   padding: 0 0 20px 0;
   box-sizing: border-box;
 }
-.tab-item-play-content-scence-line{
+.tab-item-play-content-cell-spec span{
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  font-size: 20px;
+}
+.tab-item-play-content-scence-line {
   width: 100%;
   height: 10px;
   background: #f5f5f5;
-  margin-top: -10px
+  margin-top: -10px;
 }
 </style>

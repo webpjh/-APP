@@ -1,7 +1,8 @@
 <template>
     <group style="border:none;">
       <cell class="cell-sty" :title="item.title" is-link v-for="(item,index) in cellList" :key="index">
-        <img slot="icon" style class="img-sty" :link="item.link" :src="item.icon">
+        <!-- <img slot="icon" style class="img-sty" :link="item.link" :src="item.icon"> -->
+        <span slot="icon" class="img-sty" :class="item.icon"></span>
         <badge :text="item.badgeText" v-show="item.showBadge"></badge>      
       </cell>
     </group>
@@ -36,11 +37,10 @@ export default {
 
 <style scoped>
 .img-sty {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   display: inline-block;
   margin-right: 10px;
-  position: relative;
-  top: 2px;
+  font-size: 20px;
 }
 </style>

@@ -13,6 +13,7 @@ Vue.prototype.GLOBAL = global
 import './assets/css/index.css'
 import './assets/css/reset.css'
 import './assets/css/resetweui.less'
+import './assets/css/iconfont.css'
 
 // 懒加载
 import VueLazyload from 'vue-lazyload'

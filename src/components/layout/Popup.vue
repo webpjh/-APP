@@ -2,55 +2,38 @@
 分类导航
 -->
 <template>
-  <div>
-    <group title="set position">
-      <x-switch title="left(100% width)" v-model="show"></x-switch>
-    </group>
-
-    <div v-transfer-dom>
-      <popup v-model="show" position="left" width="100%">
-        <div class="position-horizontal">
-          <x-header
-            :left-options="{backText: '返回',preventGoBack:true}"
-            @on-click-back="show = false"
-          >分类</x-header>
-          <div class="content-wrap">
-            <div class="content-left">
-              <p
-                :class="{'content-left-p':currentIndex!=index,'content-left-p-active':currentIndex==index}"
-                v-for="(item,index) in leftContent"
-                :key="index"
-                @click="changeIndex(index)"
-              >{{item}}</p>
+  <div v-transfer-dom>
+    <popup v-model="showModelFlag" position="left" width="100%">
+      <div class="position-horizontal">
+        <x-header :left-options="{backText: '返回',preventGoBack:true}" @on-click-back="hideModel">分类</x-header>
+        <div class="content-wrap">
+          <div class="content-left">
+            <p
+              :class="{'content-left-p':currentIndex!=index,'content-left-p-active':currentIndex==index}"
+              v-for="(item,index) in leftContent"
+              :key="index"
+              @click="changeIndex(index)"
+            >{{item}}</p>
+          </div>
+          <div class="content-right">
+            <div class="content-video">
+              <Video :isControls="true"></Video>
             </div>
-            <div class="content-right">
-              <div class="content-video">
-                <Video :isControls="true"></Video>
-              </div>
-              <div class="content-list-wrap">
-                <div class="content-list-item" v-for="(item,index) in rightContent" :key="index">
-                  <img class="content-list-img" :src="item.src">
-                  <p class="content-list-title">{{item.title}}</p>
-                </div>
+            <div class="content-list-wrap">
+              <div class="content-list-item" v-for="(item,index) in rightContent" :key="index">
+                <img class="content-list-img" :src="item.src">
+                <p class="content-list-title">{{item.title}}</p>
               </div>
             </div>
           </div>
         </div>
-      </popup>
-    </div>
+      </div>
+    </popup>
   </div>
 </template>
 
 <script>
-import {
-  TransferDom,
-  Popup,
-  Group,
-  XSwitch,
-  ChinaAddressData,
-  XHeader,
-  Sticky
-} from "vux";
+import { TransferDom, Popup, XHeader, Sticky } from "vux";
 
 import Video from "../common/VideoPlayer";
 
@@ -60,8 +43,6 @@ export default {
   },
   components: {
     Popup,
-    Group,
-    XSwitch,
     XHeader,
     Video,
     Sticky
@@ -169,6 +150,17 @@ export default {
     changeIndex(i) {
       // console.log(i);
       this.currentIndex = i;
+    },
+    hideModel() {
+      this.$store.commit("showMallLeftOptionState", false);
+    }
+  },
+  computed: {
+    showModelFlag: {
+      get: function() {
+        return this.$store.state.showMallLeftOption;
+      },
+      set: function() {}
     }
   },
   watch: {}
@@ -196,7 +188,7 @@ export default {
   overflow-y: scroll;
   background: #fff;
   box-sizing: border-box;
-  padding-bottom: 50px;
+  padding-bottom: 0px;
 }
 .content-right {
   flex: 80%;
@@ -205,7 +197,7 @@ export default {
   background: red;
   padding: 10px;
   box-sizing: border-box;
-  padding-bottom: 50px;
+  padding-bottom: 100px;
 }
 .content-left-p {
   width: 100%;

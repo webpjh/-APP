@@ -1,7 +1,7 @@
 <template>
     <group class="cell-no-border" style="border:none;">
-      <cell class="cell-sty" :title="item.title" is-link v-for="(item,index) in cellList" :key="index">
-        <img slot="icon" style class="img-sty" :link="item.link" :src="item.icon">
+      <cell class="cell-sty" :title="item.title" is-link :link="item.link" v-for="(item,index) in cellList" :key="index">
+        <span slot="icon" class="img-sty" :class="item.icon" ></span>
         <badge :text="item.badgeText" v-show="item.showBadge"></badge>      
       </cell>
     </group>
@@ -39,8 +39,7 @@ export default {
   width: 30px;
   height: 30px;
   display: inline-block;
-  margin-right: 10px;
-  position: relative;
-  top: 2px;
+  margin-right: 6px;
+  font-size: 24px;
 }
 </style>

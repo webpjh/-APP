@@ -6,10 +6,8 @@
       class="tab-bar-item"
       @click="changeTabIndex(index)"
     >
-      <img class="tab-bar-item-img" :src="item.icon">
-      <span
-        :class="{normal:!item.isActive,active:item.isActive}"
-      >{{item.title}}</span>
+      <span :class="item.class" style="width:22px;height:22px;display:inline-block;font-size:20px;margin-bottom:2px"></span>
+      <span :class="{normal:!item.isActive,active:item.isActive}">{{item.title}}</span>
     </div>
   </div>
 </template>
@@ -24,34 +22,49 @@ export default {
     return {
       tabItem: [
         {
-          title: "游玩",
+          title: "游园",
           icon:
             "http://e.hiphotos.baidu.com/image/h%3D300/sign=622b9205f3faaf519be387bfbc5494ed/738b4710b912c8fc6ffecceef2039245d6882187.jpg",
-            isActive:true
+          isActive: true,
+          normal: "iconfont iconyouyuan-weixuan",
+          class: "iconfont iconyouyuan-yixuan",
+          classActive: "iconfont iconyouyuan-yixuan"
         },
         {
           title: "商城",
           icon:
             "http://e.hiphotos.baidu.com/image/h%3D300/sign=622b9205f3faaf519be387bfbc5494ed/738b4710b912c8fc6ffecceef2039245d6882187.jpg",
-            isActive:false
+          isActive: false,
+          normal: "iconfont iconshangcheng-weixuan",
+          class: "iconfont iconshangcheng-weixuan",
+          classActive: "iconfont iconshangcheng-yixuan"
         },
         {
           title: "变现",
           icon:
             "http://e.hiphotos.baidu.com/image/h%3D300/sign=622b9205f3faaf519be387bfbc5494ed/738b4710b912c8fc6ffecceef2039245d6882187.jpg",
-            isActive:false
+          isActive: false,
+          normal: "iconfont iconbianxian-weixuan",
+          class: "iconfont iconbianxian-weixuan",
+          classActive: "iconfont iconbianxian-yixuan"
         },
         {
           title: "创收",
           icon:
             "http://e.hiphotos.baidu.com/image/h%3D300/sign=622b9205f3faaf519be387bfbc5494ed/738b4710b912c8fc6ffecceef2039245d6882187.jpg",
-            isActive:false
+          isActive: false,
+          normal: "iconfont iconchuangshou-weixuan",
+          class: "iconfont iconchuangshou-weixuan",
+          classActive: "iconfont iconchuangshou-yixuan"
         },
         {
           title: "我的",
           icon:
             "http://e.hiphotos.baidu.com/image/h%3D300/sign=622b9205f3faaf519be387bfbc5494ed/738b4710b912c8fc6ffecceef2039245d6882187.jpg",
-            isActive:false
+          isActive: false,
+          normal: "iconfont iconwode-weixuan",
+          class: "iconfont iconwode-weixuan",
+          classActive: "iconfont iconwode-yixuan"
         }
       ],
       tabIndex: 0
@@ -68,7 +81,9 @@ export default {
       return this.$store.state.tabIndex;
     },
     setTabBarClass() {
-      return this.$store.state.tabIndex === this.tabIndex ? "tab-bar-item-title-normal" : "tab-bar-item-title-active";
+      return this.$store.state.tabIndex === this.tabIndex
+        ? "tab-bar-item-title-normal"
+        : "tab-bar-item-title-active";
     }
   },
 
@@ -82,10 +97,12 @@ export default {
   methods: {
     changeTabIndex(index) {
       this.$store.commit("changeTabIndex", index);
-      for(let i = 0;i< this.tabItem.length;i++){
+      for (let i = 0; i < this.tabItem.length; i++) {
         this.tabItem[i].isActive = false;
+        this.tabItem[i].class = this.tabItem[i].normal;
       }
       this.tabItem[index].isActive = true;
+      this.tabItem[index].class = this.tabItem[index].classActive;
     }
   },
 
@@ -112,7 +129,7 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 .tab-bar-item-img {
@@ -128,6 +145,6 @@ export default {
 .active {
   font-size: 12px;
   margin-top: 2px;
-  color: #222;
+  color: #ff2020;
 }
 </style>

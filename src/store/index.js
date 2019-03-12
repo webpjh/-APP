@@ -39,7 +39,9 @@ export default new Vuex.Store({
     },
     currentRouteVal: '',
     isShowBottomTabbar: true,
-    tabIndex: 0
+    tabIndex: 0,
+    navigationDetails:false,
+    showMallLeftOption:false
   },
   getters: {
     getCurrentTitleObj(state) {
@@ -66,6 +68,12 @@ export default new Vuex.Store({
     },
     changeTabIndex(state, Payload) {
       state.tabIndex = Payload;
+    },
+    changeNavigationDetailsState(state, Payload){
+      state.navigationDetails = Payload;
+    },
+    showMallLeftOptionState(state, Payload){
+      state.showMallLeftOption = Payload;
     }
   },
   actions: {

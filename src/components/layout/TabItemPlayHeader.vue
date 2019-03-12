@@ -2,9 +2,13 @@
   <div class="tab-item-play-header-wrap">
     <SwiperImg :SwiperImgData="SwiperImgData" class="tab-item-play-swiper"></SwiperImg>
     <div class="tab-item-play-header-title">
-      <div class="location-icon text-align-center" @click="locationSelf">左侧</div>
+      <div class="location-icon text-align-center" @click="locationSelf">
+        <span class="iconfont icondingwei"></span>
+      </div>
       <div class="search-icon text-align-center" @click="searchScence">搜索目的地/景点/酒店/饭店</div>
-      <div class="message-icon text-align-center" @click="appMessageCenter">右侧</div>
+      <div class="message-icon text-align-center" @click="appMessageCenter">
+        <span class="iconfont iconxiaoxi"></span>
+      </div>
     </div>
   </div>
 </template>
