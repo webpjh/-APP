@@ -14,7 +14,11 @@ img {
   display: inline-block;
   object-fit: cover;
 }
-
+.padding-15px{
+  padding-left: 15px;
+  padding-right: 15px;
+  box-sizing: border-box;
+}
 ::-webkit-scrollbar {
   display: none
 }
@@ -111,6 +115,13 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.text-show-line4 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .iconyouyuan-yixuan:before,
 .iconshangcheng-yixuan:before,
@@ -195,22 +206,18 @@ img {
 }
 
 .iconmeishi:before {
-  font-size: 20px;
   color: #ff9130;
 }
 
 .iconxiuxian:before {
-  font-size: 20px;
   color: #ff307e;
 }
 
 .iconjiudian:before {
-  font-size: 20px;
   color: #308dff;
 }
 
 .iconyule:before {
-  font-size: 16px;
   color: #ff3030;
 }
 
@@ -218,11 +225,11 @@ img {
   color: #308dff;
 }
 
-.iconshangchengxiaofei:before {
+.iconjingquxiaofei:before {
   color: #ff3030;
 }
 
-.iconshangchenghaoli:before {
+.iconjingquhaoli:before {
   color: #ff9130;
 }
 
@@ -251,7 +258,6 @@ img {
 
 .iconshipinchuangzuo:before {
   color: #ff307e;
-  font-size: 14px;
 }
 
 .icontuwensuiji:before {
@@ -263,7 +269,6 @@ img {
 }
 .icontongzheng:before {
   color: #308dff;
-  font-size: 14px;
 }
 
 .iconjifen:before {

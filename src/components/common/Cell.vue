@@ -40,7 +40,7 @@ export default {
   width: 20px;
   height: 20px;
   display: inline-block;
-  margin-right: 10px;
-  font-size: 20px;
+  margin-right: 15px;
+  font-size: 24px;
 }
 </style>

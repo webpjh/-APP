@@ -3,15 +3,15 @@
  -->
 <template>
   <div class="comment-list-wrap">
-    <div>评论({{commentCount}})</div>
+    <div class="comment-list-amount">评论({{commentCount}})</div>
     <div class="comment-list-for flex-wrap" v-for="(item,index) in contentList" :key="index">
       <div class="comment-list-for-header">
         <img class="comment-list-header-img" :src="item.headerImg">
       </div>
       <div class="comment-list-content">
         <p class="comment-list-user">
-          <span style="font-size:14px;">{{item.name}}</span>
-          <span style="font-size:14px;margin-right:10px">{{item.date}}</span>
+          <span style="font-size:12px;">{{item.name}}</span>
+          <span style="font-size:12px;margin-right:10px;color:#999">{{item.date}}</span>
         </p>
         <p class="comment-list-desc">{{item.content}}</p>
       </div>
@@ -96,6 +96,7 @@ export default {
   margin-bottom: 20px;
   padding-bottom: 10px;
   box-sizing: border-box;
+  font-size: 12px;
 }
 .comment-list-for-header {
   width: 10%;
@@ -122,5 +123,10 @@ export default {
   flex-wrap: wrap;
   line-height: 20px;
   font-size: 14px;
+}
+.comment-list-amount{
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
 }
 </style>

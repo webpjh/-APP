@@ -1,11 +1,11 @@
 <template>
-  <div class="take-away-wrap">
+  <div class="scence-consum-wrap">
     <Header
       :titleContent="TitleObjData.titleContent"
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <div class="take-away-conetnt" :style="takeAwayConetnt">
+    <div class="scence-consum-content" :style="scenceConsumHeight">
       <TabItemMallAdvertise></TabItemMallAdvertise>
       <DividedArea></DividedArea>
       <Divider :content="title"></Divider>
@@ -15,7 +15,6 @@
         :refreshText="refreshText"
         :noDataText="noDataText"
         class="scence-release-content"
-        :style="contentNoHeaderHeight"
       >
         <GoodsList></GoodsList>
       </scroller>
@@ -24,6 +23,7 @@
 </template>
 
 <script>
+
 import Header from "@/components/common/Header";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
 import DividedArea from "@/components/common/DividedArea";
@@ -36,12 +36,12 @@ export default {
   props: [""],
   data() {
     return {
+      title: "",
       TitleObjData: {
-        titleContent: "带走的",
+        titleContent: "",
         showLeftBack: true,
         showRightMore: false
       },
-      title: "景区微商城",
       page: 0,
       list: [],
       refreshText: "下拉刷新",
@@ -59,19 +59,21 @@ export default {
   },
 
   computed: {
-    takeAwayConetnt() {
+    scenceConsumHeight() {
       return { height: document.documentElement.clientHeight - 45 + "px" };
-    },
-    contentNoHeaderHeight() {
-      return { height: document.documentElement.clientHeight - 300 + "px" };
     }
   },
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.setTitle();
+  },
 
   methods: {
+    setTitle() {
+      this.title = this.$route.query.title;
+    },
     refresh(done) {
       console.log("refresh");
       setTimeout(() => {
@@ -90,15 +92,14 @@ export default {
 };
 </script>
 <style lang='css' scoped>
-.take-away-conetnt {
+.scence-consum-content {
   width: 100%;
   overflow: hidden;
   overflow-y: scroll;
-  margin-top: 45px;
+  margin-top: 50px;
 }
-.scence-release-content {
+.scence-release-content{
   width: 100%;
   margin-top: 310px;
-  background: #fff;
 }
 </style>

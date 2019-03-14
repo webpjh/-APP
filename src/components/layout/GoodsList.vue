@@ -2,15 +2,15 @@
 商品列表
 -->
 <template>
-    <div class="goods-list-wrap">
-      <div class="goods-list" v-for="(item,index) in dataList" :key="index">
-        <img class="goods-img" :src="item.imgUrl">
-        <div class="good-desc-wrap">
-          <p class="goods-name">{{item.goodsName}}</p>
-          <p class="goods-price">¥{{item.price}}</p>
-        </div>
+  <div class="goods-list-wrap">
+    <div class="goods-list" v-for="(item,index) in dataList" :key="index">
+      <img class="goods-img" :src="item.imgUrl">
+      <div class="good-desc-wrap">
+        <p class="goods-name">{{item.goodsName}}</p>
+        <p class="goods-price">¥{{item.price}}</p>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -33,6 +33,30 @@ export default {
             "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
           goodsName: "七山半水半分田 两分道路和庄园",
           price: "9999"
+        },
+        {
+          imgUrl:
+            "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
+          goodsName: "七山半水半分田 两分道路和庄园",
+          price: "23123"
+        },
+        {
+          imgUrl:
+            "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
+          goodsName: "七山半水半分田 两分道路和庄园",
+          price: "8888"
+        },
+        {
+          imgUrl:
+            "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
+          goodsName: "七山半水半分田 两分道路和庄园",
+          price: "23123"
+        },
+        {
+          imgUrl:
+            "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
+          goodsName: "七山半水半分田 两分道路和庄园",
+          price: "8888"
         },
         {
           imgUrl:

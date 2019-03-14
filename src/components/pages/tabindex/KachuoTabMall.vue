@@ -10,6 +10,7 @@
 </template>
 
 <script>
+
 import TabItemMallHeader from "@/components/layout/TabItemMallHeader";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
 import DividedArea from "@/components/common/DividedArea";
@@ -26,20 +27,20 @@ export default {
         {
           title: "景区消费",
           icon:
-            "iconfont iconshangchengxiaofei",
-          link: ""
+            "iconfont iconjingquxiaofei",
+          link: "/scenceconsum?title=景区消费"
         },
         {
           title: "景区好礼",
           icon:
-            "iconfont iconshangchenghaoli",
-          link: ""
+            "iconfont iconjingquhaoli",
+          link: "/scencegifts?title=景区好礼"
         },
         {
           title: "名家秒藏",
           icon:
             "iconfont iconmingjiamiaocang",
-          link: ""
+          link: "/famouscollection?title=名家秒藏"
         }
       ],
       dividerContent: "猜你喜欢"

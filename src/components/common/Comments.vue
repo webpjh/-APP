@@ -62,6 +62,7 @@ export default {
   border: 1px solid #eee;
   padding: 0 3px;
   box-sizing: border-box;
+  font-size: 12px;
 }
 .comments-wrap-btn{
   margin-left: 24px;

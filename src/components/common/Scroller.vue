@@ -7,7 +7,7 @@
       :noDataText="noDataText"
       style="margin-top:45px"
     >
-      <list-content  :list="list"></list-content>
+      <list-content :list="list"></list-content>
     </scroller>
   </div>
 </template>
@@ -32,18 +32,14 @@ export default {
       }, 2000);
     },
     pullup(done) {
-      this.$store.dispatch("getData", {
-        page: ++this.page,
-        scb: result => {
-          this.list = this.list.concat(result);
-          done();
-        }
-      });
+      console.log("pullup");
+      setTimeout(() => {
+        done();
+      }, 2000);
     }
   }
 };
 </script>
 
 <style lang="less" rel="stylesheet/less" scoped>
-
 </style>

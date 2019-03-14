@@ -22,6 +22,7 @@
 </template>
 
 <script>
+
 import FunctionAreas from "@/components/layout/FunctionAreas";
 import AdvertiseSwiper from "@/components/layout/AdvertiseSwiper";
 import Cell from "@/components/common/CellNoBorder";
@@ -35,39 +36,39 @@ export default {
         {
           title: "吃吧",
           icon: "iconfont iconchiba",
-          link: ""
+          link: "/scenceservice"
         },
         {
           title: "喝吧",
           icon: "iconfont iconheba",
-          link: ""
+          link: "/scenceservice"
         },
         {
           title: "玩吧",
           icon: "iconfont iconwanba",
-          link: ""
+          link: "/scenceservice"
         }
       ],
       cellListAround: [
         {
           title: "美食",
           icon: "iconfont iconmeishi",
-          link: ""
+          link: "/servicesurround"
         },
         {
           title: "休闲",
           icon: "iconfont iconxiuxian",
-          link: ""
+          link: "/servicesurround"
         },
         {
           title: "酒店",
           icon: "iconfont iconjiudian",
-          link: ""
+          link: "/servicesurround"
         },
         {
           title: "娱乐",
           icon: "iconfont iconyule",
-          link: ""
+          link: "/servicesurround"
         }
       ]
     };

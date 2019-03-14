@@ -63,5 +63,40 @@ export default [
     path: '/servicesurround',
     name: 'servicesurround',
     component: resolve => require(['@/components/pages/kachuoplay/toolslist/ServiceSurround'], resolve),
+  },
+  {
+    path: '/scencereleasedetals',
+    name: 'scencereleasedetals',
+    component: resolve => require(['@/components/layout/ScenceReleaseDetails'], resolve),
+  },
+  {
+    path: '/releasecontent',
+    name: 'releasecontent',
+    component: resolve => require(['@/components/layout/ReleaseContent'], resolve),
+  },
+  {
+    path: '/scencestorydetail',
+    name: 'scencestorydetail',
+    component: resolve => require(['@/components/pages/kachuoplay/toollistcontent/ScenceStoryDetail'], resolve),
+  },
+  {
+    path: '/scenceconsumdetails',
+    name: 'scenceconsumdetails',
+    component: resolve => require(['@/components/pages/kachuomall/ScenceConsumDetails'], resolve),
+  },
+  {
+    path: '/scenceconsum',
+    name: 'scenceconsum',
+    component: resolve => require(['@/components/pages/kachuomall/ScenceConsum'], resolve),
+  },
+  {
+    path: '/scencegifts',
+    name: 'scencegifts',
+    component: resolve => require(['@/components/pages/kachuomall/ScenceGifts'], resolve),
+  },
+  {
+    path: '/famouscollection',
+    name: 'famouscollection',
+    component: resolve => require(['@/components/pages/kachuomall/FamousCollection'], resolve),
   }
 ]

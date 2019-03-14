@@ -1,12 +1,14 @@
 <template>
-  <div class="take-away-wrap">
+  <div class="scence-gifts-wrap">
     <Header
       :titleContent="TitleObjData.titleContent"
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <div class="take-away-conetnt" :style="takeAwayConetnt">
+    <div class="scence-gifts-content" :style="scenceGiftsContent">
       <TabItemMallAdvertise></TabItemMallAdvertise>
+      <DividedArea></DividedArea>
+      <FlexWrap :dataListCon="dataList" ref="dataList"></FlexWrap>
       <DividedArea></DividedArea>
       <Divider :content="title"></Divider>
       <scroller
@@ -15,7 +17,6 @@
         :refreshText="refreshText"
         :noDataText="noDataText"
         class="scence-release-content"
-        :style="contentNoHeaderHeight"
       >
         <GoodsList></GoodsList>
       </scroller>
@@ -27,6 +28,7 @@
 import Header from "@/components/common/Header";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
 import DividedArea from "@/components/common/DividedArea";
+import FlexWrap from "@/components/layout/FlexWrap";
 import Divider from "@/components/common/Divider";
 import Scroll from "@/components/common/Scroller";
 import GoodsList from "@/components/layout/GoodsList";
@@ -37,15 +39,45 @@ export default {
   data() {
     return {
       TitleObjData: {
-        titleContent: "带走的",
+        titleContent: "发布详情",
         showLeftBack: true,
         showRightMore: false
       },
-      title: "景区微商城",
+      title: "精选好物",
       page: 0,
       list: [],
       refreshText: "下拉刷新",
-      noDataText: "没有更多数据"
+      noDataText: "没有更多数据",
+      dataList: [
+        {
+          imgUrl:
+            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          name: "欣怡开市",
+          link: "/scenceconsumdetails?title=欣怡开市",
+          class: "iconfont iconmenpiao"
+        },
+        {
+          imgUrl:
+            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          name: "景区有礼",
+          link: "/scenceconsumdetails?title=景区有礼",
+          class: "iconfont iconmenpiao"
+        },
+        {
+          imgUrl:
+            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          name: "地方好物",
+          link: "/scenceconsumdetails?title=地方好物",
+          class: "iconfont iconmenpiao"
+        },
+        {
+          imgUrl:
+            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          name: "节日佳品",
+          link: "/scenceconsumdetails?title=节日佳品",
+          class: "iconfont iconmenpiao"
+        }
+      ]
     };
   },
 
@@ -53,25 +85,28 @@ export default {
     Header,
     TabItemMallAdvertise,
     DividedArea,
+    FlexWrap,
     Divider,
     Scroll,
     GoodsList
   },
 
   computed: {
-    takeAwayConetnt() {
+    scenceGiftsContent() {
       return { height: document.documentElement.clientHeight - 45 + "px" };
-    },
-    contentNoHeaderHeight() {
-      return { height: document.documentElement.clientHeight - 300 + "px" };
     }
   },
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.setTitle();
+  },
 
   methods: {
+    setTitle() {
+      this.TitleObjData.titleContent = this.$route.query.title;
+    },
     refresh(done) {
       console.log("refresh");
       setTimeout(() => {
@@ -90,15 +125,16 @@ export default {
 };
 </script>
 <style lang='css' scoped>
-.take-away-conetnt {
+.scence-gifts-content {
   width: 100%;
-  overflow: hidden;
-  overflow-y: scroll;
-  margin-top: 45px;
+  margin-top: 50px;
 }
 .scence-release-content {
   width: 100%;
-  margin-top: 310px;
+  margin-top: 390px;
   background: #fff;
+  overflow: hidden;
+  overflow-y: scroll;
+  box-sizing: border-box;
 }
 </style>

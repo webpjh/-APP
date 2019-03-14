@@ -1,7 +1,9 @@
 <template>
   <div id="#app-box">
     <transition :name="transitionName">
-      <router-view class="router-animate"/>
+      <keep-alive>
+        <router-view class="router-animate"/>
+      </keep-alive>
     </transition>
   </div>
 </template>
@@ -15,16 +17,14 @@ export default {
     };
   },
   beforeRouteUpdate(to, from, next) {
-    console.log(to);
-    console.log(from);
-    console.log(next);
+    // console.log(to);
+    // console.log(from);
+    // console.log(next);
     next(vm => {
       console.log(vm);
     });
   },
-  computed:{
-
-  },
+  computed: {},
   watch: {
     $route(to, from) {
       let isBack = this.$router.isBack;

@@ -64,8 +64,10 @@ export default {
       }, 2000);
     },
     pullup(done) {
-      console.log('pullup');
-      done();
+      console.log("pullup");
+      setTimeout(() => {
+        done();
+      }, 2000);
     }
   },
 

@@ -44,8 +44,9 @@ import { ConfirmPlugin } from 'vux'
 Vue.use(ConfirmPlugin)
 
 // vux toast插件方式调用
-import { ToastPlugin } from 'vux'
+import { ToastPlugin, LoadingPlugin } from 'vux'
 Vue.use(ToastPlugin)
+Vue.use(LoadingPlugin)
 
 // click事件在移动端300ms延时
 // import FastClick from 'fastclick'
@@ -66,12 +67,18 @@ Vue.cordova.on('deviceready', () => {
 
 // 高德地图
 import VueAMap from 'vue-amap';
+import { lazyAMapApiLoaderInstance } from 'vue-amap';
 Vue.use(VueAMap);
 VueAMap.initAMapApiLoader({
   key: '956cab63ef78320624fb7d7dff4c25b5',
-  plugin: ['AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+  plugin: ['AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.PolyEditor', 'AMap.CircleEditor', 'AMap.Geolocation'],
   uiVersion: '1.0', // ui库版本，不配置不加载
   v: '1.4.4'
+});
+lazyAMapApiLoaderInstance.load().then(() => {
+  this.map = new AMap.Map('amapContainer', {
+    center: new AMap.LngLat(121.59996, 31.197646)
+  });
 });
 
 Vue.config.productionTip = false

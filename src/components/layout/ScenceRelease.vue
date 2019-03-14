@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="scence-releace-wrap" v-for="(item,index) in dataList" :key="index">
+    <div class="scence-releace-wrap" v-for="(item,index) in dataList" :key="index" @click="getReleaseDetails">
       <div class="scence-releace-top">
         <div class="scence-releace-top-left">
           <p class="scence-releace-top-left-title text-show-line2">{{item.title}}</p>
@@ -111,7 +111,11 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    getReleaseDetails(){
+      this.$router.push("/scencereleasedetals");
+    }
+  },
 
   watch: {}
 };
