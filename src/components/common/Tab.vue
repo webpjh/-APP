@@ -14,55 +14,21 @@
         :key="index"
       >{{item}}</tab-item>
     </tab>
-    <TabContentLoop :merchantsDataList="dataList"></TabContentLoop>
   </div>
 </template>
 
 <script>
 import { Tab, TabItem } from "vux";
-import TabContentLoop from "@/components/layout/TabContentLoop";
 
 export default {
   props: ["tabList"],
   components: {
     Tab,
-    TabItem,
-    TabContentLoop
+    TabItem
   },
   data() {
     return {
-      index: 0,
-      listItem: ["全部订单", "待付款", "待发货", "待收货", "评价"],
-      dataList: [
-        {
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "蓬莱餐厅",
-          distance: "据您79米",
-          price: "人均90元"
-        },
-        {
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "蓬莱餐厅",
-          distance: "据您79米",
-          price: "人均90元"
-        },
-        {
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "蓬莱餐厅",
-          distance: "据您79米",
-          price: "人均90元"
-        },
-        {
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "蓬莱餐厅",
-          distance: "据您79米",
-          price: "人均90元"
-        }
-      ]
+      index: 0
     };
   },
   methods: {

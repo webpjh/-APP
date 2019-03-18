@@ -1,42 +1,42 @@
 <template>
-  <div class="scence-consum-wrap">
+  <div class="back-lease-sale-wrap">
     <Header
       :titleContent="TitleObjData.titleContent"
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <div class="scence-consum-content" :style="scenceConsumHeight">
+    <div class="back-lease-sale-content-wrap" :style="scrollContentHeight">
       <TabItemMallAdvertise></TabItemMallAdvertise>
       <DividedArea></DividedArea>
-      <Divider :content="title"></Divider>
-      <scroller
-        :on-infinite="pullup"
-        :on-refresh="refresh"
-        :refreshText="refreshText"
-        :noDataText="noDataText"
-        class="scence-release-content"
-      >
-        <GoodsList></GoodsList>
-      </scroller>
+      <Divider :content="TitleObjData.titleContent"></Divider>
+      <div class="scroll-wrap-con" :style="scrollWrapHeight">
+        <scroller
+          :on-infinite="pullup"
+          :on-refresh="refresh"
+          :refreshText="refreshText"
+          :noDataText="noDataText"
+          class="scence-release-content"
+        >
+          <GoodsList></GoodsList>
+        </scroller>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-
 import Header from "@/components/common/Header";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
-import DividedArea from "@/components/common/DividedArea";
-import Divider from "@/components/common/Divider";
 import Scroll from "@/components/common/Scroller";
 import GoodsList from "@/components/layout/GoodsList";
+import DividedArea from "@/components/common/DividedArea";
+import Divider from "@/components/common/Divider";
 
 export default {
   name: "",
   props: [""],
   data() {
     return {
-      title: "",
       TitleObjData: {
         titleContent: "",
         showLeftBack: true,
@@ -52,15 +52,18 @@ export default {
   components: {
     Header,
     TabItemMallAdvertise,
-    DividedArea,
-    Divider,
     Scroll,
-    GoodsList
+    DividedArea,
+    GoodsList,
+    Divider
   },
 
   computed: {
-    scenceConsumHeight() {
+    scrollContentHeight() {
       return { height: document.documentElement.clientHeight - 45 + "px" };
+    },
+    scrollWrapHeight() {
+      return { height: document.documentElement.clientHeight - 200 + "px" };
     }
   },
 
@@ -72,7 +75,7 @@ export default {
 
   methods: {
     setTitle() {
-      this.title = this.$route.query.title;
+      this.TitleObjData.titleContent = this.$route.query.title;
     },
     refresh(done) {
       console.log("refresh");
@@ -82,25 +85,25 @@ export default {
     },
     pullup(done) {
       console.log("pullup");
-      console.log(done)
       setTimeout(() => {
         done();
       }, 2000);
     }
   },
 
-  watch: {}
+  watch: {
+    $route(to, from) {
+      this.setTitle();
+    }
+  }
 };
 </script>
 <style lang='css' scoped>
-.scence-consum-content {
+.back-lease-sale-content-wrap {
   width: 100%;
-  overflow: hidden;
-  overflow-y: scroll;
   margin-top: 50px;
 }
-.scence-release-content{
-  width: 100%;
-  margin-top: 310px;
+.scence-release-content {
+  margin-top: 300px;
 }
 </style>

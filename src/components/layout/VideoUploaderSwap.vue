@@ -15,11 +15,11 @@
       ></x-textarea>
     </Group>
     <p class="image-upload-title">
-      <span class>上传图片</span>
-      <span class="image-upload-weak-tip">( 图片大小不能超过10M )</span>
+      <span class>上传视频</span>
+      <span class="image-upload-weak-tip">( 视频大小不能超过30M )</span>
     </p>
-    <ImageUploader ref="imgUpload"></ImageUploader>
-    <Address v-show="showAddress"></Address>
+    <VideoUploader ref="imgUpload"></VideoUploader>
+    <Address></Address>
     <x-button type="primary" class="submit-btn" @click.native="submitForm">发布</x-button>
   </div>
 </template>
@@ -27,11 +27,10 @@
 <script>
 
 import { XTextarea, Group, XInput, XButton } from "vux";
-import ImageUploader from "@/components/common/ImageUploader";
+import VideoUploader from "@/components/common/VideoUploader";
 import Address from "@/components/common/Address";
 
 export default {
-  props:['showAddress'],
   data(){
     return{
       inputValue: "",
@@ -43,7 +42,7 @@ export default {
     Group,
     XInput,
     XButton,
-    ImageUploader,
+    VideoUploader,
     Address
   },
   methods: {
@@ -85,7 +84,7 @@ export default {
   line-height: 50px;
 }
 .submit-btn {
-  margin-top: 80px;
+  margin-top: 50px;
 }
 .image-upload-title {
   width: 100%;

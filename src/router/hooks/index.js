@@ -3,6 +3,5 @@ export default (router) => {
     next();
   })
   router.afterEach(function (router) {
-
   })
 }

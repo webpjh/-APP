@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div class="release-video-wrap">
     <Header
       :titleContent="TitleObjData.titleContent"
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <TextArea class="input-text-wrap"></TextArea>
+    <div class="release-video-content-wrap" :style="contentHeight">
+      <TextArea :showAddress="showLoactal"></TextArea>
+    </div>
   </div>
 </template>
 
@@ -19,6 +21,7 @@ export default {
   props: [""],
   data() {
     return {
+      showLoactal:true,
       TitleObjData: {
         titleContent: "发布",
         showLeftBack: true,
@@ -32,7 +35,11 @@ export default {
     TextArea
   },
 
-  computed: {},
+  computed: {
+    contentHeight() {
+      return { height: document.documentElement.clientHeight - 50 + "px" };
+    }
+  },
 
   beforeMount() {},
 
@@ -44,9 +51,12 @@ export default {
 };
 </script>
 <style lang='css' scoped>
-.input-text-wrap{
-  margin-top: 45px;
-  padding:10px;
+.release-video-content-wrap {
+  width: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 0 15px;
   box-sizing: border-box;
+  margin-top: 50px;
 }
 </style>

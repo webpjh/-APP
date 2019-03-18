@@ -26,17 +26,17 @@ export default {
         {
           title: "视频创作",
           icon: "iconfont iconshipinchuangzuo",
-          link: ""
+          link: "/videocreated"
         },
         {
           title: "图文随记",
           icon: "iconfont icontuwensuiji",
-          link: ""
+          link: "/imageandtext"
         },
         {
           title: "百家讲坛",
           icon: "iconfont iconbaijiajiangtang",
-          link: ""
+          link: "/hundredshall"
         }
       ]
     };

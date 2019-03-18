@@ -14,9 +14,10 @@
         :on-refresh="refresh"
         :refreshText="refreshText"
         :noDataText="noDataText"
+        ref="myscroller"
         class="scence-release-content"
       >
-        <GoodsList></GoodsList>
+        <VideoListWrap></VideoListWrap>
       </scroller>
     </div>
   </div>
@@ -29,16 +30,16 @@ import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
 import DividedArea from "@/components/common/DividedArea";
 import Divider from "@/components/common/Divider";
 import Scroll from "@/components/common/Scroller";
-import GoodsList from "@/components/layout/GoodsList";
+import VideoListWrap from "@/components/common/VideoListWrap";
 
 export default {
   name: "",
   props: [""],
   data() {
     return {
-      title: "",
+      title: "信息消费",
       TitleObjData: {
-        titleContent: "",
+        titleContent: "信息消费",
         showLeftBack: true,
         showRightMore: false
       },
@@ -55,7 +56,7 @@ export default {
     DividedArea,
     Divider,
     Scroll,
-    GoodsList
+    VideoListWrap
   },
 
   computed: {
@@ -66,14 +67,9 @@ export default {
 
   beforeMount() {},
 
-  mounted() {
-    this.setTitle();
-  },
+  mounted() {},
 
   methods: {
-    setTitle() {
-      this.title = this.$route.query.title;
-    },
     refresh(done) {
       console.log("refresh");
       setTimeout(() => {
@@ -81,11 +77,10 @@ export default {
       }, 2000);
     },
     pullup(done) {
-      console.log("pullup");
-      console.log(done)
-      setTimeout(() => {
-        done();
-      }, 2000);
+      // console.log("pullup");
+      //   this.$refs.myscroller.finishInfinite(2);
+      //   this.$refs.myscroller.resize();
+      //   done();
     }
   },
 
@@ -99,7 +94,7 @@ export default {
   overflow-y: scroll;
   margin-top: 50px;
 }
-.scence-release-content{
+.scence-release-content {
   width: 100%;
   margin-top: 310px;
 }

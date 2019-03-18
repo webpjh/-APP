@@ -39,14 +39,14 @@ Vue.component('view-box', ViewBox)
 import VueScroller from 'vue-scroller'
 Vue.use(VueScroller)
 
-// vux confirm弹窗提示插件形式调用
-import { ConfirmPlugin } from 'vux'
-Vue.use(ConfirmPlugin)
-
 // vux toast插件方式调用
-import { ToastPlugin, LoadingPlugin } from 'vux'
+import { ToastPlugin, LoadingPlugin,ConfirmPlugin,ConfigPlugin } from 'vux'
 Vue.use(ToastPlugin)
 Vue.use(LoadingPlugin)
+Vue.use(ConfirmPlugin)
+Vue.use(ConfigPlugin, {
+  $layout: 'VIEW_BOX'
+})
 
 // click事件在移动端300ms延时
 // import FastClick from 'fastclick'

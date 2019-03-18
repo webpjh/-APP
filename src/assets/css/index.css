@@ -275,7 +275,7 @@ img {
   color: #ff3030;
 }
 
-.icongouwuche:before {
+.icongouwuche:before,.iconqiandaolingjifen:before {
   color: #ff9130;
 }
 
@@ -287,6 +287,6 @@ img {
   color: #ff3030;
 }
 
-.iconyunxiangce:before {
+.iconyunxiangce:before,.iconjifenshuoming:before {
   color: #308dff;
 }

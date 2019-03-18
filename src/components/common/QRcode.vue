@@ -1,21 +1,19 @@
 <template>
   <div style="text-align:center;margin-top:15px;">
-    <divider>type = canvas</divider>
     <qrcode :value="value"></qrcode>
     <br>
   </div>
 </template>
 
 <script>
-import { Qrcode, Divider } from 'vux'
+import { Qrcode } from 'vux'
 
 export default {
   mounted () {
 
   },
   components: {
-    Qrcode,
-    Divider
+    Qrcode
   },
   data () {
     return {

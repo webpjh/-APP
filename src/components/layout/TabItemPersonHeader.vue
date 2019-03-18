@@ -1,6 +1,6 @@
 <template>
   <div class="tab-item-person-header-wrap">
-    <span class="tab-item-person-header-set font-weight-36px">设置</span>
+    <span class="tab-item-person-header-set font-weight-36px" @click="setting">设置</span>
   </div>
 </template>
 
@@ -20,7 +20,11 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    setting(){
+      this.$router.push("/setting");
+    }
+  },
 
   watch: {}
 };

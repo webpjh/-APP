@@ -24,36 +24,36 @@ export default {
         {
           title: "通证",
           icon: "iconfont icontongzheng",
-          link: ""
+          link: "/usertoken"
         },
         {
           title: "积分",
           icon: "iconfont iconjifen",
-          link: ""
+          link: "/userintegral"
         }
       ],
       cellListToolsB: [
         {
           title: "购物车",
           icon: "iconfont icongouwuche",
-          link: ""
+          link: "/ShoppingCart"
         },
         {
           title: "订单",
           icon: "iconfont icondingdan",
-          link: ""
+          link: "/orderlist"
         }
       ],
       cellListToolsC: [
         {
           title: "收藏",
           icon: "iconfont iconshoucang",
-          link: ""
+          link: "/collection"
         },
         {
           title: "云相册",
           icon: "iconfont iconyunxiangce",
-          link: ""
+          link: "/photoalbum"
         }
       ]
     };

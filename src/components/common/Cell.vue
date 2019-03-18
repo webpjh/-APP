@@ -1,6 +1,6 @@
 <template>
     <group style="border:none;">
-      <cell class="cell-sty" :title="item.title" is-link v-for="(item,index) in cellList" :key="index">
+      <cell class="cell-sty" :title="item.title" is-link :link="item.link" v-for="(item,index) in cellList" :key="index">
         <!-- <img slot="icon" style class="img-sty" :link="item.link" :src="item.icon"> -->
         <span slot="icon" class="img-sty" :class="item.icon"></span>
         <badge :text="item.badgeText" v-show="item.showBadge"></badge>      

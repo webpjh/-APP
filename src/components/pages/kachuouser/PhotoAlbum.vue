@@ -1,18 +1,16 @@
 <template>
-  <div>
+  <div class="photo-album-wrap">
     <Header
       :titleContent="TitleObjData.titleContent"
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <TextArea class="input-text-wrap"></TextArea>
+    <div class="photo-album-content" :style="conHei"></div>
   </div>
 </template>
 
 <script>
-
 import Header from "@/components/common/Header";
-import TextArea from "@/components/common/TextArea";
 
 export default {
   name: "",
@@ -20,7 +18,7 @@ export default {
   data() {
     return {
       TitleObjData: {
-        titleContent: "发布",
+        titleContent: "云相册",
         showLeftBack: true,
         showRightMore: false
       }
@@ -28,11 +26,14 @@ export default {
   },
 
   components: {
-    Header,
-    TextArea
+    Header
   },
 
-  computed: {},
+  computed: {
+    conHei(){
+      return{height:document.documentElement.clientHeight - 45 + 'px'}
+    }
+  },
 
   beforeMount() {},
 
@@ -44,9 +45,14 @@ export default {
 };
 </script>
 <style lang='css' scoped>
-.input-text-wrap{
-  margin-top: 45px;
-  padding:10px;
-  box-sizing: border-box;
+.photo-album-wrap{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.photo-album-content{
+  width: 100%;
+  background: #f9f9f9;
+  margin-top: 50px;
 }
 </style>

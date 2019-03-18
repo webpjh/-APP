@@ -7,6 +7,7 @@
 </template>
 
 <script>
+
 import TabItemCashHeader from "@/components/layout/TabItemCashHeader";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
 import DividedArea from "@/components/common/DividedArea";
@@ -21,22 +22,22 @@ export default {
         {
           title: "艺品回购",
           icon: "iconfont iconyipinhuigou",
-          link: ""
+          link: "/backleasesale?title=艺品回购"
         },
         {
           title: "艺品租赁",
           icon: "iconfont iconyipinzulin",
-          link: ""
+          link: "/backleasesale?title=艺品租赁"
         },
         {
           title: "艺品寄卖",
           icon: "iconfont iconyipinjimai",
-          link: ""
+          link: "/backleasesale?title=艺品寄卖"
         },
         {
           title: "信息消费",
           icon: "iconfont iconxinxixiaofei",
-          link: ""
+          link: "/informationconsum"
         }
       ]
     };

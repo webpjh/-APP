@@ -98,5 +98,100 @@ export default [
     path: '/famouscollection',
     name: 'famouscollection',
     component: resolve => require(['@/components/pages/kachuomall/FamousCollection'], resolve),
-  }
+  },
+  {
+    path: '/backleasesale',
+    name: 'BackLeaseSale',
+    component: resolve => require(['@/components/pages/kachuocash/BackLeaseSale'], resolve),
+  },
+  {
+    path: '/informationconsum',
+    name: 'InformationConsumption',
+    component: resolve => require(['@/components/pages/kachuocash/InformationConsumption'], resolve),
+  },
+  {
+    path: '/informationconsumdetails',
+    name: 'InformationConsumDetails',
+    component: resolve => require(['@/components/pages/kachuocash/InformationConsumDetails'], resolve),
+  },
+  {
+    path: '/videocreated',
+    name: 'VideoCreated',
+    component: resolve => require(['@/components/pages/kachuoincome/VideoCreated'], resolve),
+  },
+  {
+    path: '/imageandtext',
+    name: 'ImageAndText',
+    component: resolve => require(['@/components/pages/kachuoincome/ImageAndText'], resolve),
+  },
+  {
+    path: '/hundredshall',
+    name: 'HundredsHall',
+    component: resolve => require(['@/components/pages/kachuoincome/HundredsHall'], resolve),
+  },
+  {
+    path: '/releasevideo',
+    name: 'ReleaseVideo',
+    component: resolve => require(['@/components/pages/kachuoincome/ReleaseVideo'], resolve),
+  },
+  {
+    path: '/releaseimgandtext',
+    name: 'ReleaseImgAndText',
+    component: resolve => require(['@/components/pages/kachuoincome/ReleaseImgAndText'], resolve),
+  },
+  {
+    path: '/imageandtextdetails',
+    name: 'ImageAndTextDetails',
+    component: resolve => require(['@/components/pages/kachuoincome/ImageAndTextDetails'], resolve),
+  },
+  {
+    path: '/usertoken',
+    name: 'UserToken',
+    component: resolve => require(['@/components/pages/kachuouser/UserToken'], resolve),
+  },
+  {
+    path: '/userintegral',
+    name: 'UserIntegral',
+    component: resolve => require(['@/components/pages/kachuouser/UserIntegral'], resolve),
+  },
+  {
+    path: '/shoppingcart',
+    name: 'ShoppingCart',
+    component: resolve => require(['@/components/pages/kachuouser/ShoppingCart'], resolve),
+  },
+  {
+    path: '/orderlist',
+    name: 'OrderList',
+    component: resolve => require(['@/components/pages/kachuouser/OrderList'], resolve),
+  },
+  {
+    path: '/collection',
+    name: 'Collection',
+    component: resolve => require(['@/components/pages/kachuouser/Collection'], resolve),
+  },
+  {
+    path: '/photoalbum',
+    name: 'PhotoAlbum',
+    component: resolve => require(['@/components/pages/kachuouser/PhotoAlbum'], resolve),
+  },
+  {
+    path: '/tokenqrcode',
+    name: 'TokenQrcode',
+    component: resolve => require(['@/components/pages/kachuouser/TokenQrcode'], resolve),
+  },
+  {
+    path: '/signin',
+    name: 'SignIn',
+    component: resolve => require(['@/components/pages/kachuouser/SignIn'], resolve),
+  },
+  {
+    path: '/integraldesc',
+    name: 'IntegralDesc',
+    component: resolve => require(['@/components/pages/kachuouser/IntegralDesc'], resolve),
+  },
+  {
+    path: '/setting',
+    name: 'Setting',
+    component: resolve => require(['@/components/pages/kachuouser/Setting'], resolve),
+  },
 ]

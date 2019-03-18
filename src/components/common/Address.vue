@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <group>
-      <x-address
-        @on-hide="logHide"
-        @on-show="logShow"
-        :title="title"
-        v-model="value"
-        :list="addressData"
-        @on-shadow-change="onShadowChange"
-        placeholder="请选择地址"
-        inline-desc="可以设置placeholder"
-        :show.sync="showAddress"
-      ></x-address>
-      <cell title="上面value值" :value="value"></cell>
-    </group>
-  </div>
+  <group>
+    <x-address
+      @on-hide="logHide"
+      @on-show="logShow"
+      :title="title"
+      v-model="value"
+      :list="addressData"
+      @on-shadow-change="onShadowChange"
+      placeholder="请选择地址"
+      inline-desc
+      :show.sync="showAddress"
+      style="font-size:12px"
+    ></x-address>
+  </group>
 </template>
 
 <script>
@@ -36,7 +34,7 @@ export default {
   },
   data() {
     return {
-      title: "默认为空",
+      title: "所在位置",
       value_0_1: [],
       value: [],
       title2: "设置值",
