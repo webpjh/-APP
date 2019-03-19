@@ -1,4 +1,4 @@
-import http from '../server-config'
+import http from './server-config'
 
 // 获取验证码
 export const getVeriCode = (data) => http.post('sms.changemobile', data);
@@ -169,7 +169,7 @@ export const GetAuthState = (data) => http.post("login.getuserauth", data);
 export const AuthSubmit = (data) => http.post("login.saveuserauth", data);
 
 // 图片上传
-export const imageUpload = (data) => http.post("util.uploader.upload", data);
+export const imageUpload = (data) => http.post("util.uploader.uploadm", data);
 
 // 朋友圈图片上传
 export const imageUploadTimeline = (data) => http.post("util.uploader.uploadtow", data);

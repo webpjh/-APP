@@ -2,45 +2,68 @@
   <div class="user-info-header">
     <div class="user-info-header-img-wrap">
       <div class="user-info-header-img">
-        <img src="http://b.hiphotos.baidu.com/image/h%3D300/sign=a573495ce5f81a4c3932eac9e72a6029/2e2eb9389b504fc27c224b2debdde71190ef6d9d.jpg" alt=""/>
+        <img :src="userInfo.avatar" alt="头像">
+        <ImageUpload
+          class="img-upload-wrap"
+          ref="ImageUploadCom"
+          v-on:getHeaderImgUrl="getHeaderImgUrlData"
+        ></ImageUpload>
       </div>
       <div class="user-info-header-desc">
-        <p>姓名</p>
-        <p>15701309073</p>
+        <p>{{userInfo.nickname}}</p>
+        <p>{{userInfo.mobile}}</p>
       </div>
     </div>
-    <div class="user-info-header-right">></div>
+    <div class="user-info-header-right" @click="setting">></div>
   </div>
 </template>
 
 <script>
+import ImageUpload from "@/components/common/UploadImgOne";
 
-  export default {
-    name:'',
-    props:[''],
-    data () {
-      return {
+export default {
+  name: "",
+  props: [""],
+  data() {
+    return {
+      imgUrl:'',
+      userInfo:{}
+    };
+  },
 
-      };
+  components: {
+    ImageUpload
+  },
+
+  computed: {},
+
+  beforeMount() {},
+
+  mounted() {
+    this.getUserInfo();
+  },
+
+  methods: {
+    setting() {
+      this.$router.push("/setting");
     },
+    getHeaderImgUrlData(data) {
+      this.imgUrl = data;
+    },
+    getUserInfo(){
+      this.userInfo = this.GLOBAL.getSession('userLoginInfo');
+      console.log(this.userInfo);
+    }
+  },
 
-    components: {},
-
-    computed: {},
-
-    beforeMount() {},
-
-    mounted() {},
-
-    methods: {},
-
-    watch: {}
+  watch: {},
+  updated() {
 
   }
-
+};
 </script>
 <style lang='css' scoped>
-.user-info-header{
+.user-info-header {
   width: 100%;
   height: 100px;
   background: #222;
@@ -52,7 +75,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.user-info-header-img-wrap{
+.user-info-header-img-wrap {
   width: 144px;
   height: 50px;
   overflow: hidden;
@@ -61,13 +84,27 @@
   justify-content: space-between;
   align-items: center;
 }
-.user-info-header-img img{
+.user-info-header-img img {
   width: 50px;
   height: 50px;
   display: inline-block;
   border: 2px solid #fff;
+  position: relative;
+  box-sizing: border-box;
+  top: 28px;
 }
-.user-info-header-right{
+.img-upload-wrap {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  display: inline-block;
+  background: red;
+  position: relative;
+  top: -25px;
+  z-index: 999;
+  opacity: 0;
+}
+.user-info-header-right {
   font-size: 24px;
 }
 </style>

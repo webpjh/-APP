@@ -11,7 +11,7 @@
       <CellNoIcon :cellList="cellListToolsC"></CellNoIcon>
       <CellNoIcon :cellList="cellListToolsD"></CellNoIcon>
       <div class="btn-wrap">
-        <x-button class="btn-wrap-sub" type="primary">退出登录</x-button>
+        <x-button class="btn-wrap-sub" type="primary" @click.native="quitAppLogin">退出登录</x-button>
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@ export default {
       cellListToolsA: [
         {
           title: "实名认证",
-          link: ""
+          link: "/realnameauth"
         },
         {
           title: "我的账号",
@@ -55,17 +55,17 @@ export default {
       cellListToolsC: [
         {
           title: "收货地址",
-          link: ""
+          link: "/address"
         }
       ],
       cellListToolsD: [
         {
           title: "关于我们",
-          link: ""
+          link: "/aboutus"
         },
         {
           title: "意见反馈",
-          link: ""
+          link: "/opinion"
         }
       ]
     };
@@ -87,7 +87,12 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    quitAppLogin(){
+      localStorage.removeItem("token");
+      this.$router.push("/");
+    }
+  },
 
   watch: {}
 };

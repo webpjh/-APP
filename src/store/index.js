@@ -37,11 +37,17 @@ export default new Vuex.Store({
       showLeftBack: false,
       showRightMore: false
     },
+    userLoginInfo:{},
+    toastInfo: {
+      type: 'text',
+      text: '',
+      show: true
+    },
     currentRouteVal: '',
     isShowBottomTabbar: true,
     tabIndex: 0,
-    navigationDetails:false,
-    showMallLeftOption:false
+    navigationDetails: false,
+    showMallLeftOption: false
   },
   getters: {
     getCurrentTitleObj(state) {
@@ -52,6 +58,19 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    changeUserAvatar(state, Payload){
+      state.userLoginInfo.avatar = Payload;
+    },
+    setUserLoginInfo(state, Payload){
+      state.userLoginInfo = Payload;
+    },
+    showToastInfo(state, Payload) {
+      state.toastInfo = {
+        type: Payload.type,
+        text: Payload.text,
+        show: Payload.show
+      }
+    },
     changeCurrentRouteVal(state, Payload) {
       state.currentRouteVal = Payload.path;
       if (Payload.path === "/") {
@@ -69,10 +88,10 @@ export default new Vuex.Store({
     changeTabIndex(state, Payload) {
       state.tabIndex = Payload;
     },
-    changeNavigationDetailsState(state, Payload){
+    changeNavigationDetailsState(state, Payload) {
       state.navigationDetails = Payload;
     },
-    showMallLeftOptionState(state, Payload){
+    showMallLeftOptionState(state, Payload) {
       state.showMallLeftOption = Payload;
     }
   },

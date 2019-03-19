@@ -23,6 +23,10 @@ Vue.use(VueLazyload)
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+// 使用微信插件
+import { WechatPlugin } from 'vux'
+Vue.use(WechatPlugin)
+
 // vue路由
 // import VueRouter from 'vue-router'
 // Vue.use(VueRouter)
@@ -57,7 +61,6 @@ import VueCordova from 'vue-cordova'
 Vue.use(VueCordova, {
   optionTestKey: 'optionTestValue'
 })
-console.log(Vue.cordova);
 
 // 判断android用户是否点击两次返回键推出app
 import { eventBackButton } from './assets/js/quitapp'

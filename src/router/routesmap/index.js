@@ -1,6 +1,14 @@
 export default [
   {
     path: '/',
+    name: 'login',
+    component: resolve => require(['@/components/index/Login'], resolve),
+    meta:{
+      keepAlive:true
+    }
+  },
+  {
+    path: '/indextab',
     name: 'indextab',
     component: resolve => require(['@/components/index/index'], resolve)
   },
@@ -194,4 +202,24 @@ export default [
     name: 'Setting',
     component: resolve => require(['@/components/pages/kachuouser/Setting'], resolve),
   },
+  {
+    path: '/realnameauth',
+    name: 'RealNameAuth',
+    component: resolve => require(['@/components/pages/kachuouser/setting/RealNameAuth'], resolve),
+  },
+  {
+    path: '/address',
+    name: 'Address',
+    component: resolve => require(['@/components/pages/kachuouser/setting/Address'], resolve),
+  },
+  {
+    path: '/aboutus',
+    name: 'AboutUs',
+    component: resolve => require(['@/components/pages/kachuouser/setting/AboutUs'], resolve),
+  },
+  {
+    path: '/opinion',
+    name: 'Opinion',
+    component: resolve => require(['@/components/pages/kachuouser/setting/Opinion'], resolve),
+  }
 ]

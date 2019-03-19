@@ -1,13 +1,7 @@
 <template>
   <div class="control-form">
     <ul class="upload-imgs">
-      <li v-for="(value, key) in imgs" :key="key">
-        <p class="img">
-          <img :src="getObjectURL(value)">
-          <a class="close" @click="delImg(key)">×</a>
-        </p>
-      </li>
-      <li v-if="imgLen>=3 ? false : true">
+      <li>
         <input
           type="file"
           class="upload"
@@ -25,15 +19,18 @@
 </template>
 
 <script>
-
-import {imageUpload} from "@/servers/api";
+import axios from "axios";
+import { imageUpload } from "@/servers/api";
 
 export default {
   data() {
     return {
       formData: new FormData(),
       imgs: {},
-      imgLen: 0
+      imgLen: 0,
+      getImg: "",
+      videoUploadUrl:
+        "https://core.kachuo.com/app/ewei_shopv2_app.php?i=5&c=site&a=entry&m=ewei_shopv2&do=mobile&r=util.uploader.uploadm"
     };
   },
   methods: {
@@ -42,10 +39,6 @@ export default {
       this.fil = inputDOM.files;
       let oldLen = this.imgLen;
       let len = this.fil.length + oldLen;
-      if (len > 3) {
-        this.showToast("最多可上传3张，您还可以上传" + (3 - oldLen) + "张");
-        return false;
-      }
       for (let i = 0; i < this.fil.length; i++) {
         let size = Math.floor(this.fil[i].size / 1024);
         if (size > 10 * 1024 * 1024) {
@@ -94,26 +87,43 @@ export default {
       }, 2000);
     },
     submit() {
+      console.log(this.imgs);
       for (let key in this.imgs) {
         let name = key.split("?")[0];
-        this.formData.append("multipartFiles", this.imgs[key], name);
+        this.formData.append("file", this.imgs[key]);
       }
-      console.log(this.formData);
-      imageUpload({
-        file:this.formData
-      })
+      let config = {
+        timeout: 2500,
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      axios
+        .post(this.videoUploadUrl, this.formData, config)
         .then(res => {
-          console.log(res);
+          if (res.data.result === 1) {
+            this.$vux.toast.show({
+              type: "success",
+              text: "上传成功",
+              time: 1000
+            });
+            this.getImg = res.data.data.files[0];
+            this.$store.commit("changeUserAvatar", res.data.data.files[0].url);
+            this.$emit("getHeaderImgUrl", res.data.data.files[0].url);
+          } else {
+            this.$vux.toast.show({
+              type: "warn",
+              text: "失败请重试",
+              time: 1000
+            });
+          }
         })
         .catch(err => {
           console.log(err);
         });
     }
   },
-  mounted() {
-    // this.showLoading();
-    // this.showToast();
-  }
+  mounted() {}
 };
 </script>
 <style lang='css' scoped>
@@ -139,6 +149,7 @@ export default {
   background-color: #f9f9f9;
   color: #ffffff;
   height: 94px;
+  border:1px solid #eee;
 }
 .upload-imgs li .upload {
   position: absolute;

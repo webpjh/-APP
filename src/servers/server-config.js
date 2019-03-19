@@ -1,16 +1,17 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import { Toast } from 'vux';
+import store from '@/store/index';
+
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router';
 
 const baseUrlHeader = "ewei_shopv2_app.php?i=5&c=site&a=entry&m=ewei_shopv2&do=mobile&r=";
 
 const createMarkModel = () => {
-  let rootElem = document.getElementById('root');
+  let rootElem = document.getElementById('#app-box');
   let markElem = document.createElement('div');
   markElem.id = 'markSty';
   markElem.style.width = '100%';
@@ -30,10 +31,29 @@ const removeMarkModel = () => {
     idObject.parentNode.removeChild(idObject);
   }
 }
-
+const showTip = (conttentTip) => {
+  store.commit("showToastInfo", {
+    type: "text",
+    text: conttentTip,
+    show: true
+  })
+}
+const errTip = (conttentTip) => {
+  store.commit("showToastInfo", {
+    type: "cancel",
+    text: conttentTip,
+    show: true
+  })
+}
+const successTip = (conttentTip) => {
+  store.commit("showToastInfo", {
+    type: "success",
+    text: conttentTip,
+    show: true
+  })
+}
 // 正式
 axios.defaults.baseURL = 'https://core.kachuo.com/app';
-// axios.defaults.baseURL = 'http://www.kcapp.com/app';
 // axios.defaults.baseURL = 'http://39.104.161.131/app';
 
 // 测试
@@ -66,33 +86,30 @@ axios.interceptors.response.use(function (response) {
     if (response.data.code !== 200) {
       if (response.data.code === 10001) {
         localStorage.removeItem("token");
-        Toast.info('请登录', 1, () => {
-          // 跳转登录页
-          this.$route.push.push('');
-        });
+        showTip("请登录", () => {
+          this.$router.push.push('/');
+        })
       } else if (response.data.code === -3) {
-        Toast.info('请重新登录', 1, () => {
-          // 跳转登录页
-          this.$route.push.push('');
+        showTip("请重新登录", () => {
+          this.$router.push.push('/');
+        })
+      }else {
+        showTip('网络慢，请检查手机网络', () => {
         });
-      }
-      else {
-        // Toast.info('网络慢，请检查手机网络', 1, () => {
-        // });
-        // return;
+        return response;
       }
     }
   } else {
-    Toast.offline('网络错误，点击屏幕重试', 1);
-    document.getElementById('app').onclick = function () {
+    errTip('网络错误，点击屏幕重试');
+    document.getElementById('#app-box').onclick = function () {
       window.location.reload();
     }
   }
   return response;
 }, function (error) {
   return Promise.reject(error);
-  Toast.offline('网络错误，点击屏幕重试', 1);
-  document.getElementById('app').onclick = function () {
+  errTip('网络错误，点击屏幕重试');
+  document.getElementById('#app-box').onclick = function () {
     window.location.reload();
   }
 });
@@ -100,10 +117,10 @@ axios.interceptors.response.use(function (response) {
 http.post = (url, data) => {
   let params = qs.stringify(data);
   return new Promise((resolve, reject) => {
-    if (window.location.href.indexOf('/mobile') === -1) {
-      NProgress.start();
-      createMarkModel();
-    }
+    // if (window.location.href.indexOf('/mobile') === -1) {
+    //   NProgress.start();
+    //   createMarkModel();
+    // }
     axios({
       headers: {
         Authorization: localStorage.getItem("token")
@@ -115,20 +132,20 @@ http.post = (url, data) => {
       .then((res) => {
         if (res) {
           if (res.data.integral) {
-            Toast.success('奖励' + res.data.integral + '积分', 3);
+            successTip('奖励' + res.data.integral + '积分');
           }
-          NProgress.done();
+          // NProgress.done();
           removeMarkModel();
           resolve(res.data);
         }
         return res;
       })
       .catch((err) => {
-        NProgress.done();
+        // NProgress.done();
         removeMarkModel();
         reject(err);
-        Toast.offline('网络错误，点击屏幕重试', 1);
-        document.getElementById('root').onclick = function () {
+        errTip('网络错误，点击屏幕重试');
+        document.getElementById('#app-box').onclick = function () {
           window.location.reload();
         }
         return err;

@@ -40,7 +40,6 @@ export default {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  border-bottom: 1px solid #f5f5f5;
 }
 .tab-item-person-header-set {
   color: #fff;

@@ -6,7 +6,10 @@
       class="tab-bar-item"
       @click="changeTabIndex(index)"
     >
-      <span :class="item.class" style="width:22px;height:22px;display:inline-block;font-size:20px;margin-bottom:2px"></span>
+      <span
+        :class="item.class"
+        style="width:22px;height:22px;display:inline-block;font-size:20px;margin-bottom:2px"
+      ></span>
       <span :class="{normal:!item.isActive,active:item.isActive}">{{item.title}}</span>
     </div>
   </div>
@@ -90,11 +93,19 @@ export default {
   beforeMount() {},
 
   mounted() {
-    // console.log(this.$store.state.tabIndex);
-    // console.log(this.tabIndex);
+    this.setStoreStateTabIndex();
   },
 
   methods: {
+    setStoreStateTabIndex() {
+      let indexFlag = this.$store.state.tabIndex;
+      for (let i = 0; i < this.tabItem.length; i++) {
+        this.tabItem[i].isActive = false;
+        this.tabItem[i].class = this.tabItem[i].normal;
+      }
+      this.tabItem[indexFlag].isActive = true;
+      this.tabItem[indexFlag].class = this.tabItem[indexFlag].classActive;
+    },
     changeTabIndex(index) {
       this.$store.commit("changeTabIndex", index);
       for (let i = 0; i < this.tabItem.length; i++) {

@@ -72,7 +72,9 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+
+  },
 
   watch: {}
 };

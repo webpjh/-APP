@@ -5,6 +5,7 @@
       :key="index"
       :title="item.title"
       is-link
+      :link="item.link"
     ></cell>
   </group>
 </template>

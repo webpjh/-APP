@@ -1,11 +1,11 @@
 <template>
-  <div class="sign-in-wrap">
+  <div class="opinion-wrap">
     <Header
       :titleContent="TitleObjData.titleContent"
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <div class="sign-in-content-wrap" :style="conHei"></div>
+    <div class="opinion-con" :style="conHei"></div>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       TitleObjData: {
-        titleContent: "签到",
+        titleContent: "意见反馈",
         showLeftBack: true,
         showRightMore: false
       }
@@ -45,14 +45,16 @@ export default {
 };
 </script>
 <style lang='css' scoped>
-.sign-in-wrap {
+.opinion-wrap {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
-.sign-in-content-wrap {
+.opinion-con {
   width: 100%;
-  margin-top: 50px;
   background: #f9f9f9;
+  margin-top: 50px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 </style>
