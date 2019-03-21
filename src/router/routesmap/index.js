@@ -221,5 +221,20 @@ export default [
     path: '/opinion',
     name: 'Opinion',
     component: resolve => require(['@/components/pages/kachuouser/setting/Opinion'], resolve),
+  },
+  {
+    path: '/realnameauthstate',
+    name: 'RealNameAuthState',
+    component: resolve => require(['@/components/pages/kachuouser/setting/RealNameAuthState'], resolve),
+  },
+  {
+    path: '/addnewaddress',
+    name: 'AddNewAddress',
+    component: resolve => require(['@/components/pages/kachuouser/setting/AddNewAddress'], resolve),
+  },
+  {
+    path: '/expressinfo',
+    name: 'ExpressInfo',
+    component: resolve => require(['@/components/pages/kachuouser/order/ExpressInfo'], resolve),
   }
 ]

@@ -1,11 +1,12 @@
 <template>
-  <check-icon :value.sync="check" type="plain"></check-icon>
+  <check-icon :value.sync="checkFlag" type="plain"></check-icon>
 </template>
 
 <script>
 import { CheckIcon } from 'vux'
 
 export default {
+  props:["checkFlag"],
   components: {
     CheckIcon
   },

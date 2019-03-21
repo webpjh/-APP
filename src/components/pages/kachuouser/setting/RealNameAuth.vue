@@ -15,7 +15,7 @@
       <img class="upload-img" v-if="imgUrl" :src="imgUrl" alt srcset>
       <UploadImgOne v-else-if="!imgUrl" v-on:getHeaderImgUrl="getImgVal"></UploadImgOne>
       <div class="btn-wrap">
-        <x-button class="sub-btn" type="primary">提交</x-button>
+        <x-button class="sub-btn" type="primary" @click.native="veriFormData">提交</x-button>
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@ import PopupPicker from "@/components/common/PopupPicker";
 import UploadImgOne from "@/components/common/UploadImgOne";
 import { XButton } from "vux";
 
-import { getUserRule } from "@/servers/api";
+import { getUserRule, AuthSubmit } from "@/servers/api";
 import { formData } from "@/assets/js/tools";
 
 export default {
@@ -48,144 +48,30 @@ export default {
       imgUrl: "",
       dataOpA: {
         title: "学历",
-        columns: 1,
-        data: [
-          {
-            name: "中国",
-            value: "china",
-            parent: 0
-          },
-          {
-            name: "美国",
-            value: "USA",
-            parent: 0
-          }
-        ]
+        columns: 2,
+        data: []
       },
       dataOpB: {
         title: "专业",
-        columns: 1,
-        data: [
-          {
-            name: "中国",
-            value: "china",
-            parent: 0
-          },
-          {
-            name: "美国",
-            value: "USA",
-            parent: 0
-          }
-        ]
+        columns: 2,
+        data: []
       },
       dataOpC: {
         title: "爱好",
-        columns: 1,
-        data: [
-          {
-            name: "中国",
-            value: "china",
-            parent: 0
-          },
-          {
-            name: "美国",
-            value: "USA",
-            parent: 0
-          }
-        ]
+        columns: 2,
+        data: []
       },
       dataOpD: {
         title: "信仰",
-        columns: 1,
-        data: [
-          {
-            name: "中国",
-            value: "china",
-            parent: 0
-          },
-          {
-            name: "美国",
-            value: "USA",
-            parent: 0
-          }
-        ]
+        columns: 2,
+        data: []
       },
       dataOpE: {
         title: "师承",
-        columns: 3,
-        data: [
-          {
-            name: "中国",
-            value: "china",
-            parent: 0
-          },
-          {
-            name: "美国",
-            value: "USA",
-            parent: 0
-          },
-          {
-            name: "广东",
-            value: "china001",
-            parent: "china"
-          },
-          {
-            name: "广西",
-            value: "china002",
-            parent: "china"
-          },
-          {
-            name: "美国001",
-            value: "usa001",
-            parent: "USA"
-          },
-          {
-            name: "美国002",
-            value: "usa002",
-            parent: "USA"
-          },
-          {
-            name: "广州",
-            value: "gz",
-            parent: "china001"
-          },
-          {
-            name: "深圳",
-            value: "sz",
-            parent: "china001"
-          },
-          {
-            name: "广西001",
-            value: "gx001",
-            parent: "china002"
-          },
-          {
-            name: "广西002",
-            value: "gx002",
-            parent: "china002"
-          },
-          {
-            name: "美国001_001",
-            value: "0003",
-            parent: "usa001"
-          },
-          {
-            name: "美国001_002",
-            value: "0004",
-            parent: "usa001"
-          },
-          {
-            name: "美国002_001",
-            value: "0005",
-            parent: "usa002"
-          },
-          {
-            name: "美国002_002",
-            value: "0006",
-            parent: "usa002"
-          }
-        ]
-      }
+        columns: 4,
+        data: []
+      },
+      dataListArr: []
     };
   },
 
@@ -236,10 +122,87 @@ export default {
     getDataList() {
       getUserRule({})
         .then(res => {
-          console.log(res.data.list[4].children);
-          if(res.result === 1){
-            let data = formData(res.data.list[4].children);
-            console.log(data);
+          console.log(res);
+          if (res.result === 1) {
+            // console.log(res.data.list[4]);
+            let dataResult = formData(res.data.list);
+            console.log(dataResult);
+            dataResult.forEach((item, index) => {
+              switch (item.name) {
+                case "学历":
+                  this.dataOpA.data = item.data;
+                  break;
+                case "专业":
+                  this.dataOpB.data = item.data;
+                  break;
+                case "爱好":
+                  this.dataOpC.data = item.data;
+                  break;
+                case "信仰":
+                  this.dataOpD.data = item.data;
+                  break;
+                case "师承":
+                  this.dataOpE.data = item.data;
+                  break;
+                default:
+                  return;
+              }
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    showToast(conttentTip) {
+      this.$vux.toast.text(conttentTip, "middle");
+      setTimeout(() => {
+        this.$vux.toast.hide();
+      }, 1000);
+    },
+    veriFormData() {
+      if (!this.pickValA.length) {
+        this.showToast("请选择学历");
+        return;
+      } else if (!this.pickValB.length) {
+        this.showToast("请选择专业");
+        return;
+      } else if (!this.pickValC.length) {
+        this.showToast("请选择爱好");
+        return;
+      } else if (!this.pickValD.length) {
+        this.showToast("请选择信仰");
+        return;
+      } else if (!this.pickValE.length) {
+        this.showToast("请选择师承");
+        return;
+      } else if (!this.imgUrl) {
+        this.showToast("请上传身份证照片");
+        return;
+      } else {
+        this.submitVal();
+      }
+    },
+    submitVal() {
+      this.$vux.loading.show({
+        text: "正在提交"
+      });
+      AuthSubmit({
+        type: 3,
+        profession_id: this.pickValA[this.pickValA.length - 1],
+        education_id: this.pickValB[this.pickValB.length - 1],
+        hobby_id: this.pickValC[this.pickValC.length - 1],
+        faith_id: this.pickValD[this.pickValD.length - 1],
+        teacher_id: this.pickValE[this.pickValE.length - 1],
+        card_img: this.imgUrl
+      })
+        .then(res => {
+          console.log(res);
+          if(res){
+            this.$vux.loading.hide();
+            if(res.code === 200){
+              
+            }
           }
         })
         .catch(err => {
@@ -282,7 +245,7 @@ export default {
   object-fit: cover;
   margin: 0 0 0 20px;
 }
-.id-card-img{
+.id-card-img {
   width: 100%;
   height: 30px;
   padding: 0 10px;

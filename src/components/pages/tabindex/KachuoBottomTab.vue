@@ -17,7 +17,7 @@
 
 <script>
 import { Tabbar, TabbarItem, Group, Cell } from "vux";
-
+import { getUserInfo } from "@/servers/api";
 export default {
   name: "",
   props: [""],
@@ -97,6 +97,19 @@ export default {
   },
 
   methods: {
+    // 获取用户信息
+    getUserLoginInfo() {
+      getUserInfo({})
+        .then(res => {
+          if (res.result === 1) {
+            this.$store.commit("setUserLoginInfo", res.data);
+            this.GLOBAL.setSession("userLoginInfo", res.data);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     setStoreStateTabIndex() {
       let indexFlag = this.$store.state.tabIndex;
       for (let i = 0; i < this.tabItem.length; i++) {
@@ -107,6 +120,7 @@ export default {
       this.tabItem[indexFlag].class = this.tabItem[indexFlag].classActive;
     },
     changeTabIndex(index) {
+      this.getUserLoginInfo();
       this.$store.commit("changeTabIndex", index);
       for (let i = 0; i < this.tabItem.length; i++) {
         this.tabItem[i].isActive = false;

@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <tab
-      v-model="index"
-      prevent-default
-      @on-before-index-change="switchTabItem"
+  <tab
+    v-model="index"
+    prevent-default
+    @on-before-index-change="switchTabItem"
+    @on-item-click="onItemClick"
+    custom-bar-width="40px"
+  >
+    <tab-item
+      :selected="index === 0"
       @on-item-click="onItemClick"
-      custom-bar-width="40px"
-    >
-      <tab-item
-        :selected="index === 0"
-        @on-item-click="onItemClick"
-        v-for="(item,index) in tabList"
-        :key="index"
-      >{{item}}</tab-item>
-    </tab>
-  </div>
+      v-for="(item,index) in tabList"
+      :key="index"
+    >{{item}}</tab-item>
+  </tab>
 </template>
 
 <script>
@@ -33,8 +31,28 @@ export default {
   },
   methods: {
     switchTabItem(index) {
-      console.log("on-before-index-change", index);
       this.index = index;
+      let orderState = "9999";
+      switch (index) {
+        case 0:
+          orderState = "9999";
+          break;
+        case 1:
+          orderState = "0";
+          break;
+        case 2:
+          orderState = "1";
+          break;
+        case 3:
+          orderState = "2";
+          break;
+        case 4:
+          orderState = "3";
+          break;
+        default:
+          return "";
+      }
+      this.$emit("changeTab", orderState);
     },
     onItemClick(index) {
       console.log("on item click:", index);

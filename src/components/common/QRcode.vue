@@ -1,6 +1,6 @@
 <template>
   <div style="text-align:center;margin-top:15px;">
-    <qrcode :value="value"></qrcode>
+    <qrcode :value="QRvalue"></qrcode>
     <br>
   </div>
 </template>
@@ -9,6 +9,7 @@
 import { Qrcode } from 'vux'
 
 export default {
+  props:["QRvalue"],
   mounted () {
 
   },
@@ -17,7 +18,7 @@ export default {
   },
   data () {
     return {
-      value: 'https://vux.li',
+      value: '',
       fgColor: '#000000'
     }
   }

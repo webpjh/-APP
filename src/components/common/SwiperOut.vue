@@ -10,27 +10,23 @@
         style="margin-top:10px"
       >
         <div slot="right-menu">
-          <swipeout-button @click.native="onButtonClick('fav')" type="primary">收藏</swipeout-button>
-          <swipeout-button @click.native="onButtonClick('delete')" type="warn">删除</swipeout-button>
+          <swipeout-button @click.native="onButtonClickCol(item.id)" type="primary">收藏</swipeout-button>
+          <swipeout-button @click.native="onButtonClickDel(item.id,index)" type="warn">删除</swipeout-button>
         </div>
         <div slot="content" class="demo-content vux-1px-t content-wrap">
           <div class="content-left">
-            <CheckIcon></CheckIcon>
-            <img
-              :src="item.img"
-              alt
-              srcset
-            >
+            <check-icon :value.sync="checkFlagArr[index]" type="plain"></check-icon>
+            <img :src="item.goods_sx.thumb" alt srcset>
           </div>
           <div class="content-mid">
-            <p>{{item.name}}</p>
+            <p>{{item.goods_sx.title}}</p>
             <p style="font-size:12px;color:#999">{{item.specifications}}</p>
-            <p style="margin-top:4px">
-              <InLineXNumber></InLineXNumber>
+            <p class="inline-number-wrap" style="margin-top:4px">
+              <x-number width="40px" style="margin-left:4px" :min="1" :max="99" v-model="countArr[index]"></x-number>
             </p>
           </div>
           <div class="content-right">
-            <span>{{item.price}}</span>
+            <span>{{item.goods_sx.marketprice}}</span>
           </div>
         </div>
       </swipeout-item>
@@ -44,14 +40,15 @@ import {
   Swipeout,
   SwipeoutItem,
   SwipeoutButton,
-  XButton
+  XButton,
+  XNumber,
+  CheckIcon
 } from "vux";
-
+import { goodsBucketDelete } from "@/servers/api";
 import InLineXNumber from "@/components/common/InLineXNumber";
-import CheckIcon from "@/components/common/CheckIcon";
 
 export default {
-  props: ["dataListCon"],
+  props: ["dataListCon", "countArr","checkFlagArr"],
   components: {
     GroupTitle,
     Swipeout,
@@ -59,21 +56,52 @@ export default {
     SwipeoutButton,
     XButton,
     InLineXNumber,
+    XNumber,
     CheckIcon
   },
+  mounted() {},
   methods: {
-    onButtonClick(type) {
-      alert("on button click " + type);
+    delGoods(id, index) {
+      goodsBucketDelete({
+        sid: id
+      })
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            this.$vux.toast.show({
+              type: "success",
+              text: "删除成功",
+              time: 1000,
+              onHide: () => {
+                this.$emit("changeList", index);
+              }
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    change(val) {
+      console.log("change", val);
+    },
+    onButtonClickCol(id, type) {
+      // this.delGoods(id);
+    },
+    onButtonClickDel(id, index) {
+      this.delGoods(id, index);
     },
     handleEvents(type) {
-      console.log("event: ", type);
+      // console.log("event: ", type);
     }
   },
   data() {
     return {
-      disabled: false
+      disabled: false,
+      changeValue: 1
     };
-  }
+  },
+  updated() {}
 };
 </script>
 

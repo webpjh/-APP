@@ -6,6 +6,9 @@ export const getVeriCode = (data) => http.post('sms.changemobile', data);
 // 登录
 export const login = (data) => http.post('login.logintel', data);
 
+// 获取用户信息
+export const getUserInfo = (data) => http.post('member.realname.login', data);
+
 // 名家商城首页
 export const getFamousMallDate = () => http.post('home.celebrity');
 
@@ -93,9 +96,6 @@ export const Attestation = (data) => http.post("verify.index.attestation", data)
 // 首页频类列表
 export const VideoListIndex = (data) => http.post("video.index", data);
 
-// 获取用户信息
-export const getUserInfo = (data) => http.post("member.realname.login");
-
 // 动态详情页
 export const newsDetails = (data) => http.post("dynamic.index.dynamic_details", data);
 
@@ -110,6 +110,9 @@ export const buyBackSubmit = (data) => http.post("goods.repurchase.submit", data
 
 // 购物车下单
 export const goodsBucketSubmit = (data) => http.post("goods.buy.add_gwcOrder", data);
+
+// 购物车下单
+export const goodsBucketDelete = (data) => http.post("goods.details.del_shop", data);
 
 // 文链查证列表未售
 export const blockChainList = (data) => http.post("verify.index", data);
@@ -160,7 +163,7 @@ export const setDefaultAddr = (data) => http.post("member.address.setDefault", d
 export const Putforward = (data) => http.post("member.withdraw.submit", data);
 
 // 数据规则
-export const getUserRule = (data) => http.post("login.getUserCode");
+export const getUserRule = (data) => http.post("login.getUserCode2");
 
 // 获取实名认证状态
 export const GetAuthState = (data) => http.post("login.getuserauth", data);

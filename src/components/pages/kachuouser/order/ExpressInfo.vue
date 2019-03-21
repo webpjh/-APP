@@ -1,19 +1,19 @@
 <template>
-  <div class="qr-code-wrap">
+  <div class="express-info-wrap">
     <Header
       :titleContent="TitleObjData.titleContent"
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <div class="qr-code-con" :style="conStyle">
-      <QRcode :QRvalue="userInfo.rule"></QRcode>
+    <div class="express-info-con" :style="conHei">
+      <Flow></Flow>
     </div>
   </div>
 </template>
 
 <script>
 import Header from "@/components/common/Header";
-import QRcode from "@/components/common/QRcode";
+import Flow from "@/components/common/Flow";
 
 export default {
   name: "",
@@ -21,54 +21,44 @@ export default {
   data() {
     return {
       TitleObjData: {
-        titleContent: "通证",
+        titleContent: "物流追踪",
         showLeftBack: true,
         showRightMore: false
-      },
-      userInfo: null
+      }
     };
   },
 
   components: {
     Header,
-    QRcode
+    Flow
   },
 
   computed: {
-    conStyle() {
+    conHei() {
       return { height: document.documentElement.clientHeight - 45 + "px" };
     }
   },
-  created() {
-    this.getUserInfo();
-  },
+
   beforeMount() {},
 
   mounted() {},
 
-  methods: {
-    getUserInfo() {
-      this.userInfo = this.GLOBAL.getSession("userLoginInfo");
-    }
-  },
+  methods: {},
 
   watch: {}
 };
 </script>
 <style lang='css' scoped>
-.qr-code-wrap {
+.express-info-wrap {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
-.qr-code-con {
+.express-info-con {
   width: 100%;
+  background: #f9f9f9;
   margin-top: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 80px;
-  box-sizing: border-box;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 </style>

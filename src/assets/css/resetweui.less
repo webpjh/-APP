@@ -8,7 +8,9 @@
 
 .tab-item-mall-wrap,
 .tab-personal-center-wrap,
-.login-wrap {
+.login-wrap,
+.real-name-auth-content,
+.add-address-con {
   .weui-cells {
     border: none;
     margin-top: 0;
@@ -18,10 +20,12 @@
 .tab-item-mall-wrap,
 .tab-personal-center-wrap,
 .cell-no-border,
-.user-message-wrap ,
+.user-message-wrap,
 .setting-app-content,
 .login-wrap,
-.real-name-auth-con{
+.real-name-auth-con,
+.real-name-auth-content,
+.add-address-con {
   .weui-cells:before {
     border: none;
   }
@@ -33,7 +37,9 @@
 .user-message-wrap,
 .setting-app-content,
 .login-wrap,
-.real-name-auth-con {
+.real-name-auth-con,
+.real-name-auth-content,
+.add-address-con {
   .weui-cells:after {
     border: none;
   }
@@ -53,14 +59,17 @@
   }
 }
 
-.input-text-wrap,.release-video-content-wrap,.user-interal-wrap-tools-wrap {
+.input-text-wrap,
+.release-video-content-wrap,
+.user-interal-wrap-tools-wrap {
   .weui-cells {
     margin-top: 0;
   }
   .weui-cells:after {
     border: none;
   }
-  .weui-cell:before,.vux-no-group-title:before {
+  .weui-cell:before,
+  .vux-no-group-title:before {
     border: none;
   }
   textarea {
@@ -76,16 +85,36 @@
     border: none;
   }
 }
-.inline-number-wrap{
-  .vux-number-selector-plus,.vux-number-selector-sub{
+
+.inline-number-wrap {
+  .weui-cell{
     padding: 0;
   }
-  .vux-number-selector svg{
+  .vux-number-selector-plus,
+  .vux-number-selector-sub {
+    padding: 0;
+  }
+  .vux-number-selector svg {
     fill: #111;
   }
 }
-.setting-app-content{
-  .weui-cells{
+
+.setting-app-content {
+  .weui-cells {
     margin-top: 10px;
   }
+}
+
+.vux-x-dialog-absolute .weui-dialog {
+  word-break: break-all;
+}
+
+.vux-cell-primary {
+  .vux-number-input {
+    font-size: 14px;
+    outline: none;
+  }
+}
+button{
+  outline: none;
 }

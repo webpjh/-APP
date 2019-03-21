@@ -5,18 +5,20 @@
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <Tab style="margin-top:50px" :tabList="tabListCon"></Tab>
+    <Tab style="margin-top:50px" :tabList="tabListCon" v-on:changeTab="onChangeTab"></Tab>
     <div class="con-hei-wrap" :style="conSty">
-      <OrderStateList :orderData="dataList"></OrderStateList>
+      <OrderStateList :orderData="dataList" v-on:delData="refreshDate" v-on:sureOrder="refreshDate"></OrderStateList>
     </div>
   </div>
 </template>
 
 <script>
-
 import Header from "@/components/common/Header";
 import Tab from "@/components/common/Tab";
 import OrderStateList from "@/components/layout/OrderStateList";
+import { GoodsList } from "@/servers/api";
+import { getLocalTime, formateDate, timeTodate } from "@/assets/js/tools";
+import { setTimeout } from "timers";
 
 export default {
   name: "",
@@ -28,69 +30,9 @@ export default {
         showLeftBack: true,
         showRightMore: false
       },
-      tabListCon: ["全部订单", "待付款", "待发货", "待收货"],
-      dataList: [
-        {
-          classify: "景区好礼",
-          orderState: "已完成",
-          goodImg:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "书法",
-          spec: "60cm",
-          price: "220",
-          count: "1",
-          date: "2018-01-1",
-          priceCount: "300"
-        },
-        {
-          classify: "景区好礼",
-          orderState: "已完成",
-          goodImg:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "书法",
-          spec: "60cm",
-          price: "220",
-          count: "1",
-          date: "2018-01-1",
-          priceCount: "300"
-        },
-        {
-          classify: "景区好礼",
-          orderState: "已完成",
-          goodImg:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "书法",
-          spec: "60cm",
-          price: "220",
-          count: "1",
-          date: "2018-01-1",
-          priceCount: "300"
-        },
-        {
-          classify: "景区好礼",
-          orderState: "已完成",
-          goodImg:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "书法",
-          spec: "60cm",
-          price: "220",
-          count: "1",
-          date: "2018-01-1",
-          priceCount: "300"
-        },
-        {
-          classify: "景区好礼",
-          orderState: "已完成",
-          goodImg:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "书法",
-          spec: "60cm",
-          price: "220",
-          count: "1",
-          date: "2018-01-1",
-          priceCount: "300"
-        }
-      ]
+      tabListCon: ["全部订单", "待付款", "待发货", "待收货", "已完成"],
+      dataList: [],
+      getData: []
     };
   },
 
@@ -108,10 +50,55 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getOrderList("9999");
+  },
 
-  methods: {},
-
+  methods: {
+    refreshDate(val){
+      this.dataList.splice(val,1);
+    },
+    onChangeTab(val) {
+      this.getOrderList(val);
+    },
+    getOrderList(status) {
+      this.dataList = [];
+      GoodsList({
+        status: status
+      })
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            if (res.data.result) {
+              for (let i = 0; i < res.data.result.length; i++) {
+                this.dataList.push({
+                  id: res.data.result[i].id,
+                  goodsId: res.data.result[i].goods[0].id,
+                  ordersn:res.data.result[i].ordersn,
+                  orderType:res.data.result[i].iswxappcreate,
+                  classify: res.data.result[i].goods[0].suoshujingqu,
+                  status: res.data.result[i].status,
+                  orderState: res.data.result[i].status,
+                  goodImg: res.data.result[i].goods[0].shangpinxinxi.thumb,
+                  name: res.data.result[i].goods[0].shangpinxinxi.title,
+                  spec: "无",
+                  price: res.data.result[i].goods[0].goodsprice,
+                  count: res.data.result[i].goods[0].total,
+                  date: timeTodate(res.data.result[i].goods[0].createtime),
+                  priceCount: res.data.result[i].goods[0].price
+                });
+              }
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  updated() {
+    this.dataList.length = 0;
+  },
   watch: {}
 };
 </script>

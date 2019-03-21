@@ -30,7 +30,7 @@
 
 <script>
 import { XInput, Group, XButton, Cell } from "vux";
-import { getVeriCode, login } from "@/servers/api";
+import { getVeriCode, login, getUserInfo } from "@/servers/api";
 
 export default {
   name: "",
@@ -56,11 +56,22 @@ export default {
 
   beforeMount() {},
 
-  mounted() {
-    
-  },
+  mounted() {},
 
   methods: {
+    // 获取用户信息
+    getUserLoginInfo() {
+      getUserInfo({})
+        .then(res => {
+          if (res.result === 1) {
+            this.$store.commit("setUserLoginInfo", res.data);
+            this.GLOBAL.setSession("userLoginInfo", res.data);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     // 请求登录
     requestLogin() {
       if (this.phoneValue && this.veriValue) {
@@ -76,10 +87,11 @@ export default {
               this.$vux.toast.show({
                 type: "success",
                 text: "登录成功",
-                time: 1000
+                time: 1000,
+                onHide: () => {
+                  this.getUserLoginInfo();
+                }
               });
-              this.$store.commit("setUserLoginInfo", res.data);
-              this.GLOBAL.setSession("userLoginInfo", res.data);
               this.$router.push("/indextab");
             } else {
               if (res.code === 90000) {

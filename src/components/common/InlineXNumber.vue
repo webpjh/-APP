@@ -1,17 +1,28 @@
 <template>
   <div class="inline-number-wrap">
-    <inline-x-number width="50px" :min="1" :max="999"></inline-x-number>
+    <x-number width="50px" :min="1" :max="999" v-model="changeValue" @on-change="change"></x-number>
   </div>
 </template>
 
 <script>
-import { Group, Cell, InlineXNumber } from "vux";
+import { Group, Cell, XNumber } from "vux";
 
 export default {
+  props:["num"],
+  data(){
+    return{
+      changeValue:1
+    }
+  },
   components: {
     Group,
     Cell,
-    InlineXNumber
+    XNumber
+  },
+  methods:{
+        change (val) {
+      console.log('change', val)
+    }
   }
 };
 </script>

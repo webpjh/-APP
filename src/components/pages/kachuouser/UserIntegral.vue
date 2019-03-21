@@ -9,7 +9,7 @@
       <div class="user-interal-desc">
         <p class="tip">已有积分</p>
         <p class="num">
-          <span style="position:relative;top:-20px">1780</span>
+          <span style="position:relative;top:-20px">{{userInfo.credit1}}</span>
         </p>
       </div>
       <CellDivider :cellList="cellListTools" class="user-interal-wrap-tools-wrap"></CellDivider>
@@ -42,7 +42,8 @@ export default {
           icon: "iconfont iconjifenshuoming",
           link: "/integraldesc"
         }
-      ]
+      ],
+      userInfo:null
     };
   },
 
@@ -56,12 +57,18 @@ export default {
       return { height: document.documentElement.clientHeight - 45 + "px" };
     }
   },
-
+  created() {
+    this.getUserInfo();
+  },
   beforeMount() {},
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    getUserInfo() {
+      this.userInfo = this.GLOBAL.getSession("userLoginInfo");
+    }
+  },
 
   watch: {}
 };

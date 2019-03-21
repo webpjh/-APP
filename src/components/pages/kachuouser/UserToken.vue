@@ -10,22 +10,23 @@
         <div class="content-card-top">
           <div class="content-card-top-left">
             <p>
-              <img
-                class="content-card-top-left-img"
-                src="http://c.hiphotos.baidu.com/image/h%3D300/sign=58e2e7aada3f8794ccff4e2ee21a0ead/728da9773912b31b7af6c93b8818367adab4e10e.jpg"
-              >
+              <img class="content-card-top-left-img" :src="userInfo.avatar ? userInfo.avatar : ''">
             </p>
             <div class="content-card-top-left-txt">
-              <p>姓名</p>
-              <p>等级</p>
+              <p>{{userInfo.nickname}}</p>
+              <p>{{userInfo.levelname}}</p>
             </div>
           </div>
           <div class="content-card-top-right">
-            <span class="iconfont iconerweima" @click="getQRcode" style="font-size:24px;margin-left:10px"></span>
+            <span
+              class="iconfont iconerweima"
+              @click="getQRcode"
+              style="font-size:24px;margin-left:10px"
+            ></span>
           </div>
         </div>
         <div class="content-card-mid">
-          <span class="token-num">33333333333333333333333333333333...</span>
+          <span class="token-num">{{userInfo.rule.slice(0,29)}}...</span>
           <span
             class="iconfont iconliulan"
             @click="watchAllCode"
@@ -33,7 +34,7 @@
           ></span>
         </div>
         <div class="content-card-bot">
-          <span>余额：20000</span>
+          <span>积分：{{userInfo.credit1}}</span>
         </div>
       </div>
       <div class="content-card-tip">
@@ -62,7 +63,8 @@ export default {
         titleContent: "通证",
         showLeftBack: true,
         showRightMore: false
-      }
+      },
+      userInfo: null
     };
   },
 
@@ -76,16 +78,21 @@ export default {
       return { height: document.documentElement.clientHeight - 45 + "px" };
     }
   },
-
+  created() {
+    this.getUserInfo();
+  },
   beforeMount() {},
 
   mounted() {},
 
   methods: {
-    watchAllCode() {
-      this.$refs.dialogCon.showToastFn("333333");
+    getUserInfo() {
+      this.userInfo = this.GLOBAL.getSession("userLoginInfo");
     },
-    getQRcode(){
+    watchAllCode() {
+      this.$refs.dialogCon.showToastFn(this.userInfo.rule);
+    },
+    getQRcode() {
       this.$router.push("/tokenqrcode");
     }
   },
@@ -94,7 +101,7 @@ export default {
 };
 </script>
 <style lang='css' scoped>
-.user-info-wrap{
+.user-info-wrap {
   width: 100%;
   height: 100%;
   overflow: hidden;

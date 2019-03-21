@@ -6,7 +6,8 @@
       :title="item.title"
       is-link
       :link="item.link"
-    ></cell>
+    ><Badge v-show="item.badge" :text="item.text"></Badge>
+    </cell>
   </group>
 </template>
 

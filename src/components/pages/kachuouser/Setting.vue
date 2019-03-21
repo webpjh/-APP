@@ -6,7 +6,8 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="setting-app-content" :style="conHei">
-      <CellNoIcon :cellList="cellListToolsA"></CellNoIcon>
+      <CellNoIcon :cellList="cellListToolsA" v-if="authState === -1"></CellNoIcon>
+      <CellNoIcon :cellList="cellListToolsE" v-else-if="authState != -1"></CellNoIcon>
       <CellNoIcon :cellList="cellListToolsB"></CellNoIcon>
       <CellNoIcon :cellList="cellListToolsC"></CellNoIcon>
       <CellNoIcon :cellList="cellListToolsD"></CellNoIcon>
@@ -21,6 +22,7 @@
 import { XButton } from "vux";
 import Header from "@/components/common/Header";
 import CellNoIcon from "@/components/common/CellNoIcon";
+import { GetAuthState } from "@/servers/api";
 
 export default {
   name: "",
@@ -32,40 +34,75 @@ export default {
         showLeftBack: true,
         showRightMore: false
       },
+      authState: -1,
       cellListToolsA: [
         {
           title: "实名认证",
-          link: "/realnameauth"
+          link: "/realnameauth",
+          badge: true,
+          text: "未认证"
         },
         {
           title: "我的账号",
-          link: ""
+          link: "",
+          badge: false,
+          text: ""
         },
         {
           title: "昵称",
-          link: ""
+          link: "",
+          badge: false,
+          text: ""
+        }
+      ],
+      cellListToolsE: [
+        {
+          title: "实名认证",
+          link: "/realnameauthstate",
+          badge: false,
+          text: ""
+        },
+        {
+          title: "我的账号",
+          link: "",
+          badge: false,
+          text: ""
+        },
+        {
+          title: "昵称",
+          link: "",
+          badge: false,
+          text: ""
         }
       ],
       cellListToolsB: [
         {
           title: "二维码",
-          link: ""
+          link: "/tokenqrcode",
+          badge: false,
+          text: ""
         }
       ],
       cellListToolsC: [
         {
           title: "收货地址",
-          link: "/address"
+          link: "/address",
+          badge: false,
+          text: ""
         }
       ],
       cellListToolsD: [
         {
           title: "关于我们",
-          link: "/aboutus"
+          link: "/aboutus",
+          badge: false,
+          text: ""
         },
         {
           title: "意见反馈",
-          link: "/opinion"
+          link: "/opinion",
+          badge: false,
+          text: ""
         }
       ]
     };
@@ -85,12 +122,26 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getAuthState();
+  },
 
   methods: {
-    quitAppLogin(){
+    quitAppLogin() {
       localStorage.removeItem("token");
       this.$router.push("/");
+    },
+    // 查询实名认证状态
+    getAuthState() {
+      GetAuthState({})
+        .then(res => {
+          if(res){
+            this.authState = res.data.code;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
 

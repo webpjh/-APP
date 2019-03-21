@@ -5,13 +5,33 @@
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <div class="content-wrap" :style="conHei"></div>
+    <div class="content-wrap" :style="conHei">
+      <sticky :check-sticky-support="false" :offset="46">
+        <tab :line-width="3" custom-bar-width="40px">
+          <tab-item
+            :selected="demo4 === item"
+            v-for="(item, index) in list4"
+            @click="demo4 = item"
+            :key="index"
+          >{{item}}</tab-item>
+        </tab>
+      </sticky>
+    </div>
   </div>
 </template>
 
 <script>
 import Header from "@/components/common/Header";
-
+import IntegralRule from "@/components/layout/IntegralRule";
+import {
+  Tab,
+  TabItem,
+  Sticky,
+  Divider,
+  XButton,
+  Swiper,
+  SwiperItem
+} from "vux";
 export default {
   name: "",
   props: [""],
@@ -21,12 +41,22 @@ export default {
         titleContent: "积分说明",
         showLeftBack: true,
         showRightMore: false
-      }
+      },
+      list4: ["积分获取", "积分消耗"],
+      demo4: "积分获取"
     };
   },
 
   components: {
-    Header
+    Header,
+    IntegralRule,
+    Tab,
+    TabItem,
+    Sticky,
+    Divider,
+    XButton,
+    Swiper,
+    SwiperItem
   },
 
   computed: {
@@ -50,9 +80,11 @@ export default {
   height: 100%;
   overflow: hidden;
 }
-.content-wrap{
+.content-wrap {
   width: 100%;
   margin-top: 50px;
   background: #f9f9f9;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 </style>

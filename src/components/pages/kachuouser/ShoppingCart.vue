@@ -6,13 +6,18 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="order-list-content" :style="orderListCon">
-      <SwiperOut :dataListCon="dataList"></SwiperOut>
+      <SwiperOut
+        :dataListCon="dataList"
+        :countArr="numArr"
+        :checkFlagArr="checkFlagArr"
+        v-on:changeList="updateList"
+      ></SwiperOut>
       <DividedArea></DividedArea>
       <Divider :content="desc"></Divider>
       <GoodsList></GoodsList>
     </div>
     <div class="bot-method-wrap">
-      <span>共计：¥200.00</span>
+      <span>共计：¥{{marketTotalPrice}}</span>
       <div class="sub-btn">下单</div>
     </div>
   </div>
@@ -25,7 +30,8 @@ import SwiperOut from "@/components/common/SwiperOut";
 import DividedArea from "@/components/common/DividedArea";
 import Divider from "@/components/common/Divider";
 import GoodsList from "@/components/layout/GoodsList";
-
+import { ShopList } from "@/servers/api";
+import { parse } from "path";
 export default {
   name: "",
   props: [""],
@@ -37,32 +43,10 @@ export default {
         showLeftBack: true,
         showRightMore: false
       },
-      dataList: [
-        {
-          img:
-            "http://c.hiphotos.baidu.com/image/h%3D300/sign=58e2e7aada3f8794ccff4e2ee21a0ead/728da9773912b31b7af6c93b8818367adab4e10e.jpg",
-          name: "作品名称",
-          price: "¥200",
-          num: "1",
-          specifications: "20*30cm"
-        },
-        {
-          img:
-            "http://c.hiphotos.baidu.com/image/h%3D300/sign=58e2e7aada3f8794ccff4e2ee21a0ead/728da9773912b31b7af6c93b8818367adab4e10e.jpg",
-          name: "作品名称",
-          price: "¥200",
-          num: "1",
-          specifications: "20*30cm"
-        },
-        {
-          img:
-            "http://c.hiphotos.baidu.com/image/h%3D300/sign=58e2e7aada3f8794ccff4e2ee21a0ead/728da9773912b31b7af6c93b8818367adab4e10e.jpg",
-          name: "作品名称",
-          price: "¥200",
-          num: "1",
-          specifications: "20*30cm"
-        }
-      ]
+      numArr: [],
+      dataList: [],
+      checkFlagArr: [],
+      marketTotalPrice: 0
     };
   },
 
@@ -83,9 +67,50 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
-
-  methods: {},
+  mounted() {
+    this.getDataList();
+  },
+  updated() {
+    this.getMarketTotalPrice();
+  },
+  methods: {
+    // 计算总价
+    getMarketTotalPrice() {
+      let amount = 0;
+      for (let i = 0; i < this.checkFlagArr.length; i++) {
+        if (this.checkFlagArr[i]) {
+          amount += this.numArr[i] * parseInt(this.dataList[i].marketprice, 10);
+        }
+      }
+      this.marketTotalPrice = amount.toFixed(2);
+    },
+    updateList(index) {
+      this.dataList.splice(index, 1);
+      this.numArr.splice(index, 1);
+    },
+    // 获取列表
+    getDataList() {
+      ShopList({
+        page: 1
+      })
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            let obj = res.data.result;
+            for (let i in obj) {
+              for (let j in obj[i][0]) {
+                this.dataList.push(obj[i][0][j]);
+                this.numArr.push(parseInt(obj[i][0][j].total, 10));
+                this.checkFlagArr.push(true);
+              }
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
 
   watch: {}
 };
@@ -121,12 +146,12 @@ export default {
 }
 .sub-btn {
   width: 100px;
-  height: 40px;
+  height: 50px;
   border-radius: 0;
   background: #222;
   color: #fff;
   text-align: center;
-  line-height: 40px;
+  line-height: 50px;
   overflow: hidden;
   margin-left: 20px;
 }

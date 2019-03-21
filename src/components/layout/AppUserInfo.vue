@@ -26,8 +26,8 @@ export default {
   props: [""],
   data() {
     return {
-      imgUrl:'',
-      userInfo:{}
+      imgUrl: "",
+      userInfo: {}
     };
   },
 
@@ -36,12 +36,12 @@ export default {
   },
 
   computed: {},
-
-  beforeMount() {},
-
-  mounted() {
+  created() {
     this.getUserInfo();
   },
+  beforeMount() {},
+
+  mounted() {},
 
   methods: {
     setting() {
@@ -50,16 +50,14 @@ export default {
     getHeaderImgUrlData(data) {
       this.imgUrl = data;
     },
-    getUserInfo(){
-      this.userInfo = this.GLOBAL.getSession('userLoginInfo');
+    getUserInfo() {
+      this.userInfo = this.GLOBAL.getSession("userLoginInfo");
       console.log(this.userInfo);
     }
   },
 
   watch: {},
-  updated() {
-
-  }
+  updated() {}
 };
 </script>
 <style lang='css' scoped>
