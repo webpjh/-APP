@@ -17,11 +17,8 @@
         height="-45"
         ref="scroller"
         use-pullup
-        :pulldown-config="pulldownConfig"
         :pullup-config="pullupConfig"
-        :scroll-bottom-offset="scrollBottomOffset"
         @on-pullup-loading="onPullupLoading"
-        @on-pulldown-loading="onPulldownLoading"
       >
         <VideoListWrap :videoDataList="dataList"></VideoListWrap>
       </scroller>
@@ -42,25 +39,13 @@ export default {
       page: 1,
       dataList: [],
       scrollTop: 0,
-      onFetching: false,
-      bottomCount: 20,
-      scrollBottomOffset: 20,
-      pulldownConfig: {
-        content: "下拉刷新",
-        height: 40,
-        autoRefresh: false,
-        downContent: "下拉刷新",
-        upContent: "释放后刷新",
-        loadingContent: "正在刷新...",
-        clsPrefix: "xs-plugin-pulldown-"
-      },
       pullupConfig: {
-        content: "上拉加载更多",
+        content: "加载更多",
         pullUpHeight: 60,
         height: 40,
         autoRefresh: false,
         downContent: "释放后加载",
-        upContent: "上拉加载更多",
+        upContent: "加载更多",
         loadingContent: "加载中...",
         clsPrefix: "xs-plugin-pullup-"
       }
@@ -86,18 +71,8 @@ export default {
   },
 
   methods: {
-    onPulldownLoading() {
-      console.log("刷新");
-      this.page = 1;
-      this.dataList = [];
-      this.getVideoList("onPulldownLoading");
-    },
     onPullupLoading() {
-      console.log("加载");
       if (this.noData) {
-        this.$nextTick(() => {
-          this.pullupConfig = null;
-        });
         return;
       } else {
         ++this.page;
@@ -119,22 +94,20 @@ export default {
             console.log(res);
             this.noData =
               res.data.currentpage === res.data.totalpage ? true : false;
+            if (this.noData) {
+              this.pullupConfig.loadingContent = "没有更多";
+            }
             if (res.data.currentpage === 1) {
               this.dataList = res.data.comment;
             } else {
               this.dataList = this.dataList.concat(res.data.comment);
             }
-            if (loadType == "onPulldownLoading") {
-              setTimeout(() => {
-                this.$refs.scroller.disablePullup();
-                this.$refs.scroller.donePulldown();
-              }, 2000);
-            } else {
+            this.$nextTick(() => {
               setTimeout(() => {
                 this.$refs.scroller.enablePullup();
                 this.$refs.scroller.donePullup();
               }, 2000);
-            }
+            });
           }
         })
         .catch(err => {
@@ -142,7 +115,12 @@ export default {
         });
     }
   },
-
+  beforeDestroy() {
+    this.$refs.scroller.reset();
+  },
+  activated() {
+    this.$refs.scroller.reset();
+  },
   watch: {}
 };
 </script>

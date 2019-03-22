@@ -23,11 +23,11 @@
         <div class="goods-img-desc">
           <div>
             <img v-lazy="item.release_img">
-            <span>{{item.release_name }}</span>
+            <span style="font-size:12px">{{item.release_name }}</span>
           </div>
           <div>
             <span class="iconfont icondianzan" style="font-size:12px;color:#fff"></span>
-            <span>{{item.praise_num}}</span>
+            <span style="font-size:12px">{{item.praise_num}}</span>
           </div>
         </div>
       </div>
@@ -87,12 +87,13 @@ export default {
   width: 100%;
   height: 240px;
   display: inline-block;
-  border-radius: 5px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   background: #fff;
+  background-position: center;
 }
 .goods-img-desc {
   width: 100%;

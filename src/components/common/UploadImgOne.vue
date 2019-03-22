@@ -87,7 +87,6 @@ export default {
       }, 2000);
     },
     submit() {
-      console.log(this.imgs);
       for (let key in this.imgs) {
         let name = key.split("?")[0];
         this.formData.append("file", this.imgs[key]);
@@ -95,7 +94,8 @@ export default {
       let config = {
         timeout: 2500,
         headers: {
-          "Content-Type": "multipart/form-data"
+          "Content-Type": "multipart/form-data",
+          "Authorization":localStorage.getItem("token")
         }
       };
       axios
