@@ -236,5 +236,10 @@ export default [
     path: '/expressinfo',
     name: 'ExpressInfo',
     component: resolve => require(['@/components/pages/kachuouser/order/ExpressInfo'], resolve),
+  },
+  {
+    path: '/goodsdetails',
+    name: 'GoodsDetails',
+    component: resolve => require(['@/components/pages/kachuomall/goods/GoodsDetails'], resolve),
   }
 ]

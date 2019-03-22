@@ -111,8 +111,11 @@ export const buyBackSubmit = (data) => http.post("goods.repurchase.submit", data
 // 购物车下单
 export const goodsBucketSubmit = (data) => http.post("goods.buy.add_gwcOrder", data);
 
-// 购物车下单
+// 购物车删除
 export const goodsBucketDelete = (data) => http.post("goods.details.del_shop", data);
+
+// 购物车删除
+export const goodsBucketRecomm = (data) => http.post("goods.details.PickShop", data);
 
 // 文链查证列表未售
 export const blockChainList = (data) => http.post("verify.index", data);
@@ -228,8 +231,8 @@ export const seasonIndexList = (data) => http.post("season.index.seasonlist",dat
 // 上传视频
 export const VideoUpload = (data) => http.post("util.Uploader.uploadm",data);
 
-// 视频列表
-export const VideoList = (data) => http.post("video.show.videolist",data);
+// 视频创作
+export const VideoCreditList = (data) => http.post("video.show.videolist_dff",data);
 
 // 用户视频列表
 export const UserVideoList = (data) => http.post("video.show.videoi",data);

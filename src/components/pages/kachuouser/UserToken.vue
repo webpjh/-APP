@@ -39,10 +39,7 @@
       </div>
       <div class="content-card-tip">
         <p class="tip-title">提示：</p>
-        <p>1.</p>
-        <p>2.</p>
-        <p>3.</p>
-        <p>4.</p>
+        <p v-for="(item,index) in descInfo" :key="index">1.{{item}}</p>
       </div>
       <XDialog style="display:none" :showDialog="showDialogFlag" ref="dialogCon"></XDialog>
     </div>
@@ -64,7 +61,8 @@ export default {
         showLeftBack: true,
         showRightMore: false
       },
-      userInfo: null
+      userInfo: null,
+      descInfo:["通证是用户在卡戳网的唯一识别号","用户完成实名认证之后可以获取通证"]
     };
   },
 

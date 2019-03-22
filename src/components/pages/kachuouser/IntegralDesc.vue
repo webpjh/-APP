@@ -9,12 +9,15 @@
       <sticky :check-sticky-support="false" :offset="46">
         <tab :line-width="3" custom-bar-width="40px">
           <tab-item
-            :selected="demo4 === item"
-            v-for="(item, index) in list4"
-            @click="demo4 = item"
+            :selected="selItem === item"
+            v-for="(item, index) in list"
+            @on-item-click="tabItemClick"
             :key="index"
           >{{item}}</tab-item>
         </tab>
+        <div class="tab-item-wrap">
+          <img :src="imgUrl" alt srcset>
+        </div>
       </sticky>
     </div>
   </div>
@@ -42,8 +45,10 @@ export default {
         showLeftBack: true,
         showRightMore: false
       },
-      list4: ["积分获取", "积分消耗"],
-      demo4: "积分获取"
+      list: ["积分获取", "积分消耗"],
+      selItem: "积分获取",
+      imgUrl:
+        "http://kcapp.oss-cn-beijing.aliyuncs.com/appx/credit/credit-get.png"
     };
   },
 
@@ -69,7 +74,17 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    tabItemClick(val) {
+      if (val === 0) {
+        this.imgUrl =
+          "http://kcapp.oss-cn-beijing.aliyuncs.com/appx/credit/credit-get.png";
+      } else {
+        this.imgUrl =
+          "http://kcapp.oss-cn-beijing.aliyuncs.com/appx/credit/credit-give.png";
+      }
+    }
+  },
 
   watch: {}
 };
@@ -84,6 +99,14 @@ export default {
   width: 100%;
   margin-top: 50px;
   background: #f9f9f9;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.tab-item-wrap {
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  box-sizing: border-box;
   overflow: hidden;
   overflow-y: scroll;
 }

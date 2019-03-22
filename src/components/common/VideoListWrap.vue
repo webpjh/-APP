@@ -3,22 +3,32 @@
 -->
 <template>
   <div class="goods-list-wrap">
-    <div class="goods-list" v-for="(item,index) in dataList" :key="index" @click="getVideoDetails(index)">
+    <div
+      class="goods-list"
+      v-for="(item,index) in videoDataList"
+      :key="index"
+      @click="getVideoDetails(item.id)"
+    >
       <div
         class="goods-img"
-        :style="{backgroundImage: 'url(' + item.imgUrl + ')', backgroundSize:'cover',backgroundRepeat:'no-repeat'}"
+        :style="{backgroundImage: 'url(' + item.video_img + ')', backgroundSize:'cover',backgroundRepeat:'no-repeat'}"
       >
         <p class="goods-list-title">
           <span class="iconfont icondingwei"></span>
-          <span class="iconfont-location">长春</span>
+          <span class="iconfont-location"></span>
         </p>
-        <p class="video-play-btn">播放</p>
+        <p class="video-play-btn">
+          <span class="iconfont iconbofang" style="font-size:30px;color:#fff"></span>
+        </p>
         <div class="goods-img-desc">
           <div>
-            <img :src="item.imgUrl">
-            <span>姓名</span>
+            <img v-lazy="item.release_img">
+            <span>{{item.release_name }}</span>
           </div>
-          <span>赞123</span>
+          <div>
+            <span class="iconfont icondianzan" style="font-size:12px;color:#fff"></span>
+            <span>{{item.praise_num}}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -30,59 +40,10 @@ import { Divider } from "vux";
 
 export default {
   name: "",
-  props: [""],
+  props: ["videoDataList"],
   data() {
     return {
-      dataList: [
-        {
-          imgUrl:
-            "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
-          goodsName: "七山半水半分田 两分道路和庄园",
-          price: "10000"
-        },
-        {
-          imgUrl:
-            "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
-          goodsName: "七山半水半分田 两分道路和庄园",
-          price: "9999"
-        },
-        {
-          imgUrl:
-            "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
-          goodsName: "七山半水半分田 两分道路和庄园",
-          price: "23123"
-        },
-        {
-          imgUrl:
-            "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
-          goodsName: "七山半水半分田 两分道路和庄园",
-          price: "8888"
-        },
-        {
-          imgUrl:
-            "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
-          goodsName: "七山半水半分田 两分道路和庄园",
-          price: "23123"
-        },
-        {
-          imgUrl:
-            "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
-          goodsName: "七山半水半分田 两分道路和庄园",
-          price: "8888"
-        },
-        {
-          imgUrl:
-            "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
-          goodsName: "七山半水半分田 两分道路和庄园",
-          price: "23123"
-        },
-        {
-          imgUrl:
-            "http://c.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef4b9e8896ad3c451da81cb3e85.jpg",
-          goodsName: "七山半水半分田 两分道路和庄园",
-          price: "8888"
-        }
-      ]
+      dataList: []
     };
   },
 
@@ -97,9 +58,8 @@ export default {
   mounted() {},
 
   methods: {
-    getVideoDetails(index){
-      this.$router.push("/informationconsumdetails");
-      console.log(index);
+    getVideoDetails(id) {
+      this.$router.push("/informationconsumdetails?id=" + id);
     }
   },
 
@@ -119,28 +79,20 @@ export default {
 }
 .goods-list {
   width: 49%;
-  height: auto;
+  height: 240px;
   margin-bottom: 20px;
+  overflow: hidden;
 }
 .goods-img {
   width: 100%;
-  height: 100px;
+  height: 240px;
   display: inline-block;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-}
-.goods-img-wrap {
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  position: absolute;
-  overflow: hidden;
-  box-sizing: border-box;
-  top: 0;
-  left: 0;
+  background: #fff;
 }
 .goods-img-desc {
   width: 100%;
@@ -180,5 +132,6 @@ export default {
 }
 .iconfont-location {
   margin-left: 4px;
+  color: #222;
 }
 </style>

@@ -14,7 +14,7 @@
       ></SwiperOut>
       <DividedArea></DividedArea>
       <Divider :content="desc"></Divider>
-      <GoodsList></GoodsList>
+      <GoodsList :goodList="goodsListData"></GoodsList>
     </div>
     <div class="bot-method-wrap">
       <span>共计：¥{{marketTotalPrice}}</span>
@@ -30,8 +30,9 @@ import SwiperOut from "@/components/common/SwiperOut";
 import DividedArea from "@/components/common/DividedArea";
 import Divider from "@/components/common/Divider";
 import GoodsList from "@/components/layout/GoodsList";
-import { ShopList } from "@/servers/api";
+import { ShopList, goodsBucketRecomm } from "@/servers/api";
 import { parse } from "path";
+
 export default {
   name: "",
   props: [""],
@@ -46,6 +47,7 @@ export default {
       numArr: [],
       dataList: [],
       checkFlagArr: [],
+      goodsListData:[],
       marketTotalPrice: 0
     };
   },
@@ -69,11 +71,27 @@ export default {
 
   mounted() {
     this.getDataList();
+    this.getGoodsComm();
   },
   updated() {
     this.getMarketTotalPrice();
   },
   methods: {
+    // 商品推荐
+    getGoodsComm() {
+      goodsBucketRecomm({
+        type:1
+      })
+        .then(res => {
+          if(res.result === 1){
+            this.goodsListData = res.data.result;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
     // 计算总价
     getMarketTotalPrice() {
       let amount = 0;
@@ -94,7 +112,6 @@ export default {
         page: 1
       })
         .then(res => {
-          console.log(res);
           if (res.result === 1) {
             let obj = res.data.result;
             for (let i in obj) {

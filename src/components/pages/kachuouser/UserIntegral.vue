@@ -7,7 +7,7 @@
     ></Header>
     <div class="user-interal-content-wrap" :style="consty">
       <div class="user-interal-desc">
-        <p class="tip">已有积分</p>
+        <p class="tip">当前积分</p>
         <p class="num">
           <span style="position:relative;top:-20px">{{userInfo.credit1}}</span>
         </p>
@@ -87,7 +87,7 @@ export default {
 .user-interal-desc {
   width: 100%;
   height: 200px;
-  background: #111;
+  background: #4A74FE;
   color: #fff;
   display: flex;
   flex-direction: column;
