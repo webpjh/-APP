@@ -5,13 +5,15 @@
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <div class="photo-album-content" :style="conHei"></div>
+    <div class="photo-album-content" :style="conHei">
+      <BetterScroll></BetterScroll>
+    </div>
   </div>
 </template>
 
 <script>
 import Header from "@/components/common/Header";
-
+import BetterScroll from "@/components/common/BetterScroll";
 export default {
   name: "",
   props: [""],

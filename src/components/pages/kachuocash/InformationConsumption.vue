@@ -24,7 +24,6 @@
 </template>
 
 <script>
-
 import Header from "@/components/common/Header";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
 import DividedArea from "@/components/common/DividedArea";
@@ -67,7 +66,9 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    console.log(this.$refs.myscroller);
+  },
 
   methods: {
     refresh(done) {
@@ -77,11 +78,17 @@ export default {
       }, 2000);
     },
     pullup(done) {
-      // console.log("pullup");
+      console.log("pullup");
       //   this.$refs.myscroller.finishInfinite(2);
       //   this.$refs.myscroller.resize();
+      // done();
+      // setTimeout(() => {
       //   done();
+      // }, 2000);
     }
+  },
+  beforeDestroy(){
+    console.log(this.$refs.myscroller);
   },
 
   watch: {}

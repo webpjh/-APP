@@ -27,6 +27,13 @@ Vue.use(Vuex)
 import { WechatPlugin } from 'vux'
 Vue.use(WechatPlugin)
 
+// VueBetterScroll
+import VueBetterScroll from 'vue2-better-scroll'
+Vue.use(VueBetterScroll)
+
+import BScroll from 'better-scroll'
+Vue.use(BScroll)
+
 // vue路由
 // import VueRouter from 'vue-router'
 // Vue.use(VueRouter)
