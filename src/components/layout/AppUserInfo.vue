@@ -52,7 +52,6 @@ export default {
     },
     getUserInfo() {
       this.userInfo = this.GLOBAL.getSession("userLoginInfo");
-      console.log(this.userInfo);
     }
   },
 

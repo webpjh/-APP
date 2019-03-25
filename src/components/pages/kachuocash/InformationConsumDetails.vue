@@ -1,25 +1,35 @@
 <template>
-  <div>
+  <div class="video-details-wrap">
     <Header
       :titleContent="TitleObjData.titleContent"
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="information-content-wrap" :style="informationContent">
-      <VideoPlayer :isControls="true"></VideoPlayer>
-      <GiveLike></GiveLike>
+      <div class="video" id="wrapper"></div>
+      <GiveLike
+        :praiseNum="praiseNum"
+        :clickState="clickState"
+        v-on:changePhriseState="refreshData"
+      ></GiveLike>
       <DividedArea></DividedArea>
-      <CommentList></CommentList>
+      <CommentList :id="currentId" :dataList.sync="commitDataList"></CommentList>
+      <Comments v-on:pushCommition="updateCommintList"></Comments>
     </div>
   </div>
 </template>
 
 <script>
+let count = 1;
+import ChimeeMobilePlayer from "chimee-mobile-player";
+import "../../../../node_modules/chimee-mobile-player/lib/chimee-mobile-player.browser.css";
 import Header from "@/components/common/Header";
 import VideoPlayer from "@/components/common/VideoPlayer";
 import DividedArea from "@/components/common/DividedArea";
 import GiveLike from "@/components/common/GiveLike";
+import Comments from "@/components/common/Comments";
 import CommentList from "@/components/layout/CommentList";
+import { ScenceVideoDetails } from "@/servers/api";
 
 export default {
   name: "",
@@ -30,7 +40,12 @@ export default {
         titleContent: "",
         showLeftBack: true,
         showRightMore: false
-      }
+      },
+      videoObj: {},
+      commitDataList: [],
+      videoId: "",
+      clickState: 0,
+      praiseNum: 0
     };
   },
 
@@ -39,29 +54,118 @@ export default {
     VideoPlayer,
     DividedArea,
     GiveLike,
-    CommentList
+    CommentList,
+    Comments
   },
 
   computed: {
     informationContent() {
       return { height: document.documentElement.clientHeight - 50 + "px" };
+    },
+    currentId() {
+      return this.$route.query.id;
     }
   },
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getDetails();
+  },
 
-  methods: {},
+  methods: {
+    //更新评论数据列表
+    updateCommintList() {
+      this.videoId = this.$route.query.id;
+      ScenceVideoDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.type
+      })
+        .then(res => {
+          if (res.result === 1) {
+            if (res.data.comment.length) {
+              this.commitDataList = res.data.comment;
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 更新点赞状态
+    refreshData() {
+      this.videoId = this.$route.query.id;
+      ScenceVideoDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.type
+      })
+        .then(res => {
+          if (res.data.video) {
+            this.clickState = res.data.video.type;
+            this.praiseNum = res.data.video.praise_num;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 初始化数据
+    getDetails() {
+      this.videoId = this.$route.query.id;
+      ScenceVideoDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.type
+      })
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            if (res.data.video) {
+              this.createVideoDom(true, res.data.video);
+              this.clickState = res.data.video.type;
+              this.praiseNum = res.data.video.praise_num;
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    createVideoDom(flag, videoObj) {
+      new ChimeeMobilePlayer({
+        wrapper: "#wrapper",
+        src: videoObj.video_url,
+        autoplay: false,
+        poster: videoObj.video_img,
+        controls: flag,
+        playsInline: true,
+        preload: "auto",
+        x5VideoPlayerFullscreen: true,
+        x5VideoOrientation: "landscape|portrait",
+        xWebkitAirplay: true,
+        muted: true
+      });
+    }
+  },
 
   watch: {}
 };
 </script>
 <style lang='css' scoped>
+.video-details-wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
 .information-content-wrap {
   width: 100%;
   margin-top: 50px;
   overflow: hidden;
   overflow-y: scroll;
+}
+.video {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
 }
 </style>

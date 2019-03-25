@@ -14,7 +14,7 @@
           <p class="add-icon">+</p>
         </a>
       </li>
-      <li>
+      <li v-if="videoUrl">
         <video class="video-wrap" :src="videoUrl"></video>
       </li>
     </ul>

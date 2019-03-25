@@ -53,11 +53,11 @@ const successTip = (conttentTip) => {
   })
 }
 // 正式
-axios.defaults.baseURL = 'https://core.kachuo.com/app';
+axios.defaults.baseURL = 'https://core.kachuo.com/app/';
 // axios.defaults.baseURL = 'http://39.104.161.131/app';
 
 // 测试
-//axios.defaults.baseURL = 'http://www.kcapp.com/app/';
+// axios.defaults.baseURL = 'http://www.kcapp.com/app/';
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;text/html;multipart/form-data';
 axios.defaults.headers.post['Authorization'] = localStorage.getItem("token");

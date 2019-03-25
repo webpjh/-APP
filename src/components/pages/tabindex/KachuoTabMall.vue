@@ -5,18 +5,18 @@
     <CellDivider :cellList="cellListTools" class="tab-item-mall-tools-wrap"></CellDivider>
     <DividedArea></DividedArea>
     <Divider :content="dividerContent"></Divider>
-    <GoodsList></GoodsList>
+    <GoodsList :goodList="goodsListData"></GoodsList>
   </div>
 </template>
 
 <script>
-
 import TabItemMallHeader from "@/components/layout/TabItemMallHeader";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
 import DividedArea from "@/components/common/DividedArea";
 import CellDivider from "@/components/common/CellDivider";
 import Divider from "@/components/common/Divider";
 import GoodsList from "@/components/layout/GoodsList";
+import { goodsBucketRecomm } from "@/servers/api";
 
 export default {
   name: "",
@@ -26,24 +26,22 @@ export default {
       cellListTools: [
         {
           title: "景区消费",
-          icon:
-            "iconfont iconjingquxiaofei",
+          icon: "iconfont iconjingquxiaofei",
           link: "/scenceconsum?title=景区消费"
         },
         {
           title: "景区好礼",
-          icon:
-            "iconfont iconjingquhaoli",
+          icon: "iconfont iconjingquhaoli",
           link: "/scencegifts?title=景区好礼"
         },
         {
           title: "名家秒藏",
-          icon:
-            "iconfont iconmingjiamiaocang",
+          icon: "iconfont iconmingjiamiaocang",
           link: "/famouscollection?title=名家秒藏"
         }
       ],
-      dividerContent: "猜你喜欢"
+      dividerContent: "猜你喜欢",
+      goodsListData:[]
     };
   },
 
@@ -60,9 +58,27 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getGoodsComm();
+  },
 
-  methods: {},
+  methods: {
+    // 商品推荐
+    getGoodsComm() {
+      goodsBucketRecomm({
+        type: 2
+      })
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            this.goodsListData = res.data.result;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
 
   watch: {}
 };

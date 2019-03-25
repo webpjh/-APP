@@ -1,34 +1,56 @@
 <template>
   <div class="give-a-like-wrap">
     <span @click="giveLike">
-      <!-- <span style="margin-right:10px">点赞</span> -->
-      <span v-show="!isCkick" class="iconfont iconzan"></span>
-      <span v-show="isCkick" class="iconfont icondianzan"></span>
+      <span style="margin-right:10px">{{praiseNum}}</span>
+      <span v-if="!clickState" class="iconfont iconzan"></span>
+      <span v-else-if="clickState" class="iconfont icondianzan"></span>
     </span>
   </div>
 </template>
 
 <script>
+import { NewsKachuoInpraise } from "@/servers/api";
 export default {
   name: "",
-  props: [""],
+  props: ["praiseNum", "clickState", "praiseNum"],
   data() {
     return {
-      isCkick:false
+      isCkick: false
     };
   },
 
   components: {},
 
-  computed: {},
+  computed: {
+
+  },
 
   beforeMount() {},
+  created() {},
+  mounted() {
 
-  mounted() {},
+  },
 
   methods: {
-    giveLike(){
-      this.isCkick = !this.isCkick;
+    giveLike() {
+      let flag = this.$parent.clickState;
+      console.log(flag);
+      let type = flag === 0 ? 1 : 0;
+      this.$emit("changePhriseState", flag);
+      NewsKachuoInpraise({
+        id: this.$route.query.id,
+        type: type,
+        branch:this.$route.query.type
+      })
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            this.$emit("changePhriseState", type);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
 
@@ -44,5 +66,8 @@ export default {
   justify-content: center;
   align-items: center;
   color: #999;
+  position: relative;
+  z-index: 999;
+  background: #fff;
 }
 </style>

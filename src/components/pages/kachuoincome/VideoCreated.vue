@@ -29,7 +29,7 @@
 <script>
 import { XHeader, Scroller } from "vux";
 import VideoListWrap from "@/components/common/VideoListWrap";
-import { VideoCreditList } from "@/servers/api";
+import { VideoCreditList, SeourceCreatedList } from "@/servers/api";
 import { setTimeout } from "timers";
 export default {
   name: "",
@@ -86,7 +86,8 @@ export default {
       this.$router.push("/releasevideo");
     },
     getVideoList(loadType) {
-      VideoCreditList({
+      SeourceCreatedList({
+        type: 9,
         page: this.page
       })
         .then(res => {

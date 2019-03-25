@@ -1,72 +1,109 @@
 <template>
-  <div class="wrapper" ref="wrapper" :scrollbar="options.scrollbar" :startY="options.startY"></div>
+  <main class="position-box">
+    <!-- 需要一个创建一个父容器 组件高度默认等于父容器的高度 -->
+    <vue-better-scroll
+      class="wrapper"
+      ref="scroll"
+      :scrollbar="scrollbarObj"
+      :pullDownRefresh="pullDownRefreshObj"
+      :pullUpLoad="pullUpLoadObj"
+      :startY="parseInt(startY)"
+      @pullingDown="onPullingDown"
+      @pullingUp="onPullingUp"
+    >
+      <ul class="list-content">
+        <li class="list-item" v-for="item in items" :key="item">{{item}}</li>
+      </ul>
+    </vue-better-scroll>
+  </main>
 </template>
-
+ 
 <script>
 let count = 1;
 export default {
-  name: "",
+  name: "app",
   components: {},
   data() {
     return {
-      options: {
-        pullDownRefresh: {
-          threshold: 50, // 当下拉到超过顶部 50px 时，触发 pullingDown 事件
-          stop: 20 // 刷新数据的过程中，回弹停留在距离顶部还有 20px 的位置
-        },
-        pullUpLoad: {
-          threshold: -20 // 在上拉到超过底部 20px 时，触发 pullingUp 事件
-        },
-        //     pullDownRefresh: false, //关闭下拉
-        //     pullUpLoad: false, // 关闭上拉
-        click: true,
-        probeType: 3,
-        startY: 0, //欢迎加入全栈开发交流圈一起学习交流：864305860
-        scrollbar: true //面向1-3年前端人员
-      } //帮助突破技术瓶颈，提升思维能力
+      // 这个配置可以开启滚动条，默认为 false。当设置为 true 或者是一个 Object 的时候，都会开启滚动条，默认是会 fade 的
+      scrollbarObj: {
+        fade: true
+      },
+      // 这个配置用于做下拉刷新功能，默认为 false。当设置为 true 或者是一个 Object 的时候，可以开启下拉刷新，可以配置顶部下拉的距离（threshold） 来决定刷新时机以及回弹停留的距离（stop）
+      pullDownRefreshObj: {
+        threshold: 70,
+        stop: 40
+      },
+      // 这个配置用于做上拉加载功能，默认为 false。当设置为 true 或者是一个 Object 的时候，可以开启上拉加载，可以配置离底部距离阈值（threshold）来决定开始加载的时机
+      pullUpLoadObj: {
+        threshold: 0,
+        txt: {
+          more: "加载更多",
+          noMore: "没有更多数据了"
+        }
+      },
+      startY: 0, // 纵轴方向初始化位置
+      scrollToX: 0,
+      scrollToY: 0,
+      scrollToTime: 700,
+      items: []
     };
   },
-  created() {
-    this.$nextTick(() => {
-      this.load();
-      this.setData();
-    });
+  mounted() {
+    this.onPullingDown();
   },
   methods: {
-    load() {
-      if (!this.scroll) {
-        this.scroll = new BScroll(this.$refs.wrapper, this.options);
-        // 上拉
-        this.scroll.on("pullingUp", () => {
-          // 刷新数据的过程中，回弹停留在距离顶部还有20px的位置
-          this.setData();
-        });
-      } else {
-        //欢迎加入全栈开发交流圈一起学习交流：864305860
-        this.scroll.refresh(); //面向1-3年前端人员
-      } //帮助突破技术瓶颈，提升思维能力
+    // 滚动到页面顶部
+    scrollTo() {
+      this.$refs.scroll.scrollTo(
+        this.scrollToX,
+        this.scrollToY,
+        this.scrollToTime
+      );
     },
-    setData() {
-      this.$nextTick(() => {
-        let arr = [1, 2, 3, "james"];
-        this.data = this.data.concat(arr); // 添加数据
-        this.scroll.finishPullUp();
-        this.pullingDownUp();
+    // 模拟数据请求
+    getData() {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          const arr = [];
+          for (let i = 0; i < 100; i++) {
+            arr.push(count++);
+          }
+          resolve(arr);
+        }, 1000);
       });
     },
-    pullingDownUp() {
-      this.scroll.refresh(); //重新计算元素高度
+    onPullingDown() {
+      // 模拟下拉刷新
+      console.log("下拉刷新");
+      count = 0;
+      this.getData().then(res => {
+        this.items = res;
+        this.$refs.scroll.forceUpdate(true);
+      });
+    },
+    onPullingUp() {
+      // 模拟上拉 加载更多数据
+      console.log("上拉加载");
+      this.getData().then(res => {
+        this.items = this.items.concat(res);
+        if (count < 30) {
+          this.$refs.scroll.forceUpdate(true);
+        } else {
+          this.$refs.scroll.forceUpdate(false);
+        }
+      });
     }
   }
 };
-</script>
-
+</script> 
+ 
 <style>
 .position-box {
   position: fixed;
-  top: 40px;
+  top: 50px;
   left: 0;
   right: 0;
   bottom: 0;
 }
-</style>
+</style> 

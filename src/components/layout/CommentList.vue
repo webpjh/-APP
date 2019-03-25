@@ -2,70 +2,180 @@
 详情页评论列表
  -->
 <template>
-  <div class="comment-list-wrap">
+  <div>
     <div class="comment-list-amount">评论({{commentCount}})</div>
-    <div class="comment-list-for flex-wrap" v-for="(item,index) in contentList" :key="index">
-      <div class="comment-list-for-header">
-        <img class="comment-list-header-img" :src="item.headerImg">
-      </div>
-      <div class="comment-list-content">
-        <p class="comment-list-user">
-          <span style="font-size:12px;">{{item.name}}</span>
-          <span style="font-size:12px;margin-right:10px;color:#999">{{item.date}}</span>
-        </p>
-        <p class="comment-list-desc">{{item.content}}</p>
-      </div>
-    </div>
+    <p style="text-align:center;" v-if="!contentList.length">
+      <inline-loading></inline-loading>
+      <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中</span>
+    </p>
+    <main class="position-box" v-else-if="contentList.length">
+      <!-- 需要一个创建一个父容器 组件高度默认等于父容器的高度 -->
+      <vue-better-scroll
+        class="wrapper"
+        ref="scroll"
+        :scrollbar="scrollbarObj"
+        :pullDownRefresh="pullDownRefreshObj"
+        :pullUpLoad="pullUpLoadObj"
+        :startY="parseInt(startY)"
+        @pullingDown="onPullingDown"
+        @pullingUp="onPullingUp"
+      >
+        <div class="comment-list-for flex-wrap" v-for="(item,index) in contentList" :key="index">
+          <div class="comment-list-for-header">
+            <img class="comment-list-header-img" :src="item.user_avatar">
+          </div>
+          <div class="comment-list-content">
+            <p class="comment-list-user">
+              <span style="font-size:12px;">{{item.user_name}}</span>
+              <span
+                style="font-size:12px;margin-right:10px;color:#999"
+              >{{item.created_at | formTime}}</span>
+            </p>
+            <p class="comment-list-desc">{{item.content}}</p>
+          </div>
+        </div>
+      </vue-better-scroll>
+    </main>
   </div>
 </template>
 
 <script>
+import { InlineLoading } from "vux";
+import { ScenceVideoDetails } from "@/servers/api";
+import { timeTodate } from "@/assets/js/tools";
+import { setTimeout } from "timers";
+
+let count = 1;
+let totalCount = 0;
 export default {
   name: "",
-  props: [""],
+  props: ["dataList"],
   data() {
     return {
-      commentCount: 99,
-      contentList: [
-        {
-          headerImg:
-            "http://b.hiphotos.baidu.com/image/h%3D300/sign=4262ea29f6dcd100d29cfe21428a47be/78310a55b319ebc4cee036bd8c26cffc1e17167d.jpg",
-          name: "你好啊",
-          date: "2019-3-3",
-          content:
-            "你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊"
-        },
-        {
-          headerImg:
-            "http://b.hiphotos.baidu.com/image/h%3D300/sign=4262ea29f6dcd100d29cfe21428a47be/78310a55b319ebc4cee036bd8c26cffc1e17167d.jpg",
-          name: "你好啊",
-          date: "2019-3-3",
-          content:
-            "你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊"
-        },
-        {
-          headerImg:
-            "http://b.hiphotos.baidu.com/image/h%3D300/sign=4262ea29f6dcd100d29cfe21428a47be/78310a55b319ebc4cee036bd8c26cffc1e17167d.jpg",
-          name: "你好啊",
-          date: "2019-3-3",
-          content:
-            "你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊"
+      // 这个配置可以开启滚动条，默认为 false。当设置为 true 或者是一个 Object 的时候，都会开启滚动条，默认是会 fade 的
+      scrollbarObj: {
+        fade: true
+      },
+      // 这个配置用于做下拉刷新功能，默认为 false。当设置为 true 或者是一个 Object 的时候，可以开启下拉刷新，可以配置顶部下拉的距离（threshold） 来决定刷新时机以及回弹停留的距离（stop）
+      pullDownRefreshObj: {
+        threshold: 70,
+        stop: 40
+      },
+      // 这个配置用于做上拉加载功能，默认为 false。当设置为 true 或者是一个 Object 的时候，可以开启上拉加载，可以配置离底部距离阈值（threshold）来决定开始加载的时机
+      pullUpLoadObj: {
+        threshold: 0,
+        txt: {
+          more: "加载更多",
+          noMore: "没有更多数据了"
         }
-      ]
+      },
+      startY: 0, // 纵轴方向初始化位置
+      scrollToX: 0,
+      scrollToY: 0,
+      scrollToTime: 700,
+      items: [],
+      commentCount: 99,
+      contentList: [],
+      page: 1
     };
   },
+  filters: {
+    formTime(val) {
+      return timeTodate(val);
+    }
+  },
+  components: {
+    InlineLoading
+  },
 
-  components: {},
-
-  computed: {},
+  computed: {
+    newArr(){
+      return this.$parent.commitDataList
+    }
+  },
 
   beforeMount() {},
 
-  mounted() {},
-
-  methods: {},
-
-  watch: {}
+  mounted() {
+    this.onPullingDown();
+  },
+  watch: {
+    newArr(val){
+      if(val){
+         this.onPullingDown();
+      }
+    }
+  },
+  methods: {
+    //更新评论数据列表
+    getCommintList() {
+      return new Promise(resolve => {
+        let arr = [];
+        ScenceVideoDetails({
+          id: this.$route.query.id,
+          type: this.$route.query.type,
+          page: this.page
+        })
+          .then(res => {
+            if (res.result === 1) {
+              setTimeout(() => {
+                totalCount = res.data.totalofnum;
+                if (res.data.comment.length) {
+                  arr = res.data.comment;
+                  resolve(res.data.comment);
+                } else {
+                  this.$refs.scroll.forceUpdate(false);
+                }
+              }, 1000);
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      });
+    },
+    // 滚动到页面顶部
+    scrollTo() {
+      this.$refs.scroll.scrollTo(
+        this.scrollToX,
+        this.scrollToY,
+        this.scrollToTime
+      );
+    },
+    // 模拟数据请求
+    getData() {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          const arr = [];
+          for (let i = 0; i < 100; i++) {
+            arr.push(count++);
+          }
+          resolve(arr);
+        }, 1000);
+      });
+    },
+    onPullingDown() {
+      totalCount = 0;
+      this.page = 1;
+      this.getCommintList().then(res => {
+        this.contentList = res;
+        this.$nextTick(() => {
+          this.$refs.scroll.forceUpdate(true);
+        });
+      });
+    },
+    onPullingUp() {
+      this.page += this.page;
+      this.getCommintList().then(res => {
+        this.contentList = this.contentList.concat(res);
+        if (this.contentList.length < totalCount) {
+          this.$refs.scroll.forceUpdate(true);
+        } else {
+          this.$refs.scroll.forceUpdate(false);
+        }
+      });
+    }
+  }
 };
 </script>
 <style lang='css' scoped>
@@ -76,10 +186,9 @@ export default {
 }
 .comment-list-wrap {
   width: 100%;
-  height: auto;
+  height: 500px;
   padding: 10px;
   box-sizing: border-box;
-  background: #fff;
 }
 .comment-list-header-img {
   width: 26px;
@@ -124,9 +233,25 @@ export default {
   line-height: 20px;
   font-size: 14px;
 }
-.comment-list-amount{
+.comment-list-amount {
+  width: 100%;
+  background: #fff;
+  padding: 0 15px;
+  box-sizing: border-box;
   font-weight: bold;
   height: 30px;
   line-height: 30px;
+  position: relative;
+  z-index: 999;
+}
+.position-box {
+  position: absolute;
+  top: 340px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  padding: 15px;
+  box-sizing: border-box;
 }
 </style>

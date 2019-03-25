@@ -10,13 +10,21 @@
       :max="100"
       ref="inputVal"
       @input="onChange"
-    />
-      <x-button slot="right" type="primary" class="comments-wrap-btn" mini>提交</x-button>
+    >
+    <x-button
+      slot="right"
+      type="primary"
+      class="comments-wrap-btn"
+      mini
+      @click.native="submitData"
+    >提交</x-button>
   </div>
 </template>
 
 <script>
 import { XInput, Group, XButton, Cell } from "vux";
+import { NewsKachuoTopic } from "@/servers/api";
+import { setTimeout } from "timers";
 
 export default {
   components: {
@@ -32,8 +40,43 @@ export default {
   },
   methods: {
     onChange() {
-      console.log(this.value);
+      // console.log(this.value);
+    },
+    submitData() {
+      if (!this.value) {
+        this.$vux.toast.text("评论内容不能为空", "middle");
+        setTimeout(() => {
+          this.$vux.toast.hide();
+        }, 1000);
+        return;
+      }
+      NewsKachuoTopic({
+        id: this.$parent.videoId,
+        content: this.value,
+        branch: this.$route.query.type
+      })
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            this.$vux.toast.show({
+              type: "success",
+              text: "感谢您的评论",
+              time:1000,
+              onHide: () => {
+                this.value = "";
+                this.$emit("pushCommition");
+              }
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
+  },
+  updated() {},
+  beforeDestroy(){
+    this.value = "";
   }
 };
 </script>
@@ -54,7 +97,7 @@ export default {
   border-top: 1px solid #eee;
   box-sizing: border-box;
 }
-.comments-wrap-input{
+.comments-wrap-input {
   width: 74%;
   height: 24px;
   outline: none;
@@ -64,7 +107,7 @@ export default {
   box-sizing: border-box;
   font-size: 12px;
 }
-.comments-wrap-btn{
+.comments-wrap-btn {
   margin-left: 24px;
 }
 </style>

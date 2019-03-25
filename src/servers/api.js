@@ -130,7 +130,7 @@ export const blockChainInfo = (data) => http.post("verify.index.info", data);
 export const getUpdateInfo = (data) => http.post("renovate", data);
 
 // 通知中心
-export const kachuoMessageCenter = (data) => http.post("renovate.appnewslist",data);
+export const kachuoMessageCenter = (data) => http.post("renovate.appnewslist", data);
 
 //确认收货
 export const Confirmation = (data) => http.post("goods.buy.is_Confirmation", data);
@@ -202,58 +202,65 @@ export const KachuoJoinInfo = (data) => http.post("member.realname.get_distribut
 export const orderExpressInfo = (data) => http.post("goods.details.get_logistics", data);
 
 // 用户提交个人动态
-export const userSubmitNews = (data) => http.post("friend.index.friendadd",data);
+export const userSubmitNews = (data) => http.post("friend.index.friendadd", data);
 
 // 获取朋友圈列表
-export const userFriendTimeLine = (data) => http.post("friend.index.friendlist",data);
+export const userFriendTimeLine = (data) => http.post("friend.index.friendlist", data);
 
 // 获取朋友圈列表详细
-export const userFriendTimeLineDetails = (data) => http.post("friend.index.friendcon",data);
+export const userFriendTimeLineDetails = (data) => http.post("friend.index.friendcon", data);
 
 // 景区故事列表
-export const scenceStoryList = (data) => http.post("dynamic.dynamiclist",data);
+export const scenceStoryList = (data) => http.post("dynamic.dynamiclist", data);
 
 // 景区故事详情
-export const scenceStoryDetalis = (data) => http.post("season.index.seasoncon",data);
+export const scenceStoryDetalis = (data) => http.post("season.index.seasoncon", data);
 
 // 商品区块链信息
-export const verifyGoodsDetalis = (data) => http.post("verify.index.getDetail",data);
+export const verifyGoodsDetalis = (data) => http.post("verify.index.getDetail", data);
 
 // 查询商品编码
-export const GoodsBianMa = (data) => http.post("cygx.real.GoodsBianMa",data);
+export const GoodsBianMa = (data) => http.post("cygx.real.GoodsBianMa", data);
 
 // 自定义景区故事
-export const scenceStoryAdd = (data) => http.post("season.index.seasonadd",data);
+export const scenceStoryAdd = (data) => http.post("season.index.seasonadd", data);
 
 // 景区故事列表
-export const seasonIndexList = (data) => http.post("season.index.seasonlist",data);
+export const seasonIndexList = (data) => http.post("season.index.seasonlist", data);
 
 // 上传视频
-export const VideoUpload = (data) => http.post("util.Uploader.uploadm",data);
+export const VideoUpload = (data) => http.post("util.Uploader.uploadm", data);
 
 // 视频创作
-export const VideoCreditList = (data) => http.post("video.show.videolist_dff",data);
+export const VideoCreditList = (data) => http.post("video.show.videolist_dff", data);
 
 // 用户视频列表
-export const UserVideoList = (data) => http.post("video.show.videoi",data);
+export const UserVideoList = (data) => http.post("video.show.videoi", data);
 
 // 用户提交视频
-export const UserVideoSubmit = (data) => http.post("video.show.videoadd",data);
+export const UserVideoSubmit = (data) => http.post("video.show.videoadd", data);
 
 // 景区四季视频详情 
-export const ScenceVideoDetails = (data) => http.post("video.show.videodet",data);
+export const ScenceVideoDetails = (data) => http.post("video.show.videodet", data);
 
 // 文化动态评论
-export const NewsKachuoTopic = (data) => http.post("friend.Interaction.incomment",data);
+export const NewsKachuoTopic = (data) => http.post("friend.Interaction.incomment", data);
 
 // 文化动态点赞
-export const NewsKachuoInpraise = (data) => http.post("friend.Interaction.inpraise",data);
+export const NewsKachuoInpraise = (data) => http.post("friend.Interaction.inpraise", data);
 
 // 删除视频
-export const VideoListDeaete = (data) => http.post("video.show.videodel",data);
+export const VideoListDeaete = (data) => http.post("video.show.videodel", data);
 
 // 名家视频列表
-export const FamousVideoList = (data) => http.post("video.Artist.artistlist",data);
- 
+export const FamousVideoList = (data) => http.post("video.Artist.artistlist", data);
+
 // 名家视频详情
-export const FamousVideoDetails = (data) => http.post("video.Artist.artistdet",data);
+export const FamousVideoDetails = (data) => http.post("video.Artist.artistdet", data);
+
+// 创收列表
+export const SeourceCreatedList = (data) => http.post("video.show.videolist_dff", data);
+
+// 创收列表提交
+export const SeourceCreatedSubmit = (data) => http.post("video.show.videolist_dff", data);
+

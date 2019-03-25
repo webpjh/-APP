@@ -12,6 +12,10 @@ export default {
     isControls: {
       type: Boolean,
       required: true
+    },
+    videoObj: {
+      type: Object,
+      required: false
     }
   },
   data() {
@@ -25,19 +29,20 @@ export default {
   computed: {},
 
   beforeMount() {},
-
+  created() {
+  },
   mounted() {
-    this.createVideoDom(this.isControls);
+    this.createVideoDom(this.isControls, this.videoObj);
   },
 
   methods: {
-    createVideoDom(flag) {
+    createVideoDom(flag, videoObj) {
+      console.log(videoObj);
       new ChimeeMobilePlayer({
         wrapper: "#wrapper", // video dom容器
-        src: "http://cdn.toxicjohann.com/lostStar.mp4",
+        src: videoObj.video_url,
         autoplay: false,
-        poster:
-          "http://b.hiphotos.baidu.com/image/h%3D300/sign=c8a9d4e2841363270aedc433a18fa056/11385343fbf2b2114a65cd70c48065380cd78e41.jpg",
+        poster: videoObj.video_img,
         controls: flag,
         playsInline: true,
         preload: "auto",
@@ -45,22 +50,21 @@ export default {
         x5VideoOrientation: "landscape|portrait",
         xWebkitAirplay: true,
         muted: true
-        // removeInnerPlugins: ['chimeeMobiControlbar', 'chimeeState'] // 需要移除的插件
       });
     }
   },
 
   watch: {
-    isControls:function(flag){
+    isControls: function(flag) {
       return flag;
     }
   }
 };
 </script>
-<style lang='' scoped>
+<style lang='css' scoped>
 .video {
   width: 100%;
-  /* height: 200px; */
+  height: 200px;
   overflow: hidden;
 }
 </style>

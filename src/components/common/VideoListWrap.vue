@@ -7,7 +7,7 @@
       class="goods-list"
       v-for="(item,index) in videoDataList"
       :key="index"
-      @click="getVideoDetails(item.id)"
+      @click="getVideoDetails(item.id,9)"
     >
       <div
         class="goods-img"
@@ -58,8 +58,8 @@ export default {
   mounted() {},
 
   methods: {
-    getVideoDetails(id) {
-      this.$router.push("/informationconsumdetails?id=" + id);
+    getVideoDetails(id, type) {
+      this.$router.push("/informationconsumdetails?id=" + id + "&type=" + type);
     }
   },
 
