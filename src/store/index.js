@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex)
 
-import data from '../assets/data'
+// import data from '../assets/data'
 
 const request = () => {
   return new Promise((res, rej) => {

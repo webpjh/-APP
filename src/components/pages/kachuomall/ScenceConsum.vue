@@ -10,16 +10,10 @@
       <DividedArea></DividedArea>
       <FlexWrap :dataListCon="dataList" ref="dataList"></FlexWrap>
       <DividedArea></DividedArea>
-      <Divider :content="title"></Divider>
-      <scroller
-        :on-infinite="pullup"
-        :on-refresh="refresh"
-        :refreshText="refreshText"
-        :noDataText="noDataText"
-        class="scence-release-content"
-      >
-        <GoodsList></GoodsList>
-      </scroller>
+      <div v-for="(item,index) in goodsListData" :key="index">
+        <Divider :content="item.name"></Divider>
+        <GoodsList :goodList="item.goods"></GoodsList>
+      </div>
     </div>
   </div>
 </template>
@@ -32,6 +26,7 @@ import FlexWrap from "@/components/layout/FlexWrap";
 import Divider from "@/components/common/Divider";
 import Scroll from "@/components/common/Scroller";
 import GoodsList from "@/components/layout/GoodsList";
+import { ShopGoodsListPush, ScenceGoodsClass } from "@/servers/api";
 
 export default {
   name: "",
@@ -39,45 +34,34 @@ export default {
   data() {
     return {
       TitleObjData: {
-        titleContent: "发布详情",
+        titleContent: "",
         showLeftBack: true,
         showRightMore: false
       },
       title: "精选好物",
-      page: 0,
-      list: [],
-      refreshText: "下拉刷新",
-      noDataText: "没有更多数据",
       dataList: [
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "欣怡开市",
-          link: "/scenceconsumdetails?title=欣怡开市",
-          class: "iconfont iconmenpiao"
-        },
-        {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "景区有礼",
-          link: "/scenceconsumdetails?title=景区有礼",
+          link: "/scenceconsumdetails?title=景区有礼&id=38&type=1",
           class: "iconfont iconmenpiao"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "地方好物",
-          link: "/scenceconsumdetails?title=地方好物",
-          class: "iconfont iconmenpiao"
-        },
-        {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "节日佳品",
-          link: "/scenceconsumdetails?title=节日佳品",
+          link: "/scenceconsumdetails?title=节日佳品&id=40&type=1",
+          class: "iconfont iconmenpiao"
+        },
+        {
+          name: "地方好物",
+          link: "/scenceconsumdetails?title=地方好物&id=64&type=1",
+          class: "iconfont iconmenpiao"
+        },
+        {
+          name: "欣怡开市",
+          link: "/scenceconsumdetails?title=欣怡开市&id=85&type=1",
           class: "iconfont iconmenpiao"
         }
-      ]
+      ],
+      goodsListData: []
     };
   },
 
@@ -101,23 +85,35 @@ export default {
 
   mounted() {
     this.setTitle();
+    this.getClassList();
+    this.getData();
   },
 
   methods: {
     setTitle() {
       this.TitleObjData.titleContent = this.$route.query.title;
     },
-    refresh(done) {
-      console.log("refresh");
-      setTimeout(() => {
-        done();
-      }, 2000);
+    getClassList() {
+      ScenceGoodsClass({})
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
-    pullup(done) {
-      console.log("pullup");
-      setTimeout(() => {
-        done();
-      }, 2000);
+    getData() {
+      ShopGoodsListPush({
+        type: 1
+      })
+        .then(res => {
+          if (res.result === 1) {
+            this.goodsListData = res.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
 
@@ -125,9 +121,17 @@ export default {
 };
 </script>
 <style lang='css' scoped>
+.scence-gifts-wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .scence-gifts-content {
   width: 100%;
+  height: 100%;
   margin-top: 50px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 .scence-release-content {
   width: 100%;
@@ -136,5 +140,11 @@ export default {
   overflow: hidden;
   overflow-y: scroll;
   box-sizing: border-box;
+}
+.goods-list-wrap {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 </style>

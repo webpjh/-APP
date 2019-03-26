@@ -3,39 +3,38 @@
     <span class="tab-item-cash-header-left"></span>
     <span class="tab-item-cash-header-mid font-weight-36px">变现</span>
     <span class="tab-item-cash-header-right">
-      <span class="iconfont iconxiaoxi"></span>
+      <span class="iconfont iconxiaoxi" @click="appMessageCenter"></span>
     </span>
   </div>
 </template>
 
 <script>
+export default {
+  name: "",
+  props: [""],
+  data() {
+    return {};
+  },
 
-  export default {
-    name:'',
-    props:[''],
-    data () {
-      return {
+  components: {},
 
-      };
-    },
+  computed: {},
 
-    components: {},
+  beforeMount() {},
 
-    computed: {},
+  mounted() {},
 
-    beforeMount() {},
+  methods: {
+    appMessageCenter() {
+      this.$router.push("/appmessage");
+    }
+  },
 
-    mounted() {},
-
-    methods: {},
-
-    watch: {}
-
-  }
-
+  watch: {}
+};
 </script>
 <style lang='css' scoped>
-.tab-item-cash-header-wrap{
+.tab-item-cash-header-wrap {
   width: 100%;
   height: 50px;
   display: flex;
@@ -44,15 +43,15 @@
   align-items: center;
   background: #fff;
 }
-.tab-item-cash-header-left{
+.tab-item-cash-header-left {
   flex: 1;
 }
-.tab-item-cash-header-mid{
+.tab-item-cash-header-mid {
   flex: 4;
   text-align: center;
   font-weight: bold;
 }
-.tab-item-cash-header-right{
+.tab-item-cash-header-right {
   flex: 1;
   text-align: right;
   padding-right: 15px;

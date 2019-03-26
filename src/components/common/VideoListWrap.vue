@@ -2,32 +2,38 @@
 商品列表
 -->
 <template>
-  <div class="goods-list-wrap">
-    <div
-      class="goods-list"
-      v-for="(item,index) in videoDataList"
-      :key="index"
-      @click="getVideoDetails(item.id,9)"
-    >
+  <div class="video-list-wrap">
+    <p style="text-align:center;" v-if="!videoDataList.length">
+      <inline-loading></inline-loading>
+      <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中</span>
+    </p>
+    <div class="goods-list-wrap" v-else-if="videoDataList.length">
       <div
-        class="goods-img"
-        :style="{backgroundImage: 'url(' + item.video_img + ')', backgroundSize:'cover',backgroundRepeat:'no-repeat'}"
+        class="goods-list"
+        v-for="(item,index) in videoDataList"
+        :key="index"
+        @click="getVideoDetails(item.id)"
       >
-        <p class="goods-list-title">
-          <span class="iconfont icondingwei"></span>
-          <span class="iconfont-location"></span>
-        </p>
-        <p class="video-play-btn">
-          <span class="iconfont iconbofang" style="font-size:30px;color:#fff"></span>
-        </p>
-        <div class="goods-img-desc">
-          <div>
-            <img v-lazy="item.release_img">
-            <span style="font-size:12px">{{item.release_name }}</span>
-          </div>
-          <div>
-            <span class="iconfont icondianzan" style="font-size:12px;color:#fff"></span>
-            <span style="font-size:12px">{{item.praise_num}}</span>
+        <div
+          class="goods-img"
+          :style="{backgroundImage: 'url(' + item.video_img + ')', backgroundSize:'cover',backgroundRepeat:'no-repeat'}"
+        >
+          <p class="goods-list-title">
+            <span class="iconfont icondingwei"></span>
+            <span class="iconfont-location"></span>
+          </p>
+          <p class="video-play-btn">
+            <span class="iconfont iconbofang" style="font-size:30px;color:#fff"></span>
+          </p>
+          <div class="goods-img-desc">
+            <div>
+              <img v-lazy="item.release_img">
+              <span style="font-size:12px">{{item.release_name }}</span>
+            </div>
+            <div>
+              <span class="iconfont icondianzan" style="font-size:12px;color:#fff"></span>
+              <span style="font-size:12px">{{item.praise_num}}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -36,8 +42,7 @@
 </template>
 
 <script>
-import { Divider } from "vux";
-
+import { Divider, InlineLoading } from "vux";
 export default {
   name: "",
   props: ["videoDataList"],
@@ -48,7 +53,8 @@ export default {
   },
 
   components: {
-    Divider
+    Divider,
+    InlineLoading
   },
 
   computed: {},
@@ -58,7 +64,8 @@ export default {
   mounted() {},
 
   methods: {
-    getVideoDetails(id, type) {
+    getVideoDetails(id) {
+      let type = this.$route.query.branch;
       this.$router.push("/informationconsumdetails?id=" + id + "&type=" + type);
     }
   },
@@ -67,9 +74,14 @@ export default {
 };
 </script>
 <style lang='css' scoped>
+.video-list-wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .goods-list-wrap {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

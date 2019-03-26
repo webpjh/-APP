@@ -61,10 +61,17 @@ export default {
 };
 </script>
 <style lang='css' scoped>
+.tab-item-mall-advertise-wrap{
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: #fff;
+}
 .tab-item-mall-advertise-swiper {
   padding: 0 15px;
   box-sizing: border-box;
   margin-top: 10px;
+  background: #fff;
 }
 .vux-swiper-item {
   border-radius: 20px;

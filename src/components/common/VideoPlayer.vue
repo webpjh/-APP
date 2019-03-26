@@ -29,15 +29,15 @@ export default {
   computed: {},
 
   beforeMount() {},
-  created() {
-  },
+  created() {},
   mounted() {
-    this.createVideoDom(this.isControls, this.videoObj);
+    if (this.videoObj) {
+      this.createVideoDom(this.isControls, this.videoObj);
+    }
   },
 
   methods: {
     createVideoDom(flag, videoObj) {
-      console.log(videoObj);
       new ChimeeMobilePlayer({
         wrapper: "#wrapper", // video dom容器
         src: videoObj.video_url,

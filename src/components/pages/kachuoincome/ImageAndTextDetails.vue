@@ -6,16 +6,26 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="scroll-content-wrap" :style="conHeight">
-      <SwiperImg :SwiperImgData="SwiperImgData"></SwiperImg>
-      <ImgAndTextNoteDetailsUserInfo></ImgAndTextNoteDetailsUserInfo>
-      <div class="content-wrap">
-        <p style="font-size:18px;font-weight:bold">回归本性</p>
-        <p>回归本性回归本性回归本性回归本性回归本性回归本性回归本性回归本性回归本性回归本性回归本性回归本性</p>
+      <SwiperImg class="z-index-sty" :SwiperImgData="SwiperImgData"></SwiperImg>
+      <ImgAndTextNoteDetailsUserInfo
+        style="background:#fff"
+        :detailsObj="descContent"
+        class="z-index-sty"
+      ></ImgAndTextNoteDetailsUserInfo>
+      <div class="content-wrap z-index-sty">
+        <p style="font-size:18px;font-weight:bold">{{descContent.title}}</p>
+        <p>{{descContent.summary}}</p>
       </div>
-      <DividedArea></DividedArea>
-      <CommentList></CommentList>
+      <DividedArea class="z-index-sty"></DividedArea>
+      <CommentList
+        :id="currentId"
+        :pullDownRefreshObj="pullDownRefreshObj"
+        :dataList.sync="commitDataList"
+        :scrollTop="390"
+        class="commit-list"
+      ></CommentList>
     </div>
-    <Comments></Comments>
+    <Comments v-on:pushCommition="updateCommintList"></Comments>
   </div>
 </template>
 
@@ -26,6 +36,7 @@ import ImgAndTextNoteDetailsUserInfo from "@/components/layout/ImgAndTextNoteDet
 import CommentList from "@/components/layout/CommentList";
 import DividedArea from "@/components/common/DividedArea";
 import Comments from "@/components/common/Comments";
+import { SeourceCreatedListDetails } from "@/servers/api";
 
 export default {
   name: "",
@@ -33,37 +44,24 @@ export default {
   data() {
     return {
       SwiperImgData: {
-        ImgList: [
-          {
-            url: "javascript:",
-            img:
-              "https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg",
-            title: ""
-          },
-          {
-            url: "javascript:",
-            img:
-              "https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg",
-            title: ""
-          },
-          {
-            url: "javascript:",
-            img:
-              "https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg", // 404
-            title: ""
-          }
-        ],
+        ImgList: [],
         index: 0,
         dotsPosition: "center",
         loop: true,
         auto: true,
         height: "220px"
       },
+      pullDownRefreshObj: {
+        threshold: 40,
+        stop: 40
+      },
       TitleObjData: {
         titleContent: "详情",
         showLeftBack: true,
         showRightMore: false
-      }
+      },
+      commitDataList: [],
+      descContent: {}
     };
   },
 
@@ -78,34 +76,109 @@ export default {
 
   computed: {
     conHeight() {
-      return { height: document.documentElement.clientHeight - 45 + "px" };
+      return { height: document.documentElement.clientHeight - 90 + "px" };
+    },
+    currentId() {
+      return this.$route.query.id;
     }
   },
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getDetailsData();
+  },
 
-  methods: {},
+  methods: {
+    //更新评论数据列表
+    updateCommintList() {
+      this.videoId = this.$route.query.id;
+      SeourceCreatedListDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.type
+      })
+        .then(res => {
+          if (res.result === 1) {
+            if (res.data.comment.length) {
+              this.commitDataList = res.data.comment;
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 更新点赞状态
+    refreshData() {
+      this.videoId = this.$route.query.id;
+      SeourceCreatedListDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.type
+      })
+        .then(res => {
+          if (res.data.video) {
+            this.clickState = res.data.video.type;
+            this.praiseNum = res.data.video.praise_num;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 初始化数据
+    getDetailsData() {
+      SeourceCreatedListDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.type
+      })
+        .then(res => {
+          if (res.result === 1) {
+            this.descContent = res.data.video;
+            this.commitDataList = res.data.comment;
+            let imgList = res.data.video.video_img.split(",");
+            let arrObj = [];
+            for (let i = 0; i < imgList.length; i++) {
+              arrObj.push({
+                img: imgList[i]
+              });
+            }
+            this.SwiperImgData.ImgList = JSON.parse(JSON.stringify(arrObj));
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
 
   watch: {}
 };
 </script>
 <style lang='css' scoped>
+.img-text-details-wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .content-wrap {
   width: 100%;
   padding: 15px;
   box-sizing: border-box;
+  background: #fff;
 }
-.scroll-content-wrap{
+.scroll-content-wrap {
   width: 100%;
   margin-top: 50px;
   overflow: hidden;
-  overflow-y: scroll;
+  position: absolute;
 }
-.img-text-details-wrap{
+.img-text-details-wrap {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+.z-index-sty {
+  position: relative;
+  z-index: 9999;
 }
 </style>

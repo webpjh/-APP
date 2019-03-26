@@ -34,7 +34,6 @@ export default {
   methods: {
     giveLike() {
       let flag = this.$parent.clickState;
-      console.log(flag);
       let type = flag === 0 ? 1 : 0;
       this.$emit("changePhriseState", flag);
       NewsKachuoInpraise({
@@ -43,7 +42,6 @@ export default {
         branch:this.$route.query.type
       })
         .then(res => {
-          console.log(res);
           if (res.result === 1) {
             this.$emit("changePhriseState", type);
           }

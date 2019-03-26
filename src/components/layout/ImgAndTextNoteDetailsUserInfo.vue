@@ -2,30 +2,37 @@
   <div class="img-and-text-details-user-info-wrap">
     <div class="details-left">
       <div>
-        <img class="header-img" src="http://f.hiphotos.baidu.com/image/h%3D300/sign=7e685ef2f903918fc8d13bca613d264b/b3119313b07eca80787730f59f2397dda14483b5.jpg"/>
+        <img class="header-img" :src="detailsObj.avatar">
       </div>
       <div class="header-desc">
-        <p >姓名</p>
-        <p style="font-size:12px">2019-3-18</p>
+        <p>{{detailsObj.nickname}}</p>
+        <p style="font-size:12px">{{detailsObj.createtime}}</p>
       </div>
     </div>
     <div class="details-right">
       <span>
-        <GiveLike></GiveLike>
+        <GiveLike
+          v-on:changePhriseState="refreshData"
+          :clickState="clickState"
+          :praiseNum="praiseNum"
+        ></GiveLike>
       </span>
     </div>
   </div>
 </template>
 
 <script>
-
 import GiveLike from "@/components/common/GiveLike";
+import { SeourceCreatedListDetails } from "@/servers/api";
 
 export default {
   name: "",
-  props: [""],
+  props: ["detailsObj"],
   data() {
-    return {};
+    return {
+      clickState: 0,
+      praiseNum: 0
+    };
   },
 
   components: {
@@ -36,15 +43,53 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getDetailsData();
+  },
 
-  methods: {},
+  methods: {
+    // 更新点赞状态
+    refreshData() {
+      this.videoId = this.$route.query.id;
+      SeourceCreatedListDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.type
+      })
+        .then(res => {
+          if (res.data.video) {
+            this.clickState = res.data.video.type;
+            this.praiseNum = res.data.video.praise_num;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 初始化数据
+    getDetailsData() {
+      SeourceCreatedListDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.type
+      })
+        .then(res => {
+          if (res.result === 1) {
+            if (res.data.video) {
+              this.clickState = res.data.video.type;
+              this.praiseNum = res.data.video.praise_num;
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
 
   watch: {}
 };
 </script>
 <style lang='css' scoped>
-.img-and-text-details-user-info-wrap{
+.img-and-text-details-user-info-wrap {
   width: 100%;
   height: 60px;
   display: flex;
@@ -54,24 +99,24 @@ export default {
   padding: 0 15px;
   box-sizing: border-box;
 }
-.header-img{
+.header-img {
   width: 40px;
   height: 40px;
   display: inline-block;
   border-radius: 50%;
 }
-.details-left{
+.details-left {
   flex: 1;
   display: flex;
   flex-direction: row;
 }
-.details-right{
+.details-right {
   flex: 1;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
-.header-desc{
+.header-desc {
   margin-left: 10px;
 }
 </style>

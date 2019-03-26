@@ -1,7 +1,13 @@
 <template>
   <div class="input-textarea-wrap">
     <p class="input-textarea-title">标题</p>
-    <x-input class="input-textarea-input" placeholder="请输入标题" v-model="inputValue" @on-change="getInputVal"></x-input>
+    <x-input
+      class="input-textarea-input"
+      placeholder="请输入标题"
+      v-model="inputValue"
+      @on-change="getInputVal"
+      :show-clear="false"
+    ></x-input>
     <p class="input-textarea-title">内容</p>
     <Group>
       <x-textarea
@@ -15,28 +21,30 @@
       ></x-textarea>
     </Group>
     <p class="image-upload-title">
-      <span class>上传图片</span>
+      <span class>上传图片(最多上传三张)</span>
       <span class="image-upload-weak-tip">( 图片大小不能超过10M )</span>
     </p>
-    <ImageUploader ref="imgUpload"></ImageUploader>
-    <Address v-show="showAddress"></Address>
-    <x-button type="primary" class="submit-btn" @click.native="submitForm">发布</x-button>
+    <ImageUploader ref="imgUpload" v-on:getImgUploadUrl="getImgUrl"></ImageUploader>
+    <Address v-show="showAddress" v-on:selectAddress="getImgAddress"></Address>
+    <x-button type="primary" class="submit-btn" @click.native="formData">发布</x-button>
   </div>
 </template>
 
 <script>
-
 import { XTextarea, Group, XInput, XButton } from "vux";
 import ImageUploader from "@/components/common/ImageUploader";
 import Address from "@/components/common/Address";
+import { SeourceCreatedSubmit } from "@/servers/api";
 
 export default {
-  props:['showAddress'],
-  data(){
-    return{
+  props: ["showAddress"],
+  data() {
+    return {
       inputValue: "",
-      textareaValue:""
-    }
+      textareaValue: "",
+      imgList: [],
+      arressVal: ""
+    };
   },
   components: {
     XTextarea,
@@ -47,18 +55,91 @@ export default {
     Address
   },
   methods: {
+    getImgAddress(val) {
+      // console.log(val);
+      this.arressVal = val;
+    },
+    getImgUrl(val) {
+      // console.log(val);
+      this.imgList = val;
+    },
+    showToast(content) {
+      this.$vux.toast.text(content, "mid");
+      setTimeout(() => {
+        this.$vux.toast.hide();
+      }, 2000);
+    },
+    formData() {
+      if (!this.inputValue) {
+        this.showToast("请输入标题");
+        return;
+      } else if (!this.textareaValue) {
+        this.showToast("请输入内容");
+        return;
+      } else if (!this.imgList.length) {
+        this.showToast("请上传图片");
+        return;
+      } else if (!this.arressVal) {
+        this.$vux.confirm.show({
+          title: "提示",
+          content: "发布地点未选，确定要发布吗？",
+          onCancel() {
+            return;
+          },
+          onConfirm: () => {
+            this.submitForm();
+          }
+        });
+      } else {
+        this.submitForm();
+      }
+    },
     onEvent(event) {
-      console.log("on", event);
+      // console.log("on", event);
     },
-    getInputVal(){
-      console.log(this.inputValue);
+    getInputVal() {
+      // console.log(this.inputValue);
     },
-    getTextareaValue(){
-      console.log(this.textareaValue);
+    getTextareaValue() {
+      // console.log(this.textareaValue);
     },
-    submitForm(){
-      this.$refs.imgUpload.submit();
+    submitForm() {
+      SeourceCreatedSubmit({
+        type: this.$route.query.branch,
+        title: this.inputValue,
+        summary: this.textareaValue,
+        image: this.imgList.join(","),
+        address: this.arressVal
+      })
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            this.$vux.toast.show({
+              type: "success",
+              text: "发布成功",
+              time: 1000,
+              onHide: () => {
+                this.$router.goBack();
+              }
+            });
+          } else {
+            this.$vux.toast.show({
+              type: "warn",
+              text: "失败，请重试",
+              time: 1000
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
+  },
+  beforeDestroy() {
+    this.inputValue = "";
+    this.textareaValue = "";
+    this.imgList = [];
+    this.arressVal = "";
   }
 };
 </script>

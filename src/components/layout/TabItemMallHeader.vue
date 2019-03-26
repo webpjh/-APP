@@ -12,15 +12,14 @@
 </template>
 
 <script>
-
-import Popup from "@/components/layout/Popup"
+import Popup from "@/components/layout/Popup";
 
 export default {
   name: "",
   props: [""],
   data() {
     return {
-      showModel:false
+      showModel: false
     };
   },
 
@@ -35,10 +34,10 @@ export default {
   mounted() {},
 
   methods: {
-    showLeftModel(){
-      this.$store.commit("showMallLeftOptionState",true);
+    showLeftModel() {
+      this.$store.commit("showMallLeftOptionState", true);
     },
-        appMessageCenter() {
+    appMessageCenter() {
       this.$router.push("/appmessage");
     }
   },

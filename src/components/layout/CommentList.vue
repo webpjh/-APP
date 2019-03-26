@@ -3,12 +3,15 @@
  -->
 <template>
   <div>
-    <div class="comment-list-amount">评论({{commentCount}})</div>
-    <p style="text-align:center;" v-if="!contentList.length">
+    <div class="comment-list-amount">评论({{totalNum}})</div>
+    <p style="text-align:center;" v-show="!contentList.length && contentList.length != 0">
       <inline-loading></inline-loading>
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中</span>
     </p>
-    <main class="position-box" v-else-if="contentList.length">
+    <p style="text-align:center;" v-show="contentList.length === 0">
+      <span style="vertical-align:middle;display:inline-block;font-size:14px;">暂无评论~</span>
+    </p>
+    <main class="position-box" v-show="contentList.length" :style="{top:scrollTop+'px'}">
       <!-- 需要一个创建一个父容器 组件高度默认等于父容器的高度 -->
       <vue-better-scroll
         class="wrapper"
@@ -49,19 +52,16 @@ let count = 1;
 let totalCount = 0;
 export default {
   name: "",
-  props: ["dataList"],
+  props: ["dataList", "scrollTop", "pullDownRefreshObj"],
   data() {
     return {
-      // 这个配置可以开启滚动条，默认为 false。当设置为 true 或者是一个 Object 的时候，都会开启滚动条，默认是会 fade 的
       scrollbarObj: {
         fade: true
       },
-      // 这个配置用于做下拉刷新功能，默认为 false。当设置为 true 或者是一个 Object 的时候，可以开启下拉刷新，可以配置顶部下拉的距离（threshold） 来决定刷新时机以及回弹停留的距离（stop）
-      pullDownRefreshObj: {
-        threshold: 70,
-        stop: 40
-      },
-      // 这个配置用于做上拉加载功能，默认为 false。当设置为 true 或者是一个 Object 的时候，可以开启上拉加载，可以配置离底部距离阈值（threshold）来决定开始加载的时机
+      // pullDownRefreshObj: {
+      //   threshold: 70,
+      //   stop: 40
+      // },
       pullUpLoadObj: {
         threshold: 0,
         txt: {
@@ -76,7 +76,8 @@ export default {
       items: [],
       commentCount: 99,
       contentList: [],
-      page: 1
+      page: 1,
+      totalNum: 0
     };
   },
   filters: {
@@ -89,8 +90,8 @@ export default {
   },
 
   computed: {
-    newArr(){
-      return this.$parent.commitDataList
+    newArr() {
+      return this.$parent.commitDataList;
     }
   },
 
@@ -100,9 +101,9 @@ export default {
     this.onPullingDown();
   },
   watch: {
-    newArr(val){
-      if(val){
-         this.onPullingDown();
+    newArr(val) {
+      if (val) {
+        this.onPullingDown();
       }
     }
   },
@@ -118,13 +119,16 @@ export default {
         })
           .then(res => {
             if (res.result === 1) {
+              totalCount = res.data.totalofnum;
+              this.totalNum = res.data.totalofnum;
               setTimeout(() => {
-                totalCount = res.data.totalofnum;
                 if (res.data.comment.length) {
                   arr = res.data.comment;
                   resolve(res.data.comment);
                 } else {
-                  this.$refs.scroll.forceUpdate(false);
+                  this.$nextTick(() => {
+                    this.$refs.scroll.forceUpdate(false);
+                  });
                 }
               }, 1000);
             }
@@ -142,18 +146,6 @@ export default {
         this.scrollToTime
       );
     },
-    // 模拟数据请求
-    getData() {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          const arr = [];
-          for (let i = 0; i < 100; i++) {
-            arr.push(count++);
-          }
-          resolve(arr);
-        }, 1000);
-      });
-    },
     onPullingDown() {
       totalCount = 0;
       this.page = 1;
@@ -165,7 +157,7 @@ export default {
       });
     },
     onPullingUp() {
-      this.page += this.page;
+      this.page += 1;
       this.getCommintList().then(res => {
         this.contentList = this.contentList.concat(res);
         if (this.contentList.length < totalCount) {
@@ -246,7 +238,7 @@ export default {
 }
 .position-box {
   position: absolute;
-  top: 340px;
+  /* top: 340px; */
   left: 0;
   right: 0;
   bottom: 0;

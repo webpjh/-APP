@@ -25,15 +25,18 @@
 </template>
 
 <script>
-
-import {imageUpload} from "@/servers/api";
+import axios from "axios";
+import { imageUpload } from "@/servers/api";
 
 export default {
   data() {
     return {
       formData: new FormData(),
       imgs: {},
-      imgLen: 0
+      imgLen: 0,
+      getImg: [],
+      videoUploadUrl:
+        "https://core.kachuo.com/app/ewei_shopv2_app.php?i=5&c=site&a=entry&m=ewei_shopv2&do=mobile&r=util.uploader.uploadm"
     };
   },
   methods: {
@@ -78,6 +81,8 @@ export default {
     delImg(key) {
       this.$delete(this.imgs, key);
       this.imgLen--;
+      this.getImg = this.getImg.slice(key,1);
+      this.$emit("getImgUploadUrl",this.getImg);
     },
     showLoading() {
       this.$vux.loading.show({
@@ -96,18 +101,37 @@ export default {
     submit() {
       for (let key in this.imgs) {
         let name = key.split("?")[0];
-        this.formData.append("multipartFiles", this.imgs[key], name);
+        this.formData.append("file", this.imgs[key]);
       }
-      console.log(this.formData);
-      imageUpload({
-        file:this.formData
-      })
+      let config = {
+        timeout: 2500,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: localStorage.getItem("token")
+        }
+      };
+      axios
+        .post(this.videoUploadUrl, this.formData, config)
         .then(res => {
-          console.log(res);
+          if (res.data.result === 1) {
+            this.$vux.toast.show({
+              type: "success",
+              text: "上传成功",
+              time: 1000
+            });
+            this.getImg.push(res.data.data.files[0].url);
+          } else {
+            this.$vux.toast.show({
+              type: "warn",
+              text: "失败请重试",
+              time: 1000
+            });
+          }
         })
         .catch(err => {
           console.log(err);
         });
+        this.$emit("getImgUploadUrl",this.getImg);
     }
   },
   mounted() {

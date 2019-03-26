@@ -51,9 +51,9 @@ export default {
         return;
       }
       NewsKachuoTopic({
-        id: this.$parent.videoId,
+        id: this.$route.query.id,
         content: this.value,
-        branch: this.$route.query.type
+        type: this.$route.query.type
       })
         .then(res => {
           console.log(res);

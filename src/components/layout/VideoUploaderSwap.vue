@@ -34,7 +34,7 @@
 import { XTextarea, Group, XInput, XButton } from "vux";
 import VideoUploader from "@/components/common/VideoUploader";
 import Address from "@/components/common/Address";
-import { UserVideoSubmit } from "@/servers/api";
+import { SeourceCreatedSubmit } from "@/servers/api";
 export default {
   data() {
     return {
@@ -92,7 +92,7 @@ export default {
           onCancel() {
             return;
           },
-          onConfirm:() => {
+          onConfirm: () => {
             this.submitForm();
           }
         });
@@ -101,7 +101,11 @@ export default {
       }
     },
     submitForm() {
-      UserVideoSubmit({
+      this.$vux.loading.show({
+        text: "正在发布"
+      });
+      SeourceCreatedSubmit({
+        type: this.$route.query.branch,
         title: this.inputValue,
         summary: this.textareaValue,
         video: this.videoUrlData,
@@ -110,6 +114,7 @@ export default {
         .then(res => {
           console.log(res);
           if (res.result === 1) {
+            this.$vux.loading.hide();
             this.$vux.toast.show({
               type: "success",
               text: "发布成功",
@@ -119,6 +124,7 @@ export default {
               }
             });
           } else {
+            this.$vux.loading.hide();
             this.$vux.toast.show({
               type: "warn",
               text: "失败，请重试",
@@ -127,6 +133,7 @@ export default {
           }
         })
         .catch(err => {
+          this.$vux.loading.hide();
           console.log(err);
         });
     }

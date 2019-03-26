@@ -13,7 +13,13 @@
         v-on:changePhriseState="refreshData"
       ></GiveLike>
       <DividedArea></DividedArea>
-      <CommentList :id="currentId" :dataList.sync="commitDataList"></CommentList>
+      <CommentList
+        :id="currentId"
+        :pullDownRefreshObj="pullDownRefreshObj"
+        :dataList.sync="commitDataList"
+        :scrollTop="340"
+        class="commit-list"
+      ></CommentList>
       <Comments v-on:pushCommition="updateCommintList"></Comments>
     </div>
   </div>
@@ -40,6 +46,10 @@ export default {
         titleContent: "",
         showLeftBack: true,
         showRightMore: false
+      },
+      pullDownRefreshObj: {
+        threshold: 70,
+        stop: 40
       },
       videoObj: {},
       commitDataList: [],
@@ -167,5 +177,7 @@ export default {
   width: 100%;
   height: 200px;
   overflow: hidden;
+}
+.commit-list {
 }
 </style>

@@ -114,7 +114,7 @@ export const goodsBucketSubmit = (data) => http.post("goods.buy.add_gwcOrder", d
 // 购物车删除
 export const goodsBucketDelete = (data) => http.post("goods.details.del_shop", data);
 
-// 购物车删除
+// 购物推荐
 export const goodsBucketRecomm = (data) => http.post("goods.details.PickShop", data);
 
 // 文链查证列表未售
@@ -262,5 +262,19 @@ export const FamousVideoDetails = (data) => http.post("video.Artist.artistdet", 
 export const SeourceCreatedList = (data) => http.post("video.show.videolist_dff", data);
 
 // 创收列表提交
-export const SeourceCreatedSubmit = (data) => http.post("video.show.videolist_dff", data);
+export const SeourceCreatedSubmit = (data) => http.post("video.show.videoAdd1", data);
+
+// 创收列表详情
+export const SeourceCreatedListDetails = (data) => http.post("video.show.videodet", data);
+
+// 商品列表
+export const ShopGoodsList = (data) => http.post("shop.index.get_list_by_category", data);
+
+// 推荐商品
+export const ShopGoodsListPush = (data) => http.post("shop.index.get_home_list", data);
+
+// 景区消费分类
+export const ScenceGoodsClass = () => http.post("shop.index.get_category");
+
+
 

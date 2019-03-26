@@ -11,15 +11,7 @@
       <FlexWrap :dataListCon="dataList" ref="dataList"></FlexWrap>
       <DividedArea></DividedArea>
       <Divider :content="title"></Divider>
-      <scroller
-        :on-infinite="pullup"
-        :on-refresh="refresh"
-        :refreshText="refreshText"
-        :noDataText="noDataText"
-        class="scence-release-content"
-      >
-        <GoodsList></GoodsList>
-      </scroller>
+      <GoodsList :goodList="goodsDataList"></GoodsList>
     </div>
   </div>
 </template>
@@ -32,6 +24,7 @@ import FlexWrap from "@/components/layout/FlexWrap";
 import Divider from "@/components/common/Divider";
 import Scroll from "@/components/common/Scroller";
 import GoodsList from "@/components/layout/GoodsList";
+import {goodsBucketRecomm } from "@/servers/api";
 
 export default {
   name: "",
@@ -50,62 +43,47 @@ export default {
       noDataText: "没有更多数据",
       dataList: [
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "云雾山",
-          link: "/scenceconsumdetails?title=云雾山",
+          link: "/scenceconsumdetails?title=云雾山&id=27&type=1",
           class: "iconfont iconmenpiao"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "神垕古镇",
-          link: "/scenceconsumdetails?title=神垕古镇",
+          link: "/scenceconsumdetails?title=神垕古镇&id=26&type=1",
           class: "iconfont iconmenpiao"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "少林寺",
-          link: "/scenceconsumdetails?title=少林寺",
+          link: "/scenceconsumdetails?title=少林寺&id=25&type=1",
           class: "iconfont iconmenpiao"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "徽州古城",
-          link: "/scenceconsumdetails?title=徽州古城",
+          link: "/scenceconsumdetails?title=徽州古城&id=23&type=1",
           class: "iconfont iconmenpiao"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "苍岩山",
-          link: "/scenceconsumdetails?title=苍岩山",
+          link: "/scenceconsumdetails?title=苍岩山&id=22&type=1",
           class: "iconfont iconmenpiao"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "三孔",
-          link: "/scenceconsumdetails?title=三孔",
+          link: "/scenceconsumdetails?title=三孔&id=35&type=1",
           class: "iconfont iconmenpiao"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "蓬莱阁",
-          link: "/scenceconsumdetails?title=蓬莱阁",
+          link: "/scenceconsumdetails?title=蓬莱阁&id=24&type=1",
           class: "iconfont iconmenpiao"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "云冈石窟",
-          link: "/scenceconsumdetails?title=云冈石窟",
+          link: "/scenceconsumdetails?title=云冈石窟&id=66&type=1",
           class: "iconfont iconmenpiao"
         }
-      ]
+      ],
+      goodsDataList:[]
     };
   },
 
@@ -129,9 +107,25 @@ export default {
 
   mounted() {
     this.setTitle();
+    this.getGoodsComm();
   },
 
   methods: {
+    // 商品推荐
+    getGoodsComm() {
+      goodsBucketRecomm({
+        type: 3
+      })
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            this.goodsDataList = res.data.result;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     setTitle() {
       this.TitleObjData.titleContent = this.$route.query.title;
     },
@@ -153,13 +147,14 @@ export default {
 };
 </script>
 <style lang='css' scoped>
+.scence-gifts-wrap{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .scence-gifts-content {
   width: 100%;
   margin-top: 50px;
-}
-.scence-release-content {
-  width: 100%;
-  margin-top: 470px;
   background: #fff;
   overflow: hidden;
   overflow-y: scroll;

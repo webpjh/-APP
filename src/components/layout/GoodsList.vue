@@ -3,10 +3,10 @@
 -->
 <template>
   <div class="goods-list-wrap">
-    <div class="goods-list" v-for="(item,index) in goodList" :key="index" @click="watchGoodsDetails(item.id)">
+    <div class="goods-list" v-for="(item,index) in goodList" :key="index" @click="watchGoodsDetails(item.category_id)">
       <img class="goods-img" v-lazy="item.thumb">
       <div class="good-desc-wrap">
-        <p class="goods-name">{{item.title}}</p>
+        <p class="goods-name">{{item.goods_name ? item.goods_name : item.title}}</p>
         <p class="goods-price">¥{{item.marketprice}}</p>
       </div>
     </div>
@@ -65,7 +65,6 @@ export default {
   width: 100%;
   height: 100px;
   display: inline-block;
-  background: #000;
 }
 .goods-name {
   width: 100%;

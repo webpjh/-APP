@@ -32,6 +32,10 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  background: #fff;
+  position: relative;
+  z-index: 999;
+
 }
 .divider-line {
   width: 30px;

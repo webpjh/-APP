@@ -6,30 +6,22 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="scence-consum-content" :style="scenceConsumHeight">
-      <TabItemMallAdvertise></TabItemMallAdvertise>
-      <DividedArea></DividedArea>
+      <TabItemMallAdvertise class="z-index-99"></TabItemMallAdvertise>
+      <DividedArea class="z-index-99"></DividedArea>
       <Divider :content="title"></Divider>
-      <scroller
-        :on-infinite="pullup"
-        :on-refresh="refresh"
-        :refreshText="refreshText"
-        :noDataText="noDataText"
-        class="scence-release-content"
-      >
-        <GoodsList></GoodsList>
-      </scroller>
+      <GoodsListWrap></GoodsListWrap>
     </div>
   </div>
 </template>
 
 <script>
-
 import Header from "@/components/common/Header";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
 import DividedArea from "@/components/common/DividedArea";
 import Divider from "@/components/common/Divider";
 import Scroll from "@/components/common/Scroller";
 import GoodsList from "@/components/layout/GoodsList";
+import GoodsListWrap from "@/components/layout/GoodsListWrap";
 
 export default {
   name: "",
@@ -55,7 +47,8 @@ export default {
     DividedArea,
     Divider,
     Scroll,
-    GoodsList
+    GoodsList,
+    GoodsListWrap
   },
 
   computed: {
@@ -73,19 +66,6 @@ export default {
   methods: {
     setTitle() {
       this.title = this.$route.query.title;
-    },
-    refresh(done) {
-      console.log("refresh");
-      setTimeout(() => {
-        done();
-      }, 2000);
-    },
-    pullup(done) {
-      console.log("pullup");
-      console.log(done)
-      setTimeout(() => {
-        done();
-      }, 2000);
     }
   },
 
@@ -93,13 +73,21 @@ export default {
 };
 </script>
 <style lang='css' scoped>
+.z-index-99{
+  position: relative;
+  z-index: 999;
+}
+.scence-consum-wrap{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .scence-consum-content {
   width: 100%;
   overflow: hidden;
-  overflow-y: scroll;
   margin-top: 50px;
 }
-.scence-release-content{
+.scence-release-content {
   width: 100%;
   margin-top: 310px;
 }

@@ -11,15 +11,7 @@
       <FlexWrap :dataListCon="dataList" ref="dataList"></FlexWrap>
       <DividedArea></DividedArea>
       <Divider :content="title"></Divider>
-      <scroller
-        :on-infinite="pullup"
-        :on-refresh="refresh"
-        :refreshText="refreshText"
-        :noDataText="noDataText"
-        class="scence-release-content"
-      >
-        <GoodsList></GoodsList>
-      </scroller>
+      <GoodsList :goodList="goodsDataList"></GoodsList>
     </div>
   </div>
 </template>
@@ -32,6 +24,7 @@ import FlexWrap from "@/components/layout/FlexWrap";
 import Divider from "@/components/common/Divider";
 import Scroll from "@/components/common/Scroller";
 import GoodsList from "@/components/layout/GoodsList";
+import {goodsBucketRecomm } from "@/servers/api";
 
 export default {
   name: "",
@@ -53,59 +46,60 @@ export default {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "吴三大",
-          link: "/scenceconsumdetails?title=吴三大",
+          link: "/scenceconsumdetails?title=吴三大&id=120&type=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "张仲亭",
-          link: "/scenceconsumdetails?title=张仲亭",
+          link: "/scenceconsumdetails?title=张仲亭&id=119&type=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "钟明善",
-          link: "/scenceconsumdetails?title=钟明善",
+          link: "/scenceconsumdetails?title=钟明善&id=118&type=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "宋水官",
-          link: "/scenceconsumdetails?title=宋水官",
+          link: "/scenceconsumdetails?title=宋水官&id=117&type=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "杨曙华",
-          link: "/scenceconsumdetails?title=杨曙华",
+          link: "/scenceconsumdetails?title=杨曙华&id=115&type=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "张国庆",
-          link: "/scenceconsumdetails?title=张国庆",
+          link: "/scenceconsumdetails?title=张国庆&id=116&type=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "官方馆藏",
-          link: "/scenceconsumdetails?title=官方馆藏",
+          link: "/scenceconsumdetails?title=官方馆藏&id=114&type=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "私人定制",
-          link: "/scenceconsumdetails?title=私人定制",
+          link: "/scenceconsumdetails?title=私人定制&id=0&type=2",
           class: "iconfont iconmenpiao"
         }
-      ]
+      ],
+      goodsDataList: []
     };
   },
 
@@ -129,23 +123,27 @@ export default {
 
   mounted() {
     this.setTitle();
+    this.getGoodsComm();
   },
 
   methods: {
+    // 商品推荐
+    getGoodsComm() {
+      goodsBucketRecomm({
+        type: 4
+      })
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            this.goodsDataList = res.data.result;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     setTitle() {
       this.TitleObjData.titleContent = this.$route.query.title;
-    },
-    refresh(done) {
-      console.log("refresh");
-      setTimeout(() => {
-        done();
-      }, 2000);
-    },
-    pullup(done) {
-      console.log("pullup");
-      setTimeout(() => {
-        done();
-      }, 2000);
     }
   },
 
@@ -153,8 +151,15 @@ export default {
 };
 </script>
 <style lang='css' scoped>
+.scence-gifts-wrap{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .scence-gifts-content {
   width: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
   margin-top: 50px;
 }
 .scence-release-content {

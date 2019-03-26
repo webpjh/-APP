@@ -1,5 +1,5 @@
 <template>
-  <div id="#app-box">
+  <div id="#app-box" class="app-box">
     <transition :name="transitionName">
       <!-- <keep-alive> -->
         <router-view class="router-animate"/>
@@ -41,10 +41,10 @@ export default {
 
 <style lang="less">
 @import "~vux/src/styles/reset.less";
-#app {
+.app-box {
   width: 100%;
   height: 100%;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
 }
