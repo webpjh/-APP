@@ -1,14 +1,22 @@
 <template>
   <div class="scence-story-details-desc-wrap">
     <div class="scence-story-details-desc-title">
-      <p class="scence-story-details-desc-name text-overflow-hidden">云雾山：一团火焰看山娟</p>
+      <p class="scence-story-details-desc-name text-overflow-hidden">{{dataObj.title}}</p>
       <p class="scence-story-details-desc-click">
         <GiveLike class="scence-story-details-like"></GiveLike>
-        <span style="color:#999">123</span>
       </p>
+      <p>{{dataObj.praise_num}}</p>
     </div>
-    <div class="scence-story-details-desc-con text-show-line4" v-if="!showDetailsFlag" @click="showDetails">{{desc}}</div>
-    <div class="scence-story-details-desc-con-normal" v-else-if="showDetailsFlag" @click="showDetails">{{desc}}>{{desc}}</div>
+    <div
+      class="scence-story-details-desc-con text-show-line4"
+      v-if="!showDetailsFlag"
+      @click="showDetails"
+    >{{dataObj.content}}</div>
+    <div
+      class="scence-story-details-desc-con-normal"
+      v-else-if="showDetailsFlag"
+      @click="showDetails"
+    >{{dataObj.content}}</div>
   </div>
 </template>
 
@@ -17,7 +25,7 @@ import GiveLike from "@/components/common/GiveLike";
 
 export default {
   name: "",
-  props: [""],
+  props: ["dataObj"],
   data() {
     return {
       desc:
@@ -73,6 +81,8 @@ export default {
   overflow: hidden;
 }
 .scence-story-details-like {
+  width: 30px;
+  height: 30px;
   position: relative;
   left: 18px;
   top: -1px;

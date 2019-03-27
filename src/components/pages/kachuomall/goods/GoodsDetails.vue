@@ -6,17 +6,94 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="goods-details-content" :style="conHei">
-      <VideoPlayer :isControls="true" class="video-player-wrap"></VideoPlayer>
+      <VideoPlayer :isControls="true" v-show="goodsData.ar_image" class="video-player-wrap"></VideoPlayer>
+      <SwiperImg :SwiperImgData="SwiperImgData" v-show="goodsData.thumb"></SwiperImg>
       <div class="goods-details-desc">
-        <p>商品名称</p>
-        <p></p>
-        <p>¥200</p>
-        <p>
+        <p class="goods-name text-overflow-hidden">{{goodsData.title}}</p>
+        <p class="goods-price">
+          <span style="font-size:16px;margin-right:4px">¥</span>
+          {{goodsData.marketprice}}
+        </p>
+        <p class="goods-propity">
           <span>运费：包邮</span>
-          <span>销量：19</span>
-          <span>库存：1</span>
+          <span>销量：{{goodsData.sales}}</span>
+          <span>库存：{{goodsData.total}}</span>
         </p>
       </div>
+      <p class="good-acvitivy">活动</p>
+      <div class="divider-area-wrap"></div>
+      <div class="goods-details-cells">
+        <group>
+          <cell title="已选" v-if="goodsData.options" is-link @click.native="selOptionFn">{{selName}}</cell>
+          <cell title="已选" v-else-if="!goodsData.options" is-link disabled >*1</cell>
+        </group>
+        <div class="divider-area-wrap"></div>
+        <group>
+          <cell title="作品参数" is-link @click.native="selOptionFn2">{{selOption}}</cell>
+          <cell title="服务" is-link @click.native="selServiceFn">{{selService}}</cell>
+        </group>
+        <div class="divider-area-wrap"></div>
+      </div>
+      <div class="goods-about-list">
+        <p class="goods-about-list-p">
+          <span>文链查证</span>
+          <span>溯源视频</span>
+          <span class="goods-about-list-p-span-noborder">文化构思</span>
+        </p>
+      </div>
+      <div class="divider-area-wrap"></div>
+      <div class="goods-about-copywriter">
+        <span>产品文案</span>
+      </div>
+      <p v-html="goodsData.content">{{goodsData.content}}</p>
+    </div>
+    <div class="good-details-boot">
+      <p class="goods-action">
+        <span style="font-size:14px;" class="iconfont iconwode-yixuan"></span>
+        <span style="font-size:12px">客服</span>
+      </p>
+      <p class="goods-action" @click="collectGoods">
+        <span v-if="!collectState" style="font-size:14px" class="iconfont iconshoucang1"></span>
+        <span
+          v-else-if="collectState"
+          style="font-size:14px"
+          class="iconfont iconshoucang-xuanzhong"
+        ></span>
+        <span style="font-size:12px">收藏</span>
+      </p>
+      <p class="goods-action-right" @click="addShoppingCart">
+        <span>加入购物车</span>
+      </p>
+      <p class="goods-action-right-buy" @click="confirmOrder">
+        <span>立即购买</span>
+      </p>
+    </div>
+    <!-- 选择类型弹层 -->
+    <div v-transfer-dom>
+      <popup v-model="showPopup" position="bottom">
+        <div class="box-popup">
+          <checker v-model="selModel">
+            <x-button
+              type="primary"
+              mini
+              v-for="(item,index) in goodsData.options"
+              :key="index"
+              class="option-for-item"
+              @click.native="setForItem(item.title,item.id)"
+            >{{item.title}}</x-button>
+          </checker>
+        </div>
+      </popup>
+    </div>
+    <!-- 选择参数弹层 -->
+    <div v-transfer-dom>
+      <popup v-model="showPopupOption" position="bottom">
+        <div class="box-popup">
+          <checker v-model="selModel">
+            <x-button type="primary" mini @click.native="showPopupOption = false">无</x-button>
+          </checker>
+        </div>
+      </popup>
     </div>
   </div>
 </template>
@@ -24,9 +101,27 @@
 <script>
 import Header from "@/components/common/Header";
 import VideoPlayer from "@/components/common/VideoPlayer";
-import { getDetail } from "@/servers/api";
+import SwiperImg from "@/components/common/SwiperImg";
+import { getDetail, CollectionGoods, SaveShopping } from "@/servers/api";
+import Divider from "@/components/common/DividedArea";
+import {
+  Cell,
+  CellBox,
+  CellFormPreview,
+  Group,
+  Badge,
+  TransferDom,
+  Popup,
+  Checker,
+  CheckerItem,
+  XButton
+} from "vux";
+import { setTimeout } from "timers";
 
 export default {
+  directives: {
+    TransferDom
+  },
   name: "",
   props: [""],
   data() {
@@ -35,13 +130,41 @@ export default {
         titleContent: "商品详情",
         showLeftBack: true,
         showRightMore: false
+      },
+      selModel: "",
+      showPopup: false,
+      showPopupOption: false,
+      goodsData: {},
+      selName: "",
+      selOption: "",
+      selService: "",
+      collectState: true,
+      SwiperImgData: {
+        ImgList: [],
+        index: 0,
+        dotsPosition: "center",
+        loop: true,
+        auto: true,
+        height: "160px"
       }
     };
   },
 
   components: {
     Header,
-    VideoPlayer
+    VideoPlayer,
+    SwiperImg,
+    Divider,
+    Group,
+    Cell,
+    CellFormPreview,
+    CellBox,
+    Badge,
+    TransferDom,
+    Popup,
+    Checker,
+    CheckerItem,
+    XButton
   },
 
   computed: {
@@ -57,12 +180,100 @@ export default {
   },
 
   methods: {
+    // 确认清淡
+    confirmOrder() {
+      this.$router.push("/confirmorder?id=" + this.$route.query.id);
+    },
+    // 添加购物车
+    addShoppingCart() {
+      SaveShopping({
+        gid: this.goodsData.id
+      })
+        .then(res => {
+          if (res.result === 1) {
+            this.$vux.toast.show({
+              type: "success",
+              text: "添加成功",
+              time: 1000
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 收藏
+    collectGoods() {
+      this.collectState = !this.collectState;
+      let type = this.collectState === false ? 0 : 1;
+      this.collectionGoodsMethod(type);
+    },
+    collectionGoodsMethod(type) {
+      CollectionGoods({
+        goodsid: this.goodsData.id,
+        type: 1
+      })
+        .then(res => {
+          if (res.result === 1) {
+            if (type === 1) {
+              this.$vux.toast.show({
+                type: "success",
+                text: "收藏成功",
+                time: 1000
+              });
+            } else {
+              this.$vux.toast.show({
+                type: "success",
+                text: "取消收藏",
+                time: 1000
+              });
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    setForItem(name, id) {
+      this.selName = name;
+      setTimeout(() => {
+        this.showPopup = false;
+      }, 300);
+    },
+    selOptionFn2() {
+      this.showPopupOption = true;
+    },
+    selServiceFn() {
+      this.showPopupOption = true;
+    },
+    selOptionFn() {
+      this.showPopup = true;
+    },
     getGoodsDetailsInfo() {
       getDetail({
-        gid:this.$route.query.id
+        goods_id: this.$route.query.id
       })
         .then(res => {
           console.log(res);
+          let arr = [];
+          if (res.result === 1) {
+            if (res.data.favorite) {
+              this.collectState = true;
+            } else {
+              this.collectState = false;
+            }
+            if (res.data.thumb_url.length) {
+              for (let i = 0; i < res.data.thumb_url.length; i++) {
+                arr.push({
+                  img: res.data.thumb_url[i]
+                });
+              }
+              this.SwiperImgData.ImgList = JSON.parse(JSON.stringify(arr));
+            }
+            this.$nextTick(() => {
+              this.goodsData = res.data;
+            });
+          }
         })
         .catch(err => {
           console.log(err);
@@ -74,6 +285,11 @@ export default {
 };
 </script>
 <style lang='css' scoped>
+.divider-area-wrap {
+  width: 100%;
+  height: 10px;
+  background: #f5f5f5;
+}
 .goods-details-wrap {
   width: 100%;
   height: 100%;
@@ -81,16 +297,163 @@ export default {
 }
 .goods-details-content {
   width: 100%;
-  background: #f9f9f9;
+  background: #fff;
   margin-top: 50px;
+  overflow: hidden;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding-bottom: 55px;
 }
 .video-player-wrap {
   width: 100%;
   height: 200px;
   overflow: hidden;
 }
-.goods-details-desc{
+.goods-details-desc {
   width: 100%;
-  height: 60px;
+  height: 110px;
+}
+.goods-propity {
+  width: 100%;
+  height: 30px;
+  color: #999;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+.goods-name {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+.goods-price {
+  width: 100%;
+  height: 50px;
+  font-size: 30px;
+  color: #b7090a;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+.good-acvitivy {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+.goods-about-list {
+  width: 100%;
+  height: 44px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.goods-about-list-p {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.goods-about-list-p span {
+  flex: 1;
+  text-align: center;
+}
+.goods-about-list-p span:nth-child(1),
+.goods-about-list-p span:nth-child(2) {
+  border-right: 1px solid #eee;
+}
+.goods-about-copywriter {
+  width: 100%;
+  height: 44px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.goods-about-copywriter span {
+  width: 60px;
+  height: 100%;
+  line-height: 44px;
+  text-align: center;
+  display: inline-block;
+  border-bottom: 2px solid #000;
+}
+.good-details-boot {
+  width: 100%;
+  height: 50px;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+.goods-action {
+  flex: 1;
+  height: 60%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-right: 1px solid #eee;
+}
+.goods-action span {
+  font-size: 12px;
+}
+.goods-action-right {
+  flex: 2;
+  text-align: center;
+}
+.goods-action-right-buy {
+  height: 100%;
+  line-height: 50px;
+  flex: 2;
+  text-align: center;
+  background: #222;
+  color: #fff;
+}
+.demo1-item {
+  border: 1px solid #ececec;
+  padding: 5px 15px;
+}
+.demo1-item-selected {
+  border: 1px solid green;
+}
+.box-popup {
+  width: 100%;
+  height: 300px;
+  background: #fff;
+  padding: 15px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.option-for-item {
+  width: auto;
+  min-height: 20px;
+  height: auto;
+  font-size: 14px;
+  margin: 4px;
+  padding: 0 6px;
+  box-sizing: border-box;
+  border-radius: 4px;
 }
 </style>

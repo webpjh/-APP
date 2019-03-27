@@ -3,24 +3,35 @@
 -->
 <template>
   <div class="tickets-discount-list-wrap">
-    <div class="tickets-discount-list" v-for="(item,index) in dataList" :key="index" @click="getDetailsContent">
+    <p style="text-align:center;;margin-top:20px" v-if="!dataList.length">
+      <inline-loading></inline-loading>
+      <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中</span>
+    </p>
+    <div
+      class="tickets-discount-list"
+      v-for="(item,index) in dataList"
+      :key="index"
+      @click="getDetailsContent(item.id)"
+    >
       <div class="img-wrap">
-        <img v-lazy="item.imgSrc">
+        <img v-lazy="item.video_img">
         <span class="scence-distance-wrap">
           <span class="scence-distance">{{item.distance}}</span>
         </span>
       </div>
       <div class="img-desc">
         <p class>
-          <img class="img-desc-img" v-lazy="item.imgSrc">
-          <span>{{item.name}}</span>
+          <img class="img-desc-img" v-lazy="item.video_img">
+          <span>{{item.release_name}}</span>
         </p>
         <div>
           <span style="margin-right:20px">
-            <span class="iconfont iconxiaoxi" style="margin-right:10px"></span>223
+            <span class="iconfont iconxiaoxi" style="margin-right:10px"></span>
+            {{item.comment_num}}
           </span>
           <span>
-            <span class="iconfont iconzan" style="margin-right:10px"></span>156
+            <span class="iconfont iconzan" style="margin-right:10px"></span>
+            {{item.praise_num}}
           </span>
         </div>
       </div>
@@ -29,48 +40,23 @@
 </template>
 
 <script>
-import { XButton } from "vux";
+import { XButton, InlineLoading } from "vux";
 
 export default {
   name: "",
-  props: [""],
+  props: ["dataList"],
   data() {
     return {
       backgroundImgSty: {
         width: "100%",
         height: "400px"
-      },
-      dataList: [
-        {
-          imgSrc:
-            "http://b.hiphotos.baidu.com/image/h%3D300/sign=4262ea29f6dcd100d29cfe21428a47be/78310a55b319ebc4cee036bd8c26cffc1e17167d.jpg",
-          distance: "3:30",
-          name: "蓬莱阁",
-          price: "¥110",
-          priceDiscount: "¥120"
-        },
-        {
-          imgSrc:
-            "http://b.hiphotos.baidu.com/image/h%3D300/sign=4262ea29f6dcd100d29cfe21428a47be/78310a55b319ebc4cee036bd8c26cffc1e17167d.jpg",
-          distance: "3:30",
-          name: "蓬莱阁",
-          price: "¥110",
-          priceDiscount: "¥120"
-        },
-        {
-          imgSrc:
-            "http://b.hiphotos.baidu.com/image/h%3D300/sign=4262ea29f6dcd100d29cfe21428a47be/78310a55b319ebc4cee036bd8c26cffc1e17167d.jpg",
-          distance: "3:30",
-          name: "蓬莱阁",
-          price: "¥110",
-          priceDiscount: "¥120"
-        }
-      ]
+      }
     };
   },
 
   components: {
-    XButton
+    XButton,
+    InlineLoading
   },
 
   computed: {},
@@ -80,8 +66,9 @@ export default {
   mounted() {},
 
   methods: {
-    getDetailsContent(){
-      this.$router.push("/scencestorydetail");
+    getDetailsContent(id) {
+      let type = this.$route.query.type;
+      this.$router.push("/scencestorydetail?id=" + id + "&type=" + type);
     }
   },
 

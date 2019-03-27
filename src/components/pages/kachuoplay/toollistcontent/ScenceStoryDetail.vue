@@ -6,8 +6,8 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="scence-story-wrap" :style="contentHeight">
-      <VideoPlayer :isControls="true" class="video-player-wrap"></VideoPlayer>
-      <ScenceStoryDetailDesc></ScenceStoryDetailDesc>
+      <SwiperImg :SwiperImgData="imgListObj"></SwiperImg>
+      <ScenceStoryDetailDesc :dataObj="videoData"></ScenceStoryDetailDesc>
       <DividedArea style="margin-top:10px"></DividedArea>
       <div class="scence-story-goods-title">
         <span style="font-size:16px;font-weight:bold">相关作品</span>
@@ -15,22 +15,27 @@
       </div>
       <HorizontalScroller class="scroll"></HorizontalScroller>
       <DividedArea style="margin-top:10px"></DividedArea>
-      <CommentList></CommentList>
+      <CommentList
+        :id="currentId"
+        :pullDownRefreshObj="pullDownRefreshObj"
+        :dataList.sync="commitDataList"
+        :scrollTop="580"
+        class="commit-list"
+      ></CommentList>
     </div>
     <Comments></Comments>
   </div>
 </template>
 
 <script>
-
 import Header from "@/components/common/Header";
-import VideoPlayer from "@/components/common/VideoPlayer";
+import SwiperImg from "@/components/common/SwiperImg";
 import ScenceStoryDetailDesc from "@/components/layout/ScenceStoryDetailDesc";
 import DividedArea from "@/components/common/DividedArea";
 import HorizontalScroller from "@/components/common/HorizontalScroller";
 import CommentList from "@/components/layout/CommentList";
 import Comments from "@/components/common/Comments";
-
+import { ScenceRememberAndLearnDetails } from "@/servers/api";
 
 export default {
   name: "",
@@ -41,13 +46,28 @@ export default {
         titleContent: "",
         showLeftBack: true,
         showRightMore: false
+      },
+      videoData: {},
+      currentId: "",
+      pullDownRefreshObj: {
+        threshold: 70,
+        stop: 40
+      },
+      commitDataList: [],
+      imgListObj: {
+        ImgList: [],
+        index: 0,
+        dotsPosition: "center",
+        loop: true,
+        auto: true,
+        height: "220px"
       }
     };
   },
 
   components: {
     Header,
-    VideoPlayer,
+    SwiperImg,
     ScenceStoryDetailDesc,
     DividedArea,
     HorizontalScroller,
@@ -63,9 +83,36 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getData();
+  },
 
-  methods: {},
+  methods: {
+    getData() {
+      this.currentId = this.$route.query.id;
+      ScenceRememberAndLearnDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.type,
+        page: 1
+      })
+        .then(res => {
+          console.log(res);
+          let arr = [];
+          if (res.result === 1) {
+            this.videoData = res.data.content;
+            for (let i = 0; i < res.data.content.image.length; i++) {
+              arr.push({
+                img: res.data.content.image[i]
+              });
+            }
+            this.imgListObj.ImgList = JSON.parse(JSON.stringify(arr));
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
 
   watch: {}
 };
@@ -88,5 +135,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 0 15px;
+}
+.video {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
 }
 </style>

@@ -3,7 +3,7 @@
 -->
 <template>
   <div class="goods-list-wrap">
-    <div class="goods-list" v-for="(item,index) in goodList" :key="index" @click="watchGoodsDetails(item.category_id)">
+    <div class="goods-list" v-for="(item,index) in goodList" :key="index" @click="watchGoodsDetails(item.goods_id)">
       <img class="goods-img" v-lazy="item.thumb">
       <div class="good-desc-wrap">
         <p class="goods-name">{{item.goods_name ? item.goods_name : item.title}}</p>

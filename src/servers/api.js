@@ -25,7 +25,7 @@ export const getScenicList = (data) => http.post("goods.index.get_list", data)
 export const getKaChuoNews = (data) => http.post("dynamic.index", data)
 
 //商品详情
-export const getDetail = (data) => http.post("goods.details.get_Once", data)
+export const getDetail = (data) => http.post("shop.index.detail", data)
 
 //防伪查询
 export const Anti = (data) => http.post("goods.details.get_fw", data);
@@ -276,5 +276,14 @@ export const ShopGoodsListPush = (data) => http.post("shop.index.get_home_list",
 // 景区消费分类
 export const ScenceGoodsClass = () => http.post("shop.index.get_category");
 
+// 景区发布列表
+export const ScenceReleaseList = (data) => http.post("release.index.index",data);
 
+// 景区发布列表详情
+export const ScenceReleaseListDetails = (data) => http.post("release.index.show",data);
 
+// 记住的了解的
+export const ScenceRememberAndLearn = (data) => http.post("videoservice.Remknow.remknowlist",data);
+
+// 记住的了解的详情
+export const ScenceRememberAndLearnDetails = (data) => http.post("release.index.show",data);

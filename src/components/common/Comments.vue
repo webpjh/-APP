@@ -22,10 +22,9 @@
 </template>
 
 <script>
-import { XInput, Group, XButton, Cell } from "vux";
+import { XInput, Group, XButton, Cell} from "vux";
 import { NewsKachuoTopic } from "@/servers/api";
 import { setTimeout } from "timers";
-
 export default {
   components: {
     XInput,
@@ -61,7 +60,7 @@ export default {
             this.$vux.toast.show({
               type: "success",
               text: "感谢您的评论",
-              time:1000,
+              time: 1000,
               onHide: () => {
                 this.value = "";
                 this.$emit("pushCommition");
@@ -75,7 +74,7 @@ export default {
     }
   },
   updated() {},
-  beforeDestroy(){
+  beforeDestroy() {
     this.value = "";
   }
 };

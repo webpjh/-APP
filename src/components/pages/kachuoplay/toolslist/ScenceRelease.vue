@@ -5,23 +5,28 @@
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <scroller
-      :on-infinite="pullup"
-      :on-refresh="refresh"
-      :refreshText="refreshText"
-      :noDataText="noDataText"
-      class="scence-release-content"
-      :style="contentNoHeaderHeight"
-    >
-      <ScenceRelease ></ScenceRelease>
-    </scroller>
+    <main class="position-box" :style="contentNoHeaderHeight">
+      <vue-better-scroll
+        class="wrapper"
+        ref="scroll"
+        :scrollbar="scrollbarObj"
+        :pullDownRefresh="pullDownRefreshObj"
+        :pullUpLoad="pullUpLoadObj"
+        :startY="parseInt(startY)"
+        @pullingDown="onPullingDown"
+        @pullingUp="onPullingUp"
+      >
+        <ScenceRelease :dataList="items"></ScenceRelease>
+      </vue-better-scroll>
+    </main>
   </div>
 </template>
 
 <script>
+let totalCount = 0;
 import Header from "@/components/common/Header";
 import ScenceRelease from "@/components/layout/ScenceRelease";
-import Scroll from "@/components/common/Scroller";
+import { ScenceReleaseList } from "@/servers/api";
 
 export default {
   name: "",
@@ -36,14 +41,33 @@ export default {
         titleContent: "景区发布",
         showLeftBack: true,
         showRightMore: false
-      }
+      },
+      scrollbarObj: {
+        fade: true
+      },
+      pullDownRefreshObj: {
+        threshold: 70,
+        stop: 40
+      },
+      pullUpLoadObj: {
+        threshold: 0,
+        txt: {
+          more: "加载更多",
+          noMore: "没有更多数据了"
+        }
+      },
+      startY: 0,
+      scrollToX: 0,
+      scrollToY: 0,
+      scrollToTime: 700,
+      items: [],
+      page: 1
     };
   },
 
   components: {
     Header,
-    ScenceRelease,
-    Scroll
+    ScenceRelease
   },
 
   computed: {
@@ -54,20 +78,62 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.onPullingDown();
+  },
 
   methods: {
-    refresh(done) {
-      console.log("refresh");
-      setTimeout(() => {
-        done();
-      }, 2000);
+    // 滚动到页面顶部
+    scrollTo() {
+      this.$refs.scroll.scrollTo(
+        this.scrollToX,
+        this.scrollToY,
+        this.scrollToTime
+      );
     },
-    pullup(done) {
-      console.log("pullup");
-      setTimeout(() => {
-        done();
-      }, 2000);
+    // 模拟数据请求
+    getData() {
+      return new Promise(resolve => {
+        let arr = [];
+        ScenceReleaseList({
+          page: this.page
+        })
+          .then(res => {
+            if (res.result === 1) {
+              totalCount = res.data.totalofnum;
+              setTimeout(() => {
+                if (res.data.dynamic.length) {
+                  arr = res.data.dynamic;
+                  resolve(res.data.dynamic);
+                } else {
+                  this.$refs.scroll.forceUpdate(false);
+                }
+              }, 1000);
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      });
+    },
+    onPullingDown() {
+      totalCount = 0;
+      this.page = 1;
+      this.getData().then(res => {
+        this.items = res;
+        this.$refs.scroll.forceUpdate(true);
+      });
+    },
+    onPullingUp() {
+      this.page += 1;
+      this.getData().then(res => {
+        this.items = this.items.concat(res);
+        if (this.items.length < totalCount) {
+          this.$refs.scroll.forceUpdate(true);
+        } else {
+          this.$refs.scroll.forceUpdate(false);
+        }
+      });
     }
   },
 
@@ -78,7 +144,8 @@ export default {
 .scence-release-wrap {
   width: 100%;
   height: 100%;
-  background: #f5f5f5;
+  overflow: hidden;
+  background: #f9f9f9;
 }
 .scence-release-content {
   width: 100%;
@@ -88,5 +155,12 @@ export default {
   box-sizing: border-box;
   margin-top: 45px;
   padding-bottom: 10px;
+}
+.position-box {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 </style>

@@ -1,109 +1,46 @@
 <template>
   <div>
-    <div class="scence-releace-wrap" v-for="(item,index) in dataList" :key="index" @click="getReleaseDetails">
+    <p style="text-align:center;;margin-top:20px" v-if="!dataList.length">
+      <inline-loading></inline-loading>
+      <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中</span>
+    </p>
+    <div
+      class="scence-releace-wrap"
+      v-for="(item,index) in dataList"
+      :key="index"
+      @click="getReleaseDetails(item.id)"
+    >
       <div class="scence-releace-top">
         <div class="scence-releace-top-left">
           <p class="scence-releace-top-left-title text-show-line2">{{item.title}}</p>
           <p class="scence-releace-top-left-content text-show-line3">{{item.content}}</p>
         </div>
         <div class="scence-releace-top-right">
-          <img :src="item.img" alt>
+          <img :src="item.image[0]" alt>
         </div>
       </div>
       <div class="scence-releace-bot">
-        <span>{{item.place}}</span>
-        <span style="margin-left:10px">{{item.date}}</span>
-        <span style="margin-left:120px">{{item.commentNum}}</span>
-        <span>{{item.praiseNum}}</span>
+        <span>{{item.type}}</span>
+        <span>{{item.create_time}}</span>
+        <span>{{item.comment_num}}评论</span>
+        <span>{{item.praise_num}}点赞</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { InlineLoading } from "vux";
 export default {
   name: "",
-  props: [""],
+  props: ["dataList"],
   data() {
-    return {
-      dataList: [
-        {
-          title:
-            "满山杜鹃花开满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放放",
-          content:
-            "二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。",
-          place: "云雾山景区",
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          date: "2019-3-12",
-          commentNum: "27评论",
-          praiseNum: "156点赞"
-        },
-        {
-          title:
-            "满山杜鹃花开满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放放",
-          content:
-            "二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。",
-          place: "云雾山景区",
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          date: "2019-3-12",
-          commentNum: "27评论",
-          praiseNum: "156点赞"
-        },
-        {
-          title:
-            "满山杜鹃花开满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放放",
-          content:
-            "二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。",
-          place: "云雾山景区",
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          date: "2019-3-12",
-          commentNum: "27评论",
-          praiseNum: "156点赞"
-        },
-        {
-          title:
-            "满山杜鹃花开满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放放",
-          content:
-            "二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。",
-          place: "云雾山景区",
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          date: "2019-3-12",
-          commentNum: "27评论",
-          praiseNum: "156点赞"
-        },
-        {
-          title:
-            "满山杜鹃花开满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放放",
-          content:
-            "二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。",
-          place: "云雾山景区",
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          date: "2019-3-12",
-          commentNum: "27评论",
-          praiseNum: "156点赞"
-        },
-        {
-          title:
-            "满山杜鹃花开满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放放",
-          content:
-            "二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。二月即将来到，意味着春天马上就来了。",
-          place: "云雾山景区",
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          date: "2019-3-12",
-          commentNum: "27评论",
-          praiseNum: "156点赞"
-        }
-      ]
-    };
+    return {};
   },
 
-  components: {},
+  components: {
+    InlineLoading
+  },
 
   computed: {},
 
@@ -112,8 +49,8 @@ export default {
   mounted() {},
 
   methods: {
-    getReleaseDetails(){
-      this.$router.push("/scencereleasedetals");
+    getReleaseDetails(id) {
+      this.$router.push("/scencereleasedetals?id="+id+"&type="+6);
     }
   },
 

@@ -21,29 +21,31 @@ export default {
 
   components: {},
 
-  computed: {
-
-  },
+  computed: {},
 
   beforeMount() {},
   created() {},
-  mounted() {
-
-  },
+  mounted() {},
 
   methods: {
     giveLike() {
       let flag = this.$parent.clickState;
       let type = flag === 0 ? 1 : 0;
-      this.$emit("changePhriseState", flag);
+      this.$vux.toast.show({
+        type: "success",
+        text: "感谢评价",
+        time: 1000,
+        onHide: () => {
+          this.$emit("changePhriseState", type);
+        }
+      });
       NewsKachuoInpraise({
         id: this.$route.query.id,
         type: type,
-        branch:this.$route.query.type
+        branch: this.$route.query.type
       })
         .then(res => {
           if (res.result === 1) {
-            this.$emit("changePhriseState", type);
           }
         })
         .catch(err => {

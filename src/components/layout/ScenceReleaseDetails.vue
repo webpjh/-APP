@@ -6,25 +6,29 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="scence-release-content" :style="contentStyle">
-      <p class="details-title padding-15px">满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放</p>
+      <p class="details-title padding-15px">{{contentData.title}}</p>
       <p class="details-attribute padding-15px">
         <span>
-          <span>云雾山风景区</span>
-          <span style="margin-left:10px">2019-3-13</span>
+          <span>{{contentData.scenic}}</span>
+          <span style="margin-left:10px">{{contentData.create_time}}</span>
         </span>
         <span>
-          <span style="margin-right:10px">2评论</span>
-          <span>10点赞</span>
+          <span style="margin-right:10px">{{commentListData.length}}评论</span>
+          <span>{{contentData.praise_num}}点赞</span>
         </span>
       </p>
-      <p
-        class="details-conetnt padding-15px"
-      >满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放满山杜鹃花开放</p>
-      <GiveLike></GiveLike>
+      <p class="details-conetnt padding-15px">{{contentData.content}}</p>
+      <GiveLike v-on:changePhriseState="refreshData" :clickState="clickState"></GiveLike>
       <DividedArea></DividedArea>
-      <CommentList></CommentList>
+      <CommentList
+        :id="currentId"
+        :pullDownRefreshObj="pullDownRefreshObj"
+        :contentList.sync="commentListData"
+        :scrollTop="320"
+        class="commit-list"
+      ></CommentList>
     </div>
-    <Comments></Comments>
+    <Comments v-on:pushCommition="updateCommintList"></Comments>
   </div>
 </template>
 
@@ -33,7 +37,8 @@ import Header from "@/components/common/Header";
 import Comments from "@/components/common/Comments";
 import GiveLike from "@/components/common/GiveLike";
 import DividedArea from "@/components/common/DividedArea";
-import CommentList from "@/components/layout/CommentList";
+import CommentList from "@/components/layout/CommentListPlay";
+import { ScenceReleaseListDetails } from "@/servers/api";
 
 export default {
   name: "",
@@ -44,6 +49,14 @@ export default {
         titleContent: "发布详情",
         showLeftBack: true,
         showRightMore: false
+      },
+      contentData: {},
+      commentListData: [],
+      currentId: "",
+      clickState: 0,
+      pullDownRefreshObj: {
+        threshold: 40,
+        stop: 40
       }
     };
   },
@@ -64,9 +77,55 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getData();
+  },
 
-  methods: {},
+  methods: {
+    // 更新点赞状态
+    refreshData(type) {
+      this.clickState = type;
+      this.videoId = this.$route.query.id;
+    },
+    //更新评论数据列表
+    updateCommintList() {
+      let arr = [];
+      ScenceReleaseListDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.type,
+        page: 1
+      })
+        .then(res => {
+          if (res.result === 1) {
+            if (res.data.comment.length) {
+              arr = JSON.parse(JSON.stringify(res.data.comment));
+            }
+          }
+          this.commentListData = arr;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 初始化数据
+    getData() {
+      this.currentId = this.$route.query.id;
+      ScenceReleaseListDetails({
+        id: this.$route.query.id,
+        page: 1
+      })
+        .then(res => {
+          if (res.result === 1) {
+            this.contentData = res.data.content;
+            this.commentListData = res.data.comment;
+            this.clickState = res.data.content.type;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
 
   watch: {}
 };
@@ -84,6 +143,9 @@ export default {
 .details-title {
   font-size: 16px;
   font-weight: bold;
+  background: #fff;
+  position: relative;
+  z-index: 999;
 }
 .details-attribute {
   width: 100%;
@@ -94,5 +156,17 @@ export default {
   align-items: center;
   font-size: 12px;
   color: #999;
+  background: #fff;
+  position: relative;
+  z-index: 999;
+}
+.details-conetnt {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: #fff;
+  position: relative;
+  z-index: 999;
 }
 </style>

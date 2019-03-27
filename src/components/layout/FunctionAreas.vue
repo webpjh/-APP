@@ -53,14 +53,14 @@ export default {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "记住的",
-          link: "/remember",
+          link: "/remember?type=1",
           class: "iconfont iconjizhude"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "了解的",
-          link: "/understand",
+          link: "/understand?type=2",
           class: "iconfont iconliaojiede"
         },
         {

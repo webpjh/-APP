@@ -93,15 +93,17 @@ export default {
     setTitle() {
       this.TitleObjData.titleContent = this.$route.query.title;
     },
+    // 获取分类列表
     getClassList() {
       ScenceGoodsClass({})
         .then(res => {
-          console.log(res);
+          // console.log(res);
         })
         .catch(err => {
           console.log(err);
         });
     },
+    // 初始化数据
     getData() {
       ShopGoodsListPush({
         type: 1
@@ -140,11 +142,5 @@ export default {
   overflow: hidden;
   overflow-y: scroll;
   box-sizing: border-box;
-}
-.goods-list-wrap {
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-  overflow-y: scroll;
 }
 </style>

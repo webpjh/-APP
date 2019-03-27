@@ -1,5 +1,5 @@
 <template>
-  <div class>
+  <div>
     <p style="text-align:center;" v-if="!dataList.length">
       <inline-loading></inline-loading>
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中</span>
@@ -15,25 +15,23 @@
         @pullingDown="onPullingDown"
         @pullingUp="onPullingUp"
       >
-        <div
-          class="img-and-txt-list-for"
-          v-for="(item,index) in dataList"
-          :key="index"
-          @click="getDetailsContent(item.id)"
-        >
-          <div class="img-and-txt-left">
-            <p class="img-and-txt-left-top text-show-line3">{{item.summary}}</p>
-            <p class="img-and-txt-left-bot">
-              <img :src="item.release_img" alt srcset class="img-and-txt-left-header">
-              <span style="margin-left:-50px">{{item.release_name}}</span>
-              <span style="color:#999">
-                <span class="iconfont icondingwei"></span>
-                {{item.address | stringToArr}}
-              </span>
-            </p>
-          </div>
-          <div class="img-and-txt-right">
-            <img :src="item.video_img[0]" alt srcset class="img-and-txt-right-img">
+        <div v-for="(item,index) in dataList" :key="index">
+          <Divider></Divider>
+          <div class="img-and-txt-list-for" @click="getDetailsContent(item.id)">
+            <div class="img-and-txt-left">
+              <p class="img-and-txt-left-top text-show-line3">{{item.summary}}</p>
+              <p class="img-and-txt-left-bot">
+                <img :src="item.release_img" alt srcset class="img-and-txt-left-header">
+                <span style="margin-left:-50px">{{item.release_name}}</span>
+                <span style="color:#999">
+                  <span class="iconfont icondingwei"></span>
+                  {{item.address | stringToArr}}
+                </span>
+              </p>
+            </div>
+            <div class="img-and-txt-right">
+              <img :src="item.video_img[0]" alt srcset class="img-and-txt-right-img">
+            </div>
           </div>
         </div>
       </vue-better-scroll>
@@ -42,10 +40,10 @@
 </template>
 
 <script>
-let count = 1;
 let totalCount = 0;
 import { InlineLoading } from "vux";
 import { SeourceCreatedList } from "@/servers/api";
+import Divider from "@/components/common/DividedArea";
 export default {
   name: "",
   props: [""],
@@ -78,7 +76,8 @@ export default {
   },
 
   components: {
-    InlineLoading
+    InlineLoading,
+    Divider
   },
   filters: {
     stringToArr(str) {

@@ -44,7 +44,7 @@
 
 <script>
 import { InlineLoading } from "vux";
-import { ScenceVideoDetails } from "@/servers/api";
+import { ScenceReleaseListDetails } from "@/servers/api";
 import { timeTodate } from "@/assets/js/tools";
 import { setTimeout } from "timers";
 
@@ -52,7 +52,7 @@ let count = 1;
 let totalCount = 0;
 export default {
   name: "",
-  props: ["dataList", "scrollTop", "pullDownRefreshObj"],
+  props: [ "scrollTop", "pullDownRefreshObj"],
   data() {
     return {
       scrollbarObj: {
@@ -91,7 +91,7 @@ export default {
 
   computed: {
     newArr() {
-      return this.$parent.commitDataList;
+      return this.$parent.commentListData;
     }
   },
 
@@ -112,13 +112,12 @@ export default {
     getCommintList() {
       return new Promise(resolve => {
         let arr = [];
-        ScenceVideoDetails({
+        ScenceReleaseListDetails({
           id: this.$route.query.id,
           type: this.$route.query.type,
           page: this.page
         })
           .then(res => {
-            console.log(res);
             if (res.result === 1) {
               totalCount = res.data.totalofnum;
               this.totalNum = res.data.totalofnum;
