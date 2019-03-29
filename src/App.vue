@@ -16,6 +16,8 @@ export default {
       transitionName: "slide-right"
     };
   },
+  mounted(){
+  },
   beforeRouteUpdate(to, from, next) {
     next(vm => {
       console.log(vm);

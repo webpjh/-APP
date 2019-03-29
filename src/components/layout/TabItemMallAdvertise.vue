@@ -1,6 +1,6 @@
 <template>
   <div class="tab-item-mall-advertise-wrap">
-    <SwiperImg class="tab-item-mall-advertise-swiper" :SwiperImgData="SwiperImgData"></SwiperImg>
+    <SwiperImg class="tab-item-mall-advertise-swiper"></SwiperImg>
     <AdvertiseSwiper class="tab-item-mall-advertise-tip"></AdvertiseSwiper>
   </div>
 </template>
@@ -14,14 +14,7 @@ export default {
   props: [""],
   data() {
     return {
-      SwiperImgData: {
-        ImgList: [],
-        index: 0,
-        dotsPosition: "center",
-        loop: true,
-        auto: true,
-        height: "160px"
-      }
+
     };
   },
 

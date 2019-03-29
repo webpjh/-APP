@@ -1,6 +1,6 @@
 <template>
   <div class="tab-item-play-header-wrap">
-    <SwiperImg :SwiperImgData="SwiperImgData" class="tab-item-play-swiper"></SwiperImg>
+    <SwiperImg class="tab-item-play-swiper"></SwiperImg>
     <div class="tab-item-play-header-title">
       <div class="location-icon text-align-center" @click="locationSelf">
         <span class="iconfont icondingwei"></span>
@@ -14,40 +14,14 @@
 </template>
 
 <script>
-import SwiperImg from "@/components/common/SwiperImg";
+import SwiperImg from "@/components/common/SwiperImgIndex";
 
 export default {
   name: "",
   props: [""],
   data() {
     return {
-      SwiperImgData: {
-        ImgList: [
-          {
-            url: "javascript:",
-            img:
-              "https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg",
-            title: ""
-          },
-          {
-            url: "javascript:",
-            img:
-              "https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg",
-            title: ""
-          },
-          {
-            url: "javascript:",
-            img:
-              "https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg", // 404
-            title: ""
-          }
-        ],
-        index: 0,
-        dotsPosition: "center",
-        loop: true,
-        auto: true,
-        height: "220px"
-      }
+
     };
   },
 

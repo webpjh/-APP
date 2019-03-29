@@ -6,7 +6,7 @@ export const getUrlParam = (obj) => {
   return obj.$route.query.id;
 }
 // 获取广告位轮播图
-export const getBannerImg = (type) => {
+export const getBannerImg = (type, height) => {
   let imgArr = [];
   AdvertiseLoop({
     type: type

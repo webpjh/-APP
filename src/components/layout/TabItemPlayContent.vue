@@ -84,7 +84,9 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getBannerImgFn("1");
+  },
 
   methods: {},
 

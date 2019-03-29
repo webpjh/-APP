@@ -49,7 +49,15 @@ export default new Vuex.Store({
     navigationDetails: false,
     showMallLeftOption: false,
     blockChainInfo: "",
-    carousel: []
+    carousel: [],
+    SwiperImgData: {
+      ImgList: [],
+      index: 0,
+      dotsPosition: "center",
+      loop: true,
+      auto: true,
+      height: ""
+    }
   },
   getters: {
     getCurrentTitleObj(state) {
@@ -100,19 +108,12 @@ export default new Vuex.Store({
       state.blockChainInfo = Payload;
     },
     setCarousel(state, Payload) {
-      state.carousel = Payload.imgArr;
+      state.carousel = Payload;
     }
   },
   actions: {
-    getData({ commit, state }, param = {}) {
-      let page = param.page;  // 实际项目中会用到分页参数 page
-      let scb = param.scb;
-      let ecb = param.ecb;
-      request().then(res => {
-        scb && scb(res);
-      }, err => {
-        ecb && ecb(err);
-      })
+    setCarousel(context,Payload){
+      context.commit('setCarousel',Payload);
     }
   }
 })

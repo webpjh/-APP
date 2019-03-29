@@ -37,7 +37,7 @@ export default {
         dotsPosition: "center",
         loop: true,
         auto: true,
-        height: "160px"
+        height: "220px"
       }
     };
   },

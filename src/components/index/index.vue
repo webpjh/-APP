@@ -21,7 +21,7 @@ export default {
   name: "app",
   data() {
     return {
-      title: "标题",
+      title: "",
       showBackOptions: false,
       showRightOptions: false,
       cordova: Vue.cordova,
@@ -116,11 +116,9 @@ export default {
     }
   },
   created() { 
-    
   },
   mounted() {
     this.changeVuexCurrentRoute();
-    this.getBannerImgFn("1");
   },
   computed: {
     showCurrentTitle() {
