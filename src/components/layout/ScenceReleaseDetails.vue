@@ -86,6 +86,21 @@ export default {
     refreshData(type) {
       this.clickState = type;
       this.videoId = this.$route.query.id;
+      ScenceReleaseListDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.type,
+        page: 1
+      })
+        .then(res => {
+          if (res.result === 1) {
+            this.contentData = res.data.content;
+            this.commentListData = res.data.comment;
+            this.clickState = res.data.content.type;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     //更新评论数据列表
     updateCommintList() {

@@ -34,7 +34,10 @@ export const Anti = (data) => http.post("goods.details.get_fw", data);
 export const SaveShopping = (data) => http.post("goods.details.save_shopping", data)
 
 //添加订单
-export const AddShop = (data) => http.post("goods.buy.add_shopOrder", data)
+export const AddShop = (data) => http.post("goods.buy.add_shopOrder", data);
+
+// 获取用户默认收货地址
+export const getAddressDefault = (data) => http.post("goods.buy.getAddress", data);
 
 //用户地址列表
 export const getAddressList = (data) => http.post("member.address.getList", data);
@@ -277,13 +280,16 @@ export const ShopGoodsListPush = (data) => http.post("shop.index.get_home_list",
 export const ScenceGoodsClass = () => http.post("shop.index.get_category");
 
 // 景区发布列表
-export const ScenceReleaseList = (data) => http.post("release.index.index",data);
+export const ScenceReleaseList = (data) => http.post("release.index.index", data);
 
 // 景区发布列表详情
-export const ScenceReleaseListDetails = (data) => http.post("release.index.show",data);
+export const ScenceReleaseListDetails = (data) => http.post("release.index.show", data);
 
 // 记住的了解的
-export const ScenceRememberAndLearn = (data) => http.post("videoservice.Remknow.remknowlist",data);
+export const ScenceRememberAndLearn = (data) => http.post("videoservice.remknow.remknowlist", data);
 
 // 记住的了解的详情
-export const ScenceRememberAndLearnDetails = (data) => http.post("release.index.show",data);
+export const ScenceRememberAndLearnDetails = (data) => http.post("videoservice.remknow.remknowshow", data);
+
+// 广告轮播图
+export const AdvertiseLoop = (data) => http.post("carousel", data);

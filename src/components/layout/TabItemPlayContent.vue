@@ -102,7 +102,7 @@ export default {
   padding: 0 12px;
   box-sizing: border-box;
   background: #fff;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #f5f5f5;
 }
 .tab-item-play-content-tools-line {
   width: 2px;

@@ -26,8 +26,6 @@ export default {
       tabItem: [
         {
           title: "游园",
-          icon:
-            "http://e.hiphotos.baidu.com/image/h%3D300/sign=622b9205f3faaf519be387bfbc5494ed/738b4710b912c8fc6ffecceef2039245d6882187.jpg",
           isActive: true,
           normal: "iconfont iconyouyuan-weixuan",
           class: "iconfont iconyouyuan-yixuan",
@@ -35,8 +33,6 @@ export default {
         },
         {
           title: "商城",
-          icon:
-            "http://e.hiphotos.baidu.com/image/h%3D300/sign=622b9205f3faaf519be387bfbc5494ed/738b4710b912c8fc6ffecceef2039245d6882187.jpg",
           isActive: false,
           normal: "iconfont iconshangcheng-weixuan",
           class: "iconfont iconshangcheng-weixuan",
@@ -44,8 +40,6 @@ export default {
         },
         {
           title: "变现",
-          icon:
-            "http://e.hiphotos.baidu.com/image/h%3D300/sign=622b9205f3faaf519be387bfbc5494ed/738b4710b912c8fc6ffecceef2039245d6882187.jpg",
           isActive: false,
           normal: "iconfont iconbianxian-weixuan",
           class: "iconfont iconbianxian-weixuan",
@@ -53,8 +47,6 @@ export default {
         },
         {
           title: "创收",
-          icon:
-            "http://e.hiphotos.baidu.com/image/h%3D300/sign=622b9205f3faaf519be387bfbc5494ed/738b4710b912c8fc6ffecceef2039245d6882187.jpg",
           isActive: false,
           normal: "iconfont iconchuangshou-weixuan",
           class: "iconfont iconchuangshou-weixuan",
@@ -62,8 +54,6 @@ export default {
         },
         {
           title: "我的",
-          icon:
-            "http://e.hiphotos.baidu.com/image/h%3D300/sign=622b9205f3faaf519be387bfbc5494ed/738b4710b912c8fc6ffecceef2039245d6882187.jpg",
           isActive: false,
           normal: "iconfont iconwode-weixuan",
           class: "iconfont iconwode-weixuan",

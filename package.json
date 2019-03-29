@@ -20,6 +20,7 @@
     "vue-amap": "^0.5.8",
     "vue-cordova": "^0.1.2",
     "vue-lazyload": "^1.2.6",
+    "vue-navigation": "^1.1.4",
     "vue-router": "^3.0.1",
     "vue-scroller": "^2.2.4",
     "vue2-better-scroll": "^1.1.0",

@@ -44,7 +44,7 @@
 
 <script>
 import { InlineLoading } from "vux";
-import { ScenceReleaseListDetails } from "@/servers/api";
+import { ScenceRememberAndLearnDetails } from "@/servers/api";
 import { timeTodate } from "@/assets/js/tools";
 import { setTimeout } from "timers";
 
@@ -58,10 +58,6 @@ export default {
       scrollbarObj: {
         fade: true
       },
-      // pullDownRefreshObj: {
-      //   threshold: 70,
-      //   stop: 40
-      // },
       pullUpLoadObj: {
         threshold: 0,
         txt: {
@@ -91,7 +87,7 @@ export default {
 
   computed: {
     newArr() {
-      return this.$parent.commentListData;
+      return this.$parent.commitDataList;
     }
   },
 
@@ -112,9 +108,9 @@ export default {
     getCommintList() {
       return new Promise(resolve => {
         let arr = [];
-        ScenceReleaseListDetails({
+        ScenceRememberAndLearnDetails({
           id: this.$route.query.id,
-          type: this.$route.query.type,
+          type: this.$route.query.branch,
           page: this.page
         })
           .then(res => {
@@ -231,19 +227,21 @@ export default {
   padding: 0 15px;
   box-sizing: border-box;
   font-weight: bold;
-  height: 30px;
-  line-height: 30px;
+  height: 50px;
+  line-height: 50px;
   position: relative;
   z-index: 999;
 }
 .position-box {
+  width: 100%;
+  height: 130px;
   position: absolute;
-  /* top: 340px; */
   left: 0;
   right: 0;
   bottom: 0;
   background: #fff;
   padding: 15px;
+  padding-top: 0;
   box-sizing: border-box;
 }
 </style>

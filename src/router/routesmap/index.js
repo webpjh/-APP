@@ -246,5 +246,15 @@ export default [
     path: '/confirmorder',
     name: 'ConfirmOrder',
     component: resolve => require(['@/components/pages/kachuomall/goods/ConfirmOrder'], resolve),
+  },
+  {
+    path: '/blockinfoindex',
+    name: 'BlockInfoIndex',
+    component: resolve => require(['@/components/pages/kachuomall/goods/blockchain/BlockInfoIndex'], resolve),
+  },
+  {
+    path: '/blockchaininfodetails',
+    name: 'BlockChainInfoDetails',
+    component: resolve => require(['@/components/pages/kachuomall/goods/blockchain/BlockChainInfoDetails'], resolve),
   }
 ]

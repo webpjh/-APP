@@ -67,7 +67,7 @@ export default {
   beforeMount() {},
 
   mounted() {
-    console.log(this.$refs.myscroller);
+    this.getBannerImgFn("11");
   },
 
   methods: {

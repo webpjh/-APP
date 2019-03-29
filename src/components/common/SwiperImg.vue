@@ -13,18 +13,37 @@
 import { Swiper, GroupTitle, SwiperItem, Divider } from "vux";
 
 export default {
-  props: ["SwiperImgData"],
+  props: [""],
   components: {
     Swiper,
     SwiperItem,
     GroupTitle
   },
   ready() {},
-  methods: {},
+  methods: {
+    setLoopImg() {
+      this.$nextTick(() => {
+        this.SwiperImgData.ImgList = JSON.parse(
+          JSON.stringify(this.$store.state.carousel)
+        );
+      });
+    }
+  },
   data() {
     return {
-
+      SwiperImgData: {
+        ImgList: [],
+        index: 0,
+        dotsPosition: "center",
+        loop: true,
+        auto: true,
+        height: "220px"
+      }
     };
+  },
+  computed: {},
+  mounted() {
+    this.setLoopImg();
   }
 };
 </script>

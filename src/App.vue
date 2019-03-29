@@ -1,9 +1,9 @@
 <template>
   <div id="#app-box" class="app-box">
     <transition :name="transitionName">
-      <!-- <keep-alive> -->
+      <navigation>
         <router-view class="router-animate"/>
-      <!-- </keep-alive> -->
+      </navigation>
     </transition>
   </div>
 </template>
@@ -17,9 +17,6 @@ export default {
     };
   },
   beforeRouteUpdate(to, from, next) {
-    // console.log(to);
-    // console.log(from);
-    // console.log(next);
     next(vm => {
       console.log(vm);
     });

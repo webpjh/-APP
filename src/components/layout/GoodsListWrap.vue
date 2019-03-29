@@ -17,7 +17,7 @@
 </template>
  
 <script>
-import { ShopGoodsList } from "@/servers/api";
+import { ShopGoodsList, getScenicList } from "@/servers/api";
 import GoodsList from "@/components/layout/GoodsList";
 let totalCount = 0;
 export default {
@@ -70,25 +70,61 @@ export default {
     },
     // 数据请求
     getData() {
-      return new Promise(resolve => {
-        ShopGoodsList({
-          category_id: this.$route.query.id,
-          page: this.page,
-          cel: this.$route.query.type
-        })
-          .then(res => {
-            console.log(res);
-            if (res.result === 1) {
-              totalCount = res.data.total;
-              this.totalNum = res.data.total;
-              this.noData = res.data.page === res.data.page_num ? true : false;
-              resolve(res.data.list);
-            }
+      // 1景区商城
+      // 2名家商城
+      // 3微商城
+      let flag = this.$route.query.flag;
+      if (flag === '1' || flag === '2') {
+        let postData = {};
+        if (flag === '1') {
+          postData = {
+            scenic_id: this.$route.query.id,
+            page: this.page
+          };
+        } else {
+          postData = {
+            celebrity_id: this.$route.query.id,
+            page: this.page
+          };
+        }
+        return new Promise(resolve => {
+          getScenicList(postData)
+            .then(res => {
+              console.log(res);
+              if (res.result === 1) {
+                totalCount = res.data.total;
+                this.totalNum = res.data.total;
+                this.noData =
+                  res.data.page === res.data.page_num ? true : false;
+                resolve(res.data.list);
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        });
+      } else {
+        return new Promise(resolve => {
+          ShopGoodsList({
+            category_id: this.$route.query.id,
+            page: this.page,
+            cel: this.$route.query.type
           })
-          .catch(err => {
-            console.log(err);
-          });
-      });
+            .then(res => {
+              console.log(res);
+              if (res.result === 1) {
+                totalCount = res.data.total;
+                this.totalNum = res.data.total;
+                this.noData =
+                  res.data.page === res.data.page_num ? true : false;
+                resolve(res.data.list);
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        });
+      }
     },
     // 下拉刷新
     onPullingDown() {

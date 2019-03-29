@@ -1,4 +1,5 @@
 .tab-item-paly-content {
+
   .weui-cells:before,
   .weui-cells:after,
   .weui-cell:before {
@@ -69,22 +70,27 @@
   .weui-cells {
     margin-top: 0;
   }
+
   .weui-cells:after {
     border: none;
   }
+
   .weui-cell:before,
   .vux-no-group-title:before {
     border: none;
   }
+
   textarea {
     box-sizing: border-box;
     word-break: break-all;
     overflow: hidden;
     overflow-y: scroll;
   }
+
   .weui-textarea {
     background: #f9f9f9;
   }
+
   div {
     border: none;
   }
@@ -94,10 +100,12 @@
   .weui-cell {
     padding: 0;
   }
+
   .vux-number-selector-plus,
   .vux-number-selector-sub {
     padding: 0;
   }
+
   .vux-number-selector svg {
     fill: #111;
   }
@@ -124,10 +132,27 @@ button {
   outline: none;
 }
 
-.pulldown-wrapper,.pullup-wrapper {
+.pulldown-wrapper,
+.pullup-wrapper {
   .after-trigger {
     .scroll-loading {
       background: rgba(255, 255, 255, 0);
     }
+  }
+}
+
+.cell-no-border,
+.tab-item-play-content-cell {
+  .weui-cells:before {
+    border-top: 1px solid #f5f5f5;
+  }
+  .weui-cells::after{
+    border-top:1px solid #f5f5f5;
+  }
+}
+.vux-swiper{
+  .vux-img{
+    background-position: center;
+    background-size: 100%;
   }
 }

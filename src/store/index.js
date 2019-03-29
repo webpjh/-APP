@@ -37,7 +37,7 @@ export default new Vuex.Store({
       showLeftBack: false,
       showRightMore: false
     },
-    userLoginInfo:{},
+    userLoginInfo: {},
     toastInfo: {
       type: 'text',
       text: '',
@@ -47,7 +47,9 @@ export default new Vuex.Store({
     isShowBottomTabbar: true,
     tabIndex: 0,
     navigationDetails: false,
-    showMallLeftOption: false
+    showMallLeftOption: false,
+    blockChainInfo: "",
+    carousel: []
   },
   getters: {
     getCurrentTitleObj(state) {
@@ -58,10 +60,10 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    changeUserAvatar(state, Payload){
+    changeUserAvatar(state, Payload) {
       state.userLoginInfo.avatar = Payload;
     },
-    setUserLoginInfo(state, Payload){
+    setUserLoginInfo(state, Payload) {
       state.userLoginInfo = Payload;
     },
     showToastInfo(state, Payload) {
@@ -93,6 +95,12 @@ export default new Vuex.Store({
     },
     showMallLeftOptionState(state, Payload) {
       state.showMallLeftOption = Payload;
+    },
+    setBlockChainInfo(state, Payload) {
+      state.blockChainInfo = Payload;
+    },
+    setCarousel(state, Payload) {
+      state.carousel = Payload.imgArr;
     }
   },
   actions: {

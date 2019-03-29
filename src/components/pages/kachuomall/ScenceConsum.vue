@@ -42,22 +42,22 @@ export default {
       dataList: [
         {
           name: "景区有礼",
-          link: "/scenceconsumdetails?title=景区有礼&id=38&type=1",
+          link: "/scenceconsumdetails?title=景区有礼&id=38&type=1&flag=3",
           class: "iconfont iconmenpiao"
         },
         {
           name: "节日佳品",
-          link: "/scenceconsumdetails?title=节日佳品&id=40&type=1",
+          link: "/scenceconsumdetails?title=节日佳品&id=40&type=1&flag=3",
           class: "iconfont iconmenpiao"
         },
         {
           name: "地方好物",
-          link: "/scenceconsumdetails?title=地方好物&id=64&type=1",
+          link: "/scenceconsumdetails?title=地方好物&id=64&type=1&flag=3",
           class: "iconfont iconmenpiao"
         },
         {
           name: "欣怡开市",
-          link: "/scenceconsumdetails?title=欣怡开市&id=85&type=1",
+          link: "/scenceconsumdetails?title=欣怡开市&id=85&type=1&flag=3",
           class: "iconfont iconmenpiao"
         }
       ],
@@ -87,6 +87,7 @@ export default {
     this.setTitle();
     this.getClassList();
     this.getData();
+    this.getBannerImgFn("4");
   },
 
   methods: {

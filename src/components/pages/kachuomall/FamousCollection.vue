@@ -46,56 +46,56 @@ export default {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "吴三大",
-          link: "/scenceconsumdetails?title=吴三大&id=120&type=2",
+          link: "/scenceconsumdetails?title=吴三大&id=120&type=2&flag=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "张仲亭",
-          link: "/scenceconsumdetails?title=张仲亭&id=119&type=2",
+          link: "/scenceconsumdetails?title=张仲亭&id=119&type=2&flag=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "钟明善",
-          link: "/scenceconsumdetails?title=钟明善&id=118&type=2",
+          link: "/scenceconsumdetails?title=钟明善&id=118&type=2&flag=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "宋水官",
-          link: "/scenceconsumdetails?title=宋水官&id=117&type=2",
+          link: "/scenceconsumdetails?title=宋水官&id=117&type=2&flag=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "杨曙华",
-          link: "/scenceconsumdetails?title=杨曙华&id=115&type=2",
+          link: "/scenceconsumdetails?title=杨曙华&id=115&type=2&flag=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "张国庆",
-          link: "/scenceconsumdetails?title=张国庆&id=116&type=2",
+          link: "/scenceconsumdetails?title=张国庆&id=116&type=2&flag=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "官方馆藏",
-          link: "/scenceconsumdetails?title=官方馆藏&id=114&type=2",
+          link: "/scenceconsumdetails?title=官方馆藏&id=114&type=2&flag=2",
           class: "iconfont iconmenpiao"
         },
         {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "私人定制",
-          link: "/scenceconsumdetails?title=私人定制&id=0&type=2",
+          link: "/scenceconsumdetails?title=私人定制&id=0&type=2&flag=2",
           class: "iconfont iconmenpiao"
         }
       ],
@@ -124,6 +124,7 @@ export default {
   mounted() {
     this.setTitle();
     this.getGoodsComm();
+    this.getBannerImgFn("6");
   },
 
   methods: {

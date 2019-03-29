@@ -31,14 +31,6 @@ export default {
     giveLike() {
       let flag = this.$parent.clickState;
       let type = flag === 0 ? 1 : 0;
-      this.$vux.toast.show({
-        type: "success",
-        text: "感谢评价",
-        time: 1000,
-        onHide: () => {
-          this.$emit("changePhriseState", type);
-        }
-      });
       NewsKachuoInpraise({
         id: this.$route.query.id,
         type: type,
@@ -46,6 +38,14 @@ export default {
       })
         .then(res => {
           if (res.result === 1) {
+            this.$vux.toast.show({
+              type: "success",
+              text: "感谢评价",
+              time: 1000,
+              onHide: () => {
+                this.$emit("changePhriseState", type);
+              }
+            });
           }
         })
         .catch(err => {

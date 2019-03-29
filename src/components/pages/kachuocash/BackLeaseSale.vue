@@ -75,7 +75,15 @@ export default {
 
   methods: {
     setTitle() {
-      this.TitleObjData.titleContent = this.$route.query.title;
+      let title = this.$route.query.title;
+      this.TitleObjData.titleContent = title;
+      if (title === "艺品回购") {
+        this.getBannerImgFn("8");
+      } else if (title === "艺品租赁") {
+        this.getBannerImgFn("9");
+      } else {
+        this.getBannerImgFn("10");
+      }
     },
     refresh(done) {
       console.log("refresh");

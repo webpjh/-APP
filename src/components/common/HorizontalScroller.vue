@@ -1,19 +1,23 @@
 <template>
   <scroller lock-y scrollbar-x class="scroll-wrap">
     <div class="box1">
-      <div class="box1-item" v-for="i in 7" :key="i">
-        <span>{{' ' + i + ' '}}</span>
+      <div
+        class="box1-item"
+        v-for="(item,index) in goodsList"
+        :key="index"
+        @click="watchGoodsDetailsFn(item.id)"
+      >
+        <img v-lazy="item.thumb" :alt="item.category_name">
       </div>
     </div>
   </scroller>
 </template>
 
 <script>
-import {
-  Scroller
-} from "vux";
+import { Scroller } from "vux";
 
 export default {
+  props: ["goodsList"],
   components: {
     Scroller
   },
@@ -25,36 +29,34 @@ export default {
       bottomCount: 20
     };
   },
-  mounted() {
-
-  },
+  mounted() {},
   methods: {
-
+    watchGoodsDetailsFn(id) {
+      this.$router.push("/goodsdetails?id=" + id);
+    }
   }
 };
 </script>
 
 <style lang="css" scoped>
 .box1 {
-  height: 100px;
+  height: 80px;
   position: relative;
-  width: 1490px;
+  min-width: 800px;
+  width: auto;
+  background: #fff;
 }
 .box1-item {
-  width: 120px;
-  height: 100px;
-  background-color: #ccc;
+  width: 100px;
+  height: 80px;
+  background-color: #fff;
   display: inline-block;
   margin-left: 15px;
   float: left;
   text-align: center;
-  line-height: 100px;
+  line-height: 80px;
 }
 .box1-item:first-child {
   margin-left: 0;
-}
-.box2-wrap {
-  height: 300px;
-  overflow: hidden;
 }
 </style>

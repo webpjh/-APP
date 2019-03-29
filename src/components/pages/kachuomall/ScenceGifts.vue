@@ -44,42 +44,42 @@ export default {
       dataList: [
         {
           name: "云雾山",
-          link: "/scenceconsumdetails?title=云雾山&id=27&type=1",
+          link: "/scenceconsumdetails?title=云雾山&id=27&type=1&flag=1",
           class: "iconfont iconmenpiao"
         },
         {
           name: "神垕古镇",
-          link: "/scenceconsumdetails?title=神垕古镇&id=26&type=1",
+          link: "/scenceconsumdetails?title=神垕古镇&id=26&type=1&flag=1",
           class: "iconfont iconmenpiao"
         },
         {
           name: "少林寺",
-          link: "/scenceconsumdetails?title=少林寺&id=25&type=1",
+          link: "/scenceconsumdetails?title=少林寺&id=25&type=1&flag=1",
           class: "iconfont iconmenpiao"
         },
         {
           name: "徽州古城",
-          link: "/scenceconsumdetails?title=徽州古城&id=23&type=1",
+          link: "/scenceconsumdetails?title=徽州古城&id=23&type=1&flag=1",
           class: "iconfont iconmenpiao"
         },
         {
           name: "苍岩山",
-          link: "/scenceconsumdetails?title=苍岩山&id=22&type=1",
+          link: "/scenceconsumdetails?title=苍岩山&id=22&type=1&flag=1",
           class: "iconfont iconmenpiao"
         },
         {
           name: "三孔",
-          link: "/scenceconsumdetails?title=三孔&id=35&type=1",
+          link: "/scenceconsumdetails?title=三孔&id=35&type=1&flag=1",
           class: "iconfont iconmenpiao"
         },
         {
           name: "蓬莱阁",
-          link: "/scenceconsumdetails?title=蓬莱阁&id=24&type=1",
+          link: "/scenceconsumdetails?title=蓬莱阁&id=24&type=1&flag=1",
           class: "iconfont iconmenpiao"
         },
         {
           name: "云冈石窟",
-          link: "/scenceconsumdetails?title=云冈石窟&id=66&type=1",
+          link: "/scenceconsumdetails?title=云冈石窟&id=66&type=1&flag=1",
           class: "iconfont iconmenpiao"
         }
       ],
@@ -108,6 +108,7 @@ export default {
   mounted() {
     this.setTitle();
     this.getGoodsComm();
+    this.getBannerImgFn("5");
   },
 
   methods: {

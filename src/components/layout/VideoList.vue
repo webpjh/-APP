@@ -68,7 +68,10 @@ export default {
   methods: {
     getDetailsContent(id) {
       let type = this.$route.query.type;
-      this.$router.push("/scencestorydetail?id=" + id + "&type=" + type);
+      let branch = this.$route.query.branch;
+      this.$router.push(
+        "/scencestorydetail?id=" + id + "&type=" + type + "&branch=" + branch
+      );
     }
   },
 

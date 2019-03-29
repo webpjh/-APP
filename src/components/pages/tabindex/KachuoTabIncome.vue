@@ -53,7 +53,9 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getBannerImgFn("12");
+  },
 
   methods: {
     previewMethod() {},

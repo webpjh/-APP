@@ -23,7 +23,6 @@
 </template>
 
 <script>
-let count = 0;
 let totalCount = 0;
 import Header from "@/components/common/ReleaseHeader";
 import VideoList from "@/components/layout/VideoList";
@@ -35,10 +34,6 @@ export default {
   props: [""],
   data() {
     return {
-      page: 0,
-      list: [],
-      refreshText: "下拉刷新",
-      noDataText: "没有更多数据",
       TitleObjData: {
         titleContent: "记住的",
         showLeftBack: true,
@@ -100,7 +95,7 @@ export default {
       return new Promise(resolve => {
         let arr = [];
         ScenceRememberAndLearn({
-          type: 1,
+          type: this.$route.query.branch,
           page: this.page
         })
           .then(res => {

@@ -6,34 +6,35 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="scence-story-wrap" :style="contentHeight">
-      <SwiperImg :SwiperImgData="imgListObj"></SwiperImg>
-      <ScenceStoryDetailDesc :dataObj="videoData"></ScenceStoryDetailDesc>
-      <DividedArea style="margin-top:10px"></DividedArea>
-      <div class="scence-story-goods-title">
+      <div class="video" id="wrapper"></div>
+      <ScenceStoryDetailDesc :dataObj="videoData" class="z-index-999"></ScenceStoryDetailDesc>
+      <DividedArea></DividedArea>
+      <div class="scence-story-goods-title z-index-999">
         <span style="font-size:16px;font-weight:bold">相关作品</span>
         <span style="color:#999">查看更多</span>
       </div>
-      <HorizontalScroller class="scroll"></HorizontalScroller>
-      <DividedArea style="margin-top:10px"></DividedArea>
+      <HorizontalScroller class="scroll" :goodsList="goodsDataList"></HorizontalScroller>
+      <DividedArea></DividedArea>
       <CommentList
         :id="currentId"
         :pullDownRefreshObj="pullDownRefreshObj"
         :dataList.sync="commitDataList"
-        :scrollTop="580"
+        :scrollTop="530"
         class="commit-list"
       ></CommentList>
     </div>
-    <Comments></Comments>
+    <Comments v-on:pushCommition="updateCommintList"></Comments>
   </div>
 </template>
 
 <script>
+import ChimeeMobilePlayer from "chimee-mobile-player";
 import Header from "@/components/common/Header";
-import SwiperImg from "@/components/common/SwiperImg";
+import VideoPlayer from "@/components/common/VideoPlayer";
 import ScenceStoryDetailDesc from "@/components/layout/ScenceStoryDetailDesc";
 import DividedArea from "@/components/common/DividedArea";
 import HorizontalScroller from "@/components/common/HorizontalScroller";
-import CommentList from "@/components/layout/CommentList";
+import CommentList from "@/components/layout/CommentListPlayRL";
 import Comments from "@/components/common/Comments";
 import { ScenceRememberAndLearnDetails } from "@/servers/api";
 
@@ -50,8 +51,8 @@ export default {
       videoData: {},
       currentId: "",
       pullDownRefreshObj: {
-        threshold: 70,
-        stop: 40
+        threshold: 30,
+        stop: 30
       },
       commitDataList: [],
       imgListObj: {
@@ -61,13 +62,14 @@ export default {
         loop: true,
         auto: true,
         height: "220px"
-      }
+      },
+      goodsDataList: []
     };
   },
 
   components: {
     Header,
-    SwiperImg,
+    VideoPlayer,
     ScenceStoryDetailDesc,
     DividedArea,
     HorizontalScroller,
@@ -88,29 +90,66 @@ export default {
   },
 
   methods: {
+    //更新评论数据列表
+    updateCommintList() {
+      let arr = [];
+      ScenceRememberAndLearnDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.branch,
+        page: 1
+      })
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            if (res.data.comment.length) {
+              arr = JSON.parse(JSON.stringify(res.data.comment));
+            }
+          }
+          this.commitDataList = arr;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 初始化数据
     getData() {
       this.currentId = this.$route.query.id;
       ScenceRememberAndLearnDetails({
         id: this.$route.query.id,
-        type: this.$route.query.type,
+        type: this.$route.query.branch,
         page: 1
       })
         .then(res => {
           console.log(res);
           let arr = [];
           if (res.result === 1) {
-            this.videoData = res.data.content;
-            for (let i = 0; i < res.data.content.image.length; i++) {
-              arr.push({
-                img: res.data.content.image[i]
-              });
+            if (res.data.video) {
+              this.createVideoDom(true, res.data.video);
+              this.clickState = res.data.video.type;
+              this.praiseNum = res.data.video.praise_num;
+              this.videoData = res.data.video;
+              this.goodsDataList = res.data.goods;
             }
-            this.imgListObj.ImgList = JSON.parse(JSON.stringify(arr));
           }
         })
         .catch(err => {
           console.log(err);
         });
+    },
+    createVideoDom(flag, videoObj) {
+      new ChimeeMobilePlayer({
+        wrapper: "#wrapper",
+        src: videoObj.video_url,
+        autoplay: false,
+        poster: videoObj.video_img,
+        controls: flag,
+        playsInline: true,
+        preload: "auto",
+        x5VideoPlayerFullscreen: true,
+        x5VideoOrientation: "landscape|portrait",
+        xWebkitAirplay: true,
+        muted: true
+      });
     }
   },
 
@@ -118,6 +157,11 @@ export default {
 };
 </script>
 <style lang='css' scoped>
+.z-index-999 {
+  position: relative;
+  z-index: 999;
+  background: #fff;
+}
 .video-player-wrap {
   width: 100%;
   height: 200px;
@@ -126,19 +170,34 @@ export default {
   margin-top: 45px;
   overflow: hidden;
   overflow-y: scroll;
+  background: #fff;
 }
 .scence-story-goods-title {
   width: 100%;
-  height: 50px;
+  height: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0 15px;
+  position: relative;
+  z-index: 999;
 }
 .video {
   width: 100%;
   height: 200px;
   overflow: hidden;
+}
+.scroll {
+  width: 100%;
+  height: 90px;
+  background: #fff;
+  position: relative;
+  z-index: 999;
+}
+.commit-list {
+  width: 100%;
+  height: 130px;
+  background: #fff;
 }
 </style>

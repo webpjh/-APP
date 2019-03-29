@@ -15,6 +15,36 @@ import './assets/css/reset.css'
 import './assets/css/resetweui.less'
 import './assets/css/iconfont.css'
 
+/**
+ * 全局函数，获取广告图
+ * @params:type
+ * 1-首页
+ * 2-带走的
+ * 3-商城首页
+ * 4-景区消费
+ * 5-景区好礼
+ * 6-名家妙藏
+ * 7-变现首页
+ * 8-艺品回购
+ * 9-艺品租赁
+ * 10-艺品寄卖
+ * 11-信息消费
+ * 12-创收首页
+ * 13-才源共享 
+ */
+import { getBannerImg } from "@/assets/js/common"
+Vue.prototype.getBannerImgFn = getBannerImg
+
+/**
+ * 导航默认行为类似手机APP的页面导航（A、B、C为页面）：
+ * A前进到B，再前进到C；
+ * C返回到B时，B会从缓存中恢复；
+ * B再次前进到C，C会重新生成，不会从缓存中恢复；
+ * C前进到A，A会生成，现在路由中包含2个A实例
+ * */
+import Navigation from 'vue-navigation'
+Vue.use(Navigation, { router, store, moduleName: 'navigation', keyName: 'KC' })
+
 // 懒加载
 import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload)
@@ -31,13 +61,6 @@ Vue.use(WechatPlugin)
 import VueBetterScroll from 'vue2-better-scroll'
 Vue.use(VueBetterScroll)
 
-// import BScroll from 'better-scroll'
-// Vue.use(BScroll)
-
-// vue路由
-// import VueRouter from 'vue-router'
-// Vue.use(VueRouter)
-
 // vue国际化
 import vuei18n from 'vuex-i18n'
 Vue.use(vuei18n)
@@ -51,7 +74,7 @@ import VueScroller from 'vue-scroller'
 Vue.use(VueScroller)
 
 // vux toast插件方式调用
-import { ToastPlugin, LoadingPlugin,ConfirmPlugin,ConfigPlugin } from 'vux'
+import { ToastPlugin, LoadingPlugin, ConfirmPlugin, ConfigPlugin } from 'vux'
 Vue.use(ToastPlugin)
 Vue.use(LoadingPlugin)
 Vue.use(ConfirmPlugin)
@@ -60,8 +83,8 @@ Vue.use(ConfigPlugin, {
 })
 
 // click事件在移动端300ms延时
-// import FastClick from 'fastclick'
-// FastClick.attach(document.body)
+import FastClick from 'fastclick'
+FastClick.attach(document.body)
 
 // vue中使用cordova插件
 import VueCordova from 'vue-cordova'
@@ -70,7 +93,7 @@ Vue.use(VueCordova, {
 })
 
 // 判断android用户是否点击两次返回键推出app
-import { eventBackButton } from './assets/js/quitapp'
+import { eventBackButton } from '@/assets/js/quitapp'
 Vue.cordova.on('deviceready', () => {
   eventBackButton();
 });

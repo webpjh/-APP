@@ -3,34 +3,41 @@
     <div class="scence-story-details-desc-title">
       <p class="scence-story-details-desc-name text-overflow-hidden">{{dataObj.title}}</p>
       <p class="scence-story-details-desc-click">
-        <GiveLike class="scence-story-details-like"></GiveLike>
+        <GiveLike
+          class="scence-story-details-like"
+          v-on:changePhriseState="refreshData"
+          :clickState="clickState"
+          :praiseNum="praiseNum"
+        ></GiveLike>
       </p>
-      <p>{{dataObj.praise_num}}</p>
+      <!-- <p>{{dataObj.praise_num}}</p> -->
     </div>
     <div
       class="scence-story-details-desc-con text-show-line4"
       v-if="!showDetailsFlag"
       @click="showDetails"
-    >{{dataObj.content}}</div>
+    >{{dataObj.synopsis}}</div>
     <div
       class="scence-story-details-desc-con-normal"
       v-else-if="showDetailsFlag"
       @click="showDetails"
-    >{{dataObj.content}}</div>
+    >{{dataObj.synopsis}}</div>
   </div>
 </template>
 
 <script>
 import GiveLike from "@/components/common/GiveLike";
+import { ScenceRememberAndLearnDetails } from "@/servers/api";
 
 export default {
   name: "",
   props: ["dataObj"],
   data() {
     return {
-      desc:
-        "云雾山：一团火焰看山娟云雾山：一团火焰看山娟云雾山：一团火焰看山娟云雾山：一团火焰看山娟云雾山：一团火焰看山娟云雾山：一团火焰看山娟云雾山：一团火焰看山娟云雾山：一团火焰看山娟云雾山：一团火焰看山娟云雾山：一团火焰看山娟一团火焰看山娟一团火焰看山娟",
-      showDetailsFlag: false
+      desc: "",
+      showDetailsFlag: false,
+      clickState: 0,
+      praiseNum: 0
     };
   },
 
@@ -42,11 +49,34 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.refreshData();
+  },
 
   methods: {
     showDetails() {
       this.showDetailsFlag = !this.showDetailsFlag;
+    },
+    refreshData() {
+      this.currentId = this.$route.query.id;
+      ScenceRememberAndLearnDetails({
+        id: this.$route.query.id,
+        type: this.$route.query.branch,
+        page: 1
+      })
+        .then(res => {
+          console.log(res);
+          let arr = [];
+          if (res.result === 1) {
+            if (res.data.video) {
+              this.clickState = res.data.video.type;
+              this.praiseNum = res.data.video.praise_num;
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
 
@@ -89,12 +119,12 @@ export default {
 }
 .scence-story-details-desc-con {
   width: 100%;
-  height: 74px;
+  height: 30px;
   font-size: 12px;
 }
 .scence-story-details-desc-con-normal {
   width: 100%;
-  min-height: 74px;
+  min-height: 30px;
   height: auto;
   font-size: 12px;
 }

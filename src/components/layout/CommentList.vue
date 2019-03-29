@@ -25,7 +25,7 @@
       >
         <div class="comment-list-for flex-wrap" v-for="(item,index) in contentList" :key="index">
           <div class="comment-list-for-header">
-            <img class="comment-list-header-img" :src="item.user_avatar">
+            <img class="comment-list-header-img" v-lazy="item.user_avatar">
           </div>
           <div class="comment-list-content">
             <p class="comment-list-user">

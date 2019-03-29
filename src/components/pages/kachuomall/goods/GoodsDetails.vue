@@ -25,7 +25,7 @@
       <div class="goods-details-cells">
         <group>
           <cell title="已选" v-if="goodsData.options" is-link @click.native="selOptionFn">{{selName}}</cell>
-          <cell title="已选" v-else-if="!goodsData.options" is-link disabled >*1</cell>
+          <cell title="已选" v-else-if="!goodsData.options" is-link disabled>*1</cell>
         </group>
         <div class="divider-area-wrap"></div>
         <group>
@@ -36,7 +36,7 @@
       </div>
       <div class="goods-about-list">
         <p class="goods-about-list-p">
-          <span>文链查证</span>
+          <span @click="blockChainInfoFn">文链查证</span>
           <span>溯源视频</span>
           <span class="goods-about-list-p-span-noborder">文化构思</span>
         </p>
@@ -45,7 +45,7 @@
       <div class="goods-about-copywriter">
         <span>产品文案</span>
       </div>
-      <p v-html="goodsData.content">{{goodsData.content}}</p>
+      <p style="margin-top:10px" v-html="goodsData.content">{{goodsData.content}}</p>
     </div>
     <div class="good-details-boot">
       <p class="goods-action">
@@ -180,6 +180,21 @@ export default {
   },
 
   methods: {
+    blockChainInfoFn() {
+      let id = this.$route.query.id;
+      let flag = this.goodsData.is_forty;
+      let rule = this.goodsData.rule;
+      if (flag) {
+        this.$router.push(
+          "/blockinfoindex?id=" + id + "&flag=" + flag + "&rule=" + rule
+        );
+      } else {
+        this.$vux.toast.text("数据上链中...", "middle");
+        setTimeout(() => {
+          this.$vux.toast.hide();
+        }, 1000);
+      }
+    },
     // 确认清淡
     confirmOrder() {
       this.$router.push("/confirmorder?id=" + this.$route.query.id);
@@ -386,7 +401,7 @@ export default {
   line-height: 44px;
   text-align: center;
   display: inline-block;
-  border-bottom: 2px solid #000;
+  border-bottom: 4px solid #000;
 }
 .good-details-boot {
   width: 100%;
