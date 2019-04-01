@@ -1,7 +1,7 @@
 <template>
   <div class="tab-item-mall-header-wrap">
     <div class="tab-item-mall-left flex-wrap-center-wrap" @click="showLeftModel">
-      <span class="iconfont iconfenlei"></span>
+      <!-- <span class="iconfont iconfenlei"></span> -->
     </div>
     <div class="tab-item-mall-mid">输入作品/作者名</div>
     <div class="tab-item-mall-right flex-wrap-center-wrap">
@@ -35,7 +35,7 @@ export default {
 
   methods: {
     showLeftModel() {
-      this.$store.commit("showMallLeftOptionState", true);
+      // this.$store.commit("showMallLeftOptionState", true);
     },
     appMessageCenter() {
       this.$router.push("/appmessage");

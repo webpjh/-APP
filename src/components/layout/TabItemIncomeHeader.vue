@@ -1,8 +1,8 @@
 <template>
   <div class="tab-item-cash-header-wrap">
-    <span class="tab-item-cash-header-left"></span>
+    <!-- <span class="tab-item-cash-header-left"></span> -->
     <span class="tab-item-cash-header-mid font-weight-36px">创收</span>
-    <span class="tab-item-cash-header-right">发布</span>
+    <!-- <span class="tab-item-cash-header-right">发布</span> -->
   </div>
 </template>
 

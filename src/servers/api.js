@@ -297,3 +297,6 @@ export const AdvertiseLoop = (data) => http.post("carousel", data);
 // 带走的商品列表
 export const TakeAwayGoodsList = (data) => http.post("shop.index.get_goods_by_scenic", data);
 
+// 分类列表
+export const GoodsClassList = (data) => http.post("goods.details.getGoodsCode", data);
+

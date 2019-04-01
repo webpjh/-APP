@@ -46,9 +46,8 @@ export default {
   z-index: 999;
 }
 .tab-item-mall-advertise-swiper {
-  padding: 0 15px;
+  width: 100%;
   box-sizing: border-box;
-  margin-top: 10px;
   background: #fff;
 }
 .vux-swiper-item {

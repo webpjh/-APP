@@ -103,6 +103,11 @@ export default {
 };
 </script>
 <style lang='css' scoped>
+.function-areas-wrap{
+  background: #fff;
+  position: relative;
+  z-index: 999;
+}
 .flex-wrap-for {
   width: 100%;
   height: 80px;

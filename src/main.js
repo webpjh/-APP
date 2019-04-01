@@ -15,6 +15,7 @@ import './assets/css/reset.css'
 import './assets/css/resetweui.less'
 import './assets/css/iconfont.css'
 
+import 'lib-flexible/flexible'
 /**
  * 全局函数，获取广告图
  * @params:type

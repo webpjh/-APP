@@ -12,8 +12,8 @@
               :class="{'content-left-p':currentIndex!=index,'content-left-p-active':currentIndex==index}"
               v-for="(item,index) in leftContent"
               :key="index"
-              @click="changeIndex(index)"
-            >{{item}}</p>
+              @click="changeIndex(index,item.id)"
+            >{{item.name}}</p>
           </div>
           <div class="content-right">
             <div class="content-video">
@@ -22,7 +22,7 @@
             <div class="content-list-wrap" :style="contentListRightWrap">
               <div class="content-list-item" v-for="(item,index) in rightContent" :key="index">
                 <img class="content-list-img" :src="item.src">
-                <p class="content-list-title">{{item.title}}</p>
+                <p class="content-list-title">{{item.name}}</p>
               </div>
             </div>
           </div>
@@ -34,7 +34,7 @@
 
 <script>
 import { TransferDom, Popup, XHeader, Sticky } from "vux";
-
+import { GoodsClassList } from "@/servers/api";
 import Video from "../common/VideoPlayer";
 
 export default {
@@ -50,105 +50,60 @@ export default {
   data() {
     return {
       show: true,
-      leftContent: ["书法", "国画", "陶瓷", "雕刻", "紫砂", "名家"],
-      rightContent: [
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        },
-        {
-          src:
-            "http://www.hrwdw.com/UploadFiles/2015-12/0/2015123014313760961.png",
-          title: "书法"
-        }
-      ],
-      currentIndex: 0
+      leftContent: [],
+      rightContent: [],
+      currentIndex: 0,
+      dataList: []
     };
   },
+  mounted() {
+    this.getClassList();
+  },
   methods: {
-    changeIndex(i) {
+    getClassList() {
+      GoodsClassList({})
+        .then(res => {
+          if (res.result === 1) {
+            res.data.list.forEach(element => {
+              if (element.name === "品类") {
+                this.dataList = element.son;
+                element.son.forEach(element => {
+                  this.leftContent.push({ id: element.id, name: element.name });
+                  if (element.son) {
+                    if (element.name === "绘画") {
+                      element.son.forEach(element => {
+                        this.rightContent.push({
+                          id: element.id,
+                          name: element.name
+                        });
+                      });
+                    }
+                  }
+                });
+              }
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    changeIndex(i, id) {
       this.currentIndex = i;
+      this.rightContent = [];
+      this.dataList.forEach(item => {
+        if (item.id === id) {
+          if (item.son) {
+            item.son.forEach(item => {
+              this.rightContent.push({
+                id: item.id,
+                name: item.name
+              });
+            });
+          }
+        }
+      });
+      console.log(this.rightContent);
     },
     hideModel() {
       this.$store.commit("showMallLeftOptionState", false);
@@ -201,7 +156,6 @@ export default {
   flex: 80%;
   height: 100%;
   overflow: hidden;
-  background: red;
   padding: 10px;
   box-sizing: border-box;
   padding-bottom: 100px;
@@ -224,7 +178,6 @@ export default {
   width: 100%;
   height: 160px;
   overflow: hidden;
-  background: blue;
 }
 .content-list-wrap {
   width: 100%;
@@ -233,9 +186,9 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: flex-start;
   margin-top: 10px;
-  background: green;
 }
 .content-list-item {
   width: 33%;

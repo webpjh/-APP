@@ -1,23 +1,20 @@
 <template>
-  <swiper
-    :loop="SwiperImgData.loop"
-    :auto="SwiperImgData.auto"
-    :list="SwiperImgData.ImgList"
-    :index="SwiperImgData.index"
-    :dots-position="SwiperImgData.dotsPosition"
-    :height="SwiperImgData.height"
-  ></swiper>
+  <swiper :options="swiperOption">
+    <swiper-slide v-for="(item, index) in SwiperImgData.ImgList" class="img-swiper-wrap" :key="index">
+      <img :src="item.img" alt srcset class="img-swiper-wrap-img-lis">
+    </swiper-slide>
+    <div class="swiper-pagination" slot="pagination"></div>
+  </swiper>
 </template>
 
 <script>
-import { Swiper, GroupTitle, SwiperItem, Divider } from "vux";
-
+import "swiper/dist/css/swiper.css";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
 export default {
   props: [""],
   components: {
-    Swiper,
-    SwiperItem,
-    GroupTitle
+    swiper,
+    swiperSlide
   },
   ready() {},
   methods: {
@@ -38,7 +35,14 @@ export default {
         loop: true,
         auto: true,
         height: "160px"
-      }
+      },
+      swiperOption: {
+        autoplay: true,
+        pagination: {
+          el: ".swiper-pagination"
+        }
+      },
+      swiperSlides: []
     };
   },
   computed: {},
@@ -114,5 +118,15 @@ export default {
 }
 .swiper-demo-img img {
   width: 100%;
+}
+.img-swiper-wrap {
+  width: 100%;
+  height: 170px;
+}
+.img-swiper-wrap-img-lis{
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  border-radius: 4px;
 }
 </style>

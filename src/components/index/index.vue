@@ -6,13 +6,12 @@
 </template>
 
 <script>
-
 import { XHeader, TransferDom } from "vux";
 import TabContent from "@/components/layout/TabContent";
 import Header from "@/components/common/Header";
 import KachuoBottomTab from "@/components/pages/tabindex/KachuoBottomTab";
 import Vue from "vue";
-import {AdvertiseLoop} from "@/servers/api";
+import { AdvertiseLoop } from "@/servers/api";
 
 export default {
   directives: {
@@ -115,8 +114,7 @@ export default {
       return this.cordova.plugins.indexOf(pluginName) !== -1;
     }
   },
-  created() { 
-  },
+  created() {},
   mounted() {
     this.changeVuexCurrentRoute();
   },
@@ -125,9 +123,7 @@ export default {
       return this.$store.state.titleObj;
     }
   },
-  watch: {
-
-  }
+  watch: {}
 };
 </script>
 

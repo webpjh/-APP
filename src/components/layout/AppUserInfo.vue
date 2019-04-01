@@ -64,10 +64,10 @@ export default {
 <style lang='css' scoped>
 .user-info-header {
   width: 100%;
-  height: 100px;
+  height: 80px;
   background: #222;
   color: #fff;
-  padding: 15px;
+  padding: 0 15px 15px 15px;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -75,7 +75,7 @@ export default {
   align-items: center;
 }
 .user-info-header-img-wrap {
-  width: 144px;
+  width: 160px;
   height: 50px;
   overflow: hidden;
   display: flex;
@@ -110,5 +110,8 @@ export default {
   line-height: 40px;
   font-size: 28px;
   font-weight: bold;
+}
+.user-info-header-desc{
+  font-size: 16px;
 }
 </style>

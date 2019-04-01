@@ -1,49 +1,58 @@
 <template>
-  <swiper
-    :loop="SwiperImgData.loop"
-    :auto="SwiperImgData.auto"
-    :list="SwiperImgData.ImgList"
-    :index="SwiperImgData.index"
-    :dots-position="SwiperImgData.dotsPosition"
-    :height="SwiperImgData.height"
-  ></swiper>
+  <swiper :options="swiperOption">
+    <swiper-slide v-for="(item, index) in swiperSlides" :key="index">
+      <img :src="item.img" alt srcset>
+    </swiper-slide>
+    <div class="swiper-pagination" slot="pagination"></div>
+  </swiper>
 </template>
 
 <script>
-import { Swiper, GroupTitle, SwiperItem, Divider } from "vux";
-
+import "swiper/dist/css/swiper.css";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+import { AdvertiseLoop } from "@/servers/api";
 export default {
   props: [""],
   components: {
-    Swiper,
-    SwiperItem,
-    GroupTitle
+    swiper,
+    swiperSlide
   },
   ready() {},
   methods: {
-    setLoopImg() {
-      this.$nextTick(() => {
-        this.SwiperImgData.ImgList = JSON.parse(
-          JSON.stringify(this.$store.state.carousel)
-        );
-      });
+    getDataList() {
+      let imgArr = [];
+      AdvertiseLoop({
+        type: 1
+      })
+        .then(res => {
+          if (res.result === 1) {
+            for (let i = 0; i < res.data.data.carousel.length; i++) {
+              imgArr.push({
+                img: res.data.data.carousel[i]
+              });
+            }
+            this.swiperSlides = imgArr;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   data() {
     return {
-      SwiperImgData: {
-        ImgList: [],
-        index: 0,
-        dotsPosition: "center",
-        loop: true,
-        auto: true,
-        height: "220px"
-      }
+      swiperOption: {
+        autoplay:true,
+        pagination: {
+          el: ".swiper-pagination"
+        }
+      },
+      swiperSlides: []
     };
   },
   computed: {},
   mounted() {
-    this.setLoopImg();
+    this.getDataList();
   }
 };
 </script>
