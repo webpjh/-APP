@@ -3,7 +3,18 @@
 -->
 <template>
   <div class="goods-list-wrap">
-    <div class="goods-list" v-for="(item,index) in goodList" :key="index" @click="watchGoodsDetails(item.goods_id)">
+    <p style="width:100%;text-align:center;" v-show="!goodList.length">
+      <span
+        style="vertical-align:middle;display:inline-block;font-size:14px;"
+      >加载中&nbsp;&nbsp;</span>
+      <inline-loading></inline-loading>
+    </p>
+    <div
+      class="goods-list"
+      v-for="(item,index) in goodList"
+      :key="index"
+      @click="watchGoodsDetails(item.goods_id,item.id)"
+    >
       <img class="goods-img" v-lazy="item.thumb">
       <div class="good-desc-wrap">
         <p class="goods-name">{{item.goods_name ? item.goods_name : item.title}}</p>
@@ -14,8 +25,7 @@
 </template>
 
 <script>
-import { Divider } from "vux";
-
+import { Divider,InlineLoading } from "vux";
 export default {
   name: "",
   props: ["goodList"],
@@ -26,7 +36,8 @@ export default {
   },
 
   components: {
-    Divider
+    Divider,
+    InlineLoading
   },
 
   computed: {},
@@ -36,8 +47,9 @@ export default {
   mounted() {},
 
   methods: {
-    watchGoodsDetails(id){
-      this.$router.push("/goodsdetails?id="+id);
+    watchGoodsDetails(goodsId, id) {
+      let gid = goodsId ? goodsId : id;
+      this.$router.push("/goodsdetails?id=" + gid);
     }
   },
 

@@ -293,3 +293,7 @@ export const ScenceRememberAndLearnDetails = (data) => http.post("videoservice.r
 
 // 广告轮播图
 export const AdvertiseLoop = (data) => http.post("carousel", data);
+
+// 带走的商品列表
+export const TakeAwayGoodsList = (data) => http.post("shop.index.get_goods_by_scenic", data);
+

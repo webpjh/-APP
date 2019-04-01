@@ -20,10 +20,9 @@
           @pullingDown="onPullingDown"
           @pullingUp="onPullingUp"
         >
-          <GoodsList></GoodsList>
+          <GoodsList :goodList="items"></GoodsList>
         </vue-better-scroll>
       </main>
-      <GoodsList></GoodsList>
     </div>
   </div>
 </template>
@@ -34,9 +33,8 @@ import Header from "@/components/common/Header";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
 import DividedArea from "@/components/common/DividedArea";
 import Divider from "@/components/common/Divider";
-import Scroll from "@/components/common/Scroller";
 import GoodsList from "@/components/layout/GoodsList";
-import {ScenceRememberAndLearn} from "@/servers/api";
+import { TakeAwayGoodsList } from "@/servers/api";
 export default {
   name: "",
   props: [""],
@@ -80,7 +78,6 @@ export default {
     TabItemMallAdvertise,
     DividedArea,
     Divider,
-    Scroll,
     GoodsList
   },
 
@@ -97,6 +94,7 @@ export default {
 
   mounted() {
     this.getBannerImgFn("2");
+    this.onPullingDown();
   },
 
   methods: {
@@ -112,8 +110,8 @@ export default {
     getData() {
       return new Promise(resolve => {
         let arr = [];
-        ScenceRememberAndLearn({
-          type: this.$route.query.branch,
+        TakeAwayGoodsList({
+          scenic_id: 27,
           page: this.page
         })
           .then(res => {
@@ -121,9 +119,9 @@ export default {
             if (res.result === 1) {
               totalCount = res.data.totalofnum;
               setTimeout(() => {
-                if (res.data.comment.length) {
-                  arr = res.data.comment;
-                  resolve(res.data.comment);
+                if (res.data.result.length) {
+                  arr = res.data.result;
+                  resolve(res.data.result);
                 } else {
                   this.$refs.scroll.forceUpdate(false);
                 }

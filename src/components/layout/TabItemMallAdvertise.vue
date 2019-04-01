@@ -42,6 +42,8 @@ export default {
   height: 200px;
   overflow: hidden;
   background: #fff;
+  position: relative;
+  z-index: 999;
 }
 .tab-item-mall-advertise-swiper {
   padding: 0 15px;

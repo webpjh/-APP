@@ -1,11 +1,11 @@
 <template>
   <swiper
-    :loop="SwiperImgData.loop"
-    :auto="SwiperImgData.auto"
-    :list="SwiperImgData.ImgList"
-    :index="SwiperImgData.index"
-    :dots-position="SwiperImgData.dotsPosition"
-    :height="SwiperImgData.height"
+    :loop="SwiperImgDataList.loop"
+    :auto="SwiperImgDataList.auto"
+    :list="SwiperImgDataList.ImgList"
+    :index="SwiperImgDataList.index"
+    :dots-position="SwiperImgDataList.dotsPosition"
+    :height="SwiperImgDataList.height"
   ></swiper>
 </template>
 
@@ -13,7 +13,7 @@
 import { Swiper, GroupTitle, SwiperItem, Divider } from "vux";
 
 export default {
-  props: [""],
+  props: ["SwiperImgDataList"],
   components: {
     Swiper,
     SwiperItem,
@@ -21,13 +21,7 @@ export default {
   },
   ready() {},
   methods: {
-    setLoopImg() {
-      this.$nextTick(() => {
-        this.SwiperImgData.ImgList = JSON.parse(
-          JSON.stringify(this.$store.state.carousel)
-        );
-      });
-    }
+
   },
   data() {
     return {
@@ -43,17 +37,8 @@ export default {
   },
   computed: {},
   mounted() {
-    this.setLoopImg();
   },
   beforeDestroy() {
-    this.SwiperImgData = {
-      ImgList: [],
-      index: 0,
-      dotsPosition: "center",
-      loop: true,
-      auto: true,
-      height: "160px"
-    };
   }
 };
 </script>

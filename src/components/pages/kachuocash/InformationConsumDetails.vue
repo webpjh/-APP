@@ -37,6 +37,9 @@ import Comments from "@/components/common/Comments";
 import CommentList from "@/components/layout/CommentList";
 import { ScenceVideoDetails } from "@/servers/api";
 
+import "dplayer/dist/DPlayer.min.css";
+import DPlayer from "dplayer";
+
 export default {
   name: "",
   props: [""],
@@ -130,7 +133,9 @@ export default {
           console.log(res);
           if (res.result === 1) {
             if (res.data.video) {
-              this.createVideoDom(true, res.data.video);
+              console.log(res.data.video);
+              // this.createVideoDom(true, res.data.video);
+              this.createDPlayer(res.data.video);
               this.clickState = res.data.video.type;
               this.praiseNum = res.data.video.praise_num;
             }
@@ -153,6 +158,26 @@ export default {
         x5VideoOrientation: "landscape|portrait",
         xWebkitAirplay: true,
         muted: true
+      });
+    },
+    createDPlayer(videoObj) {
+      const dp = new DPlayer({
+        container: document.getElementById("wrapper"),
+        autoplay: false,
+        theme: "#FADFA3",
+        loop: true,
+        lang: "zh-cn",
+        screenshot: true,
+        hotkey: true,
+        preload: "auto",
+        screenshot: true,
+        volume: 0.7,
+        video: {
+          url: videoObj.video_url,
+          pic: videoObj.video_img,
+          thumbnails: "",
+          type: "auto"
+        }
       });
     }
   },

@@ -24,7 +24,7 @@ import FlexWrap from "@/components/layout/FlexWrap";
 import Divider from "@/components/common/Divider";
 import Scroll from "@/components/common/Scroller";
 import GoodsList from "@/components/layout/GoodsList";
-import {goodsBucketRecomm } from "@/servers/api";
+import { goodsBucketRecomm } from "@/servers/api";
 
 export default {
   name: "",
@@ -83,7 +83,7 @@ export default {
           class: "iconfont iconmenpiao"
         }
       ],
-      goodsDataList:[]
+      goodsDataList: []
     };
   },
 
@@ -120,7 +120,9 @@ export default {
         .then(res => {
           console.log(res);
           if (res.result === 1) {
-            this.goodsDataList = res.data.result;
+            if (res.data.result) {
+              this.goodsDataList = res.data.result;
+            }
           }
         })
         .catch(err => {
@@ -148,7 +150,7 @@ export default {
 };
 </script>
 <style lang='css' scoped>
-.scence-gifts-wrap{
+.scence-gifts-wrap {
   width: 100%;
   height: 100%;
   overflow: hidden;

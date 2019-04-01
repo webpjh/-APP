@@ -14,7 +14,9 @@
         <p>{{userInfo.mobile}}</p>
       </div>
     </div>
-    <div class="user-info-header-right" @click="setting">></div>
+    <div class="user-info-header-right" @click="setting">
+      <span class="iconfont iconyoujiantou"></span>
+    </div>
   </div>
 </template>
 
@@ -102,6 +104,11 @@ export default {
   opacity: 0;
 }
 .user-info-header-right {
-  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 28px;
+  font-weight: bold;
 }
 </style>

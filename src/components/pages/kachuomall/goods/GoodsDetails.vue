@@ -6,8 +6,8 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="goods-details-content" :style="conHei">
-      <VideoPlayer :isControls="true" v-show="goodsData.ar_image" class="video-player-wrap"></VideoPlayer>
-      <SwiperImg :SwiperImgData="SwiperImgData" v-show="goodsData.thumb"></SwiperImg>
+      <VideoPlayer :isControls="true" v-if="goodsData.ar_image" class="video-player-wrap"></VideoPlayer>
+      <SwiperImg :SwiperImgDataList="SwiperImgData" v-if="SwiperImgData.ImgList.length"></SwiperImg>
       <div class="goods-details-desc">
         <p class="goods-name text-overflow-hidden">{{goodsData.title}}</p>
         <p class="goods-price">
@@ -101,7 +101,7 @@
 <script>
 import Header from "@/components/common/Header";
 import VideoPlayer from "@/components/common/VideoPlayer";
-import SwiperImg from "@/components/common/SwiperImg";
+import SwiperImg from "@/components/common/SwiperImgGoodDetails";
 import { getDetail, CollectionGoods, SaveShopping } from "@/servers/api";
 import Divider from "@/components/common/DividedArea";
 import {

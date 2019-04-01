@@ -2,7 +2,7 @@
 分类导航
 -->
 <template>
-  <div v-transfer-dom>
+  <div v-transfer-dom class="left-popup-wrap">
     <popup v-model="showModelFlag" position="left" width="100%">
       <div class="position-horizontal">
         <x-header :left-options="{backText: '返回',preventGoBack:true}" @on-click-back="hideModel">分类</x-header>
@@ -19,7 +19,7 @@
             <div class="content-video">
               <Video :isControls="true"></Video>
             </div>
-            <div class="content-list-wrap">
+            <div class="content-list-wrap" :style="contentListRightWrap">
               <div class="content-list-item" v-for="(item,index) in rightContent" :key="index">
                 <img class="content-list-img" :src="item.src">
                 <p class="content-list-title">{{item.title}}</p>
@@ -148,7 +148,6 @@ export default {
   },
   methods: {
     changeIndex(i) {
-      // console.log(i);
       this.currentIndex = i;
     },
     hideModel() {
@@ -156,6 +155,9 @@ export default {
     }
   },
   computed: {
+    contentListRightWrap() {
+      return { height: document.documentElement.clientHeight - 225 + "px" };
+    },
     showModelFlag: {
       get: function() {
         return this.$store.state.showMallLeftOption;
@@ -168,6 +170,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.left-popup-wrap {
+  position: relative;
+  z-index: 9999;
+  background: #fff;
+}
 .position-horizontal {
   position: relative;
   height: 100%;
@@ -193,7 +200,7 @@ export default {
 .content-right {
   flex: 80%;
   height: 100%;
-  overflow-y: scroll;
+  overflow: hidden;
   background: red;
   padding: 10px;
   box-sizing: border-box;
@@ -217,15 +224,18 @@ export default {
   width: 100%;
   height: 160px;
   overflow: hidden;
+  background: blue;
 }
 .content-list-wrap {
   width: 100%;
-  height: auto;
+  overflow: hidden;
+  overflow-y: scroll;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 10px;
+  background: green;
 }
 .content-list-item {
   width: 33%;

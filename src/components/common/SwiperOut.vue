@@ -10,7 +10,7 @@
         style="margin-top:10px"
       >
         <div slot="right-menu">
-          <swipeout-button @click.native="onButtonClickCol(item.id)" type="primary">收藏</swipeout-button>
+          <swipeout-button @click.native="onButtonClickCol(item.id)" type="primary">取消</swipeout-button>
           <swipeout-button @click.native="onButtonClickDel(item.id,index)" type="warn">删除</swipeout-button>
         </div>
         <div slot="content" class="demo-content vux-1px-t content-wrap">

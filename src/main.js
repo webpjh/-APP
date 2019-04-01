@@ -101,6 +101,7 @@ Vue.cordova.on('deviceready', () => {
 // 高德地图
 import VueAMap from 'vue-amap';
 import { lazyAMapApiLoaderInstance } from 'vue-amap';
+Vue.prototype.AMap = VueAMap;
 Vue.use(VueAMap);
 VueAMap.initAMapApiLoader({
   key: '956cab63ef78320624fb7d7dff4c25b5',
