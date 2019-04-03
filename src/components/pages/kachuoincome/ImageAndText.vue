@@ -8,7 +8,7 @@
       slot="header"
       style="width:100%;position:absolute;left:0;top:0;z-index:100;"
     >
-      <a slot="right" @click="releaseContent">发布</a>
+      <a slot="right" @click="releaseContent" style="font-size:16px">发布</a>
     </x-header>
     <div class="img-and-text-content" :style="conHeight">
       <ImgAndTxtList></ImgAndTxtList>

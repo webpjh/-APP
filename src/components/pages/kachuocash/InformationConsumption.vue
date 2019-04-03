@@ -155,6 +155,11 @@ export default {
 };
 </script>
 <style lang='css' scoped>
+.scence-consum-wrap{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .scence-consum-content {
   width: 100%;
   overflow: hidden;

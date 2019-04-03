@@ -36,7 +36,7 @@ export default {
 <style lang='css' scoped>
 .tab-item-cash-header-wrap {
   width: 100%;
-  height: 50px;
+  height: 45px;
   display: flex;
   flex-direction: row;
   justify-content: center;

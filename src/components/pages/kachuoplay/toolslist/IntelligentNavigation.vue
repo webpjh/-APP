@@ -58,7 +58,7 @@ export default {
       });
       map.clearMap();
       SCENICSPOT.forEach(function(item, index) {
-        if (item.label === "卡戳艺术馆") {
+        if (item.label === "卡戳文化艺术馆") {
           var marker = new AMap.Marker({
             map: map,
             icon: kachuoKocationIcon,

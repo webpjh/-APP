@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       TitleObjData: {
-        titleContent: "",
+        titleContent: "景区消费",
         showLeftBack: true,
         showRightMore: false
       },

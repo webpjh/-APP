@@ -1,6 +1,7 @@
 <template>
   <div class="search-button-wrap">
-    <div class="search-button">中文/拼音/首字母</div>
+    <!-- <div class="search-button">中文/拼音/首字母</div> -->
+
   </div>
 </template>
 
@@ -33,7 +34,7 @@
 <style lang='css' scoped>
 .search-button-wrap{
   width: 100%;
-  height: 50px;
+  height: 20px;
   display: flex;
   flex-direction: row;
   justify-content: center;

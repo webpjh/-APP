@@ -3,7 +3,7 @@
     <div class="search-history">
       <div class="search-history-header">
         <span class="search-title-bold">搜索历史</span>
-        <span>删除</span>
+        <span @click="delSearchHistory">删除</span>
       </div>
       <div class="search-history-item">
         <p class="search-history-item-bj text-overflow-hidden" v-for="(item,index) in searchHistoryItem" :key="index">
@@ -11,7 +11,7 @@
         </p>
       </div>
     </div>
-    <div class="search-people-list">
+    <!-- <div class="search-people-list">
       <div class="search-people-list-header">
         <span class="search-title-bold">大家都在搜</span>
         <span>换一批</span>
@@ -21,7 +21,7 @@
           <span>{{item}}</span>
         </p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -31,30 +31,8 @@ export default {
   props: [""],
   data() {
     return {
-      searchHistoryItem: [
-        "徽州古城徽州古城",
-        "少林寺",
-        "云雾山",
-        "长春",
-        "蓬莱",
-        "徽州古城",
-        "少林寺",
-        "云雾山",
-        "长春",
-        "蓬莱"
-      ],
-      searchPeopleItem: [
-        "徽州古城",
-        "少林寺",
-        "云雾山",
-        "长春",
-        "蓬莱",
-        "徽州古城",
-        "少林寺",
-        "云雾山",
-        "长春",
-        "蓬莱"
-      ]
+      searchHistoryItem: [],
+      searchPeopleItem: []
     };
   },
 
@@ -64,9 +42,16 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.searchHistoryItem = JSON.parse(localStorage.getItem("searchHistory"));
+  },
 
-  methods: {},
+  methods: {
+    delSearchHistory(){
+      this.searchHistoryItem = [];
+      localStorage.removeItem("searchHistory");
+    }
+  },
 
   watch: {}
 };
@@ -94,7 +79,7 @@ export default {
   flex-wrap: wrap;
   padding: 0 10px;
   box-sizing: border-box;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 .search-history-item-bj,.search-history-item-bj {
   width: 60px;
@@ -109,6 +94,7 @@ export default {
   border-radius: 2px;
   padding: 0 2px;
   box-sizing: border-box;
+  margin-right: 10px;
 }
 .search-people-list{
   margin-top: 10px;

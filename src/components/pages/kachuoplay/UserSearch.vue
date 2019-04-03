@@ -14,7 +14,7 @@ export default {
   props: [""],
   data() {
     return {
-      placeHolderTxt: "搜索目的地/景点/酒店/饭店"
+      placeHolderTxt: "输入作品/作者/景区"
     };
   },
 
@@ -28,7 +28,6 @@ export default {
   beforeMount() {},
 
   mounted() {
-    console.log(this.$refs.searchBox);
   },
 
   methods: {},

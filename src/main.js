@@ -15,7 +15,7 @@ import './assets/css/reset.css'
 import './assets/css/resetweui.less'
 import './assets/css/iconfont.css'
 
-import 'lib-flexible/flexible'
+// import 'lib-flexible/flexible'
 /**
  * 全局函数，获取广告图
  * @params:type
@@ -91,11 +91,12 @@ FastClick.attach(document.body)
 import VueCordova from 'vue-cordova'
 Vue.use(VueCordova)
 
+import { vueCordovaFunction } from "@/assets/js/vuecordova"
+vueCordovaFunction.getLocation();
+
 // 判断android用户是否点击两次返回键推出app
 import { eventBackButton } from '@/assets/js/quitapp'
-Vue.cordova.on('deviceready', () => {
-  eventBackButton();
-});
+eventBackButton();
 
 // 高德地图
 import VueAMap from 'vue-amap';

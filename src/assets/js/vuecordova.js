@@ -1,8 +1,21 @@
-import Vue from 'vue'
-import VueCordova from 'vue-cordova'
-Vue.use(VueCordova)
-
-export const KachuoAppPay = {
+export const vueCordovaFunction = {
+  getLocation: function () {
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onSuccess(position) {
+        let positionInfo = {
+          "latitude":Latitude,
+          "longitude":Longitude
+        }
+        sessionStorage.setItem("positionInfo",JSON.stringify(positionInfo));
+    }
+    function onError(error) {
+      alert('code: ' + error.code + '\n' +
+        'message: ' + error.message + '\n');
+    }
+    function onDeviceReady() {
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }
+  },
   WeixinPay: function (partnerid, prepayid, noncestr, timestamp, sign) {
     let WXparams = {
       partnerid: res.data.url.partnerid, // merchant id
@@ -59,7 +72,3 @@ export const getCordovaLocation = () => {
     })
   }
 }
-
-Vue.cordova.on('deviceready', () => {
-
-});

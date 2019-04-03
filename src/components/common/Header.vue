@@ -12,7 +12,7 @@ titleContent（string）：标题内容
     @on-click-back="back"
     @on-click-more="showMenus = true"
     slot="header"
-    style="width:100%;position:absolute;left:0;top:0;z-index:100;"
+    style="width: 100%;position: absolute;left: 0;top: 0;z-index: 100;font-size: 16px;"
   >{{titleContent}}</x-header>
 </template>
 
@@ -28,9 +28,7 @@ export default {
     XHeader
   },
   data() {
-    return {
-
-    };
+    return {};
   },
   methods: {
     back() {
@@ -43,5 +41,13 @@ export default {
 <style>
 .overwrite-title-demo {
   margin-top: 5px;
+}
+.vuex-header-wrap {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  font-size: 16px;
 }
 </style>

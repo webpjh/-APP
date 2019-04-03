@@ -16,17 +16,23 @@ export const Toast = () => {
 }
 
 export const eventBackButton = () => {
-  if (window.location.href.indexOf('/kachuotab') != -1) {
-    if (exitAppTicker == 0) {
-      exitAppTicker++;
-      Toast("再点一次退出", 2000);
-      setTimeout(function () {
-        exitAppTicker = 0;
-      }, 2000);
+  function eventBackButton() {
+    if (window.location.href.indexOf('/kachuotab') != -1) {
+      if (exitAppTicker == 0) {
+        exitAppTicker++;
+        Toast("再点一次退出", 2000);
+        setTimeout(function () {
+          exitAppTicker = 0;
+        }, 2000);
+      } else {
+        navigator.app.exitApp(); //退出app
+      }
     } else {
-      navigator.app.exitApp(); //退出app
+      navigator.app.backHistory();
     }
-  } else {
-    navigator.app.backHistory();
   }
+  function onDeviceReady() {
+    document.addEventListener("backbutton", eventBackButton, false);
+  }
+  document.addEventListener("deviceready", onDeviceReady, false);
 }

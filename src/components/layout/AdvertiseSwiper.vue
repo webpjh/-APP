@@ -46,13 +46,13 @@ export default {
   flex: 1;
   height: 14px;
   line-height: 14px;
-  font-size: 12px;
+  font-size: 13px;
   border-right: 1px solid #eee;
   padding-right: 6px;
   box-sizing: border-box;
 }
 .swiper-tip-adv {
-  flex: 6;
+  flex: 5;
 }
 .swiper-tip-text-red{
   color: red;

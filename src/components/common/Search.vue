@@ -18,7 +18,7 @@
 
 <script>
 import { Search, Group, Cell, XButton } from "vux";
-
+import { SearchGoodsList } from "@/servers/api";
 export default {
   props: ["placeHolder"],
   components: {
@@ -34,23 +34,45 @@ export default {
     };
   },
   methods: {
+    searchPost(name) {
+      let arrList = [];
+      SearchGoodsList({
+        name: name
+      })
+        .then(res => {
+          if (res.result === 1) {
+            if (res.data.list.length) {
+              res.data.list.forEach(element => {
+                arrList.push({
+                  title:element.title,
+                  otherData:element.subtitle,
+                  id:element.id
+                });
+              });
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      this.results = arrList;
+    },
     setFocus() {
       this.$refs.search.setFocus();
     },
     resultClick(item) {
-      window.alert("you click the result item: " + JSON.stringify(item));
+      this.$router.push("/goodsdetails?id="+item.id);
     },
     getResult(val) {
-      console.log("on-change", val);
-      this.results = val ? getResult(this.value) : [];
+      if (val) {
+        let searchHistory = [];
+        searchHistory.push(val);
+        localStorage.setItem("searchHistory",JSON.stringify(searchHistory));
+        this.searchPost(val);
+      }
     },
     onSubmit() {
       this.$refs.search.setBlur();
-      this.$vux.toast.show({
-        type: "text",
-        position: "top",
-        text: "on submit"
-      });
     },
     onFocus() {
       console.log("on focus");
@@ -59,7 +81,7 @@ export default {
       this.$router.goBack();
     }
   },
-  mounted(){
+  mounted() {
     this.setFocus();
   }
 };

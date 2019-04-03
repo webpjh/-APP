@@ -27,14 +27,7 @@ export default {
   methods: {},
   data() {
     return {
-      baseList: [
-        "义务爱了 完成传奇世界H5-王者归来任务 获得20金币获得20金币获得20金币获得20金币获得20金币",
-        "基本世神 兑换《传奇世界H5》畅玩级礼包 消耗30金币",
-        "零哥章魚 完成传奇世界H5-王者归来任务 获得30金币",
-        "做迎而為 兑换【饿了么】畅享美食红包 消耗20金币",
-        "只知道不知道 兑换【饿了么】畅享美食红包 消耗20金币",
-        "基本世神 兑换《传奇世界H5》畅玩级礼包 消耗30金币"
-      ]
+      baseList: []
     };
   },
   mounted(){
@@ -55,7 +48,7 @@ export default {
   border-right: none;
 }
 .text-scroll p {
-  font-size: 12px;
+  font-size: 13px;
   text-align: left;
   line-height: 30px;
   padding:0 10px;
