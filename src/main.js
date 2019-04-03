@@ -89,9 +89,7 @@ FastClick.attach(document.body)
 
 // vue中使用cordova插件
 import VueCordova from 'vue-cordova'
-Vue.use(VueCordova, {
-  optionTestKey: 'optionTestValue'
-})
+Vue.use(VueCordova)
 
 // 判断android用户是否点击两次返回键推出app
 import { eventBackButton } from '@/assets/js/quitapp'
@@ -110,12 +108,6 @@ VueAMap.initAMapApiLoader({
   uiVersion: '1.0', // ui库版本，不配置不加载
   v: '1.4.4'
 });
-lazyAMapApiLoaderInstance.load().then(() => {
-  this.map = new AMap.Map('amapContainer', {
-    center: new AMap.LngLat(121.59996, 31.197646)
-  });
-});
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

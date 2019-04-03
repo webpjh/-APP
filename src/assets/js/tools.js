@@ -38,3 +38,14 @@ export const timeTodate = (timeDate) => {
   var s = time.getSeconds();
   return y + '-' + addZero(m) + '-' + addZero(d) + ' ' + addZero(h) + ':' + addZero(mm) + ':' + addZero(s);
 }
+
+// 获取当前位置
+export const getLocation = () => {
+  function showPosition(position) {
+    alert(position.coords.latitude + "," + position.coords.longitude);
+  }
+  if (navigator.geolocation) {
+    console.log(navigator.geolocation.getCurrentPosition);
+    navigator.geolocation.getCurrentPosition(showPosition);
+  }
+}

@@ -21,7 +21,7 @@
         :id="currentId"
         :pullDownRefreshObj="pullDownRefreshObj"
         :dataList.sync="commitDataList"
-        :scrollTop="390"
+        :scrollTop="350"
         class="commit-list"
       ></CommentList>
     </div>

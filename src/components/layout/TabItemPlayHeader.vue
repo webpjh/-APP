@@ -5,7 +5,7 @@
       <div class="location-icon text-align-center" @click="locationSelf">
         <span class="iconfont icondingwei"></span>
       </div>
-      <div class="search-icon text-align-center" @click="searchScence">搜索目的地/景点/酒店/饭店</div>
+      <div class="search-icon text-align-center" @click="searchScence">输入作品/作者/景区</div>
       <div class="message-icon text-align-center" @click="appMessageCenter">
         <span class="iconfont iconxiaoxi"></span>
       </div>

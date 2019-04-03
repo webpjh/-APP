@@ -32,11 +32,11 @@ export default {
         showRightMore: false
       },
       cellListTools: [
-        {
-          title: "签到领积分",
-          icon: "iconfont iconqiandaolingjifen",
-          link: "/signin"
-        },
+        // {
+        //   title: "签到领积分",
+        //   icon: "iconfont iconqiandaolingjifen",
+        //   link: "/signin"
+        // },
         {
           title: "积分说明",
           icon: "iconfont iconjifenshuoming",

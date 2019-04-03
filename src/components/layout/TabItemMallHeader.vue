@@ -3,7 +3,7 @@
     <div class="tab-item-mall-left flex-wrap-center-wrap" @click="showLeftModel">
       <!-- <span class="iconfont iconfenlei"></span> -->
     </div>
-    <div class="tab-item-mall-mid">输入作品/作者名</div>
+    <div class="tab-item-mall-mid" @click="searchScence">输入作品/作者/景区</div>
     <div class="tab-item-mall-right flex-wrap-center-wrap">
       <span class="iconfont iconxiaoxi" @click="appMessageCenter"></span>
     </div>
@@ -34,6 +34,9 @@ export default {
   mounted() {},
 
   methods: {
+    searchScence() {
+      this.$router.push("/usersearch");
+    },
     showLeftModel() {
       // this.$store.commit("showMallLeftOptionState", true);
     },

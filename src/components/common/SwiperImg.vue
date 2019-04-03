@@ -1,6 +1,10 @@
 <template>
   <swiper :options="swiperOption">
-    <swiper-slide v-for="(item, index) in SwiperImgData.ImgList" class="img-swiper-wrap" :key="index">
+    <swiper-slide
+      v-for="(item, index) in SwiperImgData.ImgList"
+      class="img-swiper-wrap"
+      :key="index"
+    >
       <img :src="item.img" alt srcset class="img-swiper-wrap-img-lis">
     </swiper-slide>
     <div class="swiper-pagination" slot="pagination"></div>
@@ -123,7 +127,7 @@ export default {
   width: 100%;
   height: 170px;
 }
-.img-swiper-wrap-img-lis{
+.img-swiper-wrap-img-lis {
   width: 100%;
   height: 100%;
   display: inline-block;

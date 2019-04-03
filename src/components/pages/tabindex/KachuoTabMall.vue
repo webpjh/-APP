@@ -60,7 +60,6 @@ export default {
 
   mounted() {
     this.getGoodsComm();
-    this.getBannerImgFn("2");
   },
 
   methods: {
@@ -70,7 +69,6 @@ export default {
         type: 2
       })
         .then(res => {
-          // console.log(res);
           if (res.result === 1) {
             this.goodsListData = res.data.result;
           }

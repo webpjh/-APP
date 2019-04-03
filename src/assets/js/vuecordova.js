@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueCordova from 'vue-cordova'
 Vue.use(VueCordova)
 
-const KachuoAppPay = {
+export const KachuoAppPay = {
   WeixinPay: function (partnerid, prepayid, noncestr, timestamp, sign) {
     let WXparams = {
       partnerid: res.data.url.partnerid, // merchant id
@@ -48,6 +48,18 @@ const KachuoAppPay = {
   }
 }
 
+export const getCordovaLocation = () => {
+  if (typeof AMapPlugin != 'undefined') {
+    AMapPlugin.getCurrentPosition(function (data) {
+      // success
+      alert(JSON.stringify(data));
+    }, function (err) {
+      // fail
+      alert(JSON.stringify(err));
+    })
+  }
+}
+
 Vue.cordova.on('deviceready', () => {
-  export default KachuoAppPay;
+
 });

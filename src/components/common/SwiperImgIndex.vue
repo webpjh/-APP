@@ -32,6 +32,11 @@ export default {
               });
             }
             this.swiperSlides = imgArr;
+            sessionStorage.removeItem("carouselTip");
+            sessionStorage.setItem(
+              "carouselTip",
+              JSON.stringify(res.data.advert)
+            );
           }
         })
         .catch(err => {
@@ -42,7 +47,7 @@ export default {
   data() {
     return {
       swiperOption: {
-        autoplay:true,
+        autoplay: true,
         pagination: {
           el: ".swiper-pagination"
         }

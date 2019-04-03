@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import {getCordovaLocation} from "@/assets/js/vuecordova"
 export default {
   name: "App",
   data() {
@@ -17,6 +18,7 @@ export default {
     };
   },
   mounted(){
+    getCordovaLocation();
   },
   beforeRouteUpdate(to, from, next) {
     next(vm => {

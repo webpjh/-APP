@@ -5,17 +5,21 @@
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <div id="container" style="width:100%; height:300px" class="amap-demo"></div>
-    <Popup class="content-model" v-show="showModelFlag"></Popup>
+    <div id="container" :style="setMapHeight" class="amap-demo"></div>
+    <!-- <Popup class="content-model" v-show="showModelFlag"></Popup> -->
+    <NavigationTab :dataList="tabList" v-on:changePath="showPath"></NavigationTab>
   </div>
 </template>
 
 <script>
 let map = null;
 import Header from "@/components/common/Header";
-import { amapManager } from "vue-amap";
+import NavigationTab from "@/components/common/NavigationTab";
 import Popup from "@/components/common/Popup";
 import { lazyAMapApiLoaderInstance } from "vue-amap";
+import { SCENICSPOT, SCENICLINE } from "@/assets/scencedata/penglai";
+import locationIcon from "@/assets/images/location-icon.png";
+import kachuoKocationIcon from "@/assets/images/kachuo-location-icon.png";
 
 export default {
   name: "amap-page",
@@ -26,72 +30,49 @@ export default {
         showLeftBack: true,
         showRightMore: false
       },
+      tabList: [
+        "全景图",
+        "登山图",
+        "寻花图",
+        "戏水图",
+        "访仙图",
+        "问佛图",
+        "探古图"
+      ],
       count: 1,
-      slotStyle: {
-        padding: "2px 8px",
-        background: "#eee",
-        color: "#333",
-        border: "1px solid #aaa"
-      }
+      roadPath: []
     };
   },
   components: {
     Header,
-    Popup
+    Popup,
+    NavigationTab
   },
   methods: {
     init() {
       map = new AMap.Map("container", {
         center: [120.752564, 37.825461],
         resizeEnable: true,
-        zoom: 16,
+        zoom: 18,
         features: ["bg", "road", "building"]
       });
       map.clearMap();
-      let markers = [
-        {
-          icon:
-            "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-1.png",
-          position: [120.753031, 37.8198],
-          label: "三官庙",
-          events: {
-            click: e => {
-              console.log(e);
-            }
-          }
-        },
-        {
-          icon:
-            "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-2.png",
-          position: [120.755842, 37.819596],
-          label: "水师府",
-          events: {
-            click: e => {
-              console.log(e);
-            }
-          }
-        },
-        {
-          icon:
-            "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-3.png",
-          position: [120.755691, 37.821749],
-          label: "仪门",
-          events: {
-            click: e => {
-              console.log(e);
-            }
-          }
+      SCENICSPOT.forEach(function(item, index) {
+        if (item.label === "卡戳艺术馆") {
+          var marker = new AMap.Marker({
+            map: map,
+            icon: kachuoKocationIcon,
+            position: [item.position[0], item.position[1]],
+            offset: new AMap.Pixel(-13, -30)
+          });
+        } else {
+          var marker = new AMap.Marker({
+            map: map,
+            icon: locationIcon,
+            position: [item.position[0], item.position[1]],
+            offset: new AMap.Pixel(-13, -30)
+          });
         }
-      ];
-      markers.forEach(function(item) {
-        var marker = new AMap.Marker({
-          map: map,
-          icon: item.icon,
-          position: [item.position[0], item.position[1]],
-          offset: new AMap.Pixel(-13, -30),
-          content: item.content,
-          events: item.events.click
-        });
         marker.setLabel({
           offset: new AMap.Pixel(20, 20),
           content: item.label
@@ -105,30 +86,30 @@ export default {
         map.addControl(new AMap.ToolBar());
         map.addControl(new AMap.Scale());
       });
-      var path = [
-        [120.75574, 37.819579],
-        [120.755761, 37.821783],
-        [120.756233, 37.823291],
-        [120.754914, 37.823541]
-      ];
-      let bezierCurve = new AMap.BezierCurve({
-        path: path,
-        isOutline: true,
-        outlineColor: "#fff",
-        borderWeight: 0,
-        strokeColor: "#ff3030",
-        strokeOpacity: 1,
-        strokeWeight: 2,
-        // 线样式还支持 'dashed'
-        strokeStyle: "solid",
-        // strokeStyle是dashed时有效
-        strokeDasharray: [10, 10],
-        lineJoin: "round",
-        lineCap: "round",
-        zIndex: 50
-      });
-      bezierCurve.setMap(map);
-      map.setFitView([bezierCurve]);
+      if (this.roadPath.length) {
+        let bezierCurve = new AMap.BezierCurve({
+          path: this.roadPath,
+          isOutline: true,
+          outlineColor: "#fff",
+          borderWeight: 0,
+          strokeColor: "#666",
+          strokeOpacity: 1,
+          strokeWeight: 2,
+          strokeStyle: "dashed",
+          strokeDasharray: [10, 10],
+          lineJoin: "round",
+          lineCap: "round",
+          zIndex: 50
+        });
+        bezierCurve.setMap(map);
+        map.setFitView([bezierCurve]);
+      }
+    },
+
+    showPath(index) {
+      this.roadPath = [];
+      this.roadPath = SCENICLINE[index].path;
+      this.init();
     },
     showModel(position) {
       console.log(position);
@@ -154,6 +135,9 @@ export default {
     }
   },
   computed: {
+    setMapHeight() {
+      return { height: document.documentElement.clientHeight - 90 + "px" };
+    },
     showModelFlag: {
       get: function() {
         return this.$store.state.navigationDetails;
@@ -162,6 +146,7 @@ export default {
     }
   },
   mounted() {
+    this.roadPath = SCENICLINE[0].path;
     this.init();
   }
 };

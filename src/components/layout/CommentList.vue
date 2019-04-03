@@ -118,7 +118,7 @@ export default {
           page: this.page
         })
           .then(res => {
-            console.log(res);
+            // console.log(res);
             if (res.result === 1) {
               totalCount = res.data.totalofnum;
               this.totalNum = res.data.totalofnum;
@@ -245,6 +245,7 @@ export default {
   bottom: 0;
   background: #fff;
   padding: 15px;
+  padding-top: 0;
   box-sizing: border-box;
 }
 </style>

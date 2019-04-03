@@ -36,6 +36,9 @@ export default {
         "基本世神 兑换《传奇世界H5》畅玩级礼包 消耗30金币"
       ]
     };
+  },
+  mounted(){
+    this.baseList = JSON.parse(sessionStorage.getItem('carouselTip'));
   }
 };
 </script>

@@ -12,7 +12,7 @@
         class="goods-list"
         v-for="(item,index) in videoDataList"
         :key="index"
-        @click="getVideoDetails(item.id)"
+        @click="getVideoDetails(item.id,item.type)"
       >
         <div
           class="goods-img"
@@ -64,8 +64,8 @@ export default {
   mounted() {},
 
   methods: {
-    getVideoDetails(id) {
-      let type = this.$route.query.branch;
+    getVideoDetails(id, typeD) {
+      let type = typeD ? typeD : this.$route.query.branch;
       this.$router.push("/informationconsumdetails?id=" + id + "&type=" + type);
     }
   },

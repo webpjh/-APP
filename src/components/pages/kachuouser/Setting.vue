@@ -8,7 +8,7 @@
     <div class="setting-app-content" :style="conHei">
       <CellNoIcon :cellList="cellListToolsA" v-if="authState === -1"></CellNoIcon>
       <CellNoIcon :cellList="cellListToolsE" v-else-if="authState != -1"></CellNoIcon>
-      <CellNoIcon :cellList="cellListToolsB"></CellNoIcon>
+      <!-- <CellNoIcon :cellList="cellListToolsB"></CellNoIcon> -->
       <CellNoIcon :cellList="cellListToolsC"></CellNoIcon>
       <CellNoIcon :cellList="cellListToolsD"></CellNoIcon>
       <div class="btn-wrap">
@@ -42,12 +42,12 @@ export default {
           badge: true,
           text: "未认证"
         },
-        {
-          title: "我的账号",
-          link: "",
-          badge: false,
-          text: ""
-        },
+        // {
+        //   title: "我的账号",
+        //   link: "",
+        //   badge: false,
+        //   text: ""
+        // },
         {
           title: "昵称",
           link: "",
@@ -62,12 +62,12 @@ export default {
           badge: false,
           text: ""
         },
-        {
-          title: "我的账号",
-          link: "",
-          badge: false,
-          text: ""
-        },
+        // {
+        //   title: "我的账号",
+        //   link: "",
+        //   badge: false,
+        //   text: ""
+        // },
         {
           title: "昵称",
           link: "",

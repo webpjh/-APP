@@ -300,3 +300,5 @@ export const TakeAwayGoodsList = (data) => http.post("shop.index.get_goods_by_sc
 // 分类列表
 export const GoodsClassList = (data) => http.post("goods.details.getGoodsCode", data);
 
+// 信息消费
+export const InformationConsum = (data) => http.post("video.index.Information_list", data);

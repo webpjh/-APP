@@ -130,12 +130,10 @@ export default {
         type: this.$route.query.type
       })
         .then(res => {
-          console.log(res);
           if (res.result === 1) {
             if (res.data.video) {
-              console.log(res.data.video);
-              // this.createVideoDom(true, res.data.video);
-              this.createDPlayer(res.data.video);
+              this.createVideoDom(true, res.data.video);
+              // this.createDPlayer(res.data.video);
               this.clickState = res.data.video.type;
               this.praiseNum = res.data.video.praise_num;
             }

@@ -19,6 +19,8 @@ export const getBannerImg = (type, height) => {
           })
         }
         store.commit("setCarousel", imgArr);
+        sessionStorage.removeItem("carouselTip");
+        sessionStorage.setItem("carouselTip",JSON.stringify(res.data.advert));
       }
     })
     .catch(err => {

@@ -5,7 +5,8 @@ flex布局功能区域
   <flexbox :gutter="0" wrap="wrap" class="function-areas-wrap">
     <flexbox-item :span="1/4" v-for="(item,index) in dataListCon" :key="index">
       <div class="flex-wrap-for" @click="getItem(item.link)">
-        <span :class="item.class" style="font"></span>
+        <span :class="item.class" v-if="item.class"></span>
+        <img :src="item.icon" class="icon-img" v-if="item.icon" alt="" srcset="">
         <p class="flex-wrap-name">{{item.name}}</p>
       </div>
     </flexbox-item>
@@ -68,5 +69,10 @@ export default {
 }
 .flex-wrap-for span {
   font-size: 36px;
+}
+.icon-img{
+  width: 36px;
+  height: 36px;
+  display: inline-block;
 }
 </style>

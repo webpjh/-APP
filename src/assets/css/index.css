@@ -199,6 +199,31 @@ img {
   -webkit-text-fill-color: transparent;
 }
 
+.iconjingquhaoli1:before {
+  content: "\e650";
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#f88c29), to(#fca935));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.iconjierijiapin:before {
+  content: "\e650";
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#63dc64), to(#8be667));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.icondifanghaowu:before {
+  content: "\e650";
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#39abf3), to(#61c9fb));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.iconxinyikaishi:before {
+  content: "\e650";
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#ff613b), to(#ff8c5e));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .iconchiba:before {
   color: #ff9130;
 }

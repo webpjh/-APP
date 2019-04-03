@@ -82,7 +82,7 @@ export default {
 <style lang="css" scoped>
 .comments-wrap {
   width: 100%;
-  height: 3em;
+  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -98,13 +98,13 @@ export default {
 }
 .comments-wrap-input {
   width: 74%;
-  height: 24px;
+  height: 34px;
   outline: none;
   border-radius: 4px;
   border: 1px solid #eee;
   padding: 0 3px;
   box-sizing: border-box;
-  font-size: 12px;
+  font-size: 14px;
 }
 .comments-wrap-btn {
   margin-left: 24px;

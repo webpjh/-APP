@@ -9,28 +9,33 @@
       <TabItemMallAdvertise></TabItemMallAdvertise>
       <DividedArea></DividedArea>
       <Divider :content="title"></Divider>
-      <scroller
-        :on-infinite="pullup"
-        :on-refresh="refresh"
-        :refreshText="refreshText"
-        :noDataText="noDataText"
-        ref="myscroller"
-        class="scence-release-content"
-      >
-        <VideoListWrap></VideoListWrap>
-      </scroller>
+      <main class="position-box">
+        <vue-better-scroll
+          class="wrapper"
+          ref="scroll"
+          :scrollbar="scrollbarObj"
+          :pullDownRefresh="pullDownRefreshObj"
+          :pullUpLoad="pullUpLoadObj"
+          :startY="parseInt(startY)"
+          @pullingDown="onPullingDown"
+          @pullingUp="onPullingUp"
+        >
+          <VideoListWrap :videoDataList="items"></VideoListWrap>
+        </vue-better-scroll>
+      </main>
     </div>
   </div>
 </template>
 
 <script>
+let totalCount = 0;
 import Header from "@/components/common/Header";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
 import DividedArea from "@/components/common/DividedArea";
 import Divider from "@/components/common/Divider";
 import Scroll from "@/components/common/Scroller";
 import VideoListWrap from "@/components/common/VideoListWrap";
-
+import { InformationConsum } from "@/servers/api";
 export default {
   name: "",
   props: [""],
@@ -42,10 +47,26 @@ export default {
         showLeftBack: true,
         showRightMore: false
       },
-      page: 0,
-      list: [],
-      refreshText: "下拉刷新",
-      noDataText: "没有更多数据"
+      page:1,
+      scrollbarObj: {
+        fade: true
+      },
+      pullDownRefreshObj: {
+        threshold: 50,
+        stop: 40
+      },
+      pullUpLoadObj: {
+        threshold: 0,
+        txt: {
+          more: "加载更多",
+          noMore: "没有更多数据了"
+        }
+      },
+      startY: 0,
+      scrollToX: 0,
+      scrollToY: 0,
+      scrollToTime: 700,
+      items: []
     };
   },
 
@@ -68,27 +89,66 @@ export default {
 
   mounted() {
     this.getBannerImgFn("11");
+    this.onPullingDown();
   },
 
   methods: {
-    refresh(done) {
-      console.log("refresh");
-      setTimeout(() => {
-        done();
-      }, 2000);
+    // 滚动到页面顶部
+    scrollTo() {
+      this.$refs.scroll.scrollTo(
+        this.scrollToX,
+        this.scrollToY,
+        this.scrollToTime
+      );
     },
-    pullup(done) {
-      console.log("pullup");
-      //   this.$refs.myscroller.finishInfinite(2);
-      //   this.$refs.myscroller.resize();
-      // done();
-      // setTimeout(() => {
-      //   done();
-      // }, 2000);
+    // 模拟数据请求
+    getData() {
+      return new Promise(resolve => {
+        let arr = [];
+        InformationConsum({
+          page:this.page
+        })
+          .then(res => {
+            console.log(res);
+            if (res.result === 1) {
+              totalCount = res.data.totalofnum;
+              setTimeout(() => {
+                if (res.data.comment.length) {
+                  arr = res.data.comment;
+                  resolve(res.data.comment);
+                } else {
+                  this.$refs.scroll.forceUpdate(false);
+                }
+              }, 1000);
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      });
+    },
+    onPullingDown() {
+      totalCount = 0;
+      this.page = 1;
+      this.getData().then(res => {
+        this.items = res;
+        this.$refs.scroll.forceUpdate(true);
+      });
+    },
+    onPullingUp() {
+      this.page += 1;
+      this.getData().then(res => {
+        this.items = this.items.concat(res);
+        if (this.items.length < totalCount) {
+          this.$refs.scroll.forceUpdate(true);
+        } else {
+          this.$refs.scroll.forceUpdate(false);
+        }
+      });
     }
   },
-  beforeDestroy(){
-    console.log(this.$refs.myscroller);
+  beforeDestroy() {
+
   },
 
   watch: {}
@@ -104,5 +164,12 @@ export default {
 .scence-release-content {
   width: 100%;
   margin-top: 310px;
+}
+.position-box {
+  position: absolute;
+  top: 310px;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 </style>
