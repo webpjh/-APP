@@ -49,7 +49,7 @@
     </div>
     <div class="good-details-boot">
       <p class="goods-action">
-        <span style="font-size:14px;" class="iconfont iconwode-yixuan"></span>
+        <span style="font-size:14px;" class="iconfont iconkefu"></span>
         <span style="font-size:12px">客服</span>
       </p>
       <p class="goods-action" @click="collectGoods">

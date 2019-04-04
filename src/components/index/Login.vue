@@ -32,6 +32,7 @@
 import { XInput, Group, XButton, Cell } from "vux";
 import { getVeriCode, login, getUserInfo } from "@/servers/api";
 import { CheckByLocation } from "@/servers/api";
+import { vueCordovaFunction } from "@/assets/js/vuecordova";
 export default {
   name: "",
   props: [""],
@@ -64,6 +65,9 @@ export default {
       let dataObj = sessionStorage.getItem("positionInfo")
         ? sessionStorage.getItem("positionInfo")
         : "";
+      if (dataObj === "") {
+        vueCordovaFunction.getLocation();
+      }
       let postDataObj = {
         latitude: dataObj ? dataObj.Latitude : "",
         longitude: dataObj ? dataObj.Longitude : ""
