@@ -24,7 +24,7 @@ import FlexWrap from "@/components/layout/FlexWrap";
 import Divider from "@/components/common/Divider";
 import Scroll from "@/components/common/Scroller";
 import GoodsList from "@/components/layout/GoodsList";
-import {goodsBucketRecomm } from "@/servers/api";
+import { goodsBucketRecomm } from "@/servers/api";
 
 export default {
   name: "",
@@ -43,61 +43,45 @@ export default {
       noDataText: "没有更多数据",
       dataList: [
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          icon: require("@/assets/images/famous-icon/wusanda.png"),
           name: "吴三大",
-          link: "/scenceconsumdetails?title=吴三大&id=120&type=2&flag=2",
-          class: "iconfont iconmenpiao"
+          link: "/scenceconsumdetails?title=吴三大&id=120&type=2&flag=2"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          icon: require("@/assets/images/famous-icon/zhangzhongting.png"),
           name: "张仲亭",
-          link: "/scenceconsumdetails?title=张仲亭&id=119&type=2&flag=2",
-          class: "iconfont iconmenpiao"
+          link: "/scenceconsumdetails?title=张仲亭&id=119&type=2&flag=2"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          icon: require("@/assets/images/famous-icon/zhongmingshan.png"),
           name: "钟明善",
-          link: "/scenceconsumdetails?title=钟明善&id=118&type=2&flag=2",
-          class: "iconfont iconmenpiao"
+          link: "/scenceconsumdetails?title=钟明善&id=118&type=2&flag=2"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          icon: require("@/assets/images/famous-icon/songshuiguan.png"),
           name: "宋水官",
-          link: "/scenceconsumdetails?title=宋水官&id=117&type=2&flag=2",
-          class: "iconfont iconmenpiao"
+          link: "/scenceconsumdetails?title=宋水官&id=117&type=2&flag=2"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          icon: require("@/assets/images/famous-icon/yangshuhua.png"),
           name: "杨曙华",
-          link: "/scenceconsumdetails?title=杨曙华&id=115&type=2&flag=2",
-          class: "iconfont iconmenpiao"
+          link: "/scenceconsumdetails?title=杨曙华&id=115&type=2&flag=2"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          icon: require("@/assets/images/famous-icon/zhangguoqing.png"),
           name: "张国庆",
-          link: "/scenceconsumdetails?title=张国庆&id=116&type=2&flag=2",
-          class: "iconfont iconmenpiao"
+          link: "/scenceconsumdetails?title=张国庆&id=116&type=2&flag=2"
         },
         {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
+          icon: require("@/assets/images/famous-icon/kachuo.png"),
           name: "官方馆藏",
-          link: "/scenceconsumdetails?title=官方馆藏&id=114&type=2&flag=2",
-          class: "iconfont iconmenpiao"
+          link: "/scenceconsumdetails?title=官方馆藏&id=114&type=2&flag=2"
         },
-        {
-          imgUrl:
-            "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
-          name: "私人定制",
-          link: "/scenceconsumdetails?title=私人定制&id=0&type=2&flag=2",
-          class: "iconfont iconmenpiao"
-        }
+        // {
+        //   icon: "",
+        //   name: "私人定制",
+        //   link: "/scenceconsumdetails?title=私人定制&id=0&type=2&flag=2"
+        // }
       ],
       goodsDataList: []
     };
@@ -152,7 +136,7 @@ export default {
 };
 </script>
 <style lang='css' scoped>
-.scence-gifts-wrap{
+.scence-gifts-wrap {
   width: 100%;
   height: 100%;
   overflow: hidden;

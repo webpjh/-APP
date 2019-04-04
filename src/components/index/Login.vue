@@ -31,7 +31,7 @@
 <script>
 import { XInput, Group, XButton, Cell } from "vux";
 import { getVeriCode, login, getUserInfo } from "@/servers/api";
-
+import { CheckByLocation } from "@/servers/api";
 export default {
   name: "",
   props: [""],
@@ -59,6 +59,26 @@ export default {
   mounted() {},
 
   methods: {
+    // 获取经纬度信息
+    getLocationData() {
+      let dataObj = sessionStorage.getItem("positionInfo")
+        ? sessionStorage.getItem("positionInfo")
+        : "";
+      let postDataObj = {
+        latitude: dataObj ? dataObj.Latitude : "",
+        longitude: dataObj ? dataObj.Longitude : ""
+      };
+      CheckByLocation(postDataObj)
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            sessionStorage.setItem("currentScenic", res.data.scenic_id);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     // 获取用户信息
     getUserLoginInfo() {
       getUserInfo({})
@@ -90,6 +110,7 @@ export default {
                 time: 1000,
                 onHide: () => {
                   this.getUserLoginInfo();
+                  this.getLocationData();
                 }
               });
               this.$router.push("/indextab");

@@ -56,7 +56,12 @@ export default new Vuex.Store({
       auto: true,
       height: ""
     },
-    isLoading: false
+    isLoading: false,
+    appUpdateInfo:{
+      isForce:false,
+      content:'',
+    },
+    showActionDialog:false
   },
   getters: {
     getCurrentTitleObj(state) {
@@ -111,6 +116,13 @@ export default new Vuex.Store({
     },
     updateLoadingStatus (state, Payload) {
       state.isLoading = Payload.isLoading
+    },
+    updateshowActionDialogStatus(state, Payload){
+      state.showActionDialog = Payload
+    },
+    getAPPUpdateInfo(state, Payload){
+      state.appUpdateInfo.isForce = Payload.isForce;
+      state.appUpdateInfo.content = Payload.content;
     }
   },
   actions: {

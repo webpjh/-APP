@@ -49,3 +49,15 @@ export const getLocation = () => {
     navigator.geolocation.getCurrentPosition(showPosition);
   }
 }
+
+// 获取手机操作系统
+export const checkMobileSystem = () =>{
+  let u = navigator.userAgent;
+  let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+  let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+  if(isAndroid){
+    return "android";
+  }else{
+    return "ios";
+  }
+}

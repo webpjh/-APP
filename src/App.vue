@@ -6,13 +6,23 @@
       </navigation>
     </transition>
     <loading v-model="isLoading"></loading>
+    <confirm
+      v-model="showModel"
+      title="版本更新"
+      :show-cancel-button="isForceUpdata"
+      @on-cancel="onCancel"
+      @on-confirm="onConfirm"
+    >
+      <p style="text-align:center;">{{modelContent}}</p>
+    </confirm>
   </div>
 </template>
 
 <script>
 import { vueCordovaFunction } from "@/assets/js/vuecordova";
-import { Loading } from "vux";
+import { Loading, Confirm } from "vux";
 import { CheckByLocation } from "@/servers/api";
+import { appVersion,updateAPPVersion } from "@/assets/js/common";
 export default {
   name: "App",
   data() {
@@ -21,11 +31,12 @@ export default {
     };
   },
   components: {
-    Loading
+    Loading,
+    Confirm
   },
   mounted() {
     vueCordovaFunction.getLocation();
-    this.getLocationData();
+    appVersion();
   },
   beforeRouteUpdate(to, from, next) {
     next(vm => {
@@ -35,27 +46,28 @@ export default {
   computed: {
     isLoading() {
       return this.$store.state.isLoading;
+    },
+    showModel: {
+      get: function() {
+        return this.$store.state.showActionDialog;
+      },
+      set: function() {}
+    },
+    isForceUpdata: {
+      get: function() {
+        return this.$store.state.appUpdateInfo.isForce;
+      }
+    },
+    modelContent: {
+      get: function() {
+        return this.$store.state.appUpdateInfo.content;
+      }
     }
   },
   methods: {
-    getLocationData() {
-      let dataObj = sessionStorage.getItem("positionInfo")
-        ? sessionStorage.getItem("positionInfo")
-        : '';
-      let postDataObj = {
-        latitude:dataObj ? dataObj.Latitude : "",
-        longitude:dataObj ? dataObj.Longitude : ""
-      }
-      CheckByLocation(postDataObj)
-        .then(res => {
-          console.log(res);
-          if (res.result === 1) {
-            sessionStorage.setItem("currentScenic",res.data.scenic_id);
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
+    onCancel() {},
+    onConfirm() {
+      updateAPPVersion();
     }
   },
   watch: {

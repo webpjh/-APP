@@ -6,7 +6,7 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div id="container" :style="setMapHeight" class="amap-demo"></div>
-    <!-- <Popup class="content-model" v-show="showModelFlag"></Popup> -->
+    <Popup class="content-model" ref="videoWrap" v-show="showModelFlag" :dataPosition="clickPosition"></Popup>
     <NavigationTab :dataList="tabList" v-on:changePath="showPath"></NavigationTab>
   </div>
 </template>
@@ -116,12 +116,12 @@ export default {
           position: [113.144103, 40.109236]
         }
       ],
-      count: 1,
       roadPath: [],
       mapCenter: [],
       path: [],
       SCENICSPOT: [],
-      SCENICLINE: []
+      SCENICLINE: [],
+      clickPosition:{}
     };
   },
   components: {
@@ -130,15 +130,6 @@ export default {
     NavigationTab
   },
   methods: {
-    getDataPromise(path) {
-      let obj = {};
-      import(path).then(res => {
-        console.log(res);
-        obj.SCENICLINE = JSON.parse(JSON.stringify(res.SCENICLINE));
-        obj.SCENICSPOT = JSON.parse(JSON.stringify(res.SCENICSPOT));
-      });
-      return obj;
-    },
     importDataSync(id) {
       let dataObj = {};
       switch (id) {
@@ -198,7 +189,7 @@ export default {
         features: ["bg", "road", "building"]
       });
       map.clearMap();
-      this.path.forEach(function(item, index) {
+      this.path.forEach((item, index) => {
         if (item.label.indexOf("卡戳文化艺术馆") != -1) {
           var marker = new AMap.Marker({
             map: map,
@@ -218,8 +209,9 @@ export default {
           offset: new AMap.Pixel(20, 20),
           content: item.label
         });
-        marker.on("click", function(item) {
+        marker.on("click", item => {
           let con = item.target.Uh.label.content;
+          this.showModel(con,item.target.Uh.position);
         });
       });
       AMap.plugin(["AMap.ToolBar", "AMap.Scale"], function() {
@@ -256,21 +248,14 @@ export default {
       this.roadPath = this.SCENICLINE[index].path;
       this.init(this.mapCenter, this.path);
     },
-    showModel(position) {
-      console.log(position);
+    showModel(name,position) {
+      this.clickPosition = {
+        name:name,
+        lat:position.lat,
+        lng:position.lng
+      }
       this.$store.commit("changeNavigationDetailsState", true);
-    },
-    onClick() {
-      this.count += 1;
-    },
-    changePosition() {
-      console.log("changePosition");
-    },
-    chnageDraggle() {
-      console.log("chnageDraggle");
-    },
-    toggleVisible() {
-      console.log("toggleVisible");
+      this.$refs.videoWrap.getScenicDetails(this.clickPosition);
     },
     addMarker() {
       let marker = {

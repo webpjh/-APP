@@ -201,6 +201,4 @@ export default {
   height: 200px;
   overflow: hidden;
 }
-.commit-list {
-}
 </style>

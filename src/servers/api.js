@@ -305,3 +305,6 @@ export const InformationConsum = (data) => http.post("video.index.Information_li
 
 // 根据用户经纬度判断当前用户位置
 export const CheckByLocation = (data) => http.post("scenic.index.current_scenic", data);
+
+// 获取景区景点对应的详情
+export const getScenicPointDetails = (data) => http.post("scenic.site", data);
