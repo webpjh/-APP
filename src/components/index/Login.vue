@@ -182,7 +182,7 @@ export default {
 .login-wrap {
   width: 100%;
   height: 100%;
-  /* overflow: hidden; */
+  overflow: hidden;
   background: #fff;
   display: flex;
   flex-direction: column;

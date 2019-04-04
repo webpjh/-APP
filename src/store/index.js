@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-Vue.use(Vuex)
-
-// import data from '../assets/data'
+Vue.use(Vuex);
 
 const request = () => {
   return new Promise((res, rej) => {
@@ -57,7 +55,8 @@ export default new Vuex.Store({
       loop: true,
       auto: true,
       height: ""
-    }
+    },
+    isLoading: false
   },
   getters: {
     getCurrentTitleObj(state) {
@@ -109,6 +108,9 @@ export default new Vuex.Store({
     },
     setCarousel(state, Payload) {
       state.carousel = Payload;
+    },
+    updateLoadingStatus (state, Payload) {
+      state.isLoading = Payload.isLoading
     }
   },
   actions: {

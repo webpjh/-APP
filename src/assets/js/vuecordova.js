@@ -1,16 +1,17 @@
 export const vueCordovaFunction = {
   getLocation: function () {
+    let positionInfo = {
+      "Latitude": "",
+      "Longitude": ""
+    }
     document.addEventListener("deviceready", onDeviceReady, false);
     function onSuccess(position) {
-        let positionInfo = {
-          "latitude":Latitude,
-          "longitude":Longitude
-        }
-        sessionStorage.setItem("positionInfo",JSON.stringify(positionInfo));
+      positionInfo.Latitude = position.coords.Latitude;
+      positionInfo.Longitude = position.coords.Longitude;
+      sessionStorage.setItem("positionInfo", JSON.stringify(positionInfo));
     }
     function onError(error) {
-      alert('code: ' + error.code + '\n' +
-        'message: ' + error.message + '\n');
+      console.log(`code:${error.code},message:${error.message}`);
     }
     function onDeviceReady() {
       navigator.geolocation.getCurrentPosition(onSuccess, onError);
@@ -58,17 +59,5 @@ export const vueCordovaFunction = {
     }, function error(e) {
       console.log(e);
     });
-  }
-}
-
-export const getCordovaLocation = () => {
-  if (typeof AMapPlugin != 'undefined') {
-    AMapPlugin.getCurrentPosition(function (data) {
-      // success
-      alert(JSON.stringify(data));
-    }, function (err) {
-      // fail
-      alert(JSON.stringify(err));
-    })
   }
 }

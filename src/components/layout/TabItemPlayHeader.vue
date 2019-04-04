@@ -15,14 +15,12 @@
 
 <script>
 import SwiperImg from "@/components/common/SwiperImgIndex";
-
+import { vueCordovaFunction } from "@/assets/js/vuecordova";
 export default {
   name: "",
   props: [""],
   data() {
-    return {
-
-    };
+    return {};
   },
 
   components: {
@@ -37,6 +35,9 @@ export default {
 
   methods: {
     locationSelf() {
+      if (!sessionStorage.getItem("positionInfo")) {
+        vueCordovaFunction.getLocation();
+      }
       this.$router.push("/userlocation");
     },
     searchScence() {

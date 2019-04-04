@@ -5,11 +5,14 @@
         <router-view class="router-animate"/>
       </navigation>
     </transition>
+    <loading v-model="isLoading"></loading>
   </div>
 </template>
 
 <script>
-import {getCordovaLocation} from "@/assets/js/vuecordova"
+import { vueCordovaFunction } from "@/assets/js/vuecordova";
+import { Loading } from "vux";
+import { CheckByLocation } from "@/servers/api";
 export default {
   name: "App",
   data() {
@@ -17,15 +20,44 @@ export default {
       transitionName: "slide-right"
     };
   },
-  mounted(){
-    getCordovaLocation();
+  components: {
+    Loading
+  },
+  mounted() {
+    vueCordovaFunction.getLocation();
+    this.getLocationData();
   },
   beforeRouteUpdate(to, from, next) {
     next(vm => {
       console.log(vm);
     });
   },
-  computed: {},
+  computed: {
+    isLoading() {
+      return this.$store.state.isLoading;
+    }
+  },
+  methods: {
+    getLocationData() {
+      let dataObj = sessionStorage.getItem("positionInfo")
+        ? sessionStorage.getItem("positionInfo")
+        : '';
+      let postDataObj = {
+        latitude:dataObj ? dataObj.Latitude : "",
+        longitude:dataObj ? dataObj.Longitude : ""
+      }
+      CheckByLocation(postDataObj)
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            sessionStorage.setItem("currentScenic",res.data.scenic_id);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
   watch: {
     $route(to, from) {
       let isBack = this.$router.isBack;

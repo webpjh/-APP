@@ -302,3 +302,6 @@ export const GoodsClassList = (data) => http.post("goods.details.getGoodsCode", 
 
 // 信息消费
 export const InformationConsum = (data) => http.post("video.index.Information_list", data);
+
+// 根据用户经纬度判断当前用户位置
+export const CheckByLocation = (data) => http.post("scenic.index.current_scenic", data);
