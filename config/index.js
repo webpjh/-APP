@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
     proxyTable: {
       // '/api': {
       //   target: 'http://core.kachuo.com',
@@ -58,10 +58,10 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../../kachuoAPPXCordova/www/index.html'),
+    index: path.resolve(__dirname, '../../kachuoAPPXCordova@android8.0/www/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../../kachuoAPPXCordova/www'),
+    assetsRoot: path.resolve(__dirname, '../../kachuoAPPXCordova@android8.0/www'),
     assetsSubDirectory: 'static',
     assetsPublicPath: './',
 

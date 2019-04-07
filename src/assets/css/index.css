@@ -59,7 +59,7 @@ img {
 }
 
 img {
-  background-image: url('../images/background-default-2-1.png');
+  background-image: url('@/assets/css/images/background-default-2-1.png');
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
