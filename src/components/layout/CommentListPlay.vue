@@ -231,8 +231,8 @@ export default {
   padding: 0 15px;
   box-sizing: border-box;
   font-weight: bold;
-  height: 30px;
-  line-height: 30px;
+  height: 40px;
+  line-height: 40px;
   position: relative;
   z-index: 999;
 }
@@ -244,6 +244,7 @@ export default {
   bottom: 0;
   background: #fff;
   padding: 15px;
+  padding-top: 0;
   box-sizing: border-box;
 }
 </style>

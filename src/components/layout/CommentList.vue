@@ -11,7 +11,7 @@
     <p style="text-align:center;" v-show="contentList.length === 0">
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">暂无评论~</span>
     </p>
-    <main class="position-box" v-show="contentList.length" :style="{top:scrollTop+'px'}">
+    <main class="position-box" v-show="contentList.length" :style="scrollSty" >
       <!-- 需要一个创建一个父容器 组件高度默认等于父容器的高度 -->
       <vue-better-scroll
         class="wrapper"
@@ -52,7 +52,7 @@ let count = 1;
 let totalCount = 0;
 export default {
   name: "",
-  props: ["dataList", "scrollTop", "pullDownRefreshObj"],
+  props: ["dataList", "scrollTop", "pullDownRefreshObj","scrollSty"],
   data() {
     return {
       scrollbarObj: {

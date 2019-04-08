@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
+// vuex持久化存储方案
+import createPersistedState from "vuex-persistedstate";
 
 const request = () => {
   return new Promise((res, rej) => {
@@ -57,12 +59,20 @@ export default new Vuex.Store({
       height: ""
     },
     isLoading: false,
-    appUpdateInfo:{
-      isForce:false,
-      content:'',
+    appUpdateInfo: {
+      isForce: false,
+      content: '',
     },
-    showActionDialog:false
+    showActionDialog: false
   },
+  plugins: [createPersistedState({
+    storage: window.sessionStorage,
+    reducer(val){
+      return{
+        userLoginInfo:val.userLoginInfo
+      }
+    }
+  })],
   getters: {
     getCurrentTitleObj(state) {
       return state.titleObj;
@@ -72,6 +82,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    updateUserNickName(state, Payload) {
+      state.userLoginInfo.nickname = Payload;
+    },
     changeUserAvatar(state, Payload) {
       state.userLoginInfo.avatar = Payload;
     },
@@ -114,20 +127,20 @@ export default new Vuex.Store({
     setCarousel(state, Payload) {
       state.carousel = Payload;
     },
-    updateLoadingStatus (state, Payload) {
+    updateLoadingStatus(state, Payload) {
       state.isLoading = Payload.isLoading
     },
-    updateshowActionDialogStatus(state, Payload){
+    updateshowActionDialogStatus(state, Payload) {
       state.showActionDialog = Payload
     },
-    getAPPUpdateInfo(state, Payload){
+    getAPPUpdateInfo(state, Payload) {
       state.appUpdateInfo.isForce = Payload.isForce;
       state.appUpdateInfo.content = Payload.content;
     }
   },
   actions: {
-    setCarousel(context,Payload){
-      context.commit('setCarousel',Payload);
+    setCarousel(context, Payload) {
+      context.commit('setCarousel', Payload);
     }
   }
 })

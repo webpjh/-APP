@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       TitleObjData: {
-        titleContent: "景区选择",
+        titleContent: "选择景区",
         showLeftBack: true,
         showRightMore: false
       }

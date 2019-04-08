@@ -20,8 +20,7 @@
 
 <script>
 import axios from "axios";
-import { imageUpload } from "@/servers/api";
-
+import { imageUpload, setNickName } from "@/servers/api";
 export default {
   data() {
     return {
@@ -34,6 +33,29 @@ export default {
     };
   },
   methods: {
+    updataUserImg(val) {
+      setNickName({
+        avatar: val
+      })
+        .then(res => {
+          if (res.result === 1) {
+            this.$vux.toast.show({
+              type: "success",
+              text: "设置成功",
+              time: 1000
+            });
+          } else {
+            this.$vux.toast.show({
+              type: "warn",
+              text: "失败请重试",
+              time: 1000
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     addImg(event) {
       let inputDOM = this.$refs.inputer;
       this.fil = inputDOM.files;
@@ -95,7 +117,7 @@ export default {
         timeout: 2500,
         headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization":localStorage.getItem("token")
+          Authorization: localStorage.getItem("token")
         }
       };
       axios
@@ -110,6 +132,7 @@ export default {
             this.getImg = res.data.data.files[0];
             this.$store.commit("changeUserAvatar", res.data.data.files[0].url);
             this.$emit("getHeaderImgUrl", res.data.data.files[0].url);
+            this.updataUserImg(res.data.data.files[0].url);
           } else {
             this.$vux.toast.show({
               type: "warn",
@@ -149,7 +172,7 @@ export default {
   background-color: #f9f9f9;
   color: #ffffff;
   height: 94px;
-  border:1px solid #eee;
+  border: 1px solid #eee;
 }
 .upload-imgs li .upload {
   position: absolute;

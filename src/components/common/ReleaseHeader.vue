@@ -13,7 +13,10 @@ titleContent（string）：标题内容
     @on-click-more="showMenus = true"
     slot="header"
     style="width:100%;position:absolute;left:0;top:0;z-index:100;"
-  >{{titleContent}}<a slot="right" @click="releaseContent">发布</a></x-header>
+  >
+    {{titleContent}}
+    <!-- <a slot="right" @click="releaseContent">发布</a> -->
+  </x-header>
 </template>
 
 <script>
@@ -28,15 +31,13 @@ export default {
     XHeader
   },
   data() {
-    return {
-
-    };
+    return {};
   },
   methods: {
     back() {
       this.$router.goBack();
     },
-    releaseContent(){
+    releaseContent() {
       this.$router.push("/releasecontent");
     }
   }

@@ -5,7 +5,7 @@ html {
   height: 100%;
   background: #fff;
   -webkit-overflow-scrolling: touch;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 img {
@@ -59,7 +59,7 @@ img {
 }
 
 img {
-  background-image: url('@/assets/css/images/background-default-2-1.png');
+  background-image: url('../images/background-default-2-1.png');
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;

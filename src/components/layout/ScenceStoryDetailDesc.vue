@@ -111,7 +111,7 @@ export default {
   overflow: hidden;
 }
 .scence-story-details-like {
-  width: 30px;
+  width: 100%;
   height: 30px;
   position: relative;
   left: 18px;

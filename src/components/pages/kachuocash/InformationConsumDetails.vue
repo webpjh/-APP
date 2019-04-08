@@ -18,6 +18,7 @@
         :pullDownRefreshObj="pullDownRefreshObj"
         :dataList.sync="commitDataList"
         :scrollTop="340"
+        :scrollSty="scrollStyle"
         class="commit-list"
       ></CommentList>
       <Comments v-on:pushCommition="updateCommintList"></Comments>
@@ -77,6 +78,12 @@ export default {
     },
     currentId() {
       return this.$route.query.id;
+    },
+    scrollStyle() {
+      return {
+        height: document.documentElement.clientHeight - 300 + "px",
+        top: "340px"
+      };
     }
   },
 

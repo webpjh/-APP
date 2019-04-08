@@ -308,3 +308,7 @@ export const CheckByLocation = (data) => http.post("scenic.index.current_scenic"
 
 // 获取景区景点对应的详情
 export const getScenicPointDetails = (data) => http.post("scenic.site", data);
+
+// 设置昵称
+export const setNickName = (data) => http.post("member.realname.upd_member_information", data);
+

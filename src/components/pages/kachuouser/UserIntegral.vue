@@ -42,8 +42,7 @@ export default {
           icon: "iconfont iconjifenshuoming",
           link: "/integraldesc"
         }
-      ],
-      userInfo:null
+      ]
     };
   },
 
@@ -55,19 +54,21 @@ export default {
   computed: {
     consty() {
       return { height: document.documentElement.clientHeight - 45 + "px" };
+    },
+    userInfo() {
+      // return this.GLOBAL.getSession("userLoginInfo");
+      return this.$store.state.userLoginInfo;
     }
   },
   created() {
-    this.getUserInfo();
+    // this.getUserInfo();
   },
   beforeMount() {},
 
   mounted() {},
 
   methods: {
-    getUserInfo() {
-      this.userInfo = this.GLOBAL.getSession("userLoginInfo");
-    }
+
   },
 
   watch: {}
@@ -87,7 +88,7 @@ export default {
 .user-interal-desc {
   width: 100%;
   height: 200px;
-  background: #4A74FE;
+  background: #4a74fe;
   color: #fff;
   display: flex;
   flex-direction: column;

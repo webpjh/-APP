@@ -71,7 +71,7 @@ export default {
 
   computed: {
     contentStyle() {
-      return { height: document.documentElement.clientHeight - 45 + "px" };
+      return { height: document.documentElement.clientHeight - 90 + "px" };
     }
   },
 
@@ -149,8 +149,7 @@ export default {
 .scence-release-content {
   width: 100%;
   background: #fff;
-  margin-top: 45px;
-  padding: 20px 0 45px 0;
+  margin-top: 50px;
   box-sizing: border-box;
   overflow: hidden;
   overflow-y: scroll;

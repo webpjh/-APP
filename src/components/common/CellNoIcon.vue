@@ -6,14 +6,16 @@
       :title="item.title"
       is-link
       :link="item.link"
-    ><Badge v-show="item.badge" :text="item.text"></Badge>
+      @click.native="onClick(item.setNickName)"
+    >
+      <Badge v-show="item.badge" :text="item.text"></Badge>
     </cell>
   </group>
 </template>
 
 <script>
 import { Cell, Group, Badge } from "vux";
-
+import { setNickName } from "@/servers/api";
 export default {
   props: ["cellList"],
   mounted() {
@@ -27,8 +29,53 @@ export default {
     Badge
   },
   methods: {
-    onClick() {
-      console.log("on click");
+    updateNickName(name) {
+      let userinfo = JSON.parse(sessionStorage.getItem("userLoginInfo"));
+      userinfo.nickname = name;
+      this.$store.commit("updateUserNickName", name);
+      sessionStorage.removeItem("userLoginInfo");
+      sessionStorage.setItem("userLoginInfo", JSON.stringify(userinfo));
+      this.$router.goBack();
+    },
+    setNickNameFn(val) {
+      setNickName({
+        nickname: val
+      })
+        .then(res => {
+          if (res.result === 1) {
+            this.$vux.toast.show({
+              type: "success",
+              text: "设置成功",
+              time: 1000,
+              onHide: () => {
+                this.updateNickName(val);
+              }
+            });
+          } else {
+            this.$vux.toast.show({
+              type: "warn",
+              text: "失败请重试",
+              time: 1000
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    onClick(flag) {
+      if (flag) {
+        this.$vux.confirm.prompt("", {
+          title: "设置用户名",
+          showInput: true,
+          onConfirm: val => {
+            if (val) {
+              this.setNickNameFn(val);
+            }
+          },
+          onCancel: () => {}
+        });
+      }
     }
   },
   data() {

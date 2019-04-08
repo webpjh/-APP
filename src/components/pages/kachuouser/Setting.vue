@@ -49,7 +49,7 @@ export default {
         //   text: ""
         // },
         {
-          title: "昵称",
+          title: "用户名",
           link: "",
           badge: false,
           text: ""
@@ -69,10 +69,11 @@ export default {
         //   text: ""
         // },
         {
-          title: "昵称",
+          title: "用户名",
           link: "",
           badge: false,
-          text: ""
+          text: "",
+          setNickName: true
         }
       ],
       cellListToolsB: [
@@ -135,7 +136,7 @@ export default {
     getAuthState() {
       GetAuthState({})
         .then(res => {
-          if(res){
+          if (res) {
             this.authState = res.data.code;
           }
         })

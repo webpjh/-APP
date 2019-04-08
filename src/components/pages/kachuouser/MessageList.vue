@@ -77,6 +77,7 @@ export default {
           break;
         default:
           this.TitleObjData.titleContent = "";
+          break;
       }
     }
   },
@@ -129,14 +130,14 @@ export default {
   line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-.user-message-list-content-date{
+.user-message-list-content-date {
   width: 100%;
-  height: 30px;
-  line-height: 30px;
+  height: 50px;
+  line-height: 50px;
   text-align: center;
   color: #999;
 }
-.user-message-list-for{
-  margin-top: 20px;
+.user-message-list-for {
+  margin-bottom: 20px;
 }
 </style>

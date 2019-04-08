@@ -28,8 +28,7 @@ export default {
   props: [""],
   data() {
     return {
-      imgUrl: "",
-      userInfo: {}
+      imgUrl: ""
     };
   },
 
@@ -37,13 +36,16 @@ export default {
     ImageUpload
   },
 
-  computed: {},
-  created() {
-    this.getUserInfo();
+  computed: {
+    userInfo() {
+      return this.$store.state.userLoginInfo;
+    }
   },
+  created() {},
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+  },
 
   methods: {
     setting() {
@@ -51,9 +53,6 @@ export default {
     },
     getHeaderImgUrlData(data) {
       this.imgUrl = data;
-    },
-    getUserInfo() {
-      this.userInfo = this.GLOBAL.getSession("userLoginInfo");
     }
   },
 
@@ -111,7 +110,7 @@ export default {
   font-size: 28px;
   font-weight: bold;
 }
-.user-info-header-desc{
+.user-info-header-desc {
   font-size: 16px;
 }
 </style>

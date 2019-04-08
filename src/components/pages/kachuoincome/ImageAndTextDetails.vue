@@ -22,6 +22,7 @@
         :pullDownRefreshObj="pullDownRefreshObj"
         :dataList.sync="commitDataList"
         :scrollTop="350"
+        :scrollSty="scrollStyle"
         class="commit-list"
       ></CommentList>
     </div>
@@ -80,6 +81,12 @@ export default {
     },
     currentId() {
       return this.$route.query.id;
+    },
+    scrollStyle() {
+      return {
+        height: document.documentElement.clientHeight - 360 + "px",
+        top: "350px"
+      };
     }
   },
 
