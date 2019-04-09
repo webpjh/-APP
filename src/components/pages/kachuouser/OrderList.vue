@@ -67,7 +67,6 @@ export default {
         status: status
       })
         .then(res => {
-          console.log(res);
           if (res.result === 1) {
             if (res.data.result) {
               for (let i = 0; i < res.data.result.length; i++) {

@@ -26,20 +26,14 @@ export default {
       cellListTools: [
         {
           title: "系统公告",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
           link: "/messagelist?title=systemannounce"
         },
         {
           title: "订单通知",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
           link: "/messagelist?title=ordernotice"
         },
         {
           title: "个人消息",
-          icon:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
           link: "/messagelist?title=usermessage"
         }
       ]

@@ -37,7 +37,7 @@
       <div class="goods-about-list">
         <p class="goods-about-list-p">
           <span @click="blockChainInfoFn">文链查证</span>
-          <span>溯源视频</span>
+          <span @click="showSourceVideo">溯源视频</span>
           <span class="goods-about-list-p-span-noborder">文化构思</span>
         </p>
       </div>
@@ -95,10 +95,23 @@
         </div>
       </popup>
     </div>
+    <!-- 溯源视频弹层 -->
+    <div v-transfer-dom>
+      <x-dialog v-model="showSourceModel" class="dialog-demo">
+        <div class="img-box">
+          <div class="video" id="wrapper"></div>
+        </div>
+        <div @click="showSourceModel=false">
+          <span class="vux-close"></span>
+        </div>
+      </x-dialog>
+    </div>
   </div>
 </template>
 
 <script>
+import ChimeeMobilePlayer from "chimee-mobile-player";
+import "../../../../../node_modules/chimee-mobile-player/lib/chimee-mobile-player.browser.css";
 import Header from "@/components/common/Header";
 import VideoPlayer from "@/components/common/VideoPlayer";
 import SwiperImg from "@/components/common/SwiperImgGoodDetails";
@@ -114,7 +127,8 @@ import {
   Popup,
   Checker,
   CheckerItem,
-  XButton
+  XButton,
+  XDialog
 } from "vux";
 import { setTimeout } from "timers";
 
@@ -134,6 +148,7 @@ export default {
       selModel: "",
       showPopup: false,
       showPopupOption: false,
+      showSourceModel: false,
       goodsData: {},
       selName: "",
       selOption: "",
@@ -164,7 +179,8 @@ export default {
     Popup,
     Checker,
     CheckerItem,
-    XButton
+    XButton,
+    XDialog
   },
 
   computed: {
@@ -180,6 +196,27 @@ export default {
   },
 
   methods: {
+    showSourceVideo() {
+      this.showSourceModel = true;
+    },
+    createVideoDom(flag, videoUrl, posterImg) {
+      if (!videoUrl) {
+        return;
+      }
+      new ChimeeMobilePlayer({
+        wrapper: "#wrapper",
+        src: videoUrl,
+        autoplay: false,
+        poster: posterImg,
+        controls: flag,
+        playsInline: true,
+        preload: "auto",
+        x5VideoPlayerFullscreen: true,
+        x5VideoOrientation: "landscape|portrait",
+        xWebkitAirplay: true,
+        muted: true
+      });
+    },
     blockChainInfoFn() {
       let id = this.$route.query.id;
       let flag = this.goodsData.is_forty;
@@ -272,6 +309,7 @@ export default {
           console.log(res);
           let arr = [];
           if (res.result === 1) {
+            this.createVideoDom(true, res.data.sy_video, res.data.thumb_url[0]);
             if (res.data.favorite) {
               this.collectState = true;
             } else {
@@ -299,7 +337,8 @@ export default {
   watch: {}
 };
 </script>
-<style lang='css' scoped>
+<style lang='less' scoped>
+@import "~vux/src/styles/close";
 .divider-area-wrap {
   width: 100%;
   height: 10px;
@@ -470,5 +509,28 @@ export default {
   padding: 0 6px;
   box-sizing: border-box;
   border-radius: 4px;
+}
+.video {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+.dialog-demo {
+  .weui-dialog {
+    border-radius: 8px;
+    padding-bottom: 8px;
+  }
+  .dialog-title {
+    line-height: 30px;
+    color: #666;
+  }
+  .img-box {
+    height: 200px;
+    overflow: hidden;
+  }
+  .vux-close {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
 }
 </style>

@@ -254,7 +254,7 @@ export default {
         lat:position.lat,
         lng:position.lng
       }
-      this.$store.commit("changeNavigationDetailsState", true);
+      // this.$store.commit("changeNavigationDetailsState", true);
       this.$refs.videoWrap.getScenicDetails(this.clickPosition);
     },
     addMarker() {

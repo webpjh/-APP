@@ -4,10 +4,11 @@
     <div class="tab-item-play-header-title">
       <div class="location-icon text-align-center" @click="locationSelf">
         <span class="iconfont icondingwei"></span>
+        <span class="scenic-name">{{scenicName}}</span>
       </div>
       <div class="search-icon text-align-center" @click="searchScence">输入作品/作者/景区</div>
       <div class="message-icon text-align-center" @click="appMessageCenter">
-        <span class="iconfont iconxiaoxi"></span>
+        <!-- <span class="iconfont iconxiaoxi"></span> -->
       </div>
     </div>
   </div>
@@ -16,6 +17,7 @@
 <script>
 import SwiperImg from "@/components/common/SwiperImgIndex";
 import { vueCordovaFunction } from "@/assets/js/vuecordova";
+import { getScenicNameByScenicId } from "@/assets/js/common";
 export default {
   name: "",
   props: [""],
@@ -27,7 +29,11 @@ export default {
     SwiperImg
   },
 
-  computed: {},
+  computed: {
+    scenicName() {
+      return getScenicNameByScenicId(sessionStorage.getItem("currentScenic"));
+    }
+  },
 
   beforeMount() {},
 
@@ -36,9 +42,22 @@ export default {
   methods: {
     locationSelf() {
       if (!sessionStorage.getItem("positionInfo")) {
-        vueCordovaFunction.getLocation();
+        this.$vux.confirm.show({
+          title: "提示",
+          content:
+            "为了提供更好的服务，请在设置中打开允许卡戳获取您的位置信息。",
+          showCancelButton: false,
+          onCancel: () => {
+            console.log(this);
+          },
+          onConfirm: () => {
+            vueCordovaFunction.getLocation();
+            this.$router.push("/userlocation");
+          }
+        });
+      } else {
+        this.$router.push("/userlocation");
       }
-      this.$router.push("/userlocation");
     },
     searchScence() {
       this.$router.push("/usersearch");
@@ -56,10 +75,13 @@ export default {
   width: 100%;
   height: 220px;
   overflow: hidden;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 .tab-item-play-header-title {
   width: 100%;
-  height: 50px;
+  height: 45px;
   position: absolute;
   z-index: 9999;
   top: 0;
@@ -69,6 +91,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   color: #fff;
+  background: rgba(0, 0, 0, 0.4);
 }
 .text-align-center {
   text-align: center;
@@ -80,7 +103,7 @@ export default {
   flex: 1;
 }
 .search-icon {
-  flex: 4;
+  flex: 3;
   width: 300px;
   height: 26px;
   line-height: 26px;
@@ -98,5 +121,8 @@ export default {
   min-height: 200px;
   height: auto;
   background: #999;
+}
+.scenic-name {
+  font-size: 12px;
 }
 </style>

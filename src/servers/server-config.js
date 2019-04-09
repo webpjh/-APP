@@ -59,7 +59,7 @@ axios.defaults.baseURL = 'https://core.kachuo.com/app/';
 // 测试
 // axios.defaults.baseURL = 'http://www.kcapp.com/app/';
 
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8;text/html';
 axios.defaults.headers.post['Authorization'] = localStorage.getItem("token");
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.timeout = 10000;

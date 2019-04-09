@@ -40,7 +40,7 @@ export const serverAPPVersion = () => {
       isFroceUpdate = parseInt(res.data.up_type, 10) === 1 ? false : true;
       // 如果版本不一致
       if (localVersion != serverVersion) {
-        store.commit("updateshowActionDialogStatus",true);
+        store.commit("updateshowActionDialogStatus", true);
         store.commit("getAPPUpdateInfo", { isForce: isFroceUpdate, content: res.data.up_content });
       } else {
         return;
@@ -106,5 +106,38 @@ export const updateAPPVersion = (con, type) => {
     window.open("https://itunes.apple.com/cn/app/id1437706521?mt=8");
   } else {
     window.open("http://www.kachuo.com/wap/");
+  }
+}
+
+// 根据景区id返回景区名称
+export const getScenicNameByScenicId = (id) => {
+  switch (id) {
+    case "22":
+      return "苍岩山";
+      break;
+    case "23":
+      return "徽州";
+      break;
+    case "24":
+      return "蓬莱阁";
+      break;
+    case "25":
+      return "少林寺";
+      break;
+    case "26":
+      return "神垕";
+      break;
+    case "27":
+      return "云雾山";
+      break;
+    case "35":
+      return "三孔";
+      break;
+    case "66":
+      return "云冈";
+      break;
+    default:
+      return "蓬莱阁";
+      break;
   }
 }

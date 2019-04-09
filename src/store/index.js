@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
+
 // vuex持久化存储方案
 import createPersistedState from "vuex-persistedstate";
 
