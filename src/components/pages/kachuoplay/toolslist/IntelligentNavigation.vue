@@ -51,11 +51,11 @@ import {
 import Header from "@/components/common/Header";
 import NavigationTab from "@/components/common/NavigationTab";
 import Popup from "@/components/common/Popup";
-import { lazyAMapApiLoaderInstance } from "vue-amap";
 import locationIcon from "@/assets/images/location-icon.png";
 import kachuoKocationIcon from "@/assets/images/kachuo-location-icon.png";
 import { CheckByLocation } from "@/servers/api";
 import { setTimeout } from "timers";
+
 export default {
   name: "amap-page",
   data() {

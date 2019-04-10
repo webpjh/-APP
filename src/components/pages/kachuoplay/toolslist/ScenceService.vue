@@ -6,7 +6,7 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="scence-service-content" :style="serviceContentHeight">
-      <ElementAMap class="scence-service-map"></ElementAMap>
+      <AMap class="scence-service-map" ref="map" :mapHeight="mapHeight"></AMap>
       <div class="scence-service-tab">
         <Tab :tabList="tabList"></Tab>
         <TabContentLoop :merchantsDataList="dataList"></TabContentLoop>
@@ -17,7 +17,7 @@
 
 <script>
 import Header from "@/components/common/Header";
-import ElementAMap from "@/components/common/ElementAMap";
+import AMap from "@/components/common/AMap";
 import Tab from "@/components/common/Tab";
 import TabContentLoop from "@/components/layout/TabContentLoop";
 
@@ -61,13 +61,27 @@ export default {
           distance: "据您79米",
           price: "人均90元"
         }
+      ],
+      positionArr: [
+        {
+          position: [116.403139,39.933098],
+          label: "蓬莱水城"
+        },
+        {
+          position: [116.403139,39.933098],
+          label: "蓬莱水城"
+        },
+        {
+          position: [116.390522,39.928819],
+          label: "蓬莱水城"
+        }
       ]
     };
   },
 
   components: {
     Header,
-    ElementAMap,
+    AMap,
     Tab,
     TabContentLoop
   },
@@ -75,14 +89,23 @@ export default {
   computed: {
     serviceContentHeight() {
       return { height: document.documentElement.clientHeight - 45 + "px" };
+    },
+    mapHeight() {
+      return { height: document.documentElement.clientHeight - 245 + "px" };
     }
   },
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getMarker();
+  },
 
-  methods: {},
+  methods: {
+    getMarker() {
+      this.$refs.map.showMarker(this.positionArr);
+    }
+  },
 
   watch: {}
 };
@@ -91,16 +114,17 @@ export default {
 .scence-service-wrap {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 .scence-service-content {
   width: 100%;
 }
 .scence-service-map {
   width: 100%;
-  height: 66%;
+  overflow: hidden;
 }
 .scence-service-tab {
   width: 100%;
-  height: 33%;
+  height: 200px;
 }
 </style>
