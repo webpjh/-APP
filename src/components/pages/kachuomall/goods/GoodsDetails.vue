@@ -10,7 +10,11 @@
       <SwiperImg :SwiperImgDataList="SwiperImgData" v-if="SwiperImgData.ImgList.length"></SwiperImg>
       <div class="goods-details-desc">
         <p class="goods-name text-overflow-hidden">{{goodsData.title}}</p>
-        <p class="goods-price">
+        <p class="goods-price" v-if="this.$route.query.price">
+          <span style="font-size:16px;margin-right:4px">¥</span>
+          {{this.$route.query.price}}
+        </p>
+        <p class="goods-price" v-if="!this.$route.query.price">
           <span style="font-size:16px;margin-right:4px">¥</span>
           {{goodsData.marketprice}}
         </p>
@@ -232,9 +236,14 @@ export default {
         }, 1000);
       }
     },
-    // 确认清淡
+    // 确认清单
     confirmOrder() {
-      this.$router.push("/confirmorder?id=" + this.$route.query.id);
+      this.$router.push(
+        "/confirmorder?id=" +
+          this.$route.query.id +
+          "&priceback=" +
+          this.$route.query.price
+      );
     },
     // 添加购物车
     addShoppingCart() {

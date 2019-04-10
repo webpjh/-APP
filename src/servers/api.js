@@ -106,7 +106,7 @@ export const newsDetails = (data) => http.post("dynamic.index.dynamic_details", 
 export const buyBack = (data) => http.post("goods.repurchase.slide_list", data);
 
 // 回购列表
-export const buyBackList = (data) => http.post("goods.repurchase.activity", data);
+export const buyBackList = (data) => http.post("buyback.index.activity", data);
 
 // 申请回购
 export const buyBackSubmit = (data) => http.post("goods.repurchase.submit", data);
@@ -140,6 +140,9 @@ export const Confirmation = (data) => http.post("goods.buy.is_Confirmation", dat
 
 //寄卖列表
 export const marketList = () => http.post("goods.market.slide_list");
+
+// 租赁列表
+export const LeasetList = (data) => http.post("lease.index.lease_list",data);
 
 //一件寄卖
 export const shotMarket = () => http.post("goods.market.OneShotMarket");

@@ -256,5 +256,15 @@ export default [
     path: '/blockchaininfodetails',
     name: 'BlockChainInfoDetails',
     component: resolve => require(['@/components/pages/kachuomall/goods/blockchain/BlockChainInfoDetails'], resolve),
+  },
+  {
+    path: '/backleasedetails',
+    name: 'BackLeaseDetails',
+    component: resolve => require(['@/components/pages/kachuocash/BackLeaseDetails'], resolve),
+  },
+  {
+    path: '/backbuydetails',
+    name: 'BackBuyDetails',
+    component: resolve => require(['@/components/pages/kachuocash/BackBuyDetails'], resolve),
   }
 ]

@@ -51,13 +51,21 @@ export const getLocation = () => {
 }
 
 // 获取手机操作系统
-export const checkMobileSystem = () =>{
+export const checkMobileSystem = () => {
   let u = navigator.userAgent;
   let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
   let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-  if(isAndroid){
+  if (isAndroid) {
     return "android";
-  }else{
+  } else {
     return "ios";
   }
+}
+
+// 已知开始时间呵结束时间，计算日期间隔
+export const computedDataInterval = (beginDate, endDate) => {
+  let begindate = new Date(Date.parse(beginDate.replace(/-/g, "/"))).getTime();
+  let enddate = new Date(Date.parse(endDate.replace(/-/g, "/"))).getTime();
+  let day = parseInt((enddate - begindate) / 1000 / 3600 / 24,10);
+  return day;
 }

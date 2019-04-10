@@ -10,15 +10,9 @@
       <DividedArea></DividedArea>
       <Divider :content="TitleObjData.titleContent"></Divider>
       <div class="scroll-wrap-con" :style="scrollWrapHeight">
-        <scroller
-          :on-infinite="pullup"
-          :on-refresh="refresh"
-          :refreshText="refreshText"
-          :noDataText="noDataText"
-          class="scence-release-content"
-        >
-          <GoodsList></GoodsList>
-        </scroller>
+        <GoodsListWrapBack v-if="this.TitleObjData.titleContent === '艺品回购'"></GoodsListWrapBack>
+        <GoodsListWrapLease v-if="this.TitleObjData.titleContent === '艺品租赁'"></GoodsListWrapLease>
+        <GoodsListWrapSent v-if="this.TitleObjData.titleContent === '艺品寄卖'"></GoodsListWrapSent>
       </div>
     </div>
   </div>
@@ -27,8 +21,9 @@
 <script>
 import Header from "@/components/common/Header";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
-import Scroll from "@/components/common/Scroller";
-import GoodsList from "@/components/layout/GoodsList";
+import GoodsListWrapBack from "@/components/layout/GoodsListWrapBack";
+import GoodsListWrapLease from "@/components/layout/GoodsListWrapLease";
+import GoodsListWrapSent from "@/components/layout/GoodsListWrapSent";
 import DividedArea from "@/components/common/DividedArea";
 import Divider from "@/components/common/Divider";
 
@@ -41,20 +36,17 @@ export default {
         titleContent: "",
         showLeftBack: true,
         showRightMore: false
-      },
-      page: 0,
-      list: [],
-      refreshText: "下拉刷新",
-      noDataText: "没有更多数据"
+      }
     };
   },
 
   components: {
     Header,
     TabItemMallAdvertise,
-    Scroll,
     DividedArea,
-    GoodsList,
+    GoodsListWrapBack,
+    GoodsListWrapLease,
+    GoodsListWrapSent,
     Divider
   },
 
@@ -84,18 +76,6 @@ export default {
       } else {
         this.getBannerImgFn("10");
       }
-    },
-    refresh(done) {
-      console.log("refresh");
-      setTimeout(() => {
-        done();
-      }, 2000);
-    },
-    pullup(done) {
-      console.log("pullup");
-      setTimeout(() => {
-        done();
-      }, 2000);
     }
   },
 
@@ -109,7 +89,7 @@ export default {
 <style lang='css' scoped>
 .back-lease-sale-content-wrap {
   width: 100%;
-  margin-top: 50px;
+  margin-top: 45px;
 }
 .scence-release-content {
   margin-top: 300px;

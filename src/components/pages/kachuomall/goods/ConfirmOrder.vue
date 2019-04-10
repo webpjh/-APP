@@ -29,16 +29,28 @@
         <div class="goods-details-mid">
           <p>{{goodsDetails.title}}</p>
           <p style="color:#999999">已选</p>
-          <p style="color:#B7090A">¥{{goodsDetails.marketprice}}</p>
+          <p style="color:#B7090A" v-if="!this.$route.query.priceback">¥{{goodsDetails.marketprice}}</p>
+          <p
+            style="color:#B7090A"
+            v-if="this.$route.query.priceback"
+          >¥{{this.$route.query.priceback}}</p>
         </div>
         <div class="goods-details-right">
           <p>数量：1</p>
         </div>
       </div>
       <div class="goods-details-desc">
-        <p>
+        <p v-if="this.$route.query.price">
+          <span style="font-size:17px;color:#000">租赁价格：</span>
+          <span>¥{{this.$route.query.price}}</span>
+        </p>
+        <p v-if="!this.$route.query.price && !this.$route.query.priceback">
           <span style="font-size:17px;color:#000">商品总额：</span>
           <span>¥{{goodsDetails.marketprice}}</span>
+        </p>
+        <p v-if="this.$route.query.priceback">
+          <span style="font-size:17px;color:#000">商品总额：</span>
+          <span>¥{{this.$route.query.priceback}}</span>
         </p>
         <p>
           <span>优惠</span>
@@ -51,7 +63,9 @@
       </div>
     </div>
     <div class="confirm-order-btn-wrap">
-      <p class="confirm-order-desc">应付：¥{{goodsDetails.marketprice}}</p>
+      <p class="confirm-order-desc" v-if="this.$route.query.price">应付：¥{{this.$route.query.price}}</p>
+      <p class="confirm-order-desc" v-if="!this.$route.query.price && !this.$route.query.priceback">应付：¥{{goodsDetails.marketprice}}</p>
+      <p class="confirm-order-desc" v-if="this.$route.query.priceback">应付：¥{{this.$route.query.priceback}}</p>
       <p class="confirm-order-btn">立即下单</p>
     </div>
   </div>
@@ -208,7 +222,7 @@ export default {
   background: #fff;
   margin-top: 10px;
 }
-.goods-details-desc p{
+.goods-details-desc p {
   width: 100%;
   height: 50px;
   display: flex;
@@ -220,7 +234,7 @@ export default {
   box-sizing: border-box;
   color: #666666;
 }
-.confirm-order-btn-wrap{
+.confirm-order-btn-wrap {
   width: 100%;
   height: 50px;
   border-top: 1px solid #eee;
@@ -232,14 +246,14 @@ export default {
   bottom: 0;
   left: 0;
 }
-.confirm-order-desc{
+.confirm-order-desc {
   flex: 2;
   padding-left: 15px;
   box-sizing: border-box;
   font-weight: bold;
   font-size: 17px;
 }
-.confirm-order-btn{
+.confirm-order-btn {
   flex: 1;
   height: 50px;
   background: #222;

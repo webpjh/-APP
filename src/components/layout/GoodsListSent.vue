@@ -11,12 +11,12 @@
       class="goods-list"
       v-for="(item,index) in goodList"
       :key="index"
-      @click="watchGoodsDetails(item.goods_id,item.id,item.rent,item)"
+      @click="watchGoodsDetails(item.goods_id,item.money)"
     >
-      <img class="goods-img" v-lazy="item.thumb">
+      <img class="goods-img" v-lazy="item.image">
       <div class="good-desc-wrap">
-        <p class="goods-name">{{item.goods_name ? item.goods_name : item.title}}</p>
-        <p class="goods-price" v-show="item.marketprice">¥{{item.marketprice}}</p>
+        <p class="goods-name">{{item.name}}</p>
+        <p class="goods-price">卖方价格：¥{{item.money}}</p>
       </div>
     </div>
   </div>
@@ -45,14 +45,9 @@ export default {
   mounted() {},
 
   methods: {
-    watchGoodsDetails(goodsId, id, rent,item) {
-      if (!rent) {
-        let gid = goodsId ? goodsId : id;
-        this.$router.push("/goodsdetails?id=" + gid);
-      } else {
-        sessionStorage.setItem("backleasedetails",JSON.stringify(item))
-        this.$router.push("/backleasedetails");
-      }
+    watchGoodsDetails(goodsId, price) {
+      let gid = goodsId;
+      this.$router.push("/goodsdetails?id=" + gid + "&price=" + price);
     }
   },
 

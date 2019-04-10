@@ -12,7 +12,9 @@
 .login-wrap,
 .real-name-auth-content,
 .add-address-con,
-.goods-details-cells {
+.goods-details-cells,
+.back-lease-details-content,
+.price-desc-wrap {
   .weui-cells {
     border: none;
     margin-top: 0;
@@ -28,7 +30,9 @@
 .real-name-auth-con,
 .real-name-auth-content,
 .add-address-con,
-.goods-details-cells {
+.goods-details-cells,
+.back-lease-details-content,
+.price-desc-wrap {
   .weui-cells:before {
     border: none;
   }
@@ -52,7 +56,8 @@
 .tab-item-mall-wrap,
 .user-message-wrap,
 .login-wrap,
-.goods-details-cells {
+.goods-details-cells,
+.price-desc-wrap {
   .weui-cell:before {
     border: none;
   }
@@ -175,15 +180,25 @@ button {
     background: #fff;
   }
 }
-.vux-header .vux-header-left .vux-header-back{
+
+.vux-header .vux-header-left .vux-header-back {
   font-size: 16px;
 }
-.vux-header-title{
+
+.vux-header-title {
   font-size: 16px !important;
   line-height: 44px !important;
 }
-.vux-header .vux-header-left, .vux-header .vux-header-right{
+
+.vux-header .vux-header-left,
+.vux-header .vux-header-right {
   font-size: 16px !important;
   position: relative;
-  top:2px;
+  top: 2px;
+}
+
+.price-desc-wrap {
+  .vux-calendar:before {
+    border: none
+  }
 }
