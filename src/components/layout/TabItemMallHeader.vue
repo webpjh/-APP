@@ -51,7 +51,7 @@ export default {
 <style lang='css' scoped>
 .tab-item-mall-header-wrap {
   width: 100%;
-  height: 50px;
+  height: 45px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -75,7 +75,8 @@ import VueScroller from 'vue-scroller';
 Vue.use(VueScroller);
 
 // vux toast插件方式调用
-import { ToastPlugin, LoadingPlugin, ConfirmPlugin, ConfigPlugin } from 'vux';
+import { AlertPlugin,ToastPlugin, LoadingPlugin, ConfirmPlugin, ConfigPlugin } from 'vux';
+Vue.use(AlertPlugin);
 Vue.use(ToastPlugin);
 Vue.use(LoadingPlugin);
 Vue.use(ConfirmPlugin);

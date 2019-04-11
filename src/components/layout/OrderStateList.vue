@@ -38,18 +38,18 @@
           </div>
           <div class="order-state-list-bot-bot" v-show="item.orderState === '1'">
             <p>
-              <x-button type="primary" mini>取消订单</x-button>
+              <x-button type="primary" mini>提醒发货</x-button>
             </p>
-            <p style="margin-left:20px">
-              <x-button type="warn" mini>提醒发货</x-button>
-            </p>
+            <!-- <p style="margin-left:20px">
+              <x-button type="warn" mini >确认收货</x-button>
+            </p>-->
           </div>
           <div class="order-state-list-bot-bot" v-show="item.orderState === '2'">
             <p>
               <x-button type="primary" mini @click.native="watchExpressInfo(item.ordersn)">查看物流</x-button>
             </p>
             <p>
-              <x-button type="warn" mini @click.native="sureOrder(item.ordersn,index)">查看物流</x-button>
+              <x-button type="warn" mini @click.native="sureOrder(item.ordersn,index)">确认收货</x-button>
             </p>
           </div>
           <div
@@ -57,10 +57,10 @@
             v-show="item.orderState === '3' && item.orderType === '3'"
           >
             <p>
-              <x-button type="primary" mini>我要寄卖</x-button>
+              <x-button type="primary" mini @click.native="sendOrder(item.ordersn)">我要寄卖</x-button>
             </p>
             <p style="margin-left:20px">
-              <x-button type="primary" mini>申请回购</x-button>
+              <x-button type="primary" mini @click.native="applyBuyBack(item.id)">申请回购</x-button>
             </p>
             <p style="margin-left:20px">
               <x-button type="warn" mini @click.native="delGoods(item.id,index)">删除订单</x-button>
@@ -92,7 +92,12 @@
 
 <script>
 import { XButton, Spinner, Group, Cell } from "vux";
-import { Operation, Confirmation } from "@/servers/api";
+import {
+  Operation,
+  Confirmation,
+  buyBackSubmit,
+  jm_addOrder
+} from "@/servers/api";
 export default {
   name: "",
   props: ["orderData"],
@@ -135,7 +140,78 @@ export default {
   mounted() {},
 
   methods: {
-    sureOrder(id,index) {
+    // 一键寄卖
+    sendOrder(orderId) {
+      this.$vux.confirm.show({
+        showInput: true,
+        title: "寄卖价格",
+        content: "",
+        onCancel: () => {
+          return;
+        },
+        onConfirm: val => {
+          if (!val) {
+            this.$vux.toast.show({
+              type: "text",
+              text: "价格不能为空",
+              time: 1000
+            });
+          } else {
+            jm_addOrder({
+              order_sn: orderId,
+              price: val,
+              type: 2
+            })
+              .then(res => {
+                if (res.result === 1) {
+                  this.$vux.alert.show({
+                    title: "申请成功",
+                    content: "申请通过后，请到app寄卖列表查看您的寄卖商品。",
+                    onHide: () => {
+                      this.$router.push("/backleasesale?title=艺品寄卖");
+                    }
+                  });
+                } else {
+                  if (res.code === "51004") {
+                    this.$vux.alert.show({
+                      title: "提示",
+                      content: "此商品已经申请，请等待审核结果。"
+                    });
+                  }
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }
+        }
+      });
+    },
+    // 申请回购
+    applyBuyBack(id) {
+      buyBackSubmit({
+        id: id
+      })
+        .then(res => {
+          console.log(res);
+          if (res.result === 1) {
+            this.$vux.alert.show({
+              title: "提示",
+              content: "申请已提交，请等待工作人员联系。"
+            });
+          } else {
+            this.$vux.alert.show({
+              title: "提示",
+              content: res.msg
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 确认收货
+    sureOrder(id, index) {
       this.$vux.confirm.show({
         title: "提示",
         content: "确定收货吗？",
@@ -147,13 +223,13 @@ export default {
         }
       });
     },
-    postSureOrder(id,index) {
+    postSureOrder(id, index) {
       Confirmation({
-        order_id: id,
+        order_id: id
       })
         .then(res => {
           console.log(res);
-          if(res.result === 1){
+          if (res.result === 1) {
             this.$emit("sureOrder", index);
           }
         })
@@ -164,6 +240,7 @@ export default {
     watchExpressInfo(id) {
       this.$router.push("/expressinfo?id=" + id);
     },
+    // 删除订单
     delGoods(id, index) {
       this.$vux.confirm.show({
         title: "提示",
