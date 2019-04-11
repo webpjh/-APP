@@ -22,7 +22,7 @@
 import { vueCordovaFunction } from "@/assets/js/vuecordova";
 import { Loading, Confirm } from "vux";
 import { CheckByLocation } from "@/servers/api";
-import { appVersion,updateAPPVersion } from "@/assets/js/common";
+import { appVersion, updateAPPVersion } from "@/assets/js/common";
 export default {
   name: "App",
   data() {
@@ -36,6 +36,7 @@ export default {
   },
   mounted() {
     vueCordovaFunction.getLocation();
+    // vueCordovaFunction.socialShare();
     appVersion();
   },
   beforeRouteUpdate(to, from, next) {

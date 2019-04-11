@@ -63,7 +63,7 @@ export default {
       TitleObjData: {
         titleContent: "智慧导航",
         showLeftBack: true,
-        showRightMore: false
+        showRightMore: true
       },
       tabList: [
         "全景图",

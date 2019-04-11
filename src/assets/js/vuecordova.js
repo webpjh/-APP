@@ -78,5 +78,32 @@ export const vueCordovaFunction = {
         console.log(e);
       });
     }
+  },
+  /**
+   * 社会化分享
+   */
+  socialShare: function (id) {
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+      var options = {
+        message: '卡戳', // not supported on some apps (Facebook, Instagram)
+        subject: 'the subject', // fi. for email
+        files: ['', ''], // an array of filenames either locally or remotely
+        url: 'https://core.kachuo.com/share/index.html?id='+id,
+        chooserTitle: '卡戳', // Android only, you can override the default share sheet title,
+        appPackageName: '' // Android only, you can provide id of the App you want to share with
+      };
+
+      var onSuccess = function (result) {
+        console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
+        console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+      };
+
+      var onError = function (msg) {
+        console.log("Sharing failed with message: " + msg);
+      };
+
+      window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+    }
   }
 }

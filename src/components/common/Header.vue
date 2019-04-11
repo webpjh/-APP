@@ -6,18 +6,22 @@ showRightOptions（布尔类型）：是否显示右侧更多操作
 titleContent（string）：标题内容
  -->
 <template>
-  <x-header
-    :left-options="{showBack: showLeftBack,preventGoBack:true}"
-    :right-options="{showMore: showRightMore}"
-    @on-click-back="back"
-    @on-click-more="showMenus = true"
-    slot="header"
-    style="width: 100%;position: absolute;left: 0;top: 0;z-index: 100;font-size: 16px;"
-  >{{titleContent}}</x-header>
+  <div>
+    <x-header
+      :left-options="{showBack: showLeftBack,preventGoBack:true}"
+      :right-options="{showMore: showRightMore}"
+      @on-click-back="back"
+      @on-click-more="showBottom"
+      slot="header"
+      style="width: 100%;position: absolute;left: 0;top: 0;z-index: 100;font-size: 16px;"
+    >{{titleContent}}</x-header>
+    <Popup :showRescue="showRescueP"></Popup>
+  </div>
 </template>
 
 <script>
 import { XHeader, TransferDom } from "vux";
+import Popup from "@/components/common/PupupRescue";
 
 export default {
   props: ["titleContent", "showLeftBack", "showRightMore"],
@@ -25,14 +29,20 @@ export default {
     TransferDom
   },
   components: {
-    XHeader
+    XHeader,
+    Popup
   },
   data() {
-    return {};
+    return {
+      showRescueP:false
+    };
   },
   methods: {
     back() {
       this.$router.goBack();
+    },
+    showBottom() {
+      this.showRescueP = true;
     }
   }
 };
