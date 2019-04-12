@@ -36,39 +36,39 @@ export default {
         {
           title: "吃吧",
           icon: "iconfont iconchiba",
-          link: "/scenceservice"
+          link: "/scenceservice?type=1"
         },
         {
           title: "喝吧",
           icon: "iconfont iconheba",
-          link: "/scenceservice"
+          link: "/scenceservice?type=2"
         },
         {
           title: "玩吧",
           icon: "iconfont iconwanba",
-          link: "/scenceservice"
+          link: "/scenceservice?type=3"
         }
       ],
       cellListAround: [
         {
           title: "美食",
           icon: "iconfont iconmeishi",
-          link: "/servicesurround"
+          link: "/servicesurround?type=4"
         },
         {
           title: "休闲",
           icon: "iconfont iconxiuxian",
-          link: "/servicesurround"
+          link: "/servicesurround?type=5"
         },
         {
           title: "酒店",
           icon: "iconfont iconjiudian",
-          link: "/servicesurround"
+          link: "/servicesurround?type=6"
         },
         {
           title: "娱乐",
           icon: "iconfont iconyule",
-          link: "/servicesurround"
+          link: "/servicesurround?type=7"
         }
       ]
     };

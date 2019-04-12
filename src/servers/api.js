@@ -142,7 +142,7 @@ export const Confirmation = (data) => http.post("goods.buy.is_Confirmation", dat
 export const marketList = () => http.post("goods.market.slide_list");
 
 // 租赁列表
-export const LeasetList = (data) => http.post("lease.index.lease_list",data);
+export const LeasetList = (data) => http.post("lease.index.lease_list", data);
 
 //一件寄卖
 export const shotMarket = () => http.post("goods.market.OneShotMarket");
@@ -315,3 +315,8 @@ export const getScenicPointDetails = (data) => http.post("scenic.site", data);
 // 设置昵称
 export const setNickName = (data) => http.post("member.realname.upd_member_information", data);
 
+// 获取景区商家数据列表
+export const getScenicMerchants = (data) => http.post("scenic.index", data);
+
+// 获取景区商家数据详情
+export const getScenicMerchantsDetails = (data) => http.post("scenic.index.business_info", data);

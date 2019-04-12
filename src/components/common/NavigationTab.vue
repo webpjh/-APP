@@ -1,7 +1,12 @@
 <template>
-    <tab :line-width="3" bar-position="top" custom-bar-width="40px">
-      <tab-item v-for="(item,index) in dataList" :selected="index === 0" :key="index" @on-item-click="onItemClick">{{item}}</tab-item>
-    </tab>
+  <tab :line-width="3" bar-position="top" custom-bar-width="40px">
+    <tab-item
+      v-for="(item,index) in dataList"
+      :selected="index === selectIndex"
+      :key="index"
+      @on-item-click="onItemClick"
+    >{{item}}</tab-item>
+  </tab>
 </template>
 
 <script>
@@ -10,9 +15,7 @@ export default {
   name: "",
   props: ["dataList"],
   data() {
-    return {
-      
-    };
+    return {};
   },
 
   components: {
@@ -20,7 +23,20 @@ export default {
     TabItem
   },
 
-  computed: {},
+  computed: {
+    selectIndex() {
+      let index = this.$route.query.type;
+      if (index) {
+        if (index <= 3) {
+          return index - 1;
+        } else {
+          return index - 4;
+        }
+      } else {
+        return 0;
+      }
+    }
+  },
 
   beforeMount() {},
 
@@ -28,7 +44,7 @@ export default {
 
   methods: {
     onItemClick(index) {
-      this.$emit("changePath",index)
+      this.$emit("changePath", index);
     }
   },
 

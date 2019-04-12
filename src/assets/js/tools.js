@@ -1,3 +1,5 @@
+import { resolve } from "path";
+
 // 格式化师承返回数据
 export const formData = (dataArr) => {
   let resultArr = new Array();
@@ -66,6 +68,38 @@ export const checkMobileSystem = () => {
 export const computedDataInterval = (beginDate, endDate) => {
   let begindate = new Date(Date.parse(beginDate.replace(/-/g, "/"))).getTime();
   let enddate = new Date(Date.parse(endDate.replace(/-/g, "/"))).getTime();
-  let day = parseInt((enddate - begindate) / 1000 / 3600 / 24,10);
+  let day = parseInt((enddate - begindate) / 1000 / 3600 / 24, 10);
   return day;
+}
+
+// 根据用户所在景区id找到当前景区经纬度
+export const getCurrentPositionByCurrentScenicId = (scenicId) => {
+  return new Promise((resolve, reject) => {
+    import("@/assets/scencedata/scenicList").then(res => {
+      res.default.forEach((element) => {
+        if (element.id == scenicId) {
+          resolve(element.position.toString());
+        }
+      })
+    })
+      .catch(err => {
+        console.log(err);
+      })
+  })
+}
+
+// 根据用户所在景区id找到当前景区名称
+export const getCurrentScenicNameByCurrentScenicId = (scenicId) => {
+  return new Promise((resolve, reject) => {
+    import("@/assets/scencedata/scenicList").then(res => {
+      res.default.forEach((element) => {
+        if (element.id == scenicId) {
+          resolve(element.name);
+        }
+      })
+    })
+      .catch(err => {
+        console.log(err);
+      })
+  })
 }

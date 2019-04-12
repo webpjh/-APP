@@ -115,7 +115,6 @@ export default {
           page: this.page
         })
           .then(res => {
-            console.log(res);
             if (res.result === 1) {
               totalCount = res.data.totalofnum;
               setTimeout(() => {

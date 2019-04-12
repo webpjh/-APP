@@ -1,5 +1,5 @@
 //自定义弹框 2s消失
-export const Toast = () => {
+const Toast = () => {
   isToast = true;
   beginDate = new Date().getTime();
   duration = isNaN(duration) ? 3000 : duration; // duration是不是一个数字    
@@ -16,6 +16,10 @@ export const Toast = () => {
 }
 
 export const eventBackButton = () => {
+  document.addEventListener("deviceready", onDeviceReady, false);
+  function onDeviceReady() {
+    document.addEventListener("backbutton", eventBackButton, false);
+  }
   function eventBackButton() {
     if (window.location.href.indexOf('/kachuotab') != -1) {
       if (exitAppTicker == 0) {
@@ -31,8 +35,5 @@ export const eventBackButton = () => {
       navigator.app.backHistory();
     }
   }
-  function onDeviceReady() {
-    document.addEventListener("backbutton", eventBackButton, false);
-  }
-  document.addEventListener("deviceready", onDeviceReady, false);
+
 }

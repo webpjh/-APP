@@ -7,10 +7,7 @@
     ></Header>
     <div class="scence-service-content" :style="serviceContentHeight">
       <AMap class="scence-service-map" ref="map" :mapHeight="mapHeight"></AMap>
-      <div class="scence-service-tab">
-        <Tab :tabList="tabList"></Tab>
-        <TabContentLoop :merchantsDataList="dataList"></TabContentLoop>
-      </div>
+      <NavigationTab :dataList="tabList" v-on:changePath="showPath"></NavigationTab>
     </div>
   </div>
 </template>
@@ -20,6 +17,7 @@ import Header from "@/components/common/Header";
 import AMap from "@/components/common/AMap";
 import Tab from "@/components/common/Tab";
 import TabContentLoop from "@/components/layout/TabContentLoop";
+import NavigationTab from "@/components/common/NavigationTab";
 
 export default {
   name: "",
@@ -32,50 +30,8 @@ export default {
         showRightMore: false
       },
       tabList: ["吃吧", "喝吧", "玩吧"],
-      dataList: [
-        {
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "蓬莱餐厅",
-          distance: "据您79米",
-          price: "人均90元"
-        },
-        {
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "蓬莱餐厅",
-          distance: "据您79米",
-          price: "人均90元"
-        },
-        {
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "蓬莱餐厅",
-          distance: "据您79米",
-          price: "人均90元"
-        },
-        {
-          img:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "蓬莱餐厅",
-          distance: "据您79米",
-          price: "人均90元"
-        }
-      ],
-      positionArr: [
-        {
-          position: [116.403139,39.933098],
-          label: "蓬莱水城"
-        },
-        {
-          position: [116.403139,39.933098],
-          label: "蓬莱水城"
-        },
-        {
-          position: [116.390522,39.928819],
-          label: "蓬莱水城"
-        }
-      ]
+      dataList: [],
+      positionArr: []
     };
   },
 
@@ -83,7 +39,8 @@ export default {
     Header,
     AMap,
     Tab,
-    TabContentLoop
+    TabContentLoop,
+    NavigationTab
   },
 
   computed: {
@@ -91,19 +48,19 @@ export default {
       return { height: document.documentElement.clientHeight - 45 + "px" };
     },
     mapHeight() {
-      return { height: document.documentElement.clientHeight - 245 + "px" };
+      return { height: document.documentElement.clientHeight - 90 + "px" };
     }
   },
 
   beforeMount() {},
 
   mounted() {
-    this.getMarker();
+
   },
 
   methods: {
-    getMarker() {
-      this.$refs.map.showMarker(this.positionArr);
+    showPath(index) {
+      this.$refs.map.getMapCenterPosition(++index);
     }
   },
 
@@ -122,6 +79,7 @@ export default {
 .scence-service-map {
   width: 100%;
   overflow: hidden;
+  margin-top: 45px;
 }
 .scence-service-tab {
   width: 100%;

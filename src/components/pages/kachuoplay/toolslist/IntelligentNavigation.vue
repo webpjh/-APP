@@ -93,7 +93,7 @@ export default {
         {
           id: "25",
           name: "少林",
-          position: [112.95978, 34.520026]
+          position: [112.941363,34.506982]
         },
         {
           id: "26",
@@ -254,7 +254,6 @@ export default {
         lat:position.lat,
         lng:position.lng
       }
-      // this.$store.commit("changeNavigationDetailsState", true);
       this.$refs.videoWrap.getScenicDetails(this.clickPosition);
     },
     addMarker() {

@@ -23,6 +23,7 @@ import { vueCordovaFunction } from "@/assets/js/vuecordova";
 import { Loading, Confirm } from "vux";
 import { CheckByLocation } from "@/servers/api";
 import { appVersion, updateAPPVersion } from "@/assets/js/common";
+import { eventBackButton } from '@/assets/js/quitapp';
 export default {
   name: "App",
   data() {
@@ -74,6 +75,7 @@ export default {
   watch: {
     $route(to, from) {
       let isBack = this.$router.isBack;
+      eventBackButton();
       if (isBack) {
         this.transitionName = "slide-right";
       } else {
@@ -109,7 +111,7 @@ export default {
 
 .slide-left-leave-active,
 .slide-right-enter {
-  opacity: 0;
+  opacity: 0.5;
   -webkit-transform: translate(-100%, 0);
   transform: translate(-100% 0);
 }

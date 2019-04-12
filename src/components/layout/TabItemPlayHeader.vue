@@ -22,24 +22,29 @@ export default {
   name: "",
   props: [""],
   data() {
-    return {};
+    return {
+      scenicName: ""
+    };
   },
 
   components: {
     SwiperImg
   },
 
-  computed: {
-    scenicName() {
-      return getScenicNameByScenicId(sessionStorage.getItem("currentScenic"));
-    }
-  },
+  computed: {},
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getScenicName();
+  },
 
   methods: {
+    getScenicName() {
+      this.scenicName = getScenicNameByScenicId(
+        sessionStorage.getItem("currentScenic")
+      );
+    },
     locationSelf() {
       if (!sessionStorage.getItem("positionInfo")) {
         this.$vux.confirm.show({
@@ -67,7 +72,11 @@ export default {
     }
   },
 
-  watch: {}
+  watch: {
+    $route(to, from) {
+      this.getScenicName();
+    }
+  }
 };
 </script>
 <style lang='css' scoped>

@@ -6,16 +6,18 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="scence-service-content" :style="serviceContentHeight">
-      <ElementAMap class="scence-service-map"></ElementAMap>
-      <Tab class="scence-service-tab" :tabList="tabList"></Tab>
+      <AMap class="scence-service-map" ref="map" :mapHeight="mapHeight"></AMap>
+      <NavigationTab :dataList="tabList" v-on:changePath="showPath"></NavigationTab>
     </div>
   </div>
 </template>
 
 <script>
 import Header from "@/components/common/Header";
-import ElementAMap from "@/components/common/ElementAMap";
+import AMap from "@/components/common/AMap";
 import Tab from "@/components/common/Tab";
+import TabContentLoop from "@/components/layout/TabContentLoop";
+import NavigationTab from "@/components/common/NavigationTab";
 
 export default {
   name: "",
@@ -27,19 +29,26 @@ export default {
         showLeftBack: true,
         showRightMore: false
       },
-      tabList: ["美食", "休闲", "酒店", "娱乐"]
+      tabList: ["美食", "休闲", "酒店", "娱乐"],
+      dataList: [],
+      positionArr: []
     };
   },
 
   components: {
     Header,
-    ElementAMap,
-    Tab
+    AMap,
+    Tab,
+    TabContentLoop,
+    NavigationTab
   },
 
   computed: {
     serviceContentHeight() {
       return { height: document.documentElement.clientHeight - 45 + "px" };
+    },
+    mapHeight() {
+      return { height: document.documentElement.clientHeight - 90 + "px" };
     }
   },
 
@@ -47,7 +56,11 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    showPath(index) {
+      this.$refs.map.getMapCenterPosition(++index);
+    }
+  },
 
   watch: {}
 };
@@ -56,16 +69,18 @@ export default {
 .scence-service-wrap {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 .scence-service-content {
   width: 100%;
 }
 .scence-service-map {
   width: 100%;
-  height: 66%;
+  overflow: hidden;
+  margin-top: 45px;
 }
 .scence-service-tab {
   width: 100%;
-  height: 33%;
+  height: 200px;
 }
 </style>
