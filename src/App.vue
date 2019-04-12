@@ -37,7 +37,7 @@ export default {
   },
   mounted() {
     vueCordovaFunction.getLocation();
-    // vueCordovaFunction.socialShare();
+    vueCordovaFunction.socialShare();
     appVersion();
   },
   beforeRouteUpdate(to, from, next) {

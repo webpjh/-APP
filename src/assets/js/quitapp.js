@@ -16,12 +16,13 @@ const Toast = () => {
 }
 
 export const eventBackButton = () => {
+  let exitAppTicker = 0;
   document.addEventListener("deviceready", onDeviceReady, false);
   function onDeviceReady() {
     document.addEventListener("backbutton", eventBackButton, false);
   }
   function eventBackButton() {
-    if (window.location.href.indexOf('/kachuotab') != -1) {
+    if (window.location.href.indexOf('/indextab') != -1) {
       if (exitAppTicker == 0) {
         exitAppTicker++;
         Toast("再点一次退出", 2000);
@@ -35,5 +36,4 @@ export const eventBackButton = () => {
       navigator.app.backHistory();
     }
   }
-
 }
