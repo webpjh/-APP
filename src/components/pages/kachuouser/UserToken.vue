@@ -114,7 +114,7 @@ export default {
 }
 .content-card {
   width: 100%;
-  height: 160px;
+  height: 180px;
   background: #111;
   border-radius: 4px;
   padding: 10px;

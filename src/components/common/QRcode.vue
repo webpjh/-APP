@@ -1,6 +1,6 @@
 <template>
   <div style="text-align:center;margin-top:15px;">
-    <qrcode :value="QRvalue"></qrcode>
+    <qrcode :value="QRvalue" :size="size"></qrcode>
     <br>
   </div>
 </template>
@@ -19,7 +19,8 @@ export default {
   data () {
     return {
       value: '',
-      fgColor: '#000000'
+      fgColor: '#000000',
+      size:200
     }
   }
 }
