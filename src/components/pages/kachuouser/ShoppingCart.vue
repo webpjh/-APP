@@ -6,6 +6,7 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="order-list-content" :style="orderListCon">
+      <p class="no-goods-tip" v-show="dataList.length === 0">您的购物车暂无商品，快去添加吧～</p>
       <SwiperOut
         :dataListCon="dataList"
         :countArr="numArr"
@@ -18,7 +19,7 @@
     </div>
     <div class="bot-method-wrap">
       <span>共计：¥{{marketTotalPrice}}</span>
-      <div class="sub-btn">下单</div>
+      <div class="sub-btn" @click="shoppingCartOrder">下单</div>
     </div>
   </div>
 </template>
@@ -30,7 +31,7 @@ import SwiperOut from "@/components/common/SwiperOut";
 import DividedArea from "@/components/common/DividedArea";
 import Divider from "@/components/common/Divider";
 import GoodsList from "@/components/layout/GoodsList";
-import { ShopList, goodsBucketRecomm } from "@/servers/api";
+import { ShopList, goodsBucketRecomm, goodsBucketSubmit } from "@/servers/api";
 import { parse } from "path";
 
 export default {
@@ -47,7 +48,7 @@ export default {
       numArr: [],
       dataList: [],
       checkFlagArr: [],
-      goodsListData:[],
+      goodsListData: [],
       marketTotalPrice: 0
     };
   },
@@ -77,13 +78,31 @@ export default {
     this.getMarketTotalPrice();
   },
   methods: {
+    // 购物车下单
+    shoppingCartOrder() {
+      let arr = [];
+      for (let i = 0; i < this.checkFlagArr.length; i++) {
+        if (this.checkFlagArr[i]) {
+          arr.push({
+            goodsid: this.dataList[i].goodsid,
+            shopid: this.dataList[i].id,
+            name: this.dataList[i].goods_sx.title,
+            img: this.dataList[i].goods_sx.thumb,
+            num: this.numArr[i],
+            price: this.dataList[i].goods_sx.marketprice
+          });
+        }
+      }
+      sessionStorage.setItem("shoppingCartOrderList", JSON.stringify(arr));
+      this.$router.push("/confirmordershoppingcart");
+    },
     // 商品推荐
     getGoodsComm() {
       goodsBucketRecomm({
-        type:1
+        type: 1
       })
         .then(res => {
-          if(res.result === 1){
+          if (res.result === 1) {
             this.goodsListData = res.data.result;
           }
         })
@@ -171,5 +190,11 @@ export default {
   line-height: 50px;
   overflow: hidden;
   margin-left: 20px;
+}
+.no-goods-tip{
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
 }
 </style>

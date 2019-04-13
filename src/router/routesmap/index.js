@@ -266,5 +266,15 @@ export default [
     path: '/backbuydetails',
     name: 'BackBuyDetails',
     component: resolve => require(['@/components/pages/kachuocash/BackBuyDetails'], resolve),
+  },
+  {
+    path: '/payment',
+    name: 'Payment',
+    component: resolve => require(['@/components/pages/kachuomall/goods/Payment'], resolve),
+  },
+  {
+    path: '/confirmordershoppingcart',
+    name: 'ConfirmOrderShoppingCart',
+    component: resolve => require(['@/components/pages/kachuomall/goods/ConfirmOrderShoppingCart'], resolve),
   }
 ]

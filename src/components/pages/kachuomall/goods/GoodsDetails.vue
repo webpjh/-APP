@@ -238,12 +238,16 @@ export default {
     },
     // 确认清单
     confirmOrder() {
-      this.$router.push(
-        "/confirmorder?id=" +
-          this.$route.query.id +
-          "&priceback=" +
-          this.$route.query.price
-      );
+      if (this.$route.query.price) {
+        this.$router.push(
+          "/confirmorder?id=" +
+            this.$route.query.id +
+            "&priceback=" +
+            this.$route.query.price
+        );
+      } else {
+        this.$router.push("/confirmorder?id=" + this.$route.query.id);
+      }
     },
     // 添加购物车
     addShoppingCart() {
@@ -255,6 +259,12 @@ export default {
             this.$vux.toast.show({
               type: "success",
               text: "添加成功",
+              time: 1000
+            });
+          } else {
+            this.$vux.toast.show({
+              type: "warn",
+              text: res.msg,
               time: 1000
             });
           }

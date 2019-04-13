@@ -22,36 +22,20 @@
           <span class="iconfont iconyoujiantou"></span>
         </div>
       </div>
-      <div class="goods-details-wrap">
+      <div class="goods-details-wrap" v-for="(item,index) in goodsArr" :key="index">
         <div class="goods-details-left">
-          <img class="goods-details-img" :src="imgUrl" :alt="goodsDetails.title">
+          <img class="goods-details-img" :src="item.img" :alt="item.title">
         </div>
         <div class="goods-details-mid">
-          <p>{{goodsDetails.title}}</p>
+          <p>{{item.name}}</p>
           <p style="color:#999999">已选</p>
-          <p style="color:#B7090A">商品价格：¥{{goodsDetails.marketprice}}</p>
-          <!-- <p
-            style="color:#B7090A"
-            v-if="this.$route.query.priceback != undefined"
-          >¥{{this.$route.query.priceback}}</p>-->
+          <p style="color:#B7090A">商品价格：¥{{item.price}}</p>
         </div>
         <div class="goods-details-right">
-          <p>数量：1</p>
+          <p>数量：{{item.num}}</p>
         </div>
       </div>
       <div class="goods-details-desc">
-        <p v-if="this.$route.query.price">
-          <span style="font-size:17px;color:#000">租赁价格：</span>
-          <span>¥{{this.$route.query.price}}</span>
-        </p>
-        <p v-if="!this.$route.query.price && !this.$route.query.priceback">
-          <span style="font-size:17px;color:#000">商品总额：</span>
-          <span>¥{{goodsDetails.marketprice}}</span>
-        </p>
-        <p v-if="this.$route.query.priceback">
-          <span style="font-size:17px;color:#000">寄卖价格：</span>
-          <span>¥{{this.$route.query.priceback}}</span>
-        </p>
         <p>
           <span>优惠</span>
           <span>-¥0.00</span>
@@ -63,15 +47,7 @@
       </div>
     </div>
     <div class="confirm-order-btn-wrap">
-      <p class="confirm-order-desc" v-if="this.$route.query.price">应付：¥{{this.$route.query.price}}</p>
-      <p
-        class="confirm-order-desc"
-        v-if="!this.$route.query.price && !this.$route.query.priceback"
-      >应付：¥{{goodsDetails.marketprice}}</p>
-      <p
-        class="confirm-order-desc"
-        v-if="this.$route.query.priceback"
-      >应付：¥{{this.$route.query.priceback}}</p>
+      <p class="confirm-order-desc">应付：¥{{totalPrice}}</p>
       <p class="confirm-order-btn" @click="confirmOrder">立即下单</p>
     </div>
   </div>
@@ -79,7 +55,7 @@
 
 <script>
 import Header from "@/components/common/Header";
-import { getDetail, getAddressDefault, AddShop } from "@/servers/api";
+import { getDetail, getAddressDefault, goodsBucketSubmit } from "@/servers/api";
 export default {
   name: "",
   props: [""],
@@ -92,7 +68,11 @@ export default {
       },
       addressDetails: {},
       goodsDetails: {},
-      imgUrl: ""
+      imgUrl: "",
+      goodsArr: [],
+      numArr: [],
+      goodsidArr: [],
+      shopidArr: []
     };
   },
 
@@ -103,6 +83,16 @@ export default {
   computed: {
     scenceGiftsContent() {
       return { height: document.documentElement.clientHeight - 45 + "px" };
+    },
+    totalPrice() {
+      let total = 0;
+      let goodsArr = JSON.parse(
+        sessionStorage.getItem("shoppingCartOrderList")
+      );
+      for (let i = 0; i < goodsArr.length; i++) {
+        total += goodsArr[i].price * goodsArr[i].num;
+      }
+      return total;
     }
   },
 
@@ -114,36 +104,31 @@ export default {
   },
 
   methods: {
+    // 计算总价
+    totalPriceFn() {
+      let total = 0;
+      let goodsArr = JSON.parse(
+        sessionStorage.getItem("shoppingCartOrderList")
+      );
+      for (let i = 0; i < goodsArr.length; i++) {
+        total += goodsArr[i].price * goodsArr[i].num;
+      }
+      return total;
+    },
     // 下单
     confirmOrder() {
-      console.log(this.goodsDetails.id);
-      console.log(this.computedPrice());
-      console.log(this.addressDetails.id);
-      console.log(this.checkOrderType());
       if (this.addressDetails.id) {
-        AddShop({
-          gid: this.goodsDetails.id,
-          price: this.computedPrice(),
-          addressid: this.addressDetails.id,
-          type: this.checkOrderType()
+        goodsBucketSubmit({
+          gid: this.goodsidArr, //商品id数组
+          num: this.numArr, //商品个数数组
+          price: this.totalPriceFn(), //价格
+          addressid: this.addressDetails.id, //收获地址
+          shop_id: this.shopidArr //商品列表id
         })
           .then(res => {
             console.log(res);
             if (res.result === 1) {
               this.$router.push("/payment?orderid=" + res.data.result);
-            } else {
-              if (res.code === "50103") {
-                this.$vux.confirm.show({
-                  title:"提示",
-                  content:"订单中该商品未付款，是否到订单中心查看？",
-                  onCancel:()=> {
-                    return;
-                  },
-                  onConfirm:()=> {
-                    this.$router.push("/orderlist");
-                  }
-                });
-              }
             }
           })
           .catch(err => {
@@ -160,47 +145,26 @@ export default {
         });
       }
     },
-    // 判断订单类型
-    // 1正常
-    // 2寄卖
-    // 3租赁
-    checkOrderType() {
-      if (this.$route.query.price) {
-        return 3;
-      } else if (this.$route.query.priceback) {
-        return 2;
-      } else {
-        return 1;
-      }
-    },
-    // 计算价格
-    computedPrice() {
-      if (this.$route.query.price) {
-        return this.$route.query.price;
-      } else if (this.$route.query.priceback) {
-        return this.$route.query.priceback;
-      } else {
-        return this.goodsDetails.marketprice;
-      }
-    },
     selAddress() {
       this.$router.push("/address");
     },
     // 获取商品详情
     getGoodsDetailsInfo() {
-      getDetail({
-        goods_id: this.$route.query.id
-      })
-        .then(res => {
-          console.log(res);
-          if (res.result === 1) {
-            this.goodsDetails = res.data;
-            this.imgUrl = res.data.thumb_url[0];
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      let goodsArr = JSON.parse(
+        sessionStorage.getItem("shoppingCartOrderList")
+      );
+      this.goodsArr = goodsArr;
+      let numArr = [],
+        goodsidArr = [],
+        shopidArr = [];
+      for (let i = 0; i < goodsArr.length; i++) {
+        numArr.push(goodsArr[i].num);
+        goodsidArr.push(goodsArr[i].goodsid);
+        shopidArr.push(goodsArr[i].shopid);
+      }
+      this.numArr = numArr;
+      this.goodsidArr = goodsidArr;
+      this.shopidArr = shopidArr;
     },
     // 获取默认收货地址
     getAddressDefaultFn() {

@@ -21,19 +21,19 @@ export const vueCordovaFunction = {
     }
   },
   /**
-  partnerid: res.data.url.partnerid, // merchant id
-  prepayid: res.data.url.prepayid, // prepay id
-  noncestr: res.data.url.noncestr, // nonce
-  timestamp: res.data.url.timestamp.toString(), // timestamp
-  sign: res.data.url.paySign, // signed string
+  partnerid: res.partnerid, // merchant id
+  prepayid: res.prepayid, // prepay id
+  noncestr: res.noncestr, // nonce
+  timestamp: res.timestamp.toString(), // timestamp
+  sign: res.paySign, // signed string
   **/
   WeixinPay: function (res) {
     let WXparams = {
-      partnerid: res.data.url.partnerid, // merchant id
-      prepayid: res.data.url.prepayid, // prepay id
-      noncestr: res.data.url.noncestr, // nonce
-      timestamp: res.data.url.timestamp.toString(), // timestamp
-      sign: res.data.url.paySign, // signed string
+      partnerid: res.partnerid, // merchant id
+      prepayid: res.prepayid, // prepay id
+      noncestr: res.noncestr, // nonce
+      timestamp: res.timestamp.toString(), // timestamp
+      sign: res.paySign, // signed string
     }
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {

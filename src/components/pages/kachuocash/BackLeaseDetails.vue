@@ -206,7 +206,7 @@ export default {
 }
 .goods-details-desc {
   width: 100%;
-  height: 20px;
+  height: 40px;
   line-height: 40px;
   text-align: center;
 }

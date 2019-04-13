@@ -33,7 +33,7 @@
               <x-button type="primary" mini>取消订单</x-button>
             </p>
             <p style="margin-left:20px">
-              <x-button type="warn" mini>立即付款</x-button>
+              <x-button type="warn" mini @click.native="payOrder(item.ordersn)">立即付款</x-button>
             </p>
           </div>
           <div class="order-state-list-bot-bot" v-show="item.orderState === '1'">
@@ -140,6 +140,10 @@ export default {
   mounted() {},
 
   methods: {
+    // 付款
+    payOrder(id){
+      this.$router.push("/payment?orderid="+id);
+    },
     // 一键寄卖
     sendOrder(orderId) {
       this.$vux.confirm.show({

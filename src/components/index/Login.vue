@@ -6,7 +6,6 @@
       <x-input
         title="手机号"
         class="weui-vcode"
-        mask="999 9999 9999"
         v-model="phoneValue"
         :max="13"
         is-type="china-mobile"
@@ -74,7 +73,6 @@ export default {
       };
       CheckByLocation(postDataObj)
         .then(res => {
-          console.log(res);
           if (res.result === 1) {
             sessionStorage.setItem("currentScenic", res.data.scenic_id);
           }
