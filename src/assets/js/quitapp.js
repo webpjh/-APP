@@ -1,11 +1,9 @@
 //自定义弹框 2s消失
-const Toast = () => {
-  isToast = true;
-  beginDate = new Date().getTime();
+const Toast = (msg, duration) => {
   duration = isNaN(duration) ? 3000 : duration; // duration是不是一个数字    
   var m = document.createElement('div');
   m.innerHTML = msg;
-  m.style.cssText = "width:60%; min-width:150px; background:#000; height:40px; color:#fff; line-height:40px; text-align:center; border-radius:5px; position:fixed; top:80%; left:20%; z-index:999999; font-weight:bold;";
+  m.style.cssText = "width:120px;padding:0 10px;box-sizing:border-box; background:#000; height:40px; color:#fff; line-height:40px; text-align:center; border-radius:5px; position:fixed; top:50%; left:50%;margin-left:-50px; z-index:999999; font-weight:bold;";
   document.body.appendChild(m);
   setTimeout(function () {
     var d = 0.5;
