@@ -325,7 +325,6 @@ export default {
         goods_id: this.$route.query.id
       })
         .then(res => {
-          console.log(res);
           let arr = [];
           if (res.result === 1) {
             this.createVideoDom(true, res.data.sy_video, res.data.thumb_url[0]);

@@ -118,7 +118,6 @@ export default {
         type: 3
       })
         .then(res => {
-          console.log(res);
           if (res.result === 1) {
             if (res.data.result) {
               this.goodsDataList = res.data.result;
