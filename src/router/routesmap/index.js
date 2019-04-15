@@ -276,5 +276,10 @@ export default [
     path: '/confirmordershoppingcart',
     name: 'ConfirmOrderShoppingCart',
     component: resolve => require(['@/components/pages/kachuomall/goods/ConfirmOrderShoppingCart'], resolve),
+  },
+  {
+    path: '/facecheck',
+    name: 'facecheck',
+    component: resolve => require(['@/components/pages/facesource/app'], resolve),
   }
 ]
