@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="sketch">
-      <div class="sketch-img"></div>
+      <div class="sketch-img" :style="sketchImg"></div>
       <p class="sketch-text">
         正面平视手机、保证光线充足
         <br>请勿遮挡面部
@@ -40,12 +40,7 @@
 </template>
 
 <script>
-/**
- * @file 人脸活体检测h5 demo容器组件
- * @author v_yangbin02
- */
 
-// import request from "superagent";
 import verifyCodeModal from "@/components/pages/facesource/components/verifyCodeModal";
 import loading from "@/components/pages/facesource/components/loading";
 import result from "@/components/pages/facesource/components/result";
@@ -72,20 +67,26 @@ export default {
       items: [
         {
           number: 1,
-          text: "牢记验证码，点击开始录制",
+          text: "打开手机相机",
           border: 1
         },
         {
           number: 2,
-          text: "开启前置摄像头，用普通话朗读数字",
+          text: "切换置前置摄像头",
           border: 1
         },
         {
           number: 3,
-          text: "完成录制，等待验证结果",
+          text: "完成拍摄，等待验证结果",
           border: 0
         }
-      ]
+      ],
+      sketchImg:{
+        backgroundImage:'url('+require("@/assets/images/face-img/sketch.png")+')',
+        backgroundSize:"100%",
+        backgroundRepeat:'no-repeat',
+        backgroundPosition:'center'
+      }
     };
   },
 
@@ -182,7 +183,7 @@ export default {
 };
 </script>
 <style lang="less">
-@color-blue: #0073eb;
+@color-blue: #0c0c0c;
 
 html,
 body {
@@ -214,7 +215,7 @@ body {
     width: 14.916rem;
     height: 21.583rem;
     margin: 0 auto;
-    background: url(../../images/sketch.png) 0 0 no-repeat;
+    // background: url('@/assets/images/face-img/sketch.png') 0 0 no-repeat;
     background-size: 100% auto;
   }
 
