@@ -7,8 +7,7 @@
     ></Header>
     <div class="setting-app-content" :style="conHei">
       <CellNoIcon :cellList="cellListToolsA"></CellNoIcon>
-      <!-- <CellNoIcon :cellList="cellListToolsE" v-else-if="authState != -1"></CellNoIcon> -->
-      <!-- <CellNoIcon :cellList="cellListToolsB"></CellNoIcon> -->
+      <!-- <CellNoIcon :cellList="cellLis tToolsB"></CellNoIcon> -->
       <CellNoIcon :cellList="cellListToolsC"></CellNoIcon>
       <CellNoIcon :cellList="cellListToolsD"></CellNoIcon>
       <div class="btn-wrap">
@@ -52,7 +51,8 @@ export default {
           title: "用户名",
           link: "",
           badge: false,
-          text: ""
+          text: "",
+          setNickName:true
         }
       ],
       cellListToolsB: [
@@ -112,7 +112,6 @@ export default {
     setFaceState() {
       let flag = JSON.parse(sessionStorage.getItem("userLoginInfo")).discern;
       if (flag) {
-        console.log(flag);
         this.$set(this.cellListToolsA, 1, {
           title: "人脸识别",
           link: "",

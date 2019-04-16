@@ -61,7 +61,6 @@ export default {
         id: val[0]
       })
         .then(res => {
-          console.log(res);
           if (res.result === 1) {
             this.$vux.toast.show({
               type: "success",
