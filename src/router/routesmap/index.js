@@ -2,8 +2,7 @@ export default [
   {
     path: '/',
     name: 'login',
-    // component: resolve => require(['@/components/index/Login'], resolve),
-    component: resolve => require(['@/components/pages/facerecognition/index'], resolve),
+    component: resolve => require(['@/components/index/Login'], resolve),
     meta:{
       keepAlive:true
     }
@@ -281,6 +280,6 @@ export default [
   {
     path: '/facecheck',
     name: 'facecheck',
-    component: resolve => require(['@/components/pages/facesource/face'], resolve),
+    component: resolve => require(['@/components/pages/facerecognition/index'], resolve),
   }
 ]

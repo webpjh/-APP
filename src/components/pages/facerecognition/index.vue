@@ -16,15 +16,32 @@
         </div>
       </div>
     </div>
-    <x-button type="primary" class="camera-btn" style="width:80%">
-      拍摄
-      <input type="file" class="camera-input" ref="cameraInput" accept="image/*" capture="camera">
-    </x-button>
+    <div class="btn-wrap">
+      <x-button type="primary" class="camera-btn" style="width:80%">
+        拍摄
+        <input
+          type="file"
+          class="camera-input"
+          ref="cameraInput"
+          accept="image/*"
+          capture="camera"
+          @change="getFaceImg($event)"
+        >
+      </x-button>
+    </div>
   </div>
 </template>
 
 <script>
 import { XButton } from "vux";
+import axios from "axios";
+const FACEUPLOADCONFIG = {
+  timeout: 10000,
+  headers: {
+    "Content-Type": "multipart/form-data",
+    Authorization: localStorage.getItem("token")
+  }
+};
 export default {
   components: {
     XButton
@@ -63,7 +80,10 @@ export default {
         backgroundSize: "100%",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center"
-      }
+      },
+      videoUploadUrl:
+        "https://core.kachuo.com/app/ewei_shopv2_app.php?i=5&c=site&a=entry&m=ewei_shopv2&do=mobile&r=util.uploader.uploadm",
+      formData: new FormData()
     };
   },
 
@@ -78,6 +98,51 @@ export default {
   },
 
   methods: {
+    getFaceImg(event) {
+      console.log(event);
+      const files = event.target.files;
+      this.$vux.loading.show({
+        text: "正在识别"
+      });
+      if (files && files.length > 0) {
+        let file = files[0];
+        let self = this;
+
+        if (file.size > 10 * 1024 * 1024) {
+          this.$vux.loading.hide();
+          this.$vux.toast.show({
+            type: "cancel",
+            text: "图片过大",
+            time: 1000
+          });
+          return;
+        }
+        this.formData.append("file", files);
+        let reader = new FileReader();
+        axios
+          .post(this.videoUploadUrl, this.formData, FACEUPLOADCONFIG)
+          .then(res => {
+            if (res.data.result === 1) {
+              this.$vux.loading.hide();
+              this.$vux.toast.show({
+                type: "success",
+                text: "识别成功",
+                time: 1000
+              });
+              this.getImg.push(res.data.data.files[0].url);
+            } else {
+              this.$vux.toast.show({
+                type: "warn",
+                text: "失败请重试",
+                time: 1000
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    },
     onDialogCancel() {
       this.nextDisabled = false;
       this.showVerifyCodeModal = false;
@@ -161,6 +226,14 @@ export default {
 </script>
 <style lang="less">
 @color-blue: #0c0c0c;
+.btn-wrap{
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .camera-input {
   width: 100%;
   height: 100%;
@@ -169,7 +242,7 @@ export default {
   z-index: 999;
   top: -48px;
 }
-.camera-btn{
+.camera-btn {
   width: 80%;
   height: 45px;
   display: inline-block;

@@ -130,9 +130,6 @@ export default {
           };
           return;
         }
-
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
         reader.addEventListener("loadend", function() {
           let formdata = {
             type: "faceliveness_verify",
