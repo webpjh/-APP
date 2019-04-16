@@ -36,9 +36,6 @@ export default {
     // 判断当前路由，浏览器刷新路由不变
     changeVuexCurrentRoute() {
       this.$store.commit("changeCurrentRouteVal", this.$route.path);
-    },
-    pluginEnabled: function(pluginName) {
-      return this.cordova.plugins.indexOf(pluginName) !== -1;
     }
   },
   created() {},

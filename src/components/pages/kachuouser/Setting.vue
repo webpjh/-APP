@@ -6,8 +6,8 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="setting-app-content" :style="conHei">
-      <CellNoIcon :cellList="cellListToolsA" v-if="authState === -1"></CellNoIcon>
-      <CellNoIcon :cellList="cellListToolsE" v-else-if="authState != -1"></CellNoIcon>
+      <CellNoIcon :cellList="cellListToolsA"></CellNoIcon>
+      <!-- <CellNoIcon :cellList="cellListToolsE" v-else-if="authState != -1"></CellNoIcon> -->
       <!-- <CellNoIcon :cellList="cellListToolsB"></CellNoIcon> -->
       <CellNoIcon :cellList="cellListToolsC"></CellNoIcon>
       <CellNoIcon :cellList="cellListToolsD"></CellNoIcon>
@@ -48,44 +48,11 @@ export default {
           badge: true,
           text: "未认证"
         },
-        // {
-        //   title: "我的账号",
-        //   link: "",
-        //   badge: false,
-        //   text: ""
-        // },
         {
           title: "用户名",
           link: "",
           badge: false,
           text: ""
-        }
-      ],
-      cellListToolsE: [
-        {
-          title: "实名认证",
-          link: "/realnameauthstate",
-          badge: false,
-          text: ""
-        },
-        {
-          title: "人脸识别",
-          link: "/face",
-          badge: true,
-          text: "未认证"
-        },
-        // {
-        //   title: "我的账号",
-        //   link: "",
-        //   badge: false,
-        //   text: ""
-        // },
-        {
-          title: "用户名",
-          link: "",
-          badge: false,
-          text: "",
-          setNickName: true
         }
       ],
       cellListToolsB: [
@@ -132,16 +99,38 @@ export default {
       return { height: document.documentElement.clientHeight - 45 + "px" };
     }
   },
-
+  created() {},
   beforeMount() {},
 
   mounted() {
     this.getAuthState();
+    this.setFaceState();
   },
 
   methods: {
+    // 设置人脸识别状态
+    setFaceState() {
+      let flag = JSON.parse(sessionStorage.getItem("userLoginInfo")).discern;
+      if (flag) {
+        console.log(flag);
+        this.$set(this.cellListToolsA, 1, {
+          title: "人脸识别",
+          link: "",
+          badge: true,
+          text: "已认证"
+        });
+      } else {
+        this.$set(this.cellListToolsA, 1, {
+          title: "人脸识别",
+          link: "/face",
+          badge: true,
+          text: "未认证"
+        });
+      }
+    },
     quitAppLogin() {
       localStorage.removeItem("token");
+      this.$store.commit("changeTabIndex", 0);
       this.$router.push("/");
     },
     // 查询实名认证状态
@@ -150,6 +139,35 @@ export default {
         .then(res => {
           if (res) {
             this.authState = res.data.code;
+            if (res.data.code === 0) {
+              this.$set(this.cellListToolsA, 0, {
+                title: "实名认证",
+                link: "/realnameauthstate",
+                badge: true,
+                text: "审核中"
+              });
+            } else if (res.data.code === 1) {
+              this.$set(this.cellListToolsA, 0, {
+                title: "实名认证",
+                link: "/realnameauthstate",
+                badge: true,
+                text: "审核通过"
+              });
+            } else if (res.data.code === 2) {
+              this.$set(this.cellListToolsA, 0, {
+                title: "实名认证",
+                link: "/realnameauthstate",
+                badge: true,
+                text: "审核未通过"
+              });
+            } else {
+              this.$set(this.cellListToolsA, 0, {
+                title: "实名认证",
+                link: "/realnameauth",
+                badge: true,
+                text: "未认证"
+              });
+            }
           }
         })
         .catch(err => {

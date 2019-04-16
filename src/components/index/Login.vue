@@ -115,8 +115,7 @@ export default {
                   this.getLocationData();
                 }
               });
-              // this.$router.push("/indextab");
-                this.$router.push("/facecheck");
+              this.$router.push("/indextab");
             } else {
               if (res.code === 90000) {
                 this.showToastInfo("验证码错误或过期");
@@ -127,8 +126,7 @@ export default {
               } else if (res.code === 10006) {
                 this.showToastInfo("手机号不一致");
               } else {
-                this.$router.push("/facecheck");
-                // this.$router.push("/indextab");
+                this.$router.push("/indextab");
               }
             }
           })

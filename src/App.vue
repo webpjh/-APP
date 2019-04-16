@@ -38,6 +38,7 @@ export default {
     vueCordovaFunction.getLocation();
     vueCordovaFunction.socialShare();
     appVersion();
+    sessionStorage.setItem("closeFace", 0);
   },
   beforeRouteUpdate(to, from, next) {
     next(vm => {
