@@ -2,6 +2,7 @@
   <div>
     <div class="sketch">
       <div class="sketch-img" :style="sketchImg"></div>
+      <p @click="jumpFacefn">跳过</p>
       <p class="sketch-text">
         正面平视手机、保证光线充足
         <br>请勿遮挡面部
@@ -98,6 +99,9 @@ export default {
   },
 
   methods: {
+    jumpFacefn(){
+      this.$router.push("/indextab");
+    },
     getFaceImg(event) {
       console.log(event);
       const files = event.target.files;

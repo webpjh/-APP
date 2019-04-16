@@ -281,5 +281,10 @@ export default [
     path: '/facecheck',
     name: 'facecheck',
     component: resolve => require(['@/components/pages/facerecognition/index'], resolve),
+  },
+  {
+    path: '/face',
+    name: 'face',
+    component: resolve => require(['@/components/pages/facerecognition/face'], resolve),
   }
 ]

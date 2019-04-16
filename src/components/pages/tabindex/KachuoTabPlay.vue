@@ -1,15 +1,17 @@
 <template>
-  <div class="tab-item-paly-wrap">
-    <TabItemPlayHeader></TabItemPlayHeader>
-    <TabItemPlayContent></TabItemPlayContent>
+  <div>
+    <FaceToast></FaceToast>
+    <div class="tab-item-paly-wrap">
+      <TabItemPlayHeader></TabItemPlayHeader>
+      <TabItemPlayContent></TabItemPlayContent>
+    </div>
   </div>
 </template>
 
 <script>
-
-import TabItemPlayHeader from '@/components/layout/TabItemPlayHeader'
-import TabItemPlayContent from '@/components/layout/TabItemPlayContent'
-
+import TabItemPlayHeader from "@/components/layout/TabItemPlayHeader";
+import TabItemPlayContent from "@/components/layout/TabItemPlayContent";
+import FaceToast from "@/components/layout/FaceToast";
 export default {
   name: "",
   props: [""],
@@ -19,7 +21,8 @@ export default {
 
   components: {
     TabItemPlayHeader,
-    TabItemPlayContent
+    TabItemPlayContent,
+    FaceToast
   },
 
   computed: {},
@@ -36,7 +39,7 @@ export default {
 };
 </script>
 <style lang='css' scoped>
-.tab-item-paly-wrap{
+.tab-item-paly-wrap {
   background: #f5f5f5;
 }
 </style>

@@ -320,3 +320,6 @@ export const getScenicMerchants = (data) => http.post("scenic.index", data);
 
 // 获取景区商家数据详情
 export const getScenicMerchantsDetails = (data) => http.post("scenic.index.business_info", data);
+
+// 人脸识别
+export const faceCheck = (data) => http.post("discern.index", data);

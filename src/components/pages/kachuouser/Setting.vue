@@ -42,6 +42,12 @@ export default {
           badge: true,
           text: "未认证"
         },
+        {
+          title: "人脸识别",
+          link: "/face",
+          badge: true,
+          text: "未认证"
+        },
         // {
         //   title: "我的账号",
         //   link: "",
@@ -61,6 +67,12 @@ export default {
           link: "/realnameauthstate",
           badge: false,
           text: ""
+        },
+        {
+          title: "人脸识别",
+          link: "/face",
+          badge: true,
+          text: "未认证"
         },
         // {
         //   title: "我的账号",
