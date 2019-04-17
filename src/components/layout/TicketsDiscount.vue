@@ -19,7 +19,7 @@
           </p>
         </div>
         <div>
-          <x-button mini type="primary" style="border-radius:15px">立即购票</x-button>
+          <x-button mini type="primary" style="border-radius:15px" @click.native="buyTickets">立即购票</x-button>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
 
 <script>
 import { XButton } from "vux";
-
+import { TicketsList } from "@/servers/api";
 export default {
   name: "",
   props: [""],
@@ -75,9 +75,24 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.getDataList();
+  },
 
-  methods: {},
+  methods: {
+    getDataList() {
+      TicketsList({})
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    buyTickets() {
+      this.$router.push("/ticketsdetails");
+    }
+  },
 
   watch: {}
 };
@@ -90,14 +105,14 @@ export default {
 .font-size-12 {
   font-size: 12px;
 }
-.price-discount{
-  color:#666;
+.price-discount {
+  color: #666;
   margin-left: 6px;
 }
-.tickets-discount-list-wrap{
+.tickets-discount-list-wrap {
   background: #f9f9f9;
 }
-.tickets-discount-list{
+.tickets-discount-list {
   width: 100%;
   height: 250px;
   overflow: hidden;

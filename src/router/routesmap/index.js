@@ -286,5 +286,15 @@ export default [
     path: '/face',
     name: 'face',
     component: resolve => require(['@/components/pages/facerecognition/face'], resolve),
+  },
+  {
+    path: '/ticketsorder',
+    name: 'TicketsOrder',
+    component: resolve => require(['@/components/pages/kachuouser/TicketsOrder'], resolve),
+  },
+  {
+    path: '/ticketsdetails',
+    name: 'TicketsDetails',
+    component: resolve => require(['@/components/pages/kachuoplay/toolslist/TicketsDetails'], resolve),
   }
 ]

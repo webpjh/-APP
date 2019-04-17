@@ -9,7 +9,6 @@
 </template>
 
 <script>
-
 import TabPersonCenterHeader from "@/components/layout/TabItemPersonHeader.vue";
 import AppUserInfo from "@/components/layout/AppUserInfo.vue";
 import DividedArea from "@/components/common/DividedArea.vue";
@@ -39,9 +38,14 @@ export default {
           link: "/ShoppingCart"
         },
         {
-          title: "订单",
+          title: "商品订单",
           icon: "iconfont icondingdan",
           link: "/orderlist"
+        },
+        {
+          title: "我的门票",
+          icon: "iconfont iconmenpiaodingdan",
+          link: "/ticketsorder"
         }
       ],
       cellListToolsC: [
@@ -72,9 +76,7 @@ export default {
 
   mounted() {},
 
-  methods: {
-
-  },
+  methods: {},
 
   watch: {}
 };

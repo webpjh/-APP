@@ -24,7 +24,7 @@ export default {
       TitleObjData: {
         titleContent: "票务打折",
         showLeftBack: true,
-        showRightMore: true
+        showRightMore: false
       }
     };
   },

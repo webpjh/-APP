@@ -323,3 +323,6 @@ export const getScenicMerchantsDetails = (data) => http.post("scenic.index.busin
 
 // 人脸识别
 export const faceCheck = (data) => http.post("discern.index", data);
+
+// 门票列表
+export const TicketsList = (data) => http.post("goods.buy.getDoorList", data);
