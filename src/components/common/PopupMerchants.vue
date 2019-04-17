@@ -53,13 +53,14 @@ export default {
         id: id
       })
         .then(res => {
-          console.log(res);
           if (res.result === 1) {
             this.showBottom = true;
             if (res.data) {
               this.$store.commit("changeNavigationDetailsState", true);
               this.descDetails = res.data;
-              this.createVideoDom(true, res.data.video,res.data.video_image);
+              if (res.data.video) {
+                this.createVideoDom(true, res.data.video, res.data.video_image);
+              }
             }
           } else {
             this.showBottom = false;
@@ -77,7 +78,7 @@ export default {
     hide() {
       this.$store.commit("changeNavigationDetailsState", false);
     },
-    createVideoDom(flag, video,img) {
+    createVideoDom(flag, video, img) {
       new ChimeeMobilePlayer({
         wrapper: "#wrapper",
         src: video,

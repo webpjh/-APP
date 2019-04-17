@@ -62,8 +62,8 @@ export default {
               for (let i = 0; i < res.data.length; i++) {
                 markerArr.push({
                   position: [
-                    parseFloat(res.data[i].longitude),
-                    parseFloat(res.data[i].latitude)
+                    parseFloat(res.data[i].latitude),
+                    parseFloat(res.data[i].longitude)
                   ],
                   label: res.data[i].name,
                   id: res.data[i].id
