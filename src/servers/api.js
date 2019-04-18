@@ -72,7 +72,7 @@ export const aliNotify = (data) => http.post("goods.buy.aliNotify", data);
 //频类首页图
 export const Frequency = (data) => http.post("video.index", data);
 
-//频类详情图
+//频类详情
 export const FrequencyDetail = (data) => http.post("video.index.getvideo", data);
 
 //频类评论

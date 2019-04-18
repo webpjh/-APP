@@ -25,6 +25,11 @@ export default {
     return {
       cellListTools: [
         {
+          title: "品类视频",
+          icon: "iconfont iconpinleishipin",
+          link: "/goodsVideoclassify?title=品类视频"
+        },
+        {
           title: "景区消费",
           icon: "iconfont iconjingquxiaofei",
           link: "/scenceconsum?title=景区消费"
@@ -41,7 +46,7 @@ export default {
         }
       ],
       dividerContent: "猜你喜欢",
-      goodsListData:[]
+      goodsListData: []
     };
   },
 

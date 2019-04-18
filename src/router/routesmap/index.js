@@ -296,5 +296,15 @@ export default [
     path: '/ticketsdetails',
     name: 'TicketsDetails',
     component: resolve => require(['@/components/pages/kachuoplay/toolslist/TicketsDetails'], resolve),
+  },
+  {
+    path: '/goodsVideoclassify',
+    name: 'GoodsVideoClassify',
+    component: resolve => require(['@/components/pages/kachuomall/GoodsVideoClassify'], resolve),
+  },
+  {
+    path: '/goodsVideoclassifydetails',
+    name: 'GoodsVideoClassifyDetails',
+    component: resolve => require(['@/components/pages/kachuomall/GoodsVideoClassifyDetails'], resolve),
   }
 ]
