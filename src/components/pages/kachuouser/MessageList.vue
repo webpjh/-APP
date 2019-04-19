@@ -36,16 +36,6 @@ export default {
           content:
             "卡戳app10.0全新功能开启，全新UI设计卡戳app10.0全新功能开启，全新UI设计卡戳app10.0全新功能开启，全新UI设计卡戳app10.0全新功能开启，全新UI设计",
           date: "2019-3-11"
-        },
-        {
-          title: "卡戳app10.0上线",
-          content: "卡戳app10.0全新功能开启，全新UI设计",
-          date: "2019-3-11"
-        },
-        {
-          title: "卡戳app10.0上线",
-          content: "卡戳app10.0全新功能开启，全新UI设计",
-          date: "2019-3-11"
         }
       ]
     };

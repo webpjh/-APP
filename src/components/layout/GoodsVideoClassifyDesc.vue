@@ -96,7 +96,7 @@ export default {
   overflow: hidden;
 }
 .scence-story-details-desc-name {
-  flex: 3;
+  flex: 1;
   font-weight: bold;
 }
 .scence-story-details-desc-click {
