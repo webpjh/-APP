@@ -1,5 +1,5 @@
 <template>
-  <div :style="contentSty">
+  <div class="goods-wrap" :style="contentSty">
     <div
       class="order-state-list-wrap"
       v-for="(item,index) in orderData"
@@ -59,6 +59,11 @@ export default {
 };
 </script>
 <style lang='css' scoped>
+.goods-wrap{
+  width: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
 .font-12-px {
   font-size: 12px;
   color: #999;

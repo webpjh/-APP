@@ -6,7 +6,8 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="photo-album-content" :style="conHei">
-      <BetterScroll></BetterScroll>
+      <!-- <BetterScroll></BetterScroll> -->
+      <p class="tip">敬请期待!</p>
     </div>
   </div>
 </template>
@@ -57,5 +58,15 @@ export default {
   width: 100%;
   background: #f9f9f9;
   margin-top: 50px;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.tip{
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
 }
 </style>
