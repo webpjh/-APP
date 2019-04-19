@@ -36,13 +36,23 @@ export const getBannerImg = (type, height) => {
 export const serverAPPVersion = () => {
   getUpdateInfo().then(res => {
     if (res.result === 1) {
-      serverVersion = res.data.up_edition;
-      isFroceUpdate = parseInt(res.data.up_type, 10) === 1 ? false : true;
+      // android更新版本
+      let serverAndroidVersion = res.data.androidUp_edition;
+      // ios更新版本
+      let serverIosVersion = res.data.iosUp_edition;
+      // 是否强制更新
+      let isFroceUpdate = parseInt(res.data.up_type, 10) === 1 ? false : true;
       // 如果版本不一致
-      if (localVersion != serverVersion) {
+      if (localVersion != serverAndroidVersion) {
+        // 更新android
+        store.commit("updateshowActionDialogStatus", true);
+        store.commit("getAPPUpdateInfo", { isForce: isFroceUpdate, content: res.data.up_content });
+      } else if (localVersion != serverIosVersion) {
+        // 更新ios
         store.commit("updateshowActionDialogStatus", true);
         store.commit("getAPPUpdateInfo", { isForce: isFroceUpdate, content: res.data.up_content });
       } else {
+        // 不更新
         return;
       }
     }

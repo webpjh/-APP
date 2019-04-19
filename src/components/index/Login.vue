@@ -122,7 +122,6 @@ export default {
               } else if (res.code === 10005) {
                 this.showToastInfo("手机号不能为空");
               } else if (res.code === "1002" || res.code === 1002) {
-                console.log(res.code);
               } else if (res.code === 10006) {
                 this.showToastInfo("手机号不一致");
               } else {

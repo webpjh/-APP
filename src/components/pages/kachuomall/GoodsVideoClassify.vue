@@ -6,7 +6,6 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="position-box" :style="contentNoHeaderHeight">
-      <!-- <VideoList :dataList="items"></VideoList> -->
       <div class="video-list-for" v-for="(item,index) in items" :key="index" @click="getDetailFn(item.id)">
         <img v-lazy="item.show_img" :alt="item.title" srcset>
       </div>
