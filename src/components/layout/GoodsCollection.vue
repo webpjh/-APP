@@ -1,23 +1,19 @@
 <template>
-  <div>
-    <div class="order-state-list-wrap" v-for="(item,index) in orderData" :key="index">
+  <div :style="contentSty">
+    <div
+      class="order-state-list-wrap"
+      v-for="(item,index) in orderData"
+      :key="index"
+      @click="getGoodsDetails(item.comment.id)"
+    >
       <div class="order-state-list-mid">
         <div class="order-state-list-mid-left">
-          <img class="goods-img" :src="item.goodImg" alt srcset>
+          <img class="goods-img" v-lazy="item.comment.thumb" alt srcset>
           <p class="goods-img-desc">
-            <span class="text-overflow-hidden">{{item.name}}</span>
-            <span class="font-12-px">{{item.spec}}</span>
-            <span>价格：{{item.price}}</span>
-          </p>
-        </div>
-      </div>
-      <div class="order-state-list-bot">
-        <div class="order-state-list-bot-bot">
-          <p>
-            <x-button type="warn" mini>删除</x-button>
-          </p>
-          <p style="margin-left:20px">
-            <x-button type="primary" mini>购买</x-button>
+            <span class="text-overflow-hidden">{{item.comment.title}}</span>
+            <!-- <span class="font-12-px">{{item.spec}}</span> -->
+            <span>价格：{{item.comment.marketprice}}</span>
+            <!-- <span>收藏时间：{{item.createtime | formDate}}</span> -->
           </p>
         </div>
       </div>
@@ -27,6 +23,7 @@
 
 <script>
 import { XButton } from "vux";
+import { getLocalTime } from "@/assets/js/tools";
 export default {
   name: "",
   props: ["orderData"],
@@ -37,14 +34,26 @@ export default {
   components: {
     XButton
   },
-
-  computed: {},
+  filters: {
+    formDate(val) {
+      return getLocalTime(val);
+    }
+  },
+  computed: {
+    contentSty() {
+      return { height: document.documentElement.clientHeight - 100 + "px" };
+    }
+  },
 
   beforeMount() {},
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    getGoodsDetails(id) {
+      this.$router.push("/goodsdetails?id=" + id);
+    }
+  },
 
   watch: {}
 };
@@ -56,7 +65,7 @@ export default {
 }
 .order-state-list-wrap {
   width: 100%;
-  height: 120px;
+  height: 100px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -78,7 +87,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  /* border-bottom: 1px solid #eee; */
   box-sizing: border-box;
 }
 .order-state-list-bot {
@@ -102,7 +111,7 @@ export default {
   display: inline-block;
 }
 .goods-img-desc {
-  width: 150px;
+  width: 200px;
   display: flex;
   flex-direction: column;
   margin-left: 10px;

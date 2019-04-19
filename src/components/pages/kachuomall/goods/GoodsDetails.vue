@@ -326,6 +326,7 @@ export default {
       })
         .then(res => {
           let arr = [];
+          console.log(res);
           if (res.result === 1) {
             this.createVideoDom(true, res.data.sy_video, res.data.thumb_url[0]);
             if (res.data.favorite) {

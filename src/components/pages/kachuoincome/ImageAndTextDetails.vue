@@ -6,7 +6,17 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="scroll-content-wrap" :style="conHeight">
-      <SwiperImg class="z-index-sty" :SwiperImgData="SwiperImgData"></SwiperImg>
+      <!-- <SwiperImg class="z-index-sty" :SwiperImgData="SwiperImgData"></SwiperImg> -->
+      <swiper class="z-index-sty" :options="swiperOption">
+        <swiper-slide
+          v-for="(item, index) in SwiperImgData.ImgList"
+          class="img-swiper-wrap"
+          :key="index"
+        >
+          <img v-lazy="item.img" alt srcset class="img-swiper-wrap-img-lis">
+        </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
       <ImgAndTextNoteDetailsUserInfo
         style="background:#fff"
         :detailsObj="descContent"
@@ -38,6 +48,8 @@ import CommentList from "@/components/layout/CommentList";
 import DividedArea from "@/components/common/DividedArea";
 import Comments from "@/components/common/Comments";
 import { SeourceCreatedListDetails } from "@/servers/api";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+import "swiper/dist/css/swiper.css";
 
 export default {
   name: "",
@@ -51,6 +63,12 @@ export default {
         loop: true,
         auto: true,
         height: "220px"
+      },
+      swiperOption: {
+        autoplay: true,
+        pagination: {
+          el: ".swiper-pagination"
+        }
       },
       pullDownRefreshObj: {
         threshold: 40,
@@ -72,7 +90,9 @@ export default {
     ImgAndTextNoteDetailsUserInfo,
     CommentList,
     DividedArea,
-    Comments
+    Comments,
+    swiper,
+    swiperSlide
   },
 
   computed: {
@@ -139,6 +159,7 @@ export default {
         type: this.$route.query.type
       })
         .then(res => {
+          console.log(res);
           if (res.result === 1) {
             this.descContent = res.data.video;
             this.commitDataList = res.data.comment;
@@ -187,5 +208,16 @@ export default {
 .z-index-sty {
   position: relative;
   z-index: 9999;
+}
+.img-swiper-wrap {
+  width: 100%;
+  height: 170px;
+}
+.img-swiper-wrap-img-lis {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  border-radius: 4px;
+  object-fit: contain;
 }
 </style>

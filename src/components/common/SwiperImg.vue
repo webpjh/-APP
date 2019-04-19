@@ -23,11 +23,13 @@ export default {
   ready() {},
   methods: {
     setLoopImg() {
-      this.$nextTick(() => {
-        this.SwiperImgData.ImgList = JSON.parse(
-          JSON.stringify(this.$store.state.carousel)
-        );
-      });
+      if (this.$route.path != "/imageandtextdetails") {
+        this.$nextTick(() => {
+          this.SwiperImgData.ImgList = JSON.parse(
+            JSON.stringify(this.$store.state.carousel)
+          );
+        });
+      }
     }
   },
   data() {

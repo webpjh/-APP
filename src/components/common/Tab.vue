@@ -32,6 +32,7 @@ export default {
   methods: {
     switchTabItem(index) {
       this.index = index;
+      this.$emit("currentIndex",index);
       let orderState = "9999";
       switch (index) {
         case 0:

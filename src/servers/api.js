@@ -326,3 +326,9 @@ export const faceCheck = (data) => http.post("discern.index", data);
 
 // 门票列表
 export const TicketsList = (data) => http.post("goods.buy.getDoorList", data);
+
+// 我的收藏列表
+export const CollectionList = (data) => http.post("member.realname.getMember_favorite", data);
+
+// 获取收藏初始状态
+export const GetCollectionInit = (data) => http.post("member.realname.get_favoriteState", data);

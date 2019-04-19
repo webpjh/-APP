@@ -5,24 +5,29 @@
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <Tab style="margin-top:50px" :tabList="tabListCon" ref="tabItem"></Tab>
+    <Tab
+      style="margin-top:50px"
+      :tabList="tabListCon"
+      ref="tabItem"
+      v-on:currentIndex="getCurrentINdex"
+    ></Tab>
     <div class="con-hei-wrap" :style="conSty">
-      <!-- <GoodsCollection :orderData="dataList"></GoodsCollection> -->
-      <!-- <JonuaryCollection></JonuaryCollection> -->
-      <!-- <NotesCollection></NotesCollection> -->
-      <LectureCollection></LectureCollection>
+      <GoodsCollection v-if="showIndex === 0" :orderData="dataList"></GoodsCollection>
+      <JonuaryCollection v-if="showIndex === 1" :dataList="dataList"></JonuaryCollection>
+      <NotesCollection v-if="showIndex === 2" :dataList="dataList"></NotesCollection>
+      <LectureCollection v-if="showIndex === 3" :dataList="dataList"></LectureCollection>
     </div>
   </div>
 </template>
 
 <script>
-
 import Header from "@/components/common/Header";
 import Tab from "@/components/common/Tab";
 import GoodsCollection from "@/components/layout/GoodsCollection";
 import JonuaryCollection from "@/components/layout/JonuaryCollection";
 import NotesCollection from "@/components/layout/NotesCollection";
 import LectureCollection from "@/components/layout/LectureCollection";
+import { CollectionList } from "@/servers/api";
 
 export default {
   name: "",
@@ -35,68 +40,8 @@ export default {
         showRightMore: false
       },
       tabListCon: ["作品", "旅拍", "游记", "讲堂"],
-      dataList: [
-        {
-          classify: "景区好礼",
-          orderState: "已完成",
-          goodImg:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "书法",
-          spec: "60cm",
-          price: "220",
-          count: "1",
-          date: "2018-01-1",
-          priceCount: "300"
-        },
-        {
-          classify: "景区好礼",
-          orderState: "已完成",
-          goodImg:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "书法",
-          spec: "60cm",
-          price: "220",
-          count: "1",
-          date: "2018-01-1",
-          priceCount: "300"
-        },
-        {
-          classify: "景区好礼",
-          orderState: "已完成",
-          goodImg:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "书法",
-          spec: "60cm",
-          price: "220",
-          count: "1",
-          date: "2018-01-1",
-          priceCount: "300"
-        },
-        {
-          classify: "景区好礼",
-          orderState: "已完成",
-          goodImg:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "书法",
-          spec: "60cm",
-          price: "220",
-          count: "1",
-          date: "2018-01-1",
-          priceCount: "300"
-        },
-        {
-          classify: "景区好礼",
-          orderState: "已完成",
-          goodImg:
-            "http://h.hiphotos.baidu.com/image/h%3D300/sign=7cd08c6c3712b31bd86ccb29b6183674/730e0cf3d7ca7bcb051bd704b0096b63f624a8bc.jpg",
-          name: "书法",
-          spec: "60cm",
-          price: "220",
-          count: "1",
-          date: "2018-01-1",
-          priceCount: "300"
-        }
-      ]
+      dataList: [],
+      showIndex: 0
     };
   },
 
@@ -117,13 +62,43 @@ export default {
 
   beforeMount() {},
 
-  updated() {
-    console.log(this.$refs.tabItem)
+  updated() {},
+
+  mounted() {
+    this.getInitData(1);
   },
 
-  mounted() {},
-
-  methods: {},
+  methods: {
+    getCurrentINdex(val) {
+      this.showIndex = val;
+      let type = 1;
+      if(val === 0){
+        type = 1;
+      }else if(val === 1){
+        type = 9;
+      }else if(val === 2){
+        type = 10;
+      }else{
+        type = 8;
+      }
+      this.getInitData(type);
+    },
+    getInitData(type){
+      this.dataList = [];
+      CollectionList({
+        type:type
+      })
+      .then(res =>{
+        console.log(res);
+        if(res.result === 1){
+          this.dataList = res.data.result;
+        }
+      })
+      .catch(err =>{
+        console.log(err);
+      })
+    }
+  },
 
   watch: {}
 };
