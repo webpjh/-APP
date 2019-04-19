@@ -332,3 +332,6 @@ export const CollectionList = (data) => http.post("member.realname.getMember_fav
 
 // 获取收藏初始状态
 export const GetCollectionInit = (data) => http.post("member.realname.get_favoriteState", data);
+
+// 意见反馈
+export const OpinionBack = (data) => http.post("dynamic.index.YjFk_save", data);
