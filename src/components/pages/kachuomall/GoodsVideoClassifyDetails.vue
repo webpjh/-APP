@@ -123,7 +123,6 @@ export default {
         page: 1
       })
         .then(res => {
-          console.log(res);
           let arr = [];
           if (res.result === 1) {
             if (res.data.video) {
