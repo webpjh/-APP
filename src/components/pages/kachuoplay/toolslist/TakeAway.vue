@@ -45,7 +45,7 @@ export default {
         showLeftBack: true,
         showRightMore: false
       },
-      title: "景区微商城",
+      title: "景区商城",
       page: 0,
       list: [],
       refreshText: "下拉刷新",
@@ -111,7 +111,7 @@ export default {
       return new Promise(resolve => {
         let arr = [];
         TakeAwayGoodsList({
-          scenic_id: 27,
+          scenic_id: sessionStorage.getItem("currentScenic"),
           page: this.page
         })
           .then(res => {

@@ -97,7 +97,7 @@ export default {
   box-sizing: border-box;
 }
 .comments-wrap-input {
-  width: 74%;
+  flex: 5;
   height: 34px;
   outline: none;
   border-radius: 4px;
@@ -107,6 +107,7 @@ export default {
   font-size: 14px;
 }
 .comments-wrap-btn {
+  flex: 1;
   margin-left: 24px;
 }
 </style>

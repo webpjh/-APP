@@ -196,42 +196,23 @@ export default {
     // 初始化
     initData() {
       let dataArr = [];
-      let dataArrData = {
-        name: "",
-        wc: "",
-        yc: "",
-        sy: "",
-        jy: "",
-        sm: "",
-        rh: ""
-      };
       verifyGoodsDetalis({
         goods_id: this.$route.query.id
       })
         .then(res => {
+          console.log(res);
           if (res.result === 1) {
             this.goodInfo = res.data.goods;
-            if (res.data.blockCurlData.data) {
-              for (
-                let i = 0;
-                i < res.data.blockCurlData.data.rows.length;
-                i++
-              ) {
-                let flag = res.data.blockCurlData.data.rows[i].strData.indexOf(
-                  "{"
-                );
-                if (flag !== -1) {
-                  dataArr.push({
-                    owner: res.data.blockCurlData.data.rows[i].owner,
-                    strData: JSON.parse(
-                      res.data.blockCurlData.data.rows[i].strData
-                    )
-                      ? JSON.parse(res.data.blockCurlData.data.rows[i].strData)
-                      : "",
-                    strType: res.data.blockCurlData.data.rows[i].strType
-                  });
-                }
+            let objData = res.data.blockCurlData.data;
+            if (objData) {
+              for (let i = 0; i < objData.rows.length; i++) {
+                dataArr.push({
+                  owner: objData.rows[i].owner,
+                  strData: JSON.parse(objData.rows[i].strData),
+                  strType: objData.rows[i].strType
+                });
               }
+              console.log(dataArr);
               for (let i = 0; i < dataArr.length; i++) {
                 if (dataArr[i].strType === "yc") {
                   this.blockChainList.name = dataArr[i].owner;

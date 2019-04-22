@@ -202,17 +202,18 @@ export default {
   methods: {
     showSourceVideo() {
       this.showSourceModel = true;
+      this.createVideoDom();
     },
     createVideoDom(flag, videoUrl, posterImg) {
-      if (!videoUrl) {
+      if (!this.goodsData.sy_video) {
         return;
       }
       new ChimeeMobilePlayer({
         wrapper: "#wrapper",
-        src: videoUrl,
+        src: this.goodsData.sy_video,
         autoplay: false,
-        poster: posterImg,
-        controls: flag,
+        poster: this.goodsData.thumb_url[0],
+        controls: true,
         playsInline: true,
         preload: "auto",
         x5VideoPlayerFullscreen: true,
@@ -328,7 +329,6 @@ export default {
           let arr = [];
           console.log(res);
           if (res.result === 1) {
-            this.createVideoDom(true, res.data.sy_video, res.data.thumb_url[0]);
             if (res.data.favorite) {
               this.collectState = true;
             } else {

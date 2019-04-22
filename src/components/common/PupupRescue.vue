@@ -5,7 +5,7 @@
         <p class="rescue-title">一键救援</p>
         <div class="rescue-content">
           <span class="iconfont iconyijianjiuyuan"></span>
-          <a href="tel: 15701309073">15701309073</a>
+          <a href="tel: " v-for="(item,index) in phoneNum" :key="index">{{item}}</a>
         </div>
       </div>
     </popup>
@@ -14,6 +14,7 @@
 
 <script>
 import { TransferDom, Popup, Group } from "vux";
+import { getScenicPhoneByScenicId } from "@/assets/js/common";
 export default {
   directives: {
     TransferDom
@@ -37,6 +38,10 @@ export default {
         return this.$parent.showRescueP;
       },
       set() {}
+    },
+    phoneNum() {
+      let id = sessionStorage.getItem("currentScenic");
+      return getScenicPhoneByScenicId(id);
     }
   },
 

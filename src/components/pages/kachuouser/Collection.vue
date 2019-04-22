@@ -89,7 +89,6 @@ export default {
         type:type
       })
       .then(res =>{
-        console.log(res);
         if(res.result === 1){
           this.dataList = res.data.result;
         }

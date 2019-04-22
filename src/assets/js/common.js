@@ -1,6 +1,7 @@
 import { AdvertiseLoop, getUpdateInfo } from "@/servers/api";
 import store from "@/store/index";
 import { checkMobileSystem } from "@/assets/js/tools";
+import { SCENICLIST } from "@/assets/data/scenic";
 
 let localVersion = "";
 let serverVersion = "";
@@ -149,5 +150,14 @@ export const getScenicNameByScenicId = (id) => {
     default:
       return "蓬莱阁";
       break;
+  }
+}
+
+// 根据景区id返回景区管理处电话
+export const getScenicPhoneByScenicId = (id) => {
+  for (let i = 0; i < SCENICLIST.length; i++) {
+    if (SCENICLIST[i].id === id) {
+      return SCENICLIST[i].tel;
+    }
   }
 }

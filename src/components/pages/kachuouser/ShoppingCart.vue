@@ -39,7 +39,7 @@ export default {
   props: [""],
   data() {
     return {
-      desc: "精选好物",
+      desc: "推荐商品",
       TitleObjData: {
         titleContent: "购物车",
         showLeftBack: true,

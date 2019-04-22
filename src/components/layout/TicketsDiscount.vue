@@ -41,7 +41,7 @@ export default {
       dataList: [
         {
           imgSrc:
-            "http://b.hiphotos.baidu.com/image/h%3D300/sign=4262ea29f6dcd100d29cfe21428a47be/78310a55b319ebc4cee036bd8c26cffc1e17167d.jpg",
+            "https://core.kachuo.com/attachment/images/5/2019/04/kR3m3mA77WZPAg3WWW2wWuWYm3PwW7.png",
           distance: "500km",
           name: "蓬莱阁",
           price: "¥110",
@@ -49,7 +49,7 @@ export default {
         },
         {
           imgSrc:
-            "http://b.hiphotos.baidu.com/image/h%3D300/sign=4262ea29f6dcd100d29cfe21428a47be/78310a55b319ebc4cee036bd8c26cffc1e17167d.jpg",
+            "https://core.kachuo.com/attachment/images/5/2019/04/kR3m3mA77WZPAg3WWW2wWuWYm3PwW7.png",
           distance: "500km",
           name: "蓬莱阁",
           price: "¥110",
@@ -57,7 +57,7 @@ export default {
         },
         {
           imgSrc:
-            "http://b.hiphotos.baidu.com/image/h%3D300/sign=4262ea29f6dcd100d29cfe21428a47be/78310a55b319ebc4cee036bd8c26cffc1e17167d.jpg",
+            "https://core.kachuo.com/attachment/images/5/2019/04/kR3m3mA77WZPAg3WWW2wWuWYm3PwW7.png",
           distance: "500km",
           name: "蓬莱阁",
           price: "¥110",
@@ -143,9 +143,9 @@ export default {
   background: #f9f9f9;
   border-radius: 10px;
   position: relative;
-  top: -200px;
+  top: -190px;
   left: 10px;
-  color: #fff;
+  color: #222;
   font-size: 12px;
 }
 </style>

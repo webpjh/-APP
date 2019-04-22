@@ -39,7 +39,7 @@
       </div>
       <div class="content-card-tip">
         <p class="tip-title">提示：</p>
-        <p v-for="(item,index) in descInfo" :key="index">1.{{item}}</p>
+        <p v-for="(item,index) in descInfo" :key="index">{{index+1}}.{{item}}</p>
       </div>
       <XDialog style="display:none" :showDialog="showDialogFlag" ref="dialogCon"></XDialog>
     </div>
