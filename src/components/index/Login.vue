@@ -24,6 +24,7 @@
       <x-input title="验证码" class="input-qr-code" novalidate v-model="veriValue" :show-clear="false"></x-input>
     </group>
     <x-button type="primary" class="sub-btn-wrap" @click.native="requestLogin">登录</x-button>
+    <p class="visitor-login" @click="visitorLogin">游客登录>></p>
   </div>
 </template>
 
@@ -61,6 +62,10 @@ export default {
   },
 
   methods: {
+    // 游客登录
+    visitorLogin() {
+      this.$router.push("/indextab");
+    },
     // token存在，直接登录
     checkTokenLogin() {
       let token = localStorage.getItem("token");
@@ -243,5 +248,15 @@ export default {
 .veri-btn {
   width: 100px;
   display: inline-block;
+}
+.visitor-login {
+  width: 100%;
+  height: 20px;
+  text-align: right;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  padding-right: 10px;
+  box-sizing: border-box;
 }
 </style>

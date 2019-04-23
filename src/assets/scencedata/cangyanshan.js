@@ -101,7 +101,7 @@ const SCENICSPOT = [
   },
   {
     position: [114.146974,37.83175],
-    label: "苍岩山卡戳文化艺术馆"
+    label: "苍岩山文化卡戳艺术馆"
   }
 ];
 const SCENICLINE = [

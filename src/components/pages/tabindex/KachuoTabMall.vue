@@ -40,9 +40,9 @@ export default {
           link: "/scencegifts?title=景区好礼"
         },
         {
-          title: "名家秒藏",
+          title: "名家妙藏",
           icon: "iconfont iconmingjiamiaocang",
-          link: "/famouscollection?title=名家秒藏"
+          link: "/famouscollection?title=名家妙藏"
         }
       ],
       dividerContent: "猜你喜欢",

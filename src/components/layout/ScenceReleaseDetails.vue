@@ -17,14 +17,14 @@
           <span>{{contentData.praise_num}}点赞</span>
         </span>
       </p>
-      <p class="details-conetnt padding-15px">{{contentData.content}}</p>
+      <p class="details-conetnt padding-15px" v-html="htmlContent">{{htmlContent}}</p>
       <GiveLike v-on:changePhriseState="refreshData" :clickState="clickState"></GiveLike>
       <DividedArea></DividedArea>
       <CommentList
         :id="currentId"
         :pullDownRefreshObj="pullDownRefreshObj"
         :contentList.sync="commentListData"
-        :scrollTop="320"
+        :scrollTop="530"
         class="commit-list"
       ></CommentList>
     </div>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+let regExp = /style\s*?=\s*?(['"])[\s\S]*?\1/gi;
 import Header from "@/components/common/Header";
 import Comments from "@/components/common/Comments";
 import GiveLike from "@/components/common/GiveLike";
@@ -54,9 +55,10 @@ export default {
       commentListData: [],
       currentId: "",
       clickState: 0,
+      htmlContent: "",
       pullDownRefreshObj: {
-        threshold: 40,
-        stop: 40
+        threshold: 30,
+        stop: 30
       }
     };
   },
@@ -94,6 +96,7 @@ export default {
         .then(res => {
           if (res.result === 1) {
             this.contentData = res.data.content;
+            this.htmlContent = res.data.content.content.replace(regExp, "");
             this.commentListData = res.data.comment;
             this.clickState = res.data.content.type;
           }
@@ -130,8 +133,10 @@ export default {
         page: 1
       })
         .then(res => {
+          console.log(res);
           if (res.result === 1) {
             this.contentData = res.data.content;
+            this.htmlContent = res.data.content.content.replace(regExp, "");
             this.commentListData = res.data.comment;
             this.clickState = res.data.content.type;
           }
@@ -176,11 +181,15 @@ export default {
 }
 .details-conetnt {
   width: 100%;
-  height: 100px;
+  height: 300px;
   overflow: hidden;
+  overflow-y: scroll;
   text-overflow: ellipsis;
   background: #fff;
   position: relative;
   z-index: 999;
+}
+.details-conetnt p video{
+  width: 100% !important;
 }
 </style>

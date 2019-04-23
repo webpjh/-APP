@@ -1,7 +1,7 @@
 const SCENICSPOT = [
   {
     position: [112.95978, 34.520026],
-    label: "少林文化卡戳艺术馆"
+    label: "少林寺文化卡戳艺术馆"
   },
   {
     position: [112.954579, 34.51663],
