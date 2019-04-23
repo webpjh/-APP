@@ -65,6 +65,8 @@ export default {
     checkTokenLogin() {
       let token = localStorage.getItem("token");
       if (token) {
+        this.getUserLoginInfo();
+        this.getLocationData();
         this.$router.push("/indextab");
       }
     },

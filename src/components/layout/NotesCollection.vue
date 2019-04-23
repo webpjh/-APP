@@ -53,7 +53,9 @@ export default {
   },
   filters: {
     stringToArr(str) {
-      return str.split(",")[0];
+      if (str) {
+        return str.split(",")[0];
+      }
     }
   },
   beforeMount() {},

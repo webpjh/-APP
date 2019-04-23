@@ -200,7 +200,6 @@ export default {
         goods_id: this.$route.query.id
       })
         .then(res => {
-          console.log(res);
           if (res.result === 1) {
             this.goodInfo = res.data.goods;
             let objData = res.data.blockCurlData.data;
