@@ -19,7 +19,7 @@ export default {
     return {
       cellListTools: [
         {
-          title: "才源共享",
+          title: "邀约创作",
           icon: "iconfont iconcaiyuangongxiang",
           link: ""
         },

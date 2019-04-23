@@ -34,6 +34,6 @@
   height: 10px;
   background: #f5f5f5;
   position: relative;
-  z-index: 999;
+  z-index: 99;
 }
 </style>

@@ -34,7 +34,7 @@ export default {
   align-items: center;
   background: #fff;
   position: relative;
-  z-index: 999;
+  z-index: 99;
 
 }
 .divider-line {

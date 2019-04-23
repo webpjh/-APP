@@ -104,18 +104,19 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: flex-start;
   margin-top: 10px;
 }
 .search-hot-list-wrap span {
   width: auto;
-  height: 20px;
+  height: 24px;
   display: inline-block;
   padding: 0 10px;
   background: #fff;
   color: #222;
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
-  line-height: 20px;
+  line-height: 24px;
   margin: 0 16px 16px 0;
   border-radius: 2px;
 }

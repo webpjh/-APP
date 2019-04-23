@@ -102,8 +102,14 @@
     <!-- 溯源视频弹层 -->
     <div v-transfer-dom>
       <x-dialog v-model="showSourceModel" class="dialog-demo">
-        <div class="img-box">
-          <div class="video" id="wrapper"></div>
+        <div class="img-box" v-if="this.goodsData.sy_video">
+          <!-- <div class="video" id="wrapper"></div> -->
+          <video
+            :src="this.goodsData.sy_video"
+            :poster="this.goodsData.thumb_url[0]"
+            controls="controls"
+            controlslist="nodownload"
+          ></video>
         </div>
         <div @click="showSourceModel=false">
           <span class="vux-close"></span>
@@ -192,7 +198,9 @@ export default {
       return { height: document.documentElement.clientHeight - 45 + "px" };
     }
   },
-
+  created() {
+    
+  },
   beforeMount() {},
 
   mounted() {
@@ -201,26 +209,45 @@ export default {
 
   methods: {
     showSourceVideo() {
-      this.showSourceModel = true;
-      this.createVideoDom();
-    },
-    createVideoDom(flag, videoUrl, posterImg) {
-      if (!this.goodsData.sy_video) {
-        return;
+      if (this.goodsData.sy_video) {
+        this.showSourceModel = true;
+      } else {
+        this.$vux.toast.show({
+          type: "text",
+          text: "暂无视频",
+          time: 1000,
+          position: "middle",
+          isShowMask: true
+        });
       }
-      new ChimeeMobilePlayer({
-        wrapper: "#wrapper",
-        src: this.goodsData.sy_video,
-        autoplay: false,
-        poster: this.goodsData.thumb_url[0],
-        controls: true,
-        playsInline: true,
-        preload: "auto",
-        x5VideoPlayerFullscreen: true,
-        x5VideoOrientation: "landscape|portrait",
-        xWebkitAirplay: true,
-        muted: true
-      });
+      // this.createVideoDom();
+    },
+    createVideoDom() {
+      if (this.goodsData.sy_video) {
+        this.showSourceModel = true;
+        new ChimeeMobilePlayer({
+          wrapper: "#wrapper",
+          src: this.goodsData.sy_video,
+          autoplay: false,
+          poster: this.goodsData.thumb_url[0],
+          controls: true,
+          playsInline: true,
+          preload: "auto",
+          x5VideoPlayerFullscreen: true,
+          x5VideoOrientation: "landscape|portrait",
+          xWebkitAirplay: true,
+          muted: true
+        });
+      } else {
+        this.$vux.toast.show({
+          type: "text",
+          text: "暂无视频",
+          time: 1000,
+          position: "middle",
+          isShowMask: true
+        });
+      }
+      console.log(this.goodsData);
     },
     blockChainInfoFn() {
       let id = this.$route.query.id;

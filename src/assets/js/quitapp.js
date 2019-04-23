@@ -31,7 +31,8 @@ export const eventBackButton = () => {
         navigator.app.exitApp(); //退出app
       }
     } else {
-      navigator.app.backHistory();
+      // navigator.app.backHistory();
+      window.history.go(-1);
     }
   }
 }

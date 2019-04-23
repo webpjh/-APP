@@ -8,6 +8,7 @@
 </template>
 
 <script>
+
 let map = null;
 import locationIcon from "@/assets/images/location-icon.png";
 import { getCurrentPositionByCurrentScenicId } from "@/assets/js/tools";
@@ -69,6 +70,14 @@ export default {
                   id: res.data[i].id
                 });
               }
+            } else {
+              this.$vux.toast.show({
+                type:"text",
+                text: "暂无推荐",
+                time:1000,
+                position:"middle",
+                isShowMask:true
+              });
             }
           }
           if (markerArr.length) {

@@ -56,9 +56,18 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.checkTokenLogin();
+  },
 
   methods: {
+    // token存在，直接登录
+    checkTokenLogin() {
+      let token = localStorage.getItem("token");
+      if (token) {
+        this.$router.push("/indextab");
+      }
+    },
     // 获取经纬度信息
     getLocationData() {
       let dataObj = sessionStorage.getItem("positionInfo")
