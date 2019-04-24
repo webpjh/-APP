@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 body,
 html {
   width: 100%;
@@ -6,6 +7,8 @@ html {
   background: #fff;
   -webkit-overflow-scrolling: touch;
   overflow: hidden;
+  padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 img {
@@ -14,11 +17,13 @@ img {
   display: inline-block;
   object-fit: cover;
 }
-.padding-15px{
+
+.padding-15px {
   padding-left: 15px;
   padding-right: 15px;
   box-sizing: border-box;
 }
+
 ::-webkit-scrollbar {
   display: none
 }
@@ -117,6 +122,7 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .text-show-line4 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -205,18 +211,21 @@ img {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .iconjierijiapin:before {
   content: "\e650";
   background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#63dc64), to(#8be667));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .icondifanghaowu:before {
   content: "\e650";
   background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#39abf3), to(#61c9fb));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .iconxinyikaishi:before {
   content: "\e650";
   background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#ff613b), to(#ff8c5e));
@@ -251,9 +260,11 @@ img {
 .iconheba:before {
   color: #308dff;
 }
+
 .iconpinleishipin:before {
   color: #308dff;
 }
+
 .iconjingquxiaofei:before {
   color: #ff3030;
 }
@@ -281,6 +292,7 @@ img {
 .iconxinxixiaofei:before {
   color: #ff3030;
 }
+
 .iconcaiyuangongxiang:before {
   color: #308dff;
 }
@@ -296,6 +308,7 @@ img {
 .iconbaijiajiangtang:before {
   color: #308dff;
 }
+
 .icontongzheng:before {
   color: #308dff;
 }
@@ -304,7 +317,8 @@ img {
   color: #ff3030;
 }
 
-.icongouwuche:before,.iconqiandaolingjifen:before {
+.icongouwuche:before,
+.iconqiandaolingjifen:before {
   color: #ff9130;
 }
 
@@ -319,9 +333,11 @@ img {
 .iconjifenshuoming:before {
   color: #308dff;
 }
-.iconyunxiangce:before{
+
+.iconyunxiangce:before {
   color: #ff3030;
 }
-.iconmenpiaodingdan:before{
+
+.iconmenpiaodingdan:before {
   color: #ff3030;
 }

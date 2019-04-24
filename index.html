@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no,maximum-scale=1.0, user-scalable=no">
+    content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
   <meta name="theme-color" content="#000000">
@@ -13,11 +13,12 @@
 </head>
 <style>
   html,
-  body,
-  #app-box {
+  body {
     height: 100%;
     width: 100%;
     overflow: hidden;
+    padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
 </style>
 <script>
@@ -33,7 +34,7 @@
 </script>
 
 <body>
-  <div id="app-box" style="height:100%;"></div>
+  <div id="app-box"></div>
 </body>
 
 <script>
