@@ -37,6 +37,9 @@ export const getBannerImg = (type, height) => {
 export const serverAPPVersion = () => {
   getUpdateInfo().then(res => {
     if (res.result === 1) {
+      if(res.data.status === "0"){
+        return;
+      }
       // android更新版本
       let serverAndroidVersion = res.data.androidUp_edition;
       // ios更新版本

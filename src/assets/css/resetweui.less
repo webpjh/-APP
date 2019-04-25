@@ -251,8 +251,57 @@ button {
 }
 
 .details-conetnt {
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
   video {
     width: 100%;
     display: inline-block;
+  }
+}
+
+.tab-item-play-search-wrap {
+
+  .weui-search-bar {
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .weui-search-bar__box {
+      width: 100%;
+      padding: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .weui-icon-search {
+        flex: 1;
+        position: relative;
+        top: 0;
+      }
+
+      input {
+        width: 90%;
+        height: 30px;
+      }
+    }
+  }
+}
+
+.goods-details-content {
+  .vux-slider {
+    .vux-swiper {
+      .vux-swiper-item {
+        a {
+          .vux-img {
+            background-size: contain;
+          }
+        }
+      }
+    }
   }
 }

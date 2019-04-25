@@ -6,15 +6,15 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="goods-details-content" :style="conHei">
-      <VideoPlayer :isControls="true" v-if="goodsData.ar_image" class="video-player-wrap"></VideoPlayer>
+      <!-- <VideoPlayer :isControls="true" v-if="goodsData.ar_image" class="video-player-wrap"></VideoPlayer> -->
       <SwiperImg :SwiperImgDataList="SwiperImgData" v-if="SwiperImgData.ImgList.length"></SwiperImg>
       <div class="goods-details-desc">
         <p class="goods-name text-overflow-hidden">{{goodsData.title}}</p>
-        <p class="goods-price" v-if="this.$route.query.price">
+        <p class="goods-price" v-if="routeQueryPrice">
           <span style="font-size:16px;margin-right:4px">¥</span>
-          {{this.$route.query.price}}
+          {{routeQueryPrice}}
         </p>
-        <p class="goods-price" v-if="!this.$route.query.price">
+        <p class="goods-price" v-if="!routeQueryPrice">
           <span style="font-size:16px;margin-right:4px">¥</span>
           {{goodsData.marketprice}}
         </p>
@@ -196,6 +196,13 @@ export default {
   computed: {
     conHei() {
       return { height: document.documentElement.clientHeight - 45 + "px" };
+    },
+    routeQueryPrice() {
+      if (this.$route.query.price) {
+        return this.$route.query.price;
+      } else {
+        return null;
+      }
     }
   },
   created() {},

@@ -12,14 +12,12 @@
       </p>
       <!-- <p>{{dataObj.praise_num}}</p> -->
     </div>
-    <div
+    <!-- <div
       class="scence-story-details-desc-con text-show-line4"
-      v-if="!showDetailsFlag"
       @click="showDetails"
-    >{{dataObj.synopsis}}</div>
+    >{{dataObj.synopsis}}</div> -->
     <div
       class="scence-story-details-desc-con-normal"
-      v-else-if="showDetailsFlag"
       @click="showDetails"
     >{{dataObj.synopsis}}</div>
   </div>
@@ -65,7 +63,6 @@ export default {
         page: 1
       })
         .then(res => {
-          console.log(res);
           let arr = [];
           if (res.result === 1) {
             if (res.data.video) {
@@ -126,6 +123,8 @@ export default {
   width: 100%;
   min-height: 30px;
   height: auto;
+  padding: 10px 0;
   font-size: 12px;
+  box-sizing: border-box;
 }
 </style>

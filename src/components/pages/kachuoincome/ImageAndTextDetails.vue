@@ -6,33 +6,32 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="scroll-content-wrap" :style="conHeight">
-      <!-- <SwiperImg class="z-index-sty" :SwiperImgData="SwiperImgData"></SwiperImg> -->
-      <swiper class="z-index-sty" :options="swiperOption">
-        <swiper-slide
-          v-for="(item, index) in SwiperImgData.ImgList"
-          class="img-swiper-wrap"
-          :key="index"
-        >
-          <img v-lazy="item.img" alt srcset class="img-swiper-wrap-img-lis">
-        </swiper-slide>
-        <div class="swiper-pagination" slot="pagination"></div>
-      </swiper>
-      <ImgAndTextNoteDetailsUserInfo
-        style="background:#fff"
-        :detailsObj="descContent"
-        class="z-index-sty"
-      ></ImgAndTextNoteDetailsUserInfo>
-      <div class="content-wrap z-index-sty">
-        <p style="font-size:18px;font-weight:bold">{{descContent.title}}</p>
-        <p>{{descContent.summary}}</p>
+      <div class="img-text-content">
+        <swiper class="z-index-sty" :options="swiperOption">
+          <swiper-slide
+            v-for="(item, index) in SwiperImgData.ImgList"
+            class="img-swiper-wrap"
+            :key="index"
+          >
+            <img v-lazy="item.img" alt srcset class="img-swiper-wrap-img-lis">
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+        <ImgAndTextNoteDetailsUserInfo
+          style="background:#fff"
+          :detailsObj="descContent"
+          class="z-index-sty"
+        ></ImgAndTextNoteDetailsUserInfo>
+        <div class="content-wrap z-index-sty">
+          <p style="font-size:18px;font-weight:bold">{{descContent.title}}</p>
+          <p>{{descContent.summary}}</p>
+        </div>
       </div>
+
       <DividedArea class="z-index-sty"></DividedArea>
       <CommentList
         :id="currentId"
-        :pullDownRefreshObj="pullDownRefreshObj"
-        :dataList.sync="commitDataList"
-        :scrollTop="350"
-        :scrollSty="scrollStyle"
+        :dataList="commitDataList"
         class="commit-list"
       ></CommentList>
     </div>
@@ -44,7 +43,7 @@
 import Header from "@/components/common/Header";
 import SwiperImg from "@/components/common/SwiperImg";
 import ImgAndTextNoteDetailsUserInfo from "@/components/layout/ImgAndTextNoteDetailsUserInfo";
-import CommentList from "@/components/layout/CommentList";
+import CommentList from "@/components/layout/ClickGetPageData";
 import DividedArea from "@/components/common/DividedArea";
 import Comments from "@/components/common/Comments";
 import { SeourceCreatedListDetails } from "@/servers/api";
@@ -196,9 +195,9 @@ export default {
 }
 .scroll-content-wrap {
   width: 100%;
-  margin-top: 50px;
+  margin-top: 45px;
   overflow: hidden;
-  position: absolute;
+  overflow-y: scroll;
 }
 .img-text-details-wrap {
   width: 100%;
@@ -219,5 +218,8 @@ export default {
   display: inline-block;
   border-radius: 4px;
   object-fit: contain;
+}
+.img-text-content{
+  width: 100%;
 }
 </style>

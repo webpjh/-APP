@@ -6,6 +6,7 @@
     :index="SwiperImgDataList.index"
     :dots-position="SwiperImgDataList.dotsPosition"
     :height="SwiperImgDataList.height"
+    id="goods-details-swiper-img"
   ></swiper>
 </template>
 

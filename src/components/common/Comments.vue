@@ -55,7 +55,6 @@ export default {
         type: this.$route.query.type
       })
         .then(res => {
-          console.log(res);
           if (res.result === 1) {
             this.$vux.toast.show({
               type: "success",

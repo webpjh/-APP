@@ -1,6 +1,6 @@
 <template>
   <div class="tab-item-play-search-wrap">
-    <Search ref="searchBox" :placeHolder="placeHolderTxt"></Search>
+    <Search class="search-model-input" style="height:50px" ref="searchBox" :placeHolder="placeHolderTxt"></Search>
     <SearchModel class="search-model"></SearchModel>
   </div>
 </template>
@@ -42,6 +42,6 @@ export default {
   background: #fff;
 }
 .search-model{
-  margin-top: 50px;
+  margin-top: 20px;
 }
 </style>

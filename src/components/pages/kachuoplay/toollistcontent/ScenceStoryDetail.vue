@@ -17,9 +17,7 @@
       <DividedArea></DividedArea>
       <CommentList
         :id="currentId"
-        :pullDownRefreshObj="pullDownRefreshObj"
         :dataList.sync="commitDataList"
-        :scrollTop="530"
         class="commit-list"
       ></CommentList>
     </div>
@@ -34,7 +32,7 @@ import VideoPlayer from "@/components/common/VideoPlayer";
 import ScenceStoryDetailDesc from "@/components/layout/ScenceStoryDetailDesc";
 import DividedArea from "@/components/common/DividedArea";
 import HorizontalScroller from "@/components/common/HorizontalScroller";
-import CommentList from "@/components/layout/CommentListPlayRL";
+import CommentList from "@/components/layout/ClickGetPageDataPlayRL";
 import Comments from "@/components/common/Comments";
 import { ScenceRememberAndLearnDetails } from "@/servers/api";
 
@@ -79,7 +77,7 @@ export default {
 
   computed: {
     contentHeight() {
-      return { height: document.documentElement.clientHeight - 45 + "px" };
+      return { height: document.documentElement.clientHeight - 90 + "px" };
     }
   },
 
@@ -99,7 +97,7 @@ export default {
         page: 1
       })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           if (res.result === 1) {
             if (res.data.comment.length) {
               arr = JSON.parse(JSON.stringify(res.data.comment));
@@ -120,7 +118,7 @@ export default {
         page: 1
       })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           let arr = [];
           if (res.result === 1) {
             if (res.data.video) {

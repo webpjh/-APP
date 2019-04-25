@@ -38,7 +38,7 @@ import Header from "@/components/common/Header";
 import Comments from "@/components/common/Comments";
 import GiveLike from "@/components/common/GiveLike";
 import DividedArea from "@/components/common/DividedArea";
-import CommentList from "@/components/layout/CommentListPlay";
+import CommentList from "@/components/layout/ClickGetPageDataPlay";
 import { ScenceReleaseListDetails } from "@/servers/api";
 
 export default {
@@ -181,9 +181,8 @@ export default {
 }
 .details-conetnt {
   width: 100%;
-  height: 300px;
-  overflow: hidden;
-  overflow-y: scroll;
+  min-height: 300px;
+  height: auto;
   text-overflow: ellipsis;
   background: #fff;
   position: relative;
