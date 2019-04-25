@@ -38,9 +38,6 @@ import Comments from "@/components/common/Comments";
 import CommentList from "@/components/layout/CommentList";
 import { ScenceVideoDetails } from "@/servers/api";
 
-import "dplayer/dist/DPlayer.min.css";
-import DPlayer from "dplayer";
-
 export default {
   name: "",
   props: [""],
@@ -165,26 +162,6 @@ export default {
         disableUA: [
           "Mozilla/5.0 (Linux; Android 4.4.2; HM NOTE 1TD Build/KOT49H; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/62.0.3202.97 Mobile Safari/537.36"
         ]
-      });
-    },
-    createDPlayer(videoObj) {
-      const dp = new DPlayer({
-        container: document.getElementById("wrapper"),
-        autoplay: false,
-        theme: "#FADFA3",
-        loop: true,
-        lang: "zh-cn",
-        screenshot: true,
-        hotkey: true,
-        preload: "auto",
-        screenshot: true,
-        volume: 0.7,
-        video: {
-          url: videoObj.video_url,
-          pic: videoObj.video_img,
-          thumbnails: "",
-          type: "auto"
-        }
       });
     }
   },
