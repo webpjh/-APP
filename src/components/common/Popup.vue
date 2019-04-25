@@ -85,7 +85,7 @@ export default {
         x5VideoPlayerFullscreen: true,
         x5VideoOrientation: "landscape|portrait",
         xWebkitAirplay: true,
-        muted: true
+        muted: false
       });
     }
   },

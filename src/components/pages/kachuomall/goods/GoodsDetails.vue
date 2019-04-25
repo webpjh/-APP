@@ -198,9 +198,7 @@ export default {
       return { height: document.documentElement.clientHeight - 45 + "px" };
     }
   },
-  created() {
-    
-  },
+  created() {},
   beforeMount() {},
 
   mounted() {
@@ -236,7 +234,10 @@ export default {
           x5VideoPlayerFullscreen: true,
           x5VideoOrientation: "landscape|portrait",
           xWebkitAirplay: true,
-          muted: true
+          muted: false,
+          disableUA: [
+            "Mozilla/5.0 (Linux; Android 4.4.2; HM NOTE 1TD Build/KOT49H; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/62.0.3202.97 Mobile Safari/537.36"
+          ]
         });
       } else {
         this.$vux.toast.show({

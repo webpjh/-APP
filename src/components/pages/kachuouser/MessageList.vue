@@ -5,7 +5,7 @@
       :showLeftBack="TitleObjData.showLeftBack"
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
-    <div class="user-message-list">
+    <div class="user-message-list" :style="conStyle">
       <div class="user-message-list-for" v-for="(item,index) in contentList" :key="index">
         <p class="user-message-list-content-date">{{item.date}}</p>
         <div class="user-message-list-content">
@@ -35,7 +35,7 @@ export default {
           title: "卡戳app10.0上线",
           content:
             "卡戳app10.0全新功能开启，全新UI设计卡戳app10.0全新功能开启，全新UI设计卡戳app10.0全新功能开启，全新UI设计卡戳app10.0全新功能开启，全新UI设计",
-          date: "2019-3-11"
+          date: "2019-4-30"
         }
       ]
     };
@@ -45,7 +45,11 @@ export default {
     Header
   },
 
-  computed: {},
+  computed: {
+    conStyle(){
+      return{height:document.documentElement.clientHeight - 45 + 'px'}
+    }
+  },
   created() {
     this.setHeaderTitle();
   },
@@ -83,13 +87,12 @@ export default {
 }
 .user-message-list {
   width: 100%;
-  height: 100%;
   overflow: hidden;
   overflow-y: scroll;
   padding: 0 15px;
   box-sizing: border-box;
   background: #f5f5f5;
-  margin-top: 50px;
+  margin-top: 45px;
 }
 .user-message-list-content {
   width: 100%;
@@ -129,5 +132,8 @@ export default {
 }
 .user-message-list-for {
   margin-bottom: 20px;
+}
+.conStyle{
+
 }
 </style>
