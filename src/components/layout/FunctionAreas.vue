@@ -46,7 +46,7 @@ export default {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "景区服务",
-          link: "/scenceservice",
+          link: "/scenceservice?type=1",
           class: "iconfont iconjingqufuwu"
         },
         {
@@ -74,7 +74,7 @@ export default {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "周边服务",
-          link: "/servicesurround",
+          link: "/servicesurround?type=4",
           class: "iconfont iconzhoubianfuwu"
         }
       ]

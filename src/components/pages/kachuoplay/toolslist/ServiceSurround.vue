@@ -54,11 +54,14 @@ export default {
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.$refs.map.getMapCenterPosition("4");
+  },
 
   methods: {
     showPath(index) {
-      this.$refs.map.getMapCenterPosition(++index);
+      let type = index + 4;
+      this.$refs.map.getMapCenterPosition(type);
     }
   },
 
