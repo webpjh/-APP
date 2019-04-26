@@ -7,9 +7,9 @@
       <inline-loading></inline-loading>
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中</span>
     </p>
-    <p style="text-align:center;" v-if="videoDataList.length === 0">
+    <!-- <p style="text-align:center;" v-if="videoDataList.length === 0">
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">暂无数据～</span>
-    </p>
+    </p> -->
     <div class="goods-list-wrap" v-else-if="videoDataList.length">
       <div
         class="goods-list"

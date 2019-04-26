@@ -7,9 +7,9 @@
       <inline-loading></inline-loading>
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中</span>
     </p>
-    <p style="text-align:center;;margin-top:20px" v-if="dataList.length === 0">
+    <!-- <p style="text-align:center;;margin-top:20px" v-if="dataList.length === 0">
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">暂无数据～</span>
-    </p>
+    </p> -->
     <div
       class="tickets-discount-list"
       v-for="(item,index) in dataList"

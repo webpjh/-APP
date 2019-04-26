@@ -57,7 +57,7 @@ export default {
     }
   },
   mounted() {
-    this.onPullingDown();
+    this.getData();
   },
   methods: {
     // 滚动到页面顶部
@@ -91,6 +91,7 @@ export default {
           getScenicList(postData)
             .then(res => {
               if (res.result === 1) {
+                this.goodsListData =res.data.list;
                 totalCount = res.data.total;
                 this.totalNum = res.data.total;
                 this.noData =
@@ -112,6 +113,7 @@ export default {
             .then(res => {
               console.log(res);
               if (res.result === 1) {
+                this.goodsListData =res.data.list;
                 totalCount = res.data.total;
                 this.totalNum = res.data.total;
                 this.noData =

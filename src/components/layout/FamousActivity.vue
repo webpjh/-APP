@@ -57,7 +57,7 @@ export default {
     }
   },
   mounted() {
-    this.onPullingDown();
+    this.getData();
   },
   methods: {
     // 滚动到页面顶部
@@ -84,6 +84,7 @@ export default {
               setTimeout(() => {
                 if (res.data.dynamic.length) {
                   arr = res.data.dynamic;
+                  this.items = arr;
                   resolve(res.data.dynamic);
                 } else {
                   this.$refs.scroll.forceUpdate(false);

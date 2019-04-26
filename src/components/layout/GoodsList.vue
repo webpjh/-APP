@@ -7,9 +7,9 @@
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中&nbsp;&nbsp;</span>
       <inline-loading></inline-loading>
     </p>
-    <p style="width:100%;text-align:center;" v-show="goodList.length === 0">
+    <!-- <p style="width:100%;text-align:center;" v-show="goodList.length === 0">
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">暂无数据</span>
-    </p>
+    </p> -->
     <div
       class="goods-list"
       v-for="(item,index) in goodList"
