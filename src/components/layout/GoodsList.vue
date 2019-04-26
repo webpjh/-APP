@@ -3,9 +3,12 @@
 -->
 <template>
   <div class="goods-list-wrap">
-    <p style="width:100%;text-align:center;" v-show="!goodList.length">
+    <p style="width:100%;text-align:center;" v-show="!goodList.length && goodList.length!=0">
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中&nbsp;&nbsp;</span>
       <inline-loading></inline-loading>
+    </p>
+    <p style="width:100%;text-align:center;" v-show="goodList.length === 0">
+      <span style="vertical-align:middle;display:inline-block;font-size:14px;">暂无数据</span>
     </p>
     <div
       class="goods-list"
@@ -45,12 +48,12 @@ export default {
   mounted() {},
 
   methods: {
-    watchGoodsDetails(goodsId, id, rent,item) {
+    watchGoodsDetails(goodsId, id, rent, item) {
       if (!rent) {
         let gid = goodsId ? goodsId : id;
         this.$router.push("/goodsdetails?id=" + gid);
       } else {
-        sessionStorage.setItem("backleasedetails",JSON.stringify(item))
+        sessionStorage.setItem("backleasedetails", JSON.stringify(item));
         this.$router.push("/backleasedetails");
       }
     }

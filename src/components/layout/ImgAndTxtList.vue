@@ -1,7 +1,10 @@
 <template>
   <div>
-    <p style="text-align:center;" v-if="!dataList.length">
+    <p style="text-align:center;" v-if="!dataList.length && dataList.length!=0">
       <inline-loading></inline-loading>
+      <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中</span>
+    </p>
+    <p style="text-align:center;" v-if="dataList.length === 0">
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中</span>
     </p>
     <main class="position-box" v-else-if="dataList.length">

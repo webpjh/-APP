@@ -3,9 +3,12 @@
 -->
 <template>
   <div class="goods-list-wrap">
-    <p style="width:100%;text-align:center;" v-show="!goodList.length">
+    <p style="width:100%;text-align:center;" v-show="!goodList.length && goodList.length!=0">
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中&nbsp;&nbsp;</span>
       <inline-loading></inline-loading>
+    </p>
+    <p style="width:100%;text-align:center;" v-show="goodList.length === 0">
+      <span style="vertical-align:middle;display:inline-block;font-size:14px;">暂无数据～</span>
     </p>
     <div
       class="goods-list"
@@ -45,9 +48,9 @@ export default {
   mounted() {},
 
   methods: {
-    watchGoodsDetails(id,item) {
+    watchGoodsDetails(id, item) {
       this.$router.push("/backbuydetails?id=" + id);
-      sessionStorage.setItem("backbuydetailsitem",JSON.stringify(item));
+      sessionStorage.setItem("backbuydetailsitem", JSON.stringify(item));
     }
   },
 

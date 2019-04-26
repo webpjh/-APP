@@ -32,7 +32,7 @@
               <span style="font-size:12px;">{{item.user_name}}</span>
               <span
                 style="font-size:12px;margin-right:10px;color:#999"
-              >{{item.created_at | formTime}}</span>
+              >{{item.created_at | formTimeFn}}</span>
             </p>
             <p class="comment-list-desc">{{item.content}}</p>
           </div>
@@ -81,7 +81,7 @@ export default {
     };
   },
   filters: {
-    formTime(val) {
+    formTimeFn(val) {
       return timeTodate(val);
     }
   },
@@ -118,7 +118,6 @@ export default {
           page: this.page
         })
           .then(res => {
-            // console.log(res);
             if (res.result === 1) {
               totalCount = res.data.totalofnum;
               this.totalNum = res.data.totalofnum;

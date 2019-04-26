@@ -74,10 +74,12 @@ export default {
         let arr = [];
         ScenceReleaseList({
           page: this.page,
-          diff:1
+          diff:1,
+          merchid:this.$route.query.id
         })
           .then(res => {
             if (res.result === 1) {
+              console.log(res);
               totalCount = res.data.totalofnum;
               setTimeout(() => {
                 if (res.data.dynamic.length) {

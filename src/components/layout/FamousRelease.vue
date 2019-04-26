@@ -1,8 +1,11 @@
 <template>
   <div>
-    <p style="text-align:center;;margin-top:20px" v-if="!dataList.length">
+    <p style="text-align:center;;margin-top:20px" v-if="!dataList.length && dataList.length!=0">
       <inline-loading></inline-loading>
       <span style="vertical-align:middle;display:inline-block;font-size:14px;">加载中</span>
+    </p>
+    <p style="text-align:center;;margin-top:20px" v-if="dataList.length===0">
+      <span style="vertical-align:middle;display:inline-block;font-size:14px;">暂无数据～</span>
     </p>
     <div
       class="scence-releace-wrap"
@@ -13,7 +16,10 @@
       <div class="scence-releace-top">
         <div class="scence-releace-top-left">
           <p class="scence-releace-top-left-title text-show-line2">{{item.title}}</p>
-          <p class="scence-releace-top-left-content text-show-line3">{{item.content}}</p>
+          <p
+            class="scence-releace-top-left-content text-show-line3"
+            v-html="item.content"
+          >{{item.content}}</p>
         </div>
         <div class="scence-releace-top-right">
           <img :src="item.image[0]" alt>
@@ -50,7 +56,7 @@ export default {
 
   methods: {
     getReleaseDetails(id) {
-      this.$router.push("/famousreleasedetails?id="+id+"&type="+11);
+      this.$router.push("/famousreleasedetails?id=" + id + "&type=" + 11);
     }
   },
 
