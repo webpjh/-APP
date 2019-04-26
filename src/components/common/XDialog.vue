@@ -13,7 +13,7 @@
       <x-dialog v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
         <div class="img-box">
           <img
-            src="https://ws1.sinaimg.cn/large/663d3650gy1fq6824ur1dj20ia0pydlm.jpg"
+            src=""
             style="max-width:100%"
           >
         </div>

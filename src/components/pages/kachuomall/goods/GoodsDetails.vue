@@ -260,7 +260,7 @@ export default {
           isShowMask: true
         });
       }
-      console.log(this.goodsData);
+      // console.log(this.goodsData);
     },
     blockChainInfoFn() {
       let id = this.$route.query.id;
@@ -367,7 +367,7 @@ export default {
       })
         .then(res => {
           let arr = [];
-          console.log(res);
+          // console.log(res);
           if (res.result === 1) {
             if (res.data.favorite) {
               this.collectState = true;

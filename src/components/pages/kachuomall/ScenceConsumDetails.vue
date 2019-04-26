@@ -8,13 +8,19 @@
     <div class="scence-consum-content" :style="scenceConsumHeight">
       <TabItemMallAdvertise class="z-index-99"></TabItemMallAdvertise>
       <DividedArea class="z-index-99"></DividedArea>
-      <Divider :content="title"></Divider>
-      <GoodsListWrap></GoodsListWrap>
+      <!-- <Divider :content="title"></Divider> -->
+      <tab :line-width="3" custom-bar-width="30px" class="tab-style">
+        <tab-item selected @on-item-click="getTabIndex">商城</tab-item>
+        <tab-item @on-item-click="getTabIndex">动态</tab-item>
+      </tab>
+      <GoodsListWrap class="tab-content" v-if="tabIndex === 0"></GoodsListWrap>
+      <FamousActivity class="tab-content" v-if="tabIndex === 1"></FamousActivity>
     </div>
   </div>
 </template>
 
 <script>
+import { Tab, TabItem } from "vux";
 import Header from "@/components/common/Header";
 import TabItemMallAdvertise from "@/components/layout/TabItemMallAdvertise";
 import DividedArea from "@/components/common/DividedArea";
@@ -22,6 +28,7 @@ import Divider from "@/components/common/Divider";
 import Scroll from "@/components/common/Scroller";
 import GoodsList from "@/components/layout/GoodsList";
 import GoodsListWrap from "@/components/layout/GoodsListWrap";
+import FamousActivity from "@/components/layout/FamousActivity";
 
 export default {
   name: "",
@@ -37,7 +44,8 @@ export default {
       page: 0,
       list: [],
       refreshText: "下拉刷新",
-      noDataText: "没有更多数据"
+      noDataText: "没有更多数据",
+      tabIndex:0
     };
   },
 
@@ -48,7 +56,10 @@ export default {
     Divider,
     Scroll,
     GoodsList,
-    GoodsListWrap
+    GoodsListWrap,
+    Tab,
+    TabItem,
+    FamousActivity
   },
 
   computed: {
@@ -64,6 +75,9 @@ export default {
   },
 
   methods: {
+    getTabIndex(index){
+      this.tabIndex = index;
+    },
     setTitle() {
       this.title = this.$route.query.title;
     }
@@ -73,11 +87,11 @@ export default {
 };
 </script>
 <style lang='css' scoped>
-.z-index-99{
+.z-index-99 {
   position: relative;
   z-index: 999;
 }
-.scence-consum-wrap{
+.scence-consum-wrap {
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -90,5 +104,13 @@ export default {
 .scence-release-content {
   width: 100%;
   margin-top: 310px;
+}
+.tab-style{
+  position: relative;
+  z-index: 999;
+}
+.tab-content{
+  padding-top: 10px;
+  box-sizing: border-box;
 }
 </style>

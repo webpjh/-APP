@@ -12,9 +12,6 @@ export const getUserInfo = (data) => http.post('member.realname.login', data);
 // 名家商城首页
 export const getFamousMallDate = () => http.post('home.celebrity');
 
-//名家商城列表
-// export const getFamousList = () => http.post("user.register");
-
 // 景区商城首页
 export const getScenicMallDate = () => http.post('home.Scenic');
 

@@ -10,20 +10,20 @@
       @pullingDown="onPullingDown"
       @pullingUp="onPullingUp"
     >
-      <GoodsList :goodList="goodsListData"></GoodsList>
-      <!-- <p style="text-align:center" v-show="goodsListData.length===0">暂无数据</p> -->
+      <ScenceRelease :dataList="items"></ScenceRelease>
+      <!-- <p style="text-align:center" v-show="items.length===0">暂无数据</p> -->
     </vue-better-scroll>
   </main>
 </template>
  
 <script>
-import GoodsList from "@/components/layout/GoodsList";
-import { LeasetList } from "@/servers/api";
+import ScenceRelease from "@/components/layout/FamousRelease";
+import { ScenceReleaseList } from "@/servers/api";
 let totalCount = 0;
 export default {
   name: "app",
   components: {
-    GoodsList
+    ScenceRelease
   },
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
           noMore: "没有更多数据了"
         }
       },
-      startY: '0',
+      startY: "0",
       scrollToX: 0,
       scrollToY: 0,
       scrollToTime: 700,
@@ -68,18 +68,25 @@ export default {
         this.scrollToTime
       );
     },
-    // 回购数据请求
+    // 数据请求
     getData() {
       return new Promise(resolve => {
-        LeasetList({
-          page: this.page
+        let arr = [];
+        ScenceReleaseList({
+          page: this.page,
+          diff:1
         })
           .then(res => {
             if (res.result === 1) {
               totalCount = res.data.totalofnum;
-              this.noData =
-                res.data.currentpage === res.data.totalpage ? true : false;
-              resolve(res.data.result);
+              setTimeout(() => {
+                if (res.data.dynamic.length) {
+                  arr = res.data.dynamic;
+                  resolve(res.data.dynamic);
+                } else {
+                  this.$refs.scroll.forceUpdate(false);
+                }
+              }, 1000);
             }
           })
           .catch(err => {
@@ -87,30 +94,19 @@ export default {
           });
       });
     },
-    // 下拉刷新
     onPullingDown() {
       totalCount = 0;
       this.page = 1;
       this.getData().then(res => {
-        this.goodsListData = res;
-        setTimeout(() => {
-          this.$nextTick(() => {
-            this.$refs.scroll.forceUpdate(true);
-          });
-        }, 1000);
+        this.items = res;
+        this.$refs.scroll.forceUpdate(true);
       });
     },
-    // 加载更多数据
     onPullingUp() {
-      if (this.noData) {
-        this.$refs.scroll.forceUpdate(false);
-        return;
-      }
       this.page += 1;
       this.getData().then(res => {
-        this.goodsListData = this.goodsListData.concat(res);
-        if (this.goodsListData.length < totalCount) {
-          console.log(111);
+        this.items = this.items.concat(res);
+        if (this.items.length < totalCount) {
           this.$refs.scroll.forceUpdate(true);
         } else {
           this.$refs.scroll.forceUpdate(false);

@@ -80,7 +80,12 @@ export default [
   {
     path: '/scencereleasedetals',
     name: 'scencereleasedetals',
-    component: resolve => require(['@/components/layout/ScenceReleaseDetails'], resolve),
+    component: resolve => require(['@/components/pages/kachuoplay/toolslist/ScenceReleaseDetails'], resolve),
+  },
+  {
+    path: '/famousreleasedetails',
+    name: 'FamousReleaseDetails',
+    component: resolve => require(['@/components/pages/kachuomall/FamousReleaseDetails'], resolve),
   },
   {
     path: '/releasecontent',

@@ -56,7 +56,7 @@ export default {
           noMore: "没有更多数据了"
         }
       },
-      startY: 0,
+      startY: '0',
       scrollToX: 0,
       scrollToY: 0,
       scrollToTime: 700,

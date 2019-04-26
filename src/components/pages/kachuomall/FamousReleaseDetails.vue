@@ -38,7 +38,7 @@ import Header from "@/components/common/Header";
 import Comments from "@/components/common/Comments";
 import GiveLike from "@/components/common/GiveLike";
 import DividedArea from "@/components/common/DividedArea";
-import CommentList from "@/components/layout/ClickGetPageDataPlay";
+import CommentList from "@/components/layout/ClickGetPageDataFamous";
 import { ScenceReleaseListDetails } from "@/servers/api";
 
 export default {
@@ -91,7 +91,8 @@ export default {
       ScenceReleaseListDetails({
         id: this.$route.query.id,
         type: this.$route.query.type,
-        page: 1
+        page: 1,
+        diff:1
       })
         .then(res => {
           if (res.result === 1) {
@@ -111,7 +112,8 @@ export default {
       ScenceReleaseListDetails({
         id: this.$route.query.id,
         type: this.$route.query.type,
-        page: 1
+        page: 1,
+        diff:1
       })
         .then(res => {
           if (res.result === 1) {
@@ -130,7 +132,8 @@ export default {
       this.currentId = this.$route.query.id;
       ScenceReleaseListDetails({
         id: this.$route.query.id,
-        page: 1
+        page: 1,
+        diff:1
       })
         .then(res => {
           console.log(res);

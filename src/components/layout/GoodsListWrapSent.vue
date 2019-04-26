@@ -11,7 +11,7 @@
       @pullingUp="onPullingUp"
     >
       <GoodsList :goodList="goodsListData"></GoodsList>
-      <p style="text-align:center" v-show="goodsListData.length===0">暂无数据</p>
+      <!-- <p style="text-align:center" v-show="goodsListData.length===0">暂无数据</p> -->
     </vue-better-scroll>
   </main>
 </template>
@@ -41,7 +41,7 @@ export default {
           noMore: "没有更多数据了"
         }
       },
-      startY: 0,
+      startY: '0',
       scrollToX: 0,
       scrollToY: 0,
       scrollToTime: 700,

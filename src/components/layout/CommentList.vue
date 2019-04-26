@@ -69,7 +69,7 @@ export default {
           noMore: "没有更多数据了"
         }
       },
-      startY: 0, // 纵轴方向初始化位置
+      startY: '0', // 纵轴方向初始化位置
       scrollToX: 0,
       scrollToY: 0,
       scrollToTime: 700,
