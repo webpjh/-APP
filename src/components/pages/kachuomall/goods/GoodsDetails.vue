@@ -105,13 +105,14 @@
         <div class="img-box" v-if="this.goodsData.sy_video">
           <!-- <div class="video" id="wrapper"></div> -->
           <video
+            ref="videoPlayer"
             :src="this.goodsData.sy_video"
             :poster="this.goodsData.thumb_url[0]"
             controls="controls"
             controlslist="nodownload"
           ></video>
         </div>
-        <div @click="showSourceModel=false">
+        <div @click="closeVideo">
           <span class="vux-close"></span>
         </div>
       </x-dialog>
@@ -213,6 +214,10 @@ export default {
   },
 
   methods: {
+    closeVideo() {
+      this.showSourceModel = false;
+      this.$refs.videoPlayer.pause();
+    },
     showSourceVideo() {
       if (this.goodsData.sy_video) {
         this.showSourceModel = true;

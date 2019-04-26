@@ -6,17 +6,9 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="user-message-list" :style="conStyle">
-      <div
-        class="user-message-list-for"
-        v-for="(item,index) in contentList"
-        :key="index"
-        @click="getDetailsCon"
-      >
-        <p class="user-message-list-content-date">{{item.date}}</p>
-        <div class="user-message-list-content">
-          <p class="user-message-list-content-tit">{{item.title}}</p>
-          <p class="user-message-list-content-con">{{item.content}}(点击查看详情)</p>
-        </div>
+      <div class="content-desc">
+        <p class="conTitle">卡戳APP10.0.0发布了</p>
+        <p v-for="(item,index) in contentList" :key="index">{{index+1}}.{{item}}</p>
       </div>
     </div>
   </div>
@@ -31,16 +23,18 @@ export default {
   data() {
     return {
       TitleObjData: {
-        titleContent: "",
+        titleContent: "详情",
         showLeftBack: true,
         showRightMore: false
       },
       contentList: [
-        {
-          title: "卡戳app10.0发布了",
-          content: "卡戳app10.0.0全新发布，全新的功能开发，全新的UI设计，带给您不一样的旅游体验",
-          date: "2019-4-30"
-        }
+        "全新的功能，全新的UI设计。",
+        "接入景区门票系统，让您享受全网最低的折扣。",
+        "智慧导航带给您不一样的景区游览路线。",
+        "景区服务，周边服务快速定位不同的需求。",
+        "记住的，了解的带您深刻了解景区独特文化。",
+        "视频创作，图文随记，让您随时随地记录所见所闻所感。",
+        "百家讲坛带您体会专家的文化解读。"
       ]
     };
   },
@@ -54,34 +48,12 @@ export default {
       return { height: document.documentElement.clientHeight - 45 + "px" };
     }
   },
-  created() {
-    this.setHeaderTitle();
-  },
+  created() {},
   beforeMount() {},
 
   mounted() {},
 
-  methods: {
-    getDetailsCon() {
-      this.$router.push("/messagelistdetails");
-    },
-    setHeaderTitle() {
-      switch (this.$route.query.title) {
-        case "systemannounce":
-          this.TitleObjData.titleContent = "系统公告";
-          break;
-        case "ordernotice":
-          this.TitleObjData.titleContent = "订单通知";
-          break;
-        case "usermessage":
-          this.TitleObjData.titleContent = "个人消息";
-          break;
-        default:
-          this.TitleObjData.titleContent = "";
-          break;
-      }
-    }
-  },
+  methods: {},
 
   watch: {}
 };
@@ -96,10 +68,19 @@ export default {
   width: 100%;
   overflow: hidden;
   overflow-y: scroll;
-  padding: 0 15px;
+  padding: 15px;
   box-sizing: border-box;
   background: #f5f5f5;
   margin-top: 45px;
+}
+.content-desc{
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  line-height: 30px;
 }
 .user-message-list-content {
   width: 100%;
@@ -140,6 +121,15 @@ export default {
 .user-message-list-for {
   margin-bottom: 20px;
 }
-.conStyle {
+.conTitle {
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  border-bottom: 1px solid #eee;
 }
 </style>

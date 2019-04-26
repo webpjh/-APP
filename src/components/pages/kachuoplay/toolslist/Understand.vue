@@ -12,7 +12,7 @@
         :scrollbar="scrollbarObj"
         :pullDownRefresh="pullDownRefreshObj"
         :pullUpLoad="pullUpLoadObj"
-        :startY="parseInt(startY)"
+        :startY="parseInt(startY,10)"
         @pullingDown="onPullingDown"
         @pullingUp="onPullingUp"
       >
@@ -53,7 +53,7 @@ export default {
           noMore: "没有更多数据了"
         }
       },
-      startY: 0,
+      startY: '0',
       scrollToX: 0,
       scrollToY: 0,
       scrollToTime: 700,

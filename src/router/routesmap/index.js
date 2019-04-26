@@ -28,6 +28,11 @@ export default [
     component: resolve => require(['@/components/pages/kachuouser/MessageList'], resolve),
   },
   {
+    path: '/messagelistdetails',
+    name: 'MessageListDetails',
+    component: resolve => require(['@/components/pages/kachuouser/MessageListDetails'], resolve),
+  },
+  {
     path: '/usersearch',
     name: 'usersearch',
     component: resolve => require(['@/components/pages/kachuoplay/UserSearch'], resolve),
