@@ -126,7 +126,7 @@ export default {
   height: 20px;
   text-align: center;
   line-height: 20px;
-  font-size: 13px;
+  font-size: 16px;
 }
 .flex-wrap-for span {
   font-size: 36px;

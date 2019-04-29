@@ -13,7 +13,7 @@ titleContent（string）：标题内容
       @on-click-back="back"
       @on-click-more="showBottom"
       slot="header"
-      style="width: 100%;position: absolute;left: 0;top: 0;z-index: 100;font-size: 16px;"
+      style="width: 100%;position: absolute;left: 0;top: 0;z-index: 100;font-size: 20px;"
     >{{titleContent}}</x-header>
     <Popup :showRescue="showRescueP"></Popup>
   </div>

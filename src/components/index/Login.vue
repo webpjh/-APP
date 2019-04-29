@@ -1,10 +1,10 @@
 <template>
-  <div class="login-wrap">
-    <p class="login-wrap-title">登录</p>
-    <group style="width:100%">
+  <div class="login-wrap" :style="backSty">
+    <p class="login-wrap-title">快捷登录</p>
+    <div style="width:100%;background:none">
       <x-input title="验证码" style="display:none"></x-input>
       <x-input
-        title="手机号"
+        title="请输入手机号"
         class="weui-vcode"
         v-model="phoneValue"
         :max="13"
@@ -12,6 +12,8 @@
         :show-clear="false"
         novalidate
       >
+      </x-input>
+      <x-input title="请输入验证码" class="input-qr-code" novalidate v-model="veriValue" :show-clear="false">
         <x-button
           slot="right"
           type="primary"
@@ -21,10 +23,9 @@
           class="veri-btn"
         >{{veritfyCodeTxt}}</x-button>
       </x-input>
-      <x-input title="验证码" class="input-qr-code" novalidate v-model="veriValue" :show-clear="false"></x-input>
-    </group>
+    </div>
     <x-button type="primary" class="sub-btn-wrap" @click.native="requestLogin">登录</x-button>
-    <p class="visitor-login" @click="visitorLogin">游客登录>></p>
+    <p class="visitor-login" @click="visitorLogin">游客登录</p>
   </div>
 </template>
 
@@ -42,7 +43,14 @@ export default {
       veritfyCodeTxt: "发送验证码",
       veritfyCode: false,
       phoneValue: "",
-      veriValue: ""
+      veriValue: "",
+      backSty: {
+        backgroundImage:
+          "url(" + require("@/assets/images/loginback.png") + ")",
+        backgroundSize: "100%",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center"
+      }
     };
   },
 
@@ -221,7 +229,6 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #fff;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -232,31 +239,35 @@ export default {
 .login-wrap-title {
   font-size: 24px;
   margin-top: 120px;
+  color: #fff;
   font-weight: bold;
 }
 .weui-vcode,
 .input-qr-code {
   width: 100%;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #fff;
+  margin-top: 20px;
 }
 .weui-vcode {
   margin-top: 80px;
 }
 .sub-btn-wrap {
-  margin-top: 100px;
+  margin-top: 60px;
+  background: #fff;
+  color: #000;
 }
 .veri-btn {
   width: 100px;
   display: inline-block;
+  background: #fff;
+  color: #000;
 }
 .visitor-login {
   width: 100%;
   height: 20px;
-  text-align: right;
-  position: absolute;
-  bottom: 10px;
-  left: 0;
-  padding-right: 10px;
-  box-sizing: border-box;
+  font-size: 14px;
+  text-align: center;
+  color: #fff;
+  margin-top: 20px;
 }
 </style>

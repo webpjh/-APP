@@ -112,10 +112,10 @@ export default {
 }
 .scence-releace-top-left-content {
   width: 100%;
-  height: 52px;
+  height: 62px;
   word-break: break-all;
   color: #999;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 4px;
 }
 </style>
