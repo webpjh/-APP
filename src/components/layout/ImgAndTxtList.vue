@@ -1,3 +1,11 @@
+<!--
+ * @Description: 
+ * @Author: lpb
+ * @Github: https://github.com/lpb273
+ * @LastEditors: lpb
+ * @Date: 2019-03-15 17:20:34
+ * @LastEditTime: 2019-05-06 09:04:41
+ -->
 <template>
   <div>
     <p style="text-align:center;" v-if="!dataList.length && dataList.length!=0">
@@ -25,8 +33,8 @@
               <p class="img-and-txt-left-top text-show-line3">{{item.summary}}</p>
               <p class="img-and-txt-left-bot">
                 <img :src="item.release_img" alt srcset class="img-and-txt-left-header">
-                <span style="margin-left:-50px">{{item.release_name}}</span>
-                <span style="color:#999">
+                <span class="img-and-txt-left-name">{{item.release_name}}</span>
+                <span class="img-and-txt-left-place" style="color:#999">
                   <span class="iconfont icondingwei"></span>
                   {{item.address | stringToArr}}
                 </span>
@@ -207,9 +215,20 @@ export default {
   box-sizing: border-box;
 }
 .img-and-txt-left-header {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  overflow: hidden;
   border-radius: 50%;
+  object-fit: cover;
+}
+.img-and-txt-left-name{
+  flex: 3;
+  font-size: 12px;
+}
+.img-and-txt-left-place{
+  flex: 2;
+  font-size: 12px;
 }
 .img-and-txt-right-img {
   border-radius: 4px;

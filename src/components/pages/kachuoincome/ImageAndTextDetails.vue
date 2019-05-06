@@ -1,3 +1,11 @@
+<!--
+ * @Description: 
+ * @Author: lpb
+ * @Github: https://github.com/lpb273
+ * @LastEditors: lpb
+ * @Date: 2019-03-18 09:21:00
+ * @LastEditTime: 2019-05-06 09:08:10
+ -->
 <template>
   <div style="img-text-details-wrap">
     <Header
@@ -158,7 +166,6 @@ export default {
         type: this.$route.query.type
       })
         .then(res => {
-          console.log(res);
           if (res.result === 1) {
             this.descContent = res.data.video;
             this.commitDataList = res.data.comment;

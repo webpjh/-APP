@@ -1,3 +1,11 @@
+<!--
+ * @Description: 
+ * @Author: lpb
+ * @Github: https://github.com/lpb273
+ * @LastEditors: lpb
+ * @Date: 2019-02-27 08:56:16
+ * @LastEditTime: 2019-05-06 08:52:55
+ -->
 <template>
   <div id="#app-box" class="app-box">
     <transition :name="transitionName">
