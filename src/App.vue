@@ -106,7 +106,7 @@ export default {
 .router-animate {
   position: absolute;
   width: 100%;
-  transition: all 0.8s ease;
+  transition: all 0.4s ease;
 }
 
 .slide-left-enter,

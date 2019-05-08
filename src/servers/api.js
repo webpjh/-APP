@@ -332,3 +332,18 @@ export const GetCollectionInit = (data) => http.post("member.realname.get_favori
 
 // 意见反馈
 export const OpinionBack = (data) => http.post("dynamic.index.YjFk_save", data);
+
+// 文创/艺创列表接口
+export const GetSoliciList = (data) => http.post("goods.real.get_soliciList", data);
+
+// 文创抢单
+export const SaveWcOrder = (data) => http.post("goods.real.save_WcOrder", data);
+
+// 艺创分类列表
+export const YcList = (data) => http.post("goods.details.getGoodsCode", data);
+
+// 艺创抢单
+export const SaveYcOrder = (data) => http.post("goods.real.save_YcOrder", data);
+
+// 艺创抢单提交
+// export const SaveYcOrder = (data) => http.post("goods.real.save_YcOrder", data);

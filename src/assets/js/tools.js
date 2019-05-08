@@ -16,6 +16,7 @@ export const formData = (dataArr) => {
   for (let i = 0; i < flagIndexArr.length; i++) {
     resultArr[i].data = dataArr.slice(flagIndexArr[i], flagIndexArr[i + 1]);
   }
+  console.log(resultArr)
   return resultArr;
 }
 // 日期转换(2019/10/12 下午10：09)

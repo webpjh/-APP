@@ -4,7 +4,7 @@
  * @Github: https://github.com/lpb273
  * @LastEditors: lpb
  * @Date: 2019-03-15 17:20:34
- * @LastEditTime: 2019-05-06 09:04:41
+ * @LastEditTime: 2019-05-06 10:01:42
  -->
 <template>
   <div>
@@ -35,7 +35,7 @@
                 <img :src="item.release_img" alt srcset class="img-and-txt-left-header">
                 <span class="img-and-txt-left-name">{{item.release_name}}</span>
                 <span class="img-and-txt-left-place" style="color:#999">
-                  <span class="iconfont icondingwei"></span>
+                  <span class="iconfont icondingwei text-overflow-hidden"></span>
                   {{item.address | stringToArr}}
                 </span>
               </p>
@@ -92,7 +92,11 @@ export default {
   },
   filters: {
     stringToArr(str) {
-      return str.split(",")[0];
+      if (str) {
+        return str.split(",")[0].substring(0,str.split(",")[0].length-1);
+      } else {
+        return "未知";
+      }
     }
   },
   computed: {},
@@ -222,11 +226,12 @@ export default {
   border-radius: 50%;
   object-fit: cover;
 }
-.img-and-txt-left-name{
+.img-and-txt-left-name {
   flex: 3;
   font-size: 12px;
+  overflow: hidden;
 }
-.img-and-txt-left-place{
+.img-and-txt-left-place {
   flex: 2;
   font-size: 12px;
 }
@@ -239,5 +244,11 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
+}
+.img-and-txt-left-desc {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>

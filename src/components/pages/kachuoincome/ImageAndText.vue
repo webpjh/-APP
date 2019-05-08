@@ -1,3 +1,11 @@
+<!--
+ * @Description: 
+ * @Author: lpb
+ * @Github: https://github.com/lpb273
+ * @LastEditors: lpb
+ * @Date: 2019-03-15 13:34:24
+ * @LastEditTime: 2019-05-07 09:10:31
+ -->
 <template>
   <div class="img-and-text-wrap">
     <x-header

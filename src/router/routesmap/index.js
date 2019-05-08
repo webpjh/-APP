@@ -1,3 +1,11 @@
+/*
+ * @Description: 
+ * @Author: lpb
+ * @Github: https://github.com/lpb273
+ * @LastEditors: lpb
+ * @Date: 2019-02-27 14:46:25
+ * @LastEditTime: 2019-05-07 11:10:07
+ */
 export default [
   {
     path: '/',
@@ -316,5 +324,25 @@ export default [
     path: '/goodsVideoclassifydetails',
     name: 'GoodsVideoClassifyDetails',
     component: resolve => require(['@/components/pages/kachuomall/GoodsVideoClassifyDetails'], resolve),
+  },
+  {
+    path: '/yaoyuechuangzuo',
+    name: 'YaoYueChuangZuo',
+    component: resolve => require(['@/components/pages/kachuoincome/YaoYueChuangZuo'], resolve),
+  },
+  {
+    path: '/wenchuangqiangdan',
+    name: 'WenChuangQiangdan',
+    component: resolve => require(['@/components/pages/kachuoincome/caiyuangongxiang/WenChuangQiangdan'], resolve),
+  },
+  {
+    path: '/yichuangqiangdan',
+    name: 'YiChuangQiangdan',
+    component: resolve => require(['@/components/pages/kachuoincome/caiyuangongxiang/YiChuangQiangdan'], resolve),
+  },
+  {
+    path: '/yichuangqiangdaninput',
+    name: 'YiChuangQiangdanInput',
+    component: resolve => require(['@/components/pages/kachuoincome/caiyuangongxiang/YiChuangQiangdanInput'], resolve),
   }
 ]

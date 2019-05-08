@@ -1,3 +1,11 @@
+<!--
+ * @Description: 
+ * @Author: lpb
+ * @Github: https://github.com/lpb273
+ * @LastEditors: lpb
+ * @Date: 2019-02-27 10:33:25
+ * @LastEditTime: 2019-05-07 11:10:20
+ -->
 <template>
   <div class="tab-item-mall-wrap">
     <TabItemIncomeHeader></TabItemIncomeHeader>
@@ -21,7 +29,7 @@ export default {
         {
           title: "邀约创作",
           icon: "iconfont iconcaiyuangongxiang",
-          link: ""
+          link: "/yaoyuechuangzuo"
         },
         {
           title: "视频创作",

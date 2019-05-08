@@ -124,9 +124,7 @@ export default {
         .then(res => {
           console.log(res);
           if (res.result === 1) {
-            // console.log(res.data.list[4]);
             let dataResult = formData(res.data.list);
-            console.log(dataResult);
             dataResult.forEach((item, index) => {
               switch (item.name) {
                 case "学历":
