@@ -42,6 +42,28 @@
         </div>
       </popup>
     </div>
+    <!-- 溯源订单详情 -->
+    <div v-transfer-dom>
+      <popup v-model="showPopupSY" position="bottom" max-height="50%" :hide-on-blur="true">
+        <div class="popup2">
+          <p class="title">
+            <span style="font-size:16px">当前位置溯源列表</span>
+          </p>
+          <p style="text-align:center;" v-show="!samePosition">
+            <inline-loading></inline-loading>
+          </p>
+          <group class="ycqd-group">
+            <cell
+              v-for="(item,index) in samePosition"
+              :key="index"
+              :title="item.name"
+              is-link
+              @click.native="SYGet(item)"
+            >时间：{{item.date}}</cell>
+          </group>
+        </div>
+      </popup>
+    </div>
     <!-- 景区授权 -->
     <div v-transfer-dom>
       <x-dialog v-model="showToast" class="dialog-demo">
@@ -58,6 +80,7 @@
 
 <script>
 let map = null;
+let SYOrderListData = [];
 import locationIcon from "@/assets/images/kachuo-location-icon.png";
 import {
   TransferDom,
@@ -69,7 +92,7 @@ import {
   Cell
 } from "vux";
 import { SCENICLIST } from "@/assets/data/scenic";
-import { GetSoliciList } from "@/servers/api";
+import { GetSoliciList, SYorderList } from "@/servers/api";
 export default {
   directives: {
     TransferDom
@@ -83,12 +106,15 @@ export default {
       showPopup: false,
       showToast: false,
       showPopupYC: false,
+      showPopupSY: false,
       clickPosition: {},
       dataObj: {},
       dataObjYC: {
         name: "",
         arr: []
-      }
+      },
+      SYOrderListData: [],
+      samePosition: []
     };
   },
 
@@ -116,6 +142,77 @@ export default {
   },
 
   methods: {
+    // 溯源抢单
+    SYGet(item) {
+      this.$router.push({
+        path: "/SuYuanQiangdan",
+        query: {
+          item:JSON.stringify(item)
+        }
+      });
+    },
+    getScenceDataMark() {
+      this.init().then(res => {
+        this.showMarker(SCENICLIST);
+      });
+    },
+    getSYData() {
+      Promise.all([this.init(), this.getSYOrderList()]).then(res => {
+        let markArr = res[1];
+        markArr.forEach((item, index) => {
+          var marker = new AMap.Marker({
+            map: map,
+            icon: locationIcon,
+            position: [item.position[0], item.position[1]],
+            offset: new AMap.Pixel(-13, -30)
+          });
+          marker.setLabel({
+            offset: new AMap.Pixel(20, 20),
+            content: item.name,
+            id: item.id,
+            position: [item.position[0], item.position[1]]
+          });
+          marker.on("click", item => {
+            this.samePosition = [];
+            for (let i = 0; i < this.SYOrderListData.length; i++) {
+              if (
+                this.SYOrderListData[i].position.join(",") ===
+                item.target.Uh.label.position.join(",")
+              ) {
+                this.samePosition.push(this.SYOrderListData[i]);
+              }
+            }
+            this.showPopupSY = true;
+          });
+        });
+      });
+    },
+    // 溯源订单列表
+    getSYOrderList() {
+      this.SYOrderListData = [];
+      return new Promise((resolve, reject) => {
+        SYorderList({})
+          .then(res => {
+            console.log(res);
+            if (res.result === 1) {
+              for (let i = 0; i < res.data.data.length; i++) {
+                this.SYOrderListData.push({
+                  id: res.data.data[i].yc_id,
+                  name: res.data.data[i].category,
+                  date: res.data.data[i].date,
+                  position: res.data.data[i].ip.split(","),
+                  order: res.data.data[i].order,
+                  address: res.data.data[i].address
+                });
+              }
+              resolve(this.SYOrderListData);
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      });
+    },
     ycqdFn(item) {
       this.$router.push({
         path: "/yichuangqiangdan",
@@ -138,7 +235,6 @@ export default {
         type: type
       })
         .then(res => {
-          console.log(res);
           if (res.result === 1) {
             if (type === 1) {
               this.showPopup = true;

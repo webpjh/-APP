@@ -344,5 +344,15 @@ export default [
     path: '/yichuangqiangdaninput',
     name: 'YiChuangQiangdanInput',
     component: resolve => require(['@/components/pages/kachuoincome/caiyuangongxiang/YiChuangQiangdanInput'], resolve),
+  },
+  {
+    path: '/suyuanqiangdan',
+    name: 'SuYuanQiangdan',
+    component: resolve => require(['@/components/pages/kachuoincome/caiyuangongxiang/SuYuanQiangdan'], resolve),
+  },
+  {
+    path: '/orderlistcaiyuan',
+    name: 'OrderListCY',
+    component: resolve => require(['@/components/pages/kachuoincome/caiyuangongxiang/OrderList'], resolve),
   }
 ]

@@ -346,4 +346,10 @@ export const YcList = (data) => http.post("goods.details.getGoodsCode", data);
 export const SaveYcOrder = (data) => http.post("goods.real.save_YcOrder", data);
 
 // 艺创抢单提交
-// export const SaveYcOrder = (data) => http.post("goods.real.save_YcOrder", data);
+export const SYorderList = (data) => http.post("goods.real.get_SourceList", data);
+
+// 溯源提交
+export const SaveSyOrder = (data) => http.post("goods.real.save_SyOrder", data);
+
+// 才源共享订单
+export const CYGXorderList = (data) => http.post("goods.real.get_OrderList", data);

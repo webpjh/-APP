@@ -16,9 +16,24 @@ export const formData = (dataArr) => {
   for (let i = 0; i < flagIndexArr.length; i++) {
     resultArr[i].data = dataArr.slice(flagIndexArr[i], flagIndexArr[i + 1]);
   }
-  console.log(resultArr)
   return resultArr;
 }
+
+// 格式化艺创提交数据
+export const formDataFn = (arr, resultArr) => {
+  for (let i = 0; i < arr.length; i++) {
+    resultArr.push({
+      name: arr[i].name,
+      value: arr[i].value,
+      parent: arr[i].parent
+    });
+    if (arr[i].son) {
+      formDataFn(arr[i].son, resultArr);
+    }
+  }
+  return resultArr;
+}
+
 // 日期转换(2019/10/12 下午10：09)
 export const getLocalTime = (time) => {
   return new Date(parseInt(time, 10) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');

@@ -43,6 +43,21 @@ export default {
           link: "/orderlist"
         },
         {
+          title: "文创订单",
+          icon: "iconfont iconcaiyuangongxiang",
+          link: "/orderlistcaiyuan?type=1"
+        },
+        {
+          title: "艺创订单",
+          icon: "iconfont iconcaiyuangongxiang",
+          link: "/orderlistcaiyuan?type=2"
+        },
+        {
+          title: "溯源订单",
+          icon: "iconfont iconcaiyuangongxiang",
+          link: "/orderlistcaiyuan?type=3"
+        },
+        {
           title: "我的门票",
           icon: "iconfont iconmenpiaodingdan",
           link: "/ticketsorder"

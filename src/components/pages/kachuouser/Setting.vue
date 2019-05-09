@@ -137,6 +137,7 @@ export default {
       GetAuthState({})
         .then(res => {
           if (res) {
+            console.log(res);
             this.authState = res.data.code;
             if (res.data.code === 0) {
               this.$set(this.cellListToolsA, 0, {
@@ -155,7 +156,7 @@ export default {
             } else if (res.data.code === 2) {
               this.$set(this.cellListToolsA, 0, {
                 title: "实名认证",
-                link: "/realnameauthstate",
+                link: "/realnameauth",
                 badge: true,
                 text: "审核未通过"
               });

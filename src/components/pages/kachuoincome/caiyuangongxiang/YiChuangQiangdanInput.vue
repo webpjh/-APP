@@ -24,15 +24,57 @@
           v-model="valueName"
           placeholder-align="right"
         ></x-input>
-        <popup-picker title="品类：" :data="listPL" :columns="4" v-model="valuePL" show-name></popup-picker>
-        <popup-picker title="材质：" :data="listCZ" :columns="3" v-model="valueCZ" show-name></popup-picker>
-        <popup-picker title="形制：" :data="listXZ" :columns="3" v-model="valueXZ" show-name></popup-picker>
-        <popup-picker title="颜色：" :data="listYS" :columns="3" v-model="valueYS" show-name></popup-picker>
-        <popup-picker title="纹饰：" :data="listWS" :columns="3" v-model="valueWS" show-name></popup-picker>
-        <popup-picker title="用途：" :data="listYT" :columns="3" v-model="valueYT" show-name></popup-picker>
-        <popup-picker title="技法：" :data="listJF" :columns="4" v-model="valueJF" show-name></popup-picker>
+        <popup-picker
+          title="品&emsp;&emsp;&nbsp;类："
+          :data="listPL"
+          :columns="4"
+          v-model="valuePL"
+          show-name
+        ></popup-picker>
+        <popup-picker
+          title="材&emsp;&emsp;&nbsp;质："
+          :data="listCZ"
+          :columns="3"
+          v-model="valueCZ"
+          show-name
+        ></popup-picker>
+        <popup-picker
+          title="形&emsp;&emsp;&nbsp;制："
+          :data="listXZ"
+          :columns="3"
+          v-model="valueXZ"
+          show-name
+        ></popup-picker>
+        <popup-picker
+          title="颜&emsp;&emsp;&nbsp;色："
+          :data="listYS"
+          :columns="3"
+          v-model="valueYS"
+          show-name
+        ></popup-picker>
+        <popup-picker
+          title="纹&emsp;&emsp;&nbsp;饰："
+          :data="listWS"
+          :columns="3"
+          v-model="valueWS"
+          show-name
+        ></popup-picker>
+        <popup-picker
+          title="用&emsp;&emsp;&nbsp;途："
+          :data="listYT"
+          :columns="3"
+          v-model="valueYT"
+          show-name
+        ></popup-picker>
+        <popup-picker
+          title="技&emsp;&emsp;&nbsp;法："
+          :data="listJF"
+          :columns="4"
+          v-model="valueJF"
+          show-name
+        ></popup-picker>
         <x-input
-          title="规格："
+          title="规&emsp;&emsp;&nbsp;格："
           placeholder
           :icon-type="iconType"
           :show-clear="false"
@@ -40,7 +82,7 @@
           placeholder-align="right"
         ></x-input>
         <x-input
-          title="价格："
+          title="价&emsp;&emsp;&nbsp;格："
           placeholder
           :icon-type="iconType"
           :show-clear="false"
@@ -48,7 +90,7 @@
           placeholder-align="right"
         ></x-input>
         <x-input
-          title="工时："
+          title="工&emsp;&emsp;&nbsp;时："
           placeholder="单位（小时）"
           :icon-type="iconType"
           :show-clear="false"
@@ -56,7 +98,12 @@
           placeholder-align="right"
         ></x-input>
         <popup-picker title="价值取向：" :data="listJZQX" :columns="3" v-model="valueJZQX" show-name></popup-picker>
-        <x-address title="地址：" :list="addressData" v-model="valueAddress"></x-address>
+        <x-address
+          title="地&emsp;&emsp;&nbsp;址："
+          :list="addressData"
+          @on-shadow-change="onShadowChange"
+          v-model="valueAddress"
+        ></x-address>
         <x-input
           title="详细地址："
           placeholder
@@ -77,6 +124,8 @@
 </template>
 
 <script>
+let resultArr = [];
+var that = this;
 import Header from "@/components/common/Header";
 import {
   XInput,
@@ -88,8 +137,8 @@ import {
   ChinaAddressV4Data
 } from "vux";
 import ImageUploader from "@/components/common/ImageUploader";
-import { SaveWcOrder, YcList, getUserRule } from "@/servers/api";
-import { formData } from "@/assets/js/tools";
+import { SaveYcOrder, YcList, getUserRule } from "@/servers/api";
+import { formData, formDataFn } from "@/assets/js/tools";
 
 export default {
   name: "",
@@ -125,7 +174,8 @@ export default {
       listJZQX: [],
       valueJZQX: [],
       valueAddress: [],
-      valueDZ: ""
+      valueDZ: "",
+      nameData:""
     };
   },
 
@@ -153,12 +203,18 @@ export default {
   },
 
   methods: {
+    onShadowChange(ids, names) {
+      this.nameData = names.join(",");
+    },
     initData() {
+      this.$vux.loading.show({
+        text: "加载中"
+      });
       YcList({})
         .then(res => {
-          console.log(res);
+          let arr = [];
           if (res.result === 1) {
-            let dataResult = formData(res.data.list);
+            let dataResult = formData(formDataFn(res.data.list, arr));
             dataResult.forEach((item, index) => {
               switch (item.name) {
                 case "品类":
@@ -189,9 +245,11 @@ export default {
                   return;
               }
             });
+            this.$vux.loading.hide();
           }
         })
         .catch(err => {
+          this.$vux.loading.hide();
           console.log(err);
         });
     },
@@ -235,17 +293,26 @@ export default {
       } else if (this.imgList.length === 0) {
         this.showToast("请上传设计图");
       } else {
-        console.log("ok");
+        this.submitBtn();
       }
     },
     submitBtn() {
-      SaveWcOrder({
+      SaveYcOrder({
         id: this.$route.query.id,
-        label: this.label,
-        explains: this.explain,
-        element: this.elem,
-        unscramble: this.desc,
-        or_img: this.imgList
+        name:this.valueName,
+        category_id: this.valuePL[this.valuePL.length - 1],
+        material_id: this.valueCZ[this.valueCZ.length - 1],
+        shape_id: this.valueXZ[this.valueXZ.length - 1],
+        colour_id: this.valueYS[this.valueYS.length - 1],
+        lines_id: this.valueWS[this.valueWS.length - 1],
+        gauge_id: this.valueGG,
+        technique_id: this.valueJF[this.valueJF.length - 1],
+        purpose_id: this.valueYT[this.valueYT.length - 1],
+        address: this.nameData,
+        price: this.valueJG,
+        orientation_id: this.valueJZQX[this.valueJZQX.length - 1],
+        design_img: this.imgList,
+        work_time: this.valueGS
       })
         .then(res => {
           console.log(res);

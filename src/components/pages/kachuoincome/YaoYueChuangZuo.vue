@@ -64,7 +64,11 @@ export default {
   methods: {
     onItemClick(index) {
       this.tabIndex = index + 1;
-      
+      if (index === 2) {
+        this.$refs.map.getSYData();
+      } else {
+        this.$refs.map.getScenceDataMark();
+      }
     }
   },
 
