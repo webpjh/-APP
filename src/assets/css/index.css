@@ -341,3 +341,12 @@ img {
 .iconmenpiaodingdan:before {
   color: #ff3030;
 }
+.iconwenhuashuli::before{
+  color: #ff3030;
+}
+.iconyishuchuangzuo::before{
+  color: #308dff;
+}
+.iconchanpinsuyuan::before{
+  color: #ff9130;
+}

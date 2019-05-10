@@ -44,17 +44,17 @@ export default {
         },
         {
           title: "文创订单",
-          icon: "iconfont iconcaiyuangongxiang",
+          icon: "iconfont iconwenhuashuli",
           link: "/orderlistcaiyuan?type=1"
         },
         {
           title: "艺创订单",
-          icon: "iconfont iconcaiyuangongxiang",
+          icon: "iconfont iconyishuchuangzuo",
           link: "/orderlistcaiyuan?type=2"
         },
         {
           title: "溯源订单",
-          icon: "iconfont iconcaiyuangongxiang",
+          icon: "iconfont iconchanpinsuyuan",
           link: "/orderlistcaiyuan?type=3"
         },
         {

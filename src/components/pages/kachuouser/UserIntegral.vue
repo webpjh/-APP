@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       TitleObjData: {
-        titleContent: "通证",
+        titleContent: "积分",
         showLeftBack: true,
         showRightMore: false
       },

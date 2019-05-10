@@ -65,14 +65,15 @@ export default {
   height: 20px;
   text-align: center;
   line-height: 20px;
-  font-size: 12px;
+  font-size: 16px;
+  margin-top: 10px;
 }
 .flex-wrap-for span {
   font-size: 36px;
 }
 .icon-img{
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   display: inline-block;
 }
 </style>

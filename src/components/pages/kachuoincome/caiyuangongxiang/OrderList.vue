@@ -7,14 +7,14 @@
     ></Header>
     <Tab style="margin-top:50px" :tabList="tabListCon" v-on:changeTab="onChangeTab"></Tab>
     <div class="con-hei-wrap" :style="conSty">
-      <OrderStateList :orderData="dataList" v-on:delData="refreshDate" v-on:sureOrder="refreshDate"></OrderStateList>
+      <OrderStateList :orderData="dataList"></OrderStateList>
     </div>
   </div>
 </template>
 
 <script>
 import Header from "@/components/common/Header";
-import Tab from "@/components/common/Tab";
+import Tab from "@/components/common/TabOrder";
 import OrderStateList from "@/components/layout/OrderDataListCY";
 import { CYGXorderList } from "@/servers/api";
 import { getLocalTime, formateDate, timeTodate } from "@/assets/js/tools";
@@ -29,7 +29,7 @@ export default {
         showLeftBack: true,
         showRightMore: false
       },
-      tabListCon: ["全部","审核中", "审核通过", "审核未通过" ],
+      tabListCon: ["全部", "审核中", "审核通过", "审核未通过"],
       dataList: [],
       getData: []
     };
@@ -54,21 +54,19 @@ export default {
   },
 
   methods: {
-    refreshDate(val){
-      this.dataList.splice(val,1);
-    },
     onChangeTab(val) {
       this.getOrderList(val);
     },
     getOrderList(status) {
       this.dataList = [];
       CYGXorderList({
-        type:this.$route.query.type,
+        type: this.$route.query.type,
         status: status
       })
         .then(res => {
           if (res.result === 1) {
-            console.log(res);
+            this.dataList = res.data.data;
+            console.log(res.data.data);
           }
         })
         .catch(err => {
@@ -77,7 +75,6 @@ export default {
     }
   },
   updated() {
-    this.dataList.length = 0;
   },
   watch: {}
 };
