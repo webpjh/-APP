@@ -353,3 +353,6 @@ export const SaveSyOrder = (data) => http.post("goods.real.save_SyOrder", data);
 
 // 才源共享订单
 export const CYGXorderList = (data) => http.post("goods.real.get_OrderList", data);
+
+// 获取名家数据列表
+export const FamousListData = (data) => http.post("home.celebrity", data);

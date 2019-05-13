@@ -67,7 +67,7 @@ export default {
           imgUrl:
             "http://f.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9eab0b192c9db39b6003af3b35e.jpg",
           name: "带走的",
-          link: "/takeaway",
+          link: "/takeaway?carousel=2",
           class: "iconfont icondaizoude"
         },
         {

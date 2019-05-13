@@ -1,3 +1,6 @@
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
 import axios from 'axios';
 import qs from 'qs';
 
@@ -5,8 +8,6 @@ import store from '@/store/index';
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-
-import VueRouter from 'vue-router';
 
 const baseUrlHeader = "ewei_shopv2_app.php?i=5&c=site&a=entry&m=ewei_shopv2&do=mobile&r=";
 
@@ -31,12 +32,16 @@ const removeMarkModel = () => {
     idObject.parentNode.removeChild(idObject);
   }
 }
-const showTip = (conttentTip) => {
+const showTip = (conttentTip, callback) => {
   store.commit("showToastInfo", {
     type: "text",
     text: conttentTip,
-    show: true
+    show: true,
+    time: 1000
   })
+  setTimeout(() => {
+    callback ? callback() : ""
+  }, 1000)
 }
 const errTip = (conttentTip) => {
   store.commit("showToastInfo", {
@@ -87,13 +92,13 @@ axios.interceptors.response.use(function (response) {
       if (response.data.code === 10001) {
         localStorage.removeItem("token");
         showTip("请登录", () => {
-          this.$router.push.push('/');
+          window.location.href = ("/");
         })
       } else if (response.data.code === -3) {
         showTip("请重新登录", () => {
-          this.$router.push.push('/');
+          window.location.href = ("/");
         })
-      }else {
+      } else {
         showTip('网络慢，请检查手机网络', () => {
         });
         return response;

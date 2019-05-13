@@ -22,22 +22,22 @@ export default {
         {
           title: "艺品回购",
           icon: "iconfont iconyipinhuigou",
-          link: "/backleasesale?title=艺品回购"
+          link: "/backleasesale?title=艺品回购&carousel=8"
         },
         {
           title: "艺品租赁",
           icon: "iconfont iconyipinzulin",
-          link: "/backleasesale?title=艺品租赁"
+          link: "/backleasesale?title=艺品租赁&carousel=9"
         },
         {
           title: "艺品寄卖",
           icon: "iconfont iconyipinjimai",
-          link: "/backleasesale?title=艺品寄卖"
+          link: "/backleasesale?title=艺品寄卖&carousel=10"
         },
         {
           title: "信息消费",
           icon: "iconfont iconxinxixiaofei",
-          link: "/informationconsum"
+          link: "/informationconsum?carousel=11"
         }
       ]
     };

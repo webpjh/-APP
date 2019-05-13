@@ -10,10 +10,7 @@ export default [
   {
     path: '/',
     name: 'login',
-    component: resolve => require(['@/components/index/Login'], resolve),
-    meta:{
-      keepAlive:true
-    }
+    component: resolve => require(['@/components/index/Login'], resolve)
   },
   {
     path: '/indextab',

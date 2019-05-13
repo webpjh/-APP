@@ -14,8 +14,8 @@
       :showRightMore="TitleObjData.showRightMore"
     ></Header>
     <div class="photo-album-content" :style="conHei">
-      <p v-for="(item,index) in imgList" :key="index">
-        <img v-lazy="item" alt srcset>
+      <p v-html="imgList">
+        
       </p>
       <x-button type="primary" class="submit" @click.native="formData">我要抢单</x-button>
     </div>
@@ -64,7 +64,6 @@ export default {
   beforeMount() {},
 
   mounted() {
-    console.log(this.$route);
     this.imgList = this.$route.query.arr;
   },
 
@@ -122,5 +121,6 @@ export default {
 .submit {
   width: 80%;
   margin-top: 30px;
+  margin-bottom: 30px;
 }
 </style>

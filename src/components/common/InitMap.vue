@@ -214,11 +214,12 @@ export default {
       });
     },
     ycqdFn(item) {
+      console.log(item);
       this.$router.push({
         path: "/yichuangqiangdan",
         query: {
           id: item.wc_id,
-          arr: item.or_img
+          arr: item.details
         }
       });
     },

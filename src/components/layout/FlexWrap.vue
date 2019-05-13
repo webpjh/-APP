@@ -66,7 +66,6 @@ export default {
   text-align: center;
   line-height: 20px;
   font-size: 16px;
-  margin-top: 10px;
 }
 .flex-wrap-for span {
   font-size: 36px;

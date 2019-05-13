@@ -23,12 +23,13 @@
     >
       <p style="text-align:center;">{{modelContent}}</p>
     </confirm>
+    <toast v-model="showToastFn.show" position="middle" is-show-mask :type="showToastFn.type" :text="showToastFn.text" :time="showToastFn.time"></toast>
   </div>
 </template>
 
 <script>
 import { vueCordovaFunction } from "@/assets/js/vuecordova";
-import { Loading, Confirm } from "vux";
+import { Loading, Confirm,Toast } from "vux";
 import { CheckByLocation } from "@/servers/api";
 import { appVersion, updateAPPVersion } from "@/assets/js/common";
 export default {
@@ -40,7 +41,8 @@ export default {
   },
   components: {
     Loading,
-    Confirm
+    Confirm,
+    Toast
   },
   mounted() {
     vueCordovaFunction.getLocation();
@@ -54,6 +56,9 @@ export default {
     });
   },
   computed: {
+    showToastFn(){
+      return this.$store.state.toastInfo;
+    },
     isLoading() {
       return this.$store.state.isLoading;
     },

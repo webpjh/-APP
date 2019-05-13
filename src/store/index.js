@@ -42,7 +42,7 @@ export default new Vuex.Store({
     toastInfo: {
       type: 'text',
       text: '',
-      show: true
+      show: false
     },
     currentRouteVal: '',
     isShowBottomTabbar: true,

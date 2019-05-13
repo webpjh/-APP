@@ -24,7 +24,7 @@ import FlexWrap from "@/components/layout/FlexWrap";
 import Divider from "@/components/common/Divider";
 import Scroll from "@/components/common/Scroller";
 import GoodsList from "@/components/layout/GoodsList";
-import { goodsBucketRecomm } from "@/servers/api";
+import { goodsBucketRecomm, FamousListData } from "@/servers/api";
 
 export default {
   name: "",
@@ -41,48 +41,7 @@ export default {
       list: [],
       refreshText: "下拉刷新",
       noDataText: "没有更多数据",
-      dataList: [
-        {
-          icon: require("@/assets/images/famous-icon/wusanda.png"),
-          name: "吴三大",
-          link: "/scenceconsumdetails?title=吴三大&id=120&type=2&flag=2"
-        },
-        {
-          icon: require("@/assets/images/famous-icon/zhangzhongting.png"),
-          name: "张仲亭",
-          link: "/scenceconsumdetails?title=张仲亭&id=119&type=2&flag=2"
-        },
-        {
-          icon: require("@/assets/images/famous-icon/zhongmingshan.png"),
-          name: "钟明善",
-          link: "/scenceconsumdetails?title=钟明善&id=118&type=2&flag=2"
-        },
-        {
-          icon: require("@/assets/images/famous-icon/songshuiguan.png"),
-          name: "宋水官",
-          link: "/scenceconsumdetails?title=宋水官&id=117&type=2&flag=2"
-        },
-        {
-          icon: require("@/assets/images/famous-icon/yangshuhua.png"),
-          name: "杨曙华",
-          link: "/scenceconsumdetails?title=杨曙华&id=115&type=2&flag=2"
-        },
-        {
-          icon: require("@/assets/images/famous-icon/zhangguoqing.png"),
-          name: "张国庆",
-          link: "/scenceconsumdetails?title=张国庆&id=116&type=2&flag=2"
-        },
-        {
-          icon: require("@/assets/images/famous-icon/kachuo.png"),
-          name: "官方馆藏",
-          link: "/scenceconsumdetails?title=官方馆藏&id=114&type=2&flag=2"
-        },
-        // {
-        //   icon: "",
-        //   name: "私人定制",
-        //   link: "/scenceconsumdetails?title=私人定制&id=0&type=2&flag=2"
-        // }
-      ],
+      dataList: [],
       goodsDataList: []
     };
   },
@@ -107,11 +66,30 @@ export default {
 
   mounted() {
     this.setTitle();
+    this.getFamousList();
     this.getGoodsComm();
     this.getBannerImgFn("6");
   },
 
   methods: {
+    // 获取名家列表
+    getFamousList() {
+      FamousListData({})
+        .then(res => {
+          if (res.result === 1) {
+            for (let i = 0; i < res.data.length; i++) {
+              this.dataList.push({
+                icon: res.data[i].list_img,
+                name: res.data[i].list_name,
+                link: "/scenceconsumdetails?title="+res.data[i].list_name+"&id="+res.data[i].type_id+"&type=2&flag=2&carousel="+[i+26]
+              });
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     // 商品推荐
     getGoodsComm() {
       goodsBucketRecomm({

@@ -5,7 +5,7 @@
       class="img-swiper-wrap"
       :key="index"
     >
-      <img :src="item.img" alt srcset class="img-swiper-wrap-img-lis">
+      <img v-lazy="item.img" alt srcset class="img-swiper-wrap-img-lis">
     </swiper-slide>
     <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
@@ -14,6 +14,7 @@
 <script>
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
+import { AdvertiseLoop, getUpdateInfo } from "@/servers/api";
 export default {
   props: [""],
   components: {
@@ -22,12 +23,61 @@ export default {
   },
   ready() {},
   methods: {
+    getBannerImg(type, height) {
+      let imgArr = [];
+      let carouselType = this.$route.query.carousel;
+      if (!carouselType) {
+        type = this.$store.state.tabIndex;
+        switch (this.$store.state.tabIndex) {
+          case 1:
+            carouselType = 3;
+            break;
+          case 2:
+            carouselType = 7;
+            break;
+          case 3:
+            carouselType = 12;
+            break;
+          default:
+            carouselType = 1;
+            return;
+        }
+      }
+      AdvertiseLoop({
+        type: carouselType
+      })
+        .then(res => {
+          if (res.result === 1) {
+            for (let i = 0; i < res.data.data.carousel.length; i++) {
+              imgArr.push({
+                img: res.data.data.carousel[i]
+              });
+            }
+            this.SwiperImgData = {
+              ImgList: imgArr,
+              index: 0,
+              dotsPosition: "center",
+              loop: true,
+              auto: true,
+              height: "160px"
+            };
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     setLoopImg() {
       if (this.$route.path != "/imageandtextdetails") {
         this.$nextTick(() => {
-          this.SwiperImgData.ImgList = JSON.parse(
-            JSON.stringify(this.$store.state.carousel)
-          );
+          this.SwiperImgData = {
+            ImgList: this.$store.state.carousel,
+            index: 0,
+            dotsPosition: "center",
+            loop: true,
+            auto: true,
+            height: "160px"
+          };
         });
       }
     }
@@ -52,8 +102,10 @@ export default {
     };
   },
   computed: {},
+  created() {
+  },
   mounted() {
-    this.setLoopImg();
+    this.getBannerImg();
   },
   beforeDestroy() {
     this.SwiperImgData = {

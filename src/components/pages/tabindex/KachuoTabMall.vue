@@ -32,17 +32,17 @@ export default {
         {
           title: "景区消费",
           icon: "iconfont iconjingquxiaofei",
-          link: "/scenceconsum?title=景区消费"
+          link: "/scenceconsum?title=景区消费&carousel=4"
         },
         {
           title: "景区好礼",
           icon: "iconfont iconjingquhaoli",
-          link: "/scencegifts?title=景区好礼"
+          link: "/scencegifts?title=景区好礼&carousel=5"
         },
         {
           title: "名家妙藏",
           icon: "iconfont iconmingjiamiaocang",
-          link: "/famouscollection?title=名家妙藏"
+          link: "/famouscollection?title=名家妙藏&carousel=6"
         }
       ],
       dividerContent: "猜你喜欢",

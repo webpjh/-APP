@@ -60,7 +60,7 @@ export const timeTodate = (timeDate) => {
 // 获取当前位置
 export const getLocation = () => {
   function showPosition(position) {
-    alert(position.coords.latitude + "," + position.coords.longitude);
+    console.log(position.coords.latitude + "," + position.coords.longitude);
   }
   if (navigator.geolocation) {
     console.log(navigator.geolocation.getCurrentPosition);
