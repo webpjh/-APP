@@ -82,16 +82,16 @@ export const vueCordovaFunction = {
   /**
    * 社会化分享
    */
-  socialShare: function (id) {
+  socialShare: function (goodObj) {
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
       var options = {
         message: '卡戳', // not supported on some apps (Facebook, Instagram)
         subject: 'the subject', // fi. for email
         files: ['', ''], // an array of filenames either locally or remotely
-        url: 'https://core.kachuo.com/share/index.html?id='+id,
+        url: 'https://core.kachuo.com/share/index.html?id='+goodObj.id,
         chooserTitle: '卡戳', // Android only, you can override the default share sheet title,
-        appPackageName: '' // Android only, you can provide id of the App you want to share with
+        appPackageName: 'com.tencent.mm' // Android only, you can provide id of the App you want to share with
       };
 
       var onSuccess = function (result) {
@@ -102,8 +102,9 @@ export const vueCordovaFunction = {
       var onError = function (msg) {
         console.log("Sharing failed with message: " + msg);
       };
-
-      window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+      // window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+      window.plugins.socialsharing.share(goodObj.title, null, goodObj.thumb_url[0], 'https://core.kachuo.com/share/index.html?id='+goodObj.id);
+      // window.plugins.socialsharing.share('Message, image and link', null, 'https://www.google.nl/images/srpr/logo4w.png', 'http://www.x-services.nl');
     }
   }
 }

@@ -37,6 +37,7 @@ export const getBannerImg = (type, height) => {
 export const serverAPPVersion = () => {
   getUpdateInfo().then(res => {
     if (res.result === 1) {
+      console.log(res);
       if(res.data.status === "0"){
         return;
       }
@@ -72,7 +73,7 @@ export const appVersion = () => {
   function onDeviceReady() {
     cordova.getAppVersion.getVersionNumber().then(function (version) {
       // 存储本地版本
-      localVersion = version;
+      localVersion = version.toString();
       // 获取服务器版本
       serverAPPVersion();
     });

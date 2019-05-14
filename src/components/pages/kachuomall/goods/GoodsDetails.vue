@@ -128,6 +128,7 @@ import VideoPlayer from "@/components/common/VideoPlayer";
 import SwiperImg from "@/components/common/SwiperImgGoodDetails";
 import { getDetail, CollectionGoods, SaveShopping } from "@/servers/api";
 import Divider from "@/components/common/DividedArea";
+import { vueCordovaFunction } from "@/assets/js/vuecordova";
 import {
   Cell,
   CellBox,
@@ -154,7 +155,7 @@ export default {
       TitleObjData: {
         titleContent: "商品详情",
         showLeftBack: true,
-        showRightMore: false
+        showRightMore: true
       },
       selModel: "",
       showPopup: false,

@@ -46,7 +46,6 @@ export default {
   },
   mounted() {
     vueCordovaFunction.getLocation();
-    // vueCordovaFunction.socialShare();
     appVersion();
     sessionStorage.setItem("closeFace", 0);
   },

@@ -20,6 +20,7 @@
 import { ShopGoodsList, getScenicList } from "@/servers/api";
 import GoodsList from "@/components/layout/GoodsList";
 let totalCount = 0;
+let totalPage = 0;
 export default {
   name: "app",
   components: {
@@ -41,7 +42,7 @@ export default {
           noMore: "没有更多数据了"
         }
       },
-      startY: '0',
+      startY: "0",
       scrollToX: 0,
       scrollToY: 0,
       scrollToTime: 700,
@@ -57,7 +58,7 @@ export default {
     }
   },
   mounted() {
-    this.getData();
+    this.onPullingDown();
   },
   methods: {
     // 滚动到页面顶部
@@ -74,9 +75,9 @@ export default {
       // 2名家商城
       // 3微商城
       let flag = this.$route.query.flag;
-      if (flag === '1' || flag === '2') {
+      if (flag === "1" || flag === "2") {
         let postData = {};
-        if (flag === '1') {
+        if (flag === "1") {
           postData = {
             scenic_id: this.$route.query.id,
             page: this.page
@@ -91,12 +92,12 @@ export default {
           getScenicList(postData)
             .then(res => {
               if (res.result === 1) {
-                this.goodsListData =res.data.list;
-                totalCount = res.data.total;
-                this.totalNum = res.data.total;
-                this.noData =
-                  res.data.page === res.data.page_num ? true : false;
                 resolve(res.data.list);
+                totalCount = res.data.totalofnum;
+                totalPage = res.data.totalpage;
+                this.totalNum = res.data.totalofnum;
+                this.noData =
+                  res.data.currentpage === res.data.numofpage ? true : false;
               }
             })
             .catch(err => {
@@ -111,14 +112,13 @@ export default {
             cel: this.$route.query.type
           })
             .then(res => {
-              console.log(res);
               if (res.result === 1) {
-                this.goodsListData =res.data.list;
-                totalCount = res.data.total;
-                this.totalNum = res.data.total;
-                this.noData =
-                  res.data.page === res.data.page_num ? true : false;
                 resolve(res.data.list);
+                totalCount = res.data.totalofnum;
+                totalPage = res.data.totalpage;
+                this.totalNum = res.data.totalofnum;
+                this.noData =
+                  res.data.currentpage === res.data.numofpage ? true : false;
               }
             })
             .catch(err => {
@@ -143,11 +143,17 @@ export default {
     // 加载更多数据
     onPullingUp() {
       this.page += 1;
+      if (this.page > totalPage) {
+        this.$refs.scroll.forceUpdate(true);
+        return;
+      }
       this.getData().then(res => {
         this.goodsListData = this.goodsListData.concat(res);
         if (this.goodsListData.length < totalCount) {
+          console.log("has more");
           this.$refs.scroll.forceUpdate(true);
         } else {
+          console.log("no more");
           this.$refs.scroll.forceUpdate(false);
         }
       });

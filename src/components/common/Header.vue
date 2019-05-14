@@ -16,13 +16,20 @@ titleContent（string）：标题内容
       style="width: 100%;position: absolute;left: 0;top: 0;z-index: 100;font-size: 20px;"
     >{{titleContent}}</x-header>
     <Popup :showRescue="showRescueP"></Popup>
+    <actionsheet
+      v-model="showShare"
+      :menus="menus1"
+      @on-click-menu="click"
+      @on-after-hide="log('after hide')"
+      @on-after-show="log('after show')"
+    ></actionsheet>
   </div>
 </template>
 
 <script>
-import { XHeader, TransferDom } from "vux";
+import { XHeader, TransferDom, Actionsheet } from "vux";
 import Popup from "@/components/common/PupupRescue";
-
+import { vueCordovaFunction } from "@/assets/js/vuecordova";
 export default {
   props: ["titleContent", "showLeftBack", "showRightMore"],
   directives: {
@@ -30,19 +37,39 @@ export default {
   },
   components: {
     XHeader,
-    Popup
+    Popup,
+    Actionsheet
   },
   data() {
     return {
-      showRescueP:false
+      showRescueP: false,
+      showShare: false,
+      menus1: {
+        menu1: "发送给朋友",
+        menu2: "分享到朋友圈"
+      }
     };
+  },
+  mounted() {
   },
   methods: {
     back() {
       this.$router.goBack();
     },
     showBottom() {
-      this.showRescueP = true;
+      if (this.$route.path === "/goodsdetails") {
+        this.showShare = true;
+      } else {
+        this.showRescueP = true;
+      }
+    },
+    log(str) {
+      console.log(str);
+    },
+    click(key) {
+      console.log(this.$parent.goodsData);
+      console.log(window.plugins.socialsharing.share)
+      vueCordovaFunction.socialShare(this.$parent.goodsData);
     }
   }
 };
