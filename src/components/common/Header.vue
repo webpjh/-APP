@@ -67,8 +67,6 @@ export default {
       console.log(str);
     },
     click(key) {
-      console.log(this.$parent.goodsData);
-      console.log(window.plugins.socialsharing.share)
       vueCordovaFunction.socialShare(this.$parent.goodsData);
     }
   }

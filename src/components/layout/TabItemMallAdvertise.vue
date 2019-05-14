@@ -44,6 +44,8 @@ export default {
   background: #fff;
   position: relative;
   z-index: 999;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 .tab-item-mall-advertise-swiper {
   width: 100%;

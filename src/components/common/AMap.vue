@@ -58,6 +58,7 @@ export default {
         type: type
       })
         .then(res => {
+          console.log(res);
           if (res.result === 1) {
             if (res.data.length) {
               for (let i = 0; i < res.data.length; i++) {
