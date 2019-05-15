@@ -120,8 +120,17 @@ export default {
       this.tabItem[index].class = this.tabItem[index].classActive;
     }
   },
+  computed: {
+    stateTabIndex() {
+      return this.$store.state.tabIndex;
+    }
+  },
 
-  watch: {}
+  watch: {
+    stateTabIndex: function(val, oldval){
+      this.changeTabIndex(val);
+    }
+  }
 };
 </script>
 <style lang='css' scoped>

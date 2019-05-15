@@ -38,7 +38,6 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  padding-left: 15px;
   box-sizing: border-box;
   background: #fff;
 }

@@ -1,7 +1,7 @@
 <template>
   <swiper :options="swiperOption">
     <swiper-slide v-for="(item, index) in swiperSlides" :key="index">
-      <img :src="item.img" alt srcset>
+      <img :src="item.img" alt srcset @click="getToItem(index)">
     </swiper-slide>
     <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
@@ -19,6 +19,20 @@ export default {
   },
   ready() {},
   methods: {
+    getToItem(index) {
+      switch (index) {
+        case 0:
+          this.$router.push("/intelligentnavigation");
+          break;
+        case 1:
+        this.$store.commit("changeTabIndex", 1);
+          break;
+        case 2:
+          break;
+        default:
+          return;
+      }
+    },
     getDataList() {
       let imgArr = [];
       AdvertiseLoop({
