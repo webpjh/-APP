@@ -2,7 +2,7 @@
   <div class="tab-item-paly-content">
     <FunctionAreas class="tab-item-play-content-tools-wrap"></FunctionAreas>
     <div class="tab-item-play-content-tip-wrap">
-      <AdvertiseSwiper></AdvertiseSwiper>
+      <AdvertiseSwiper style="padding-left:15px"></AdvertiseSwiper>
     </div>
     <div class="tab-item-play-content-scence">
       <div class="tab-item-play-content-tools">

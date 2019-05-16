@@ -8,7 +8,7 @@
           @change="addImg"
           ref="inputer"
           multiple
-          accept="image/png, image/jpeg, image/gif, image/jpg"
+          accept="image/*"
         >
         <a class="add">
           <p class="add-icon">+</p>

@@ -8,7 +8,7 @@
           @change="addVideo"
           ref="inputer"
           multiple
-          accept="video/*"
+          accept="video/mp4,video/x-m4v,video/*"
         >
         <a class="add">
           <p class="add-icon">+</p>
@@ -106,7 +106,7 @@ export default {
       axios
         .post(this.videoUploadUrl, this.formData, config)
         .then(res => {
-          console.log(res);
+          alert(JSON.stringify(res));
           if (res.data.result === 1) {
             this.$vux.loading.hide();
             this.$vux.toast.show({
@@ -118,6 +118,7 @@ export default {
             console.log(this.videoUrl);
             this.$emit("getVideoUploadUrl", res.data.data.files[0].url);
           } else {
+            this.$vux.loading.hide();
             this.$vux.toast.show({
               type: "warn",
               text: "失败请重试",
