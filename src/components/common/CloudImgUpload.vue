@@ -1,14 +1,8 @@
 <template>
   <div class="control-form">
     <ul class="upload-imgs">
-      <li v-for="(value, key) in imgs" :key="key">
-        <p class="img">
-          <img :src="getObjectURL(value)">
-          <a class="close" @click="delImg(key)">×</a>
-        </p>
-      </li>
-      <li v-if="imgLen>=3 ? false : true">
-        <input type="file" class="upload" @change="addImg" ref="inputer" multiple accept="image/*">
+      <li>
+        <input type="file" class="upload" @change="addImg" ref="inputer" accept="image/*">
         <a class="add">
           <p class="add-icon">+</p>
         </a>
@@ -19,29 +13,47 @@
 
 <script>
 import axios from "axios";
-import { imageUpload } from "@/servers/api";
-
+import { imageUpload, setNickName, CloudUploadImg } from "@/servers/api";
 export default {
   data() {
     return {
       formData: new FormData(),
       imgs: {},
       imgLen: 0,
-      getImg: [],
+      getImg: "",
       videoUploadUrl:
         "https://core.kachuo.com/app/ewei_shopv2_app.php?i=5&c=site&a=entry&m=ewei_shopv2&do=mobile&r=util.uploader.uploadm"
     };
   },
   methods: {
+    updataUserImg(val) {
+      setNickName({
+        avatar: val
+      })
+        .then(res => {
+          if (res.result === 1) {
+            this.$vux.toast.show({
+              type: "success",
+              text: "设置成功",
+              time: 1000
+            });
+          } else {
+            this.$vux.toast.show({
+              type: "warn",
+              text: "失败请重试",
+              time: 1000
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     addImg(event) {
       let inputDOM = this.$refs.inputer;
       this.fil = inputDOM.files;
       let oldLen = this.imgLen;
       let len = this.fil.length + oldLen;
-      if (len > 3) {
-        this.showToast("最多可上传3张，您还可以上传" + (3 - oldLen) + "张");
-        return false;
-      }
       for (let i = 0; i < this.fil.length; i++) {
         let size = Math.floor(this.fil[i].size / 1024);
         if (size > 10 * 1024 * 1024) {
@@ -74,8 +86,6 @@ export default {
     delImg(key) {
       this.$delete(this.imgs, key);
       this.imgLen--;
-      this.getImg = this.getImg.slice(key, 1);
-      this.$emit("getImgUploadUrl", this.getImg);
     },
     showLoading() {
       this.$vux.loading.show({
@@ -114,9 +124,22 @@ export default {
             this.$vux.toast.show({
               type: "success",
               text: "上传成功",
-              time: 1000
+              time: 1000,
+              onHide: () => {
+                CloudUploadImg({
+                  image: res.data.data.files[0].url
+                })
+                  .then(res => {
+                    if (res.result === 1) {
+                      this.$parent.getImgList();
+                    }
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
+              }
             });
-            this.getImg.push(res.data.data.files[0].url);
+            this.getImg = res.data.data.files[0];
           } else {
             this.$vux.loading.hide();
             this.$vux.toast.show({
@@ -129,13 +152,9 @@ export default {
         .catch(err => {
           console.log(err);
         });
-      this.$emit("getImgUploadUrl", this.getImg);
     }
   },
-  mounted() {
-    // this.showLoading();
-    // this.showToast();
-  }
+  mounted() {}
 };
 </script>
 <style lang='css' scoped>
@@ -155,12 +174,14 @@ export default {
   padding: 10px;
   text-align: center;
   vertical-align: middle;
+  margin-left: -10px;
 }
 .upload-imgs .add {
   display: block;
   background-color: #f9f9f9;
   color: #ffffff;
   height: 94px;
+  border: 1px solid #eee;
 }
 .upload-imgs li .upload {
   position: absolute;

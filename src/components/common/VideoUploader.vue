@@ -6,16 +6,16 @@
           type="file"
           class="upload"
           @change="addVideo"
+          multiple="false"
           ref="inputer"
-          multiple
-          accept="video/mp4,video/x-m4v,video/*"
+          accept="video/mp4, video/x-m4v, video/*"
         >
         <a class="add">
           <p class="add-icon">+</p>
         </a>
       </li>
       <li v-if="videoUrl">
-        <video class="video-wrap" :src="videoUrl"></video>
+        <video class="video-wrap" :src="videoUrl" :poster="posterImg"></video>
       </li>
     </ul>
   </div>
@@ -30,8 +30,9 @@ export default {
       imgs: {},
       imgLen: 0,
       videoUrl: "",
+      posterImg: "",
       videoUploadUrl:
-        "https://core.kachuo.com/app/ewei_shopv2_app.php?i=5&c=site&a=entry&m=ewei_shopv2&do=mobile&r=util.uploader.uploadm"
+        "https://core.kachuo.com/app/ewei_shopv2_app.php?i=5&c=site&a=entry&m=ewei_shopv2&do=mobile&r=util.uploader.uploadm_video"
     };
   },
   methods: {
@@ -106,7 +107,6 @@ export default {
       axios
         .post(this.videoUploadUrl, this.formData, config)
         .then(res => {
-          alert(JSON.stringify(res));
           if (res.data.result === 1) {
             this.$vux.loading.hide();
             this.$vux.toast.show({
@@ -115,7 +115,8 @@ export default {
               time: 1000
             });
             this.videoUrl = res.data.data.files[0].url;
-            console.log(this.videoUrl);
+            this.posterImg = res.data.data.files[0].cover_image;
+            // console.log(this.videoUrl);
             this.$emit("getVideoUploadUrl", res.data.data.files[0].url);
           } else {
             this.$vux.loading.hide();

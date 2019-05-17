@@ -356,3 +356,10 @@ export const CYGXorderList = (data) => http.post("goods.real.get_OrderList", dat
 
 // 获取名家数据列表
 export const FamousListData = (data) => http.post("home.celebrity", data);
+
+// 云相册上传图片获取链接
+export const CloudUploadImg = (data) => http.post("album.index", data);
+
+// 获取相册列表
+export const GetCloudUploadImg = (data) => http.post("album.album_list", data);
+

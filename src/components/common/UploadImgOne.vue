@@ -114,7 +114,7 @@ export default {
         this.formData.append("file", this.imgs[key]);
       }
       let config = {
-        timeout: 2500,
+        timeout: 10000,
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: localStorage.getItem("token")
@@ -124,6 +124,7 @@ export default {
         .post(this.videoUploadUrl, this.formData, config)
         .then(res => {
           if (res.data.result === 1) {
+            console.log(res);
             this.$vux.toast.show({
               type: "success",
               text: "上传成功",

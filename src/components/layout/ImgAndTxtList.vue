@@ -230,6 +230,7 @@ export default {
   flex: 3;
   font-size: 12px;
   overflow: hidden;
+  margin-left: 4px;
 }
 .img-and-txt-left-place {
   flex: 2;
