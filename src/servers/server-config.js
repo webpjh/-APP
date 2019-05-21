@@ -99,8 +99,8 @@ axios.interceptors.response.use(function (response) {
           window.location.href = ("/");
         })
       } else {
-        showTip('网络慢，请检查手机网络', () => {
-        });
+        // showTip('网络慢，请检查手机网络', () => {
+        // });
         return response;
       }
     }

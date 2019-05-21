@@ -87,5 +87,9 @@ export const vueCordovaFunction = {
     function onDeviceReady() {
       window.plugins.socialsharing.share(goodObj.title, null, goodObj.thumb_url[0], 'https://core.kachuo.com/share/index.html?id=' + goodObj.id);
     }
+  },
+  // 推送
+  vueJSpush:function(){
+    
   }
 }

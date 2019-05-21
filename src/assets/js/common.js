@@ -42,17 +42,17 @@ export const serverAPPVersion = () => {
         return;
       }
       // android更新版本
-      let serverAndroidVersion = res.data.androidUp_edition;
+      let serverAndroidVersion = Number(res.data.androidUp_edition.replace(/\./mgi,''));
       // ios更新版本
-      let serverIosVersion = res.data.iosUp_edition;
+      let serverIosVersion = Number(res.data.iosUp_edition.replace(/\./mgi,''));
       // 是否强制更新
       let isFroceUpdate = parseInt(res.data.up_type, 10) === 1 ? false : true;
       // 如果版本不一致
-      if (localVersion != serverAndroidVersion) {
+      if (localVersion < serverAndroidVersion) {
         // 更新android
         store.commit("updateshowActionDialogStatus", true);
         store.commit("getAPPUpdateInfo", { isForce: isFroceUpdate, content: res.data.up_content });
-      } else if (localVersion != serverIosVersion) {
+      } else if (localVersion < serverIosVersion) {
         // 更新ios
         store.commit("updateshowActionDialogStatus", true);
         store.commit("getAPPUpdateInfo", { isForce: isFroceUpdate, content: res.data.up_content });
@@ -73,7 +73,7 @@ export const appVersion = () => {
   function onDeviceReady() {
     cordova.getAppVersion.getVersionNumber().then(function (version) {
       // 存储本地版本
-      localVersion = version.toString();
+      localVersion = Number(version.replace(/\./mgi,''));
       // 获取服务器版本
       serverAPPVersion();
     });
