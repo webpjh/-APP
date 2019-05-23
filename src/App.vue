@@ -23,13 +23,20 @@
     >
       <p style="text-align:center;">{{modelContent}}</p>
     </confirm>
-    <toast v-model="showToastFn.show" position="middle" is-show-mask :type="showToastFn.type" :text="showToastFn.text" :time="showToastFn.time"></toast>
+    <toast
+      v-model="showToastFn.show"
+      position="middle"
+      is-show-mask
+      :type="showToastFn.type"
+      :text="showToastFn.text"
+      :time="showToastFn.time"
+    ></toast>
   </div>
 </template>
 
 <script>
 import { vueCordovaFunction } from "@/assets/js/vuecordova";
-import { Loading, Confirm,Toast } from "vux";
+import { Loading, Confirm, Toast } from "vux";
 import { CheckByLocation } from "@/servers/api";
 import { appVersion, updateAPPVersion } from "@/assets/js/common";
 export default {
@@ -46,6 +53,7 @@ export default {
   },
   mounted() {
     vueCordovaFunction.getLocation();
+    this.checkUserLocationInfo();
     appVersion();
     sessionStorage.setItem("closeFace", 0);
   },
@@ -55,7 +63,7 @@ export default {
     });
   },
   computed: {
-    showToastFn(){
+    showToastFn() {
       return this.$store.state.toastInfo;
     },
     isLoading() {
@@ -82,6 +90,32 @@ export default {
     onCancel() {},
     onConfirm() {
       updateAPPVersion();
+    },
+    postLocation(dataObj) {
+      let postDataObj = {
+        latitude: dataObj ? dataObj.Latitude : "",
+        longitude: dataObj ? dataObj.Longitude : ""
+      };
+      CheckByLocation(postDataObj)
+        .then(res => {
+          if (res.result === 1) {
+            sessionStorage.setItem("currentScenic", res.data.scenic_id);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    checkUserLocationInfo() {
+      let dataObj = sessionStorage.getItem("positionInfo")
+        ? sessionStorage.getItem("positionInfo")
+        : "";
+      if (dataObj === "") {
+        vueCordovaFunction.getLocation();
+        return;
+      } else {
+        this.postLocation(JSON.parse(sessionStorage.getItem("positionInfo")));
+      }
     }
   },
   watch: {

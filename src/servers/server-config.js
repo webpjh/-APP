@@ -137,16 +137,14 @@ http.post = (url, data) => {
       .then((res) => {
         if (res) {
           if (res.data.integral) {
-            successTip('奖励' + res.data.integral + '积分');
+            showTip('奖励' + res.data.integral + '积分');
           }
-          // NProgress.done();
           removeMarkModel();
           resolve(res.data);
         }
         return res;
       })
       .catch((err) => {
-        // NProgress.done();
         removeMarkModel();
         reject(err);
         errTip('网络错误，点击屏幕重试');

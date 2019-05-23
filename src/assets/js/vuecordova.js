@@ -1,3 +1,4 @@
+import { CheckByLocation } from "@/servers/api";
 export const vueCordovaFunction = {
   /** 
    * 获取经纬度
@@ -12,6 +13,19 @@ export const vueCordovaFunction = {
       positionInfo.Latitude = position.coords.Latitude;
       positionInfo.Longitude = position.coords.Longitude;
       sessionStorage.setItem("positionInfo", JSON.stringify(positionInfo));
+      let postDataObj = {
+        latitude: position.coords.Latitude,
+        longitude: position.coords.Longitude
+      };
+      CheckByLocation(postDataObj)
+        .then(res => {
+          if (res.result === 1) {
+            sessionStorage.setItem("currentScenic", res.data.scenic_id);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
     function onError(error) {
       console.log(`code:${error.code},message:${error.message}`);
@@ -89,7 +103,7 @@ export const vueCordovaFunction = {
     }
   },
   // 推送
-  vueJSpush:function(){
-    
+  vueJSpush: function () {
+
   }
 }

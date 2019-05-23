@@ -11,9 +11,14 @@
         is-type="china-mobile"
         :show-clear="false"
         novalidate
+      ></x-input>
+      <x-input
+        title="请输入验证码"
+        class="input-qr-code"
+        novalidate
+        v-model="veriValue"
+        :show-clear="false"
       >
-      </x-input>
-      <x-input title="请输入验证码" class="input-qr-code" novalidate v-model="veriValue" :show-clear="false">
         <x-button
           slot="right"
           type="primary"
@@ -92,8 +97,8 @@ export default {
         vueCordovaFunction.getLocation();
       }
       let postDataObj = {
-        latitude: dataObj ? dataObj.Latitude : "",
-        longitude: dataObj ? dataObj.Longitude : ""
+        latitude: dataObj ? JSON.parse(dataObj).Latitude : "",
+        longitude: dataObj ? JSON.parse(dataObj).Longitude : ""
       };
       CheckByLocation(postDataObj)
         .then(res => {
