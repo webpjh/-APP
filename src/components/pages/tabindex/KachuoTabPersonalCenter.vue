@@ -1,5 +1,5 @@
 <template>
-  <div class="tab-personal-center-wrap">
+  <div class="tab-personal-center-wrap" :style="heightSty">
     <TabPersonCenterHeader></TabPersonCenterHeader>
     <AppUserInfo></AppUserInfo>
     <Cell class="margin-top-10px" :cellList="cellListToolsA"></Cell>
@@ -85,7 +85,13 @@ export default {
     Cell
   },
 
-  computed: {},
+  computed: {
+    heightSty(){
+      return {
+        height:document.documentElement.clientHeight - 45 + 'px'
+      }
+    }
+  },
 
   beforeMount() {},
 
@@ -99,8 +105,11 @@ export default {
 <style lang='css' scoped>
 .tab-personal-center-wrap {
   width: 100%;
-  height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
   background: #f5f5f5;
+  padding-bottom: 10px;
+  box-sizing: border-box;
 }
 .margin-top-10px {
   margin-top: 10px;

@@ -7,7 +7,6 @@
           class="upload"
           @change="addImg"
           ref="inputer"
-          multiple
           accept="image/*"
         >
         <a class="add">

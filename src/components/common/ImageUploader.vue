@@ -8,7 +8,7 @@
         </p>
       </li>
       <li v-if="imgLen>=3 ? false : true">
-        <input type="file" class="upload" @change="addImg" ref="inputer" multiple accept="image/*">
+        <input type="file" class="upload" @change="addImg" ref="inputer" multiple='false' accept="image/*">
         <a class="add">
           <p class="add-icon">+</p>
         </a>

@@ -21,10 +21,18 @@
             class="img-swiper-wrap"
             :key="index"
           >
-            <img v-lazy="item.img" alt srcset class="img-swiper-wrap-img-lis">
+            <img v-lazy="item.img" alt srcset @click="show(index)" class="img-swiper-wrap-img-lis previewer-demo-img">
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
+        <div v-transfer-dom style="z-index:10000">
+          <previewer
+            :list="listImg"
+            ref="previewer"
+            :options="options"
+            @on-index-change="logIndexChange"
+          ></previewer>
+        </div>
         <ImgAndTextNoteDetailsUserInfo
           style="background:#fff"
           :detailsObj="descContent"
@@ -37,11 +45,7 @@
       </div>
 
       <DividedArea class="z-index-sty"></DividedArea>
-      <CommentList
-        :id="currentId"
-        :dataList="commitDataList"
-        class="commit-list"
-      ></CommentList>
+      <CommentList :id="currentId" :dataList="commitDataList" class="commit-list"></CommentList>
     </div>
     <Comments v-on:pushCommition="updateCommintList"></Comments>
   </div>
@@ -57,8 +61,12 @@ import Comments from "@/components/common/Comments";
 import { SeourceCreatedListDetails } from "@/servers/api";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import "swiper/dist/css/swiper.css";
+import { Previewer, TransferDom } from "vux";
 
 export default {
+  directives: {
+    TransferDom
+  },
   name: "",
   props: [""],
   data() {
@@ -87,7 +95,26 @@ export default {
         showRightMore: false
       },
       commitDataList: [],
-      descContent: {}
+      descContent: {},
+      options: {
+        getThumbBoundsFn(index) {
+          // find thumbnail element
+          let thumbnail = document.querySelectorAll(".previewer-demo-img")[
+            index
+          ];
+          // get window scroll Y
+          let pageYScroll =
+            window.pageYOffset || document.documentElement.scrollTop;
+          // optionally get horizontal scroll
+          // get position of element relative to viewport
+          let rect = thumbnail.getBoundingClientRect();
+          // w = width
+          return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+          // Good guide on how to get element coordinates:
+          // http://javascript.info/tutorial/coordinates
+        }
+      },
+      listImg:[]
     };
   },
 
@@ -99,7 +126,8 @@ export default {
     DividedArea,
     Comments,
     swiper,
-    swiperSlide
+    swiperSlide,
+    Previewer
   },
 
   computed: {
@@ -124,6 +152,12 @@ export default {
   },
 
   methods: {
+    logIndexChange(arg) {
+      console.log(arg);
+    },
+    show(index) {
+      this.$refs.previewer.show(index);
+    },
     //更新评论数据列表
     updateCommintList() {
       this.videoId = this.$route.query.id;
@@ -175,6 +209,10 @@ export default {
               arrObj.push({
                 img: imgList[i]
               });
+              this.listImg.push({
+                msrc:imgList[i],
+                src:imgList[i],
+              })
             }
             this.SwiperImgData.ImgList = JSON.parse(JSON.stringify(arrObj));
           }
@@ -213,7 +251,7 @@ export default {
 }
 .z-index-sty {
   position: relative;
-  z-index: 9999;
+  z-index: 999;
 }
 .img-swiper-wrap {
   width: 100%;
@@ -226,7 +264,7 @@ export default {
   border-radius: 4px;
   object-fit: contain;
 }
-.img-text-content{
+.img-text-content {
   width: 100%;
 }
 </style>

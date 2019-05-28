@@ -83,6 +83,8 @@ export default {
   width: 100%;
   height: 100px;
   display: inline-block;
+  object-fit: contain;
+  background: none;
 }
 .goods-name {
   width: 100%;
