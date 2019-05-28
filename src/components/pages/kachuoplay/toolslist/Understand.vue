@@ -96,7 +96,8 @@ export default {
         let arr = [];
         ScenceRememberAndLearn({
           type: this.$route.query.branch,
-          page: this.page
+          page: this.page,
+          scenicid:sessionStorage.getItem("currentScenic")
         })
           .then(res => {
             if (res.result === 1) {
